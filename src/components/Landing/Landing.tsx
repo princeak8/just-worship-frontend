@@ -1,3 +1,4 @@
+import Gallery from './landing/Gallery'
 import Hero from './landing/Hero'
 import Visit from './landing/Visit'
 
@@ -6,6 +7,7 @@ const Landing = () => {
     <div>
       <Hero />
       <Visit />
+      <Gallery />
     </div>
   )
 }

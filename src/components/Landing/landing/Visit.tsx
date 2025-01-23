@@ -53,7 +53,7 @@ export default function Visit() {
                             <button className='border-2 border-black bg-transparent rounded-full p-2 px-4'>Read More</button>
                             </div>
                             <div className='overflow-hidden h-[25rem] rounded-lg'>
-                                <img src={card1} />
+                                <img src={card1} alt='Introductory video' />
                             </div>
                     </div>
                 </section>
