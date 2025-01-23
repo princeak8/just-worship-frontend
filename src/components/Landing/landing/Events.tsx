@@ -19,6 +19,10 @@ export default function Events() {
             image: event1,
             src: 'Event Name'
         },
+        {
+            image: event1,
+            src: 'Event Name'
+        },
     ]
     return (
         <div className="w-full p-10">

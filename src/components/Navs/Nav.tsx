@@ -1,7 +1,7 @@
 import logo from '../../public/logo.png';
 export default function Nav() {
     return (
-        <div className="fixed w-full bg-black bg-opacity-60 backdrop-blur-lg text-white text-lg px-28 p-2">
+        <div className="fixed w-full bg-black bg-opacity-60 backdrop-blur-lg text-white text-lg px-28 p-2 z-10">
             <div className="container flex text-white items-center justify-between">
                 <img src={logo} alt='Logo' className='w-28' />
                 <div className='flex gap-20'>
