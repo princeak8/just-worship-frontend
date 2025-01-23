@@ -9,6 +9,7 @@ import gallery7 from '../../../public/gallery/gallery7.jpeg';
 import gallery8 from '../../../public/gallery/gallery8.jpeg';
 import gallery9 from '../../../public/gallery/gallery9.jpeg';
 import gallery10 from '../../../public/gallery/gallery10.jpeg';
+import { Search } from 'lucide-react';
 
 export default function Gallery() {
     const GalleryImages = [
@@ -24,7 +25,7 @@ export default function Gallery() {
         { image: gallery10 },
     ];
 
-    const customWidths = ['450px', '450px', '450px', '335px', '335px', '335px', '335px' ];
+    const customWidths = ['450px', '450px', '450px', '335px', '335px', '335px', '335px'];
 
     return (
         <div
@@ -43,6 +44,29 @@ export default function Gallery() {
                             elit. Laborum at cum veritatis omnis modi aperiam
                             libero voluptatum sequi expedita facilis.
                         </p>
+                    </div>
+                    <div className='flex items-center gap-4 py-10'>
+                        <div className='border border-white rounded-full flex items-center p-1 px-4'><Search /> <input type='text' placeholder='Search...' className='p-2 bg-transparent focus:outline-none' /></div>
+                        <div className='border border-white rounded-full flex items-center p-1 px-4'>
+                            <select className='p-2 bg-transparent focus:outline-none'>
+                                <option>Location</option>
+                            </select>
+                        </div>
+                        <div className='border border-white rounded-full flex items-center p-1 px-4'>
+                            <select className='p-2 bg-transparent focus:outline-none'>
+                                <option>Select by Event</option>
+                            </select>
+                        </div>
+                        <div className='border border-white rounded-full flex items-center p-1 px-4'>
+                            <select className='p-2 bg-transparent focus:outline-none' >
+                                <option>Select by Year</option>
+                            </select>
+                        </div>
+                        <div className='border border-white rounded-full flex items-center justify-center p-1 px-4'>
+                            <select className='p-2 bg-transparent focus:outline-none'>
+                                <option>Sort by</option>
+                            </select>
+                        </div>
                     </div>
                     <section className="flex flex-wrap gap-4">
                         {GalleryImages.map((image, index) => (
