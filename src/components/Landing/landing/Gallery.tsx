@@ -10,6 +10,7 @@ import gallery8 from '../../../public/gallery/gallery8.jpeg';
 import gallery9 from '../../../public/gallery/gallery9.jpeg';
 import gallery10 from '../../../public/gallery/gallery10.jpeg';
 import { Search } from 'lucide-react';
+import { motion } from 'motion/react';
 
 export default function Gallery() {
     const GalleryImages = [
@@ -70,8 +71,13 @@ export default function Gallery() {
                     </div>
                     <section className="flex flex-wrap gap-4">
                         {GalleryImages.map((image, index) => (
+                            <motion.div key={index}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 1, delay: index * 0.5 }}
+                            viewport={{once: true}}
+                            >
                             <img
-                                key={index}
                                 src={image.image}
                                 alt={`Gallery ${index + 1}`}
                                 style={{
@@ -81,6 +87,7 @@ export default function Gallery() {
                                 }}
                                 className="rounded-lg"
                             />
+                            </motion.div>
                         ))}
                     </section>
                 </section>
