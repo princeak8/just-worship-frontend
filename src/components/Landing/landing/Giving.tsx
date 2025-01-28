@@ -4,11 +4,11 @@ export default function Giving() {
     const Payments = ['Debit Card', 'Credit Card', 'Bank Transfer']
     return (
         <div className="w-full p-10 overflow-x-hidden">
-            <section className="lg:container space-y-4">
+            <section className="container space-y-4">
                 <section className='w-full '>
                 <div className="leading-10 text-center flex flex-col items-center justify-center my-10">
-                        <h2 className="text-4xl uppercase">Giving</h2>
-                        <p className='w-5/12'>
+                <h2 className="text-4xl font-bold uppercase">Giving</h2>
+                        <p className='lg:w-5/12'>
                           Be a part in advancing the kingdom of Heaven.
                         </p>
                     </div>
@@ -16,10 +16,10 @@ export default function Giving() {
                         <div className='overflow-hidden h-full rounded-lg'>
                             <img src={card1} alt='Introductory video' className='h-full '/>
                         </div>
-                        <div className='space-y-12 leading-12'>
-                            <div className='text-center leading-12 sace-y-8'>
+                        <div className='lg:space-y-12 lg:leading-12'>
+                            <div className='text-center lg:leading-12 lg:space-y-8'>
                                 <h1 className='font-semibold text-center text-2xl my-4'>Choose an option</h1>
-                                <div className='grid grid-cols-3 shadow text-center border border-gray-500 rounded-lg gap-2 overflow-hidden'>
+                                <div className='grid grid-cols-3 shadow text-center text-md lg:text-lg border border-gray-500 rounded-lg gap-2 overflow-hidden'>
                                     {Options.map((option, index) =>(
                                         <p key={index} className='bg-gray-300 hover:bg-gray-400 p-1'>{option}</p>
                                     ))}
@@ -42,7 +42,7 @@ export default function Giving() {
                                 </div>
                                 <p>Nisl dolor sit amet eget tristique adipiscing tellus tristique</p>
                             </div>
-                            <button className='w-full bg-gray-300 hover:bg-gray-500 rounded-lg p-2 font-bold mt-60'>Give now</button>
+                            <button className='w-full bg-gray-300 hover:bg-gray-500 rounded-lg p-2 font-bold my-4'>Give now</button>
                         </div>
                     </div>
                 </section>

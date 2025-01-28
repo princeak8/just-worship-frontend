@@ -41,7 +41,7 @@ export default function Events() {
             <section className="space-y-4">
                 <div className="text-center">
                     <h2 className="text-4xl font-bold uppercase">Upcoming Events</h2>
-                    <p className="w-1/2 mx-auto text-gray-600">
+                    <p className="lg:w-1/2 mx-auto text-gray-600">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum at cum veritatis omnis modi aperiam libero voluptatum sequi expedita facilis.
                     </p>
                 </div>
@@ -56,7 +56,6 @@ export default function Events() {
                             prevEl: ".swiper-button-prev",
                         }}
                         pagination={{ clickable: true }}
-                        scrollbar={{ draggable: true }}
                         className="w-full"
                     >
                         {events.map((event, index) => (

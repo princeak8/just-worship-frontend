@@ -37,9 +37,9 @@ export default function Gallery() {
             }}
         >
             <div className="w-full h-full bg-black bg-opacity-90 p-10">
-                <section className="lg:container space-y-4 text-center py-20">
+                <section className="container space-y-4 text-center text-md lg:text-lg py-20">
                     <div className="leading-10">
-                        <h2 className="text-4xl uppercase">Gallery</h2>
+                    <h2 className="text-4xl font-bold uppercase">Gallery</h2>
                         <p>
                             Lorem ipsum dolor sit amet consectetur adipisicing
                             elit. Laborum at cum veritatis omnis modi aperiam
