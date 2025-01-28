@@ -30,14 +30,14 @@ export default function Gallery() {
 
     return (
         <div
-            className="w-full text-white"
+            className="w-full text-white overflow-x-hidden"
             style={{
                 background: `url(${Background})`,
                 backgroundSize: 'cover',
             }}
         >
             <div className="w-full h-full bg-black bg-opacity-90 p-10">
-                <section className="container space-y-4 text-center py-20">
+                <section className="lg:container space-y-4 text-center py-20">
                     <div className="leading-10">
                         <h2 className="text-4xl uppercase">Gallery</h2>
                         <p>
@@ -46,7 +46,7 @@ export default function Gallery() {
                             libero voluptatum sequi expedita facilis.
                         </p>
                     </div>
-                    <div className='flex items-center gap-4 py-10'>
+                    <div className='lg:flex space-y-4 items-center gap-4 py-10'>
                         <div className='border border-white rounded-full flex items-center p-1 px-4'><Search /> <input type='text' placeholder='Search...' className='p-2 bg-transparent focus:outline-none' /></div>
                         <div className='border border-white rounded-full flex items-center p-1 px-4'>
                             <select className='p-2 bg-transparent focus:outline-none'>
@@ -69,7 +69,7 @@ export default function Gallery() {
                             </select>
                         </div>
                     </div>
-                    <section className="flex flex-wrap gap-4">
+                    <section className="lg:flex !w-full flex-wrap gap-4 space-y-4">
                         {GalleryImages.map((image, index) => (
                             <motion.div key={index}
                             initial={{ opacity: 0, y: 20 }}

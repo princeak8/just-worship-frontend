@@ -33,10 +33,10 @@ export default function Visit() {
         },
     ]
     return (
-        <div className="w-full p-10">
-            <section className="container space-y-4">
+        <div className="w-full p-10 overflow-x-hidden">
+            <section className="lg:container space-y-4">
                 <h2 className='font-semibold text-xl'>Where would you like to visit?</h2>
-                <section className="grid grid-cols-5">
+                <section className="container grid grid-cols-5 overflow-x-scroll">
                     {Cards.map((card, index)=>(
                         <motion.div key={index} className='h-80 rounded-2xl w-64 border-2 border-yellow-500 ' style={{ background: `url(${card.image})`, backgroundSize: '30rem' }}
                         initial={{ opacity: 0, y: 20 }}
@@ -79,7 +79,7 @@ export default function Visit() {
 
                 <section className='w-full '>
                     <h2 className='text-4xl text-center my-20 '>Just worship international</h2>
-                    <div className='grid grid-cols-2 gap-10 text-justify leading-10'>
+                    <div className='grid lg:grid-cols-2 gap-10 text-justify leading-10'>
                         <div className='space-y-4'>
                         <p>Just worship international
                             Just Worship International is a Christian worship outreach team dedicated to spreading the gospel through music and worship. Lorem ipsum dolor sit amet consectetur. Gravida sit dignissim pellentesque ut lectus. Eu orci arcu leo commodo tincidunt id. Amet vestibulum morbi quis consequat cras ut nulla.

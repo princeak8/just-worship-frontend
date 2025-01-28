@@ -6,11 +6,11 @@ export default function Hero() {
   return (
     <section className='w-full h-screen text-white' style={{ backgroundImage: `url(${background})`, backgroundRepeat: "no-repeat, no-repeat", backgroundSize: "cover" }}>
       <div className='w-full h-screen flex items-end bg-black bg-opacity-70'>
-        <div className='container flex'>
-          <div className='w-5/12 h-20vh mb-20'>
+        <div className='container p-4 flex'>
+          <div className='lg:w-5/12 h-20vh mb-40 lg:mb-20'>
             <p>Revival is here...</p>
             <div className='mt-16 space-y-4'>
-              <motion.h1 className='uppercase text-5xl overflow-hidden'
+              <motion.h1 className='uppercase text-xl lg:text-5xl overflow-hidden'
                 initial={{ y: 500 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 2 }}
@@ -18,8 +18,8 @@ export default function Hero() {
                 A worship expereince like never before.
               </motion.h1>
 
-              <p>Encounter the divine presence of God through intimate Praise and Worship.</p>
-                <motion.button className="btn bg-white text-black font-bold text-xl p-4 rounded-full z-10">
+              <p className='text-sm lg:text-'>Encounter the divine presence of God through intimate Praise and Worship.</p>
+                <motion.button className="btn bg-white text-black font-bold lg:text-xl p-4 rounded-full z-10">
                   Find us now
                 </motion.button>
             </div>

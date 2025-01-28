@@ -2,7 +2,7 @@
 export default function NewsLater() {
     return (
         <div className="w-full p-10 bg-gray-500 bg-opacity-20 backdrop-blur-lg">
-            <section className="container space-y-4 flex gap-6 items-center">
+            <section className="lg:container space-y-4 flex gap-6 items-center">
                 <div className="w-3/12 flex flex-col text-justify">
                     <h2 className="font-semibold text-xl">Subscribe to our newslater for more updates!</h2>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non minus tempore quia at repudiandae est incidunt ullam dolore dolores id.</p>

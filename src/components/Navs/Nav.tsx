@@ -1,18 +1,47 @@
+import { useState } from 'react';
+import { Menu, X } from 'lucide-react';
 import logo from '../../public/logo.png';
+
 export default function Nav() {
+    const [isOpen, setIsOpen] = useState(false);
+
     return (
-        <div className="fixed w-full bg-black bg-opacity-60 backdrop-blur-lg text-white text-lg px-28 p-2 z-10">
-            <div className="container flex text-white items-center justify-between">
-                <img src={logo} alt='Logo' className='w-28' />
-                <div className='flex gap-20'>
-                <a href='#' className='hover:text-yellow-500'>About</a>
-                <a href='#' className='hover:text-yellow-500'>Events</a>
-                <a href='#' className='hover:text-yellow-500'>LIVE</a>
-                <a href='#' className='hover:text-yellow-500'>Store</a>
-                <a href='#' className='hover:text-yellow-500'>Giving</a>
-                <a href='#' className='hover:text-yellow-500'>Contact us</a>
+        <nav className="fixed w-full bg-black bg-opacity-60 backdrop-blur-lg text-white text-lg lg:px-28 lg:py-2 z-50">
+            {/* Desktop Navigation */}
+            <div className="container hidden lg:flex items-center justify-between">
+                <img src={logo} alt="Logo" className="w-28" />
+                <div className="flex gap-10">
+                    <a href="#" className="hover:text-yellow-500 transition">About</a>
+                    <a href="#" className="hover:text-yellow-500 transition">Events</a>
+                    <a href="#" className="hover:text-yellow-500 transition">LIVE</a>
+                    <a href="#" className="hover:text-yellow-500 transition">Store</a>
+                    <a href="#" className="hover:text-yellow-500 transition">Giving</a>
+                    <a href="#" className="hover:text-yellow-500 transition">Contact us</a>
                 </div>
             </div>
-        </div>
-    )
+
+            {/* Mobile Navigation */}
+            <div className="lg:hidden flex items-center justify-between px-6 py-4">
+                <img src={logo} alt="Logo" className="w-24" />
+
+                {/* Menu Icon */}
+                <button onClick={() => setIsOpen(!isOpen)} className="text-white focus:outline-none z-50">
+                    {isOpen ? <X size={32} /> : <Menu size={32} />}
+                </button>
+            </div>
+
+            {/* Mobile Menu (Slide from Left) */}
+            <div className={`fixed top-0 left-0 w-8/12 h-screen bg-purple-950 p-10 pt-4 transform transition-transform duration-300 space-y-10 ${isOpen ? "translate-x-0" : "-translate-x-full"} lg:hidden z-40`}>
+            <img src={logo} alt="Logo" className="w-24" />
+                <div className="flex flex-col space-y-6">
+                    <a href="#" className="text-xl hover:text-yellow-500 transition" onClick={() => setIsOpen(false)}>About</a>
+                    <a href="#" className="text-xl hover:text-yellow-500 transition" onClick={() => setIsOpen(false)}>Events</a>
+                    <a href="#" className="text-xl hover:text-yellow-500 transition" onClick={() => setIsOpen(false)}>LIVE</a>
+                    <a href="#" className="text-xl hover:text-yellow-500 transition" onClick={() => setIsOpen(false)}>Store</a>
+                    <a href="#" className="text-xl hover:text-yellow-500 transition" onClick={() => setIsOpen(false)}>Giving</a>
+                    <a href="#" className="text-xl hover:text-yellow-500 transition" onClick={() => setIsOpen(false)}>Contact us</a>
+                </div>
+            </div>
+        </nav>
+    );
 }

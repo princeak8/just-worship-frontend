@@ -3,8 +3,8 @@ export default function Giving() {
     const Options = ['Partnership', 'Tithe & Offering', 'Donations']
     const Payments = ['Debit Card', 'Credit Card', 'Bank Transfer']
     return (
-        <div className="w-full p-10">
-            <section className="container space-y-4">
+        <div className="w-full p-10 overflow-x-hidden">
+            <section className="lg:container space-y-4">
                 <section className='w-full '>
                 <div className="leading-10 text-center flex flex-col items-center justify-center my-10">
                         <h2 className="text-4xl uppercase">Giving</h2>
@@ -12,7 +12,7 @@ export default function Giving() {
                           Be a part in advancing the kingdom of Heaven.
                         </p>
                     </div>
-                    <div className='grid grid-cols-2 gap-10 text-justify leading-10'>
+                    <div className='grid lg:grid-cols-2 gap-10 text-justify leading-10'>
                         <div className='overflow-hidden h-full rounded-lg'>
                             <img src={card1} alt='Introductory video' className='h-full '/>
                         </div>
