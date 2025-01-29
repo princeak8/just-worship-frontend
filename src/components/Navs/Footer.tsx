@@ -60,7 +60,7 @@ export default function Footer() {
           </div>
         </section>
         <section className='container pt-2 w-full'>
-          <div className='container py-2 w-full flex justify-between'>
+          <div className='container py-2 w-full lg:flex justify-between'>
             <p>Copyright @ 2025 Just Worship int&apos;l</p>
             <p className='uppercase'>All Rights Reserved</p>
           </div>
