@@ -62,7 +62,6 @@ export default function Events() {
                             nextEl: ".swiper-button-next",
                             prevEl: ".swiper-button-prev",
                         }}
-                        pagination={{ clickable: true }}
                         className="w-full"
                     >
                         {events.map((event, index) => (

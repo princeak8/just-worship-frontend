@@ -70,7 +70,6 @@ export default function Visit() {
                         slidesPerView={1.2}
                         loop={true}
                         autoplay={{ delay: 3000, disableOnInteraction: false }}
-                        pagination={{ clickable: true }}
                         className="w-full"
                     >
                         {Cards.map((card, index) => (
