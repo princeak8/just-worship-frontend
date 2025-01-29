@@ -7,7 +7,7 @@ import Visit from './landing/Visit'
 
 const Landing = () => {
   return (
-    <div>
+    <div className='text-sm lg:text-lg'>
       <Hero />
       <Visit />
       <Gallery />

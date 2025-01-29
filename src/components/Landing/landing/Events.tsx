@@ -36,11 +36,18 @@ export default function Events() {
         },
     ];
 
+    const bookEvent = () =>{
+        console.log('Book Event function is still ungoing construction...')
+    }
+    const viewEvent = () =>{
+        console.log('View Event function is still ungoing construction...')
+    }
+
     return (
-        <div className="w-full p-10 bg-white overflow-x-hidden">
+        <div className="w-full p-10 overflow-x-hidden bg-gradient-to-br from-purple-50 to-blue-50">
             <section className="space-y-4">
                 <div className="text-center">
-                    <h2 className="text-4xl font-bold uppercase">Upcoming Events</h2>
+                <h2 className="text-xl lg:text-5xl font-bold lg:font-normal uppercase bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Upcoming Events</h2>
                     <p className="lg:w-1/2 mx-auto text-gray-600">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum at cum veritatis omnis modi aperiam libero voluptatum sequi expedita facilis.
                     </p>
@@ -59,14 +66,14 @@ export default function Events() {
                         className="w-full"
                     >
                         {events.map((event, index) => (
-                            <SwiperSlide key={index} className="relative rounded-lg overflow-hidden h-[500px] lg:h-[900px]">
+                            <SwiperSlide key={index} className="relative rounded-lg overflow-hidden h-[200px] lg:h-[900px]">
                                 <img
                                     src={event.image}
                                     alt={event.title}
                                     className="w-full h-full object-cover"
                                 />
 
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/60 to-transparent"></div>
 
                                 <div className="absolute bottom-6 left-6 text-white">
                                     <p className="bg-red-600 px-3 py-1 rounded-md inline-block text-sm font-semibold">{event.time}</p>
@@ -74,19 +81,19 @@ export default function Events() {
                                     <p className="text-lg">{event.subtitle}</p>
                                     <p className="text-sm mt-2">{event.description}</p>
 
-                                    <div className="mt-4 flex gap-4">
-                                        <button className="px-4 py-2 bg-white text-black font-semibold rounded-md">Book Now</button>
-                                        <button className="px-4 py-2 border border-white text-white font-semibold rounded-md">View Details</button>
+                                    <div className="mt-4 flex gap-2 lg:gap-4">
+                                        <button onClick={bookEvent} className="px-2 lg:px-4 py-1 lg:py-2 bg-white text-black font-semibold rounded-md">Book Now</button>
+                                        <button onClick={viewEvent} className="px-2 lg:px-4 py-1 lg:py-2 border border-white text-white font-semibold rounded-md">View Details</button>
                                     </div>
                                 </div>
                             </SwiperSlide>
                         ))}
                     </Swiper>
 
-                    <button className="swiper-button-prev absolute left-4 top-1/2 transform -translate-y-1/2 z-10 p-8 border-2 border-blue-500 shadow-md rounded-full">
+                    <button className="hidden lg:flex swiper-button-prev absolute left-4 top-1/2 transform -translate-y-1/2 z-10 p-8 border-2 border-blue-500 shadow-md rounded-full">
                         <CircleArrowLeft size={32} className="text-gray-700" />
                     </button>
-                    <button className="swiper-button-next absolute right-4 top-1/2 transform -translate-y-1/2 z-10 p-8 border-2 border-blue-500 shadow-md rounded-full overflow-hidden">
+                    <button className="hidden lg:flex swiper-button-next absolute right-4 top-1/2 transform -translate-y-1/2 z-10 p-8 border-2 border-blue-500 shadow-md rounded-full overflow-hidden">
                         <CircleArrowRight size={10} className=" text-red-500" />
                     </button>
                 </div>
