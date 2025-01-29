@@ -3,10 +3,9 @@ import card2 from '../../../public/card2.jpeg';
 import card3 from '../../../public/card3.jpeg';
 import card4 from '../../../public/card4.jpeg';
 import card5 from '../../../public/card5.jpeg';
-import { motion } from 'framer-motion'; // Use framer-motion for animations
-import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
+import { motion } from 'motion/react';
+import { Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { CircleArrowLeft, CircleArrowRight } from 'lucide-react';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -45,7 +44,6 @@ export default function Visit() {
     return (
         <div className="w-full p-10 overflow-x-hidden bg-gradient-to-br from-purple-50 to-blue-50">
             <section className="container space-y-4">
-                {/* First Section */}
                 <h2 className='font-semibold text-xl'>Where would you like to visit?</h2>
                 <section className="hidden container lg:grid grid-cols-5 gap-4">
                     {Cards.map((card, index) => (
@@ -65,7 +63,6 @@ export default function Visit() {
                     ))}
                 </section>
 
-                {/* Swiper for Mobile */}
                 <div className="relative lg:hidden my-10">
                     <Swiper
                         modules={[Pagination, Scrollbar, A11y, Autoplay]}
@@ -86,7 +83,6 @@ export default function Visit() {
                     </Swiper>
                 </div>
 
-                {/* Second Section */}
                 <section className='w-full text-md lg:text-lg'>
                     <motion.h2
                         className='text-center my-6 pt-8 lg:my-20 text-xl lg:text-5xl font-bold lg:font-normal uppercase bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent'
@@ -99,7 +95,6 @@ export default function Visit() {
                     </motion.h2>
 
                     <div className='grid lg:grid-cols-2 gap-10 text-justify lg:leading-10'>
-                        {/* Text Section */}
                         <motion.div
                             className='space-y-4'
                             initial={{ opacity: 0, x: -20 }}
@@ -122,7 +117,6 @@ export default function Visit() {
                             </motion.button>
                         </motion.div>
 
-                        {/* Image Section */}
                         <motion.div
                             className='overflow-hidden lg:h-[25rem] rounded-lg'
                             initial={{ opacity: 0, scale: 0 }}

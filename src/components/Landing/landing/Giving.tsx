@@ -1,6 +1,6 @@
 import card1 from '../../../public/card1.jpeg';
 import { motion } from 'framer-motion';
-import { CreditCard, Banknote, ArrowRight } from 'lucide-react'; // Icons for payment options
+import { CreditCard, Banknote } from 'lucide-react';
 
 export default function Giving() {
     const Options = ['Partnership', 'Tithe & Offering', 'Donations'];
