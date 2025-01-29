@@ -73,7 +73,7 @@ export default function Visit() {
                         className="w-full"
                     >
                         {Cards.map((card, index) => (
-                            <SwiperSlide key={index} className="relative rounded-lg overflow-hidden h-[200px] lg:h-[900px]" style={{ background: `url(${card.image})`, backgroundSize: 'cover' }}>
+                            <SwiperSlide key={index} className="relative rounded-lg overflow-hidden h-[200px] md:h-[400px] lg:h-[900px]" style={{ background: `url(${card.image})`, backgroundSize: 'cover' }}>
                                 <div className='w-full rounded-2xl h-full bg-black bg-opacity-60 flex items-end justify-start p-4 pb-10 text-xl text-white font-bold'>
                                     <p className='uppercase'>{card.name}</p>
                                 </div>

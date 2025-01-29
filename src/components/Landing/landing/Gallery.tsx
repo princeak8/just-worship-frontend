@@ -71,7 +71,7 @@ export default function Gallery() {
                         </div>
                         </div>
                     </div>
-                    <section className="lg:flex !w-full flex-wrap gap-4 space-y-4">
+                    <section className="grid grid-cols-2 lg:flex !w-full flex-wrap gap-4 space-y-4">
                         {GalleryImages.map((image, index) => (
                             <motion.div key={index}
                             initial={{ opacity: 0, y: 20 }}

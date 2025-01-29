@@ -65,7 +65,7 @@ export default function Events() {
                         className="w-full"
                     >
                         {events.map((event, index) => (
-                            <SwiperSlide key={index} className="relative rounded-lg overflow-hidden h-[200px] lg:h-[900px]">
+                            <SwiperSlide key={index} className="relative rounded-lg overflow-hidden h-[200px] md:h-[400px] lg:h-[900px]">
                                 <img
                                     src={event.image}
                                     alt={event.title}
