@@ -9,7 +9,7 @@ export default function Nav() {
         <nav className="fixed w-full bg-black bg-opacity-60 backdrop-blur-lg text-white text-lg lg:px-28 lg:py-2 z-50">
             {/* Desktop Navigation */}
             <div className="container hidden lg:flex items-center justify-between">
-                <img src={logo} alt="Logo" className="w-28" />
+                <a href='/' ><img src={logo} alt="Logo" className="w-24" /></a>
                 <div className="flex gap-10">
                     <a href="#" className="hover:text-yellow-500 transition">About</a>
                     <a href="#" className="hover:text-yellow-500 transition">Events</a>
@@ -23,7 +23,7 @@ export default function Nav() {
 
             {/* Mobile Navigation */}
             <div className="lg:hidden flex items-center justify-between px-6 py-4">
-                <img src={logo} alt="Logo" className="w-24" />
+            <a href='/' ><img src={logo} alt="Logo" className="w-24" /></a>
 
                 {/* Menu Icon */}
                 <button onClick={() => setIsOpen(!isOpen)} className="text-white focus:outline-none z-50">
@@ -33,7 +33,7 @@ export default function Nav() {
 
             {/* Mobile Menu (Slide from Left) */}
             <div className={`fixed top-0 left-0 w-8/12 h-screen bg-purple-950 p-10 pt-4 transform transition-transform duration-300 space-y-10 ${isOpen ? "translate-x-0" : "-translate-x-full"} lg:hidden z-40`}>
-            <img src={logo} alt="Logo" className="w-24" />
+            <a href='/' ><img src={logo} alt="Logo" className="w-24" /></a>
                 <div className="flex flex-col space-y-6">
                     <a href="#" className="text-xl hover:text-yellow-500 transition" onClick={() => setIsOpen(false)}>About</a>
                     <a href="#" className="text-xl hover:text-yellow-500 transition" onClick={() => setIsOpen(false)}>Events</a>
