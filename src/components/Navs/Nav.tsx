@@ -12,7 +12,7 @@ export default function Nav() {
                 <a href='/' ><img src={logo} alt="Logo" className="w-24" /></a>
                 <div className="flex gap-10">
                     <a href="#" className="hover:text-yellow-500 transition">About</a>
-                    <a href="#" className="hover:text-yellow-500 transition">Events</a>
+                    <a href="/events" className="hover:text-yellow-500 transition">Events</a>
                     <a href="#" className="hover:text-yellow-500 transition">LIVE</a>
                     <a href="#" className="hover:text-yellow-500 transition">Store</a>
                     <a href="#" className="hover:text-yellow-500 transition">Giving</a>
@@ -36,7 +36,7 @@ export default function Nav() {
             <a href='/' ><img src={logo} alt="Logo" className="w-24" /></a>
                 <div className="flex flex-col space-y-6">
                     <a href="#" className="text-xl hover:text-yellow-500 transition" onClick={() => setIsOpen(false)}>About</a>
-                    <a href="#" className="text-xl hover:text-yellow-500 transition" onClick={() => setIsOpen(false)}>Events</a>
+                    <a href="/events" className="text-xl hover:text-yellow-500 transition" onClick={() => setIsOpen(false)}>Events</a>
                     <a href="#" className="text-xl hover:text-yellow-500 transition" onClick={() => setIsOpen(false)}>LIVE</a>
                     <a href="#" className="text-xl hover:text-yellow-500 transition" onClick={() => setIsOpen(false)}>Store</a>
                     <a href="#" className="text-xl hover:text-yellow-500 transition" onClick={() => setIsOpen(false)}>Giving</a>
