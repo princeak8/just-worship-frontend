@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./App.css";
 import Nav from "./components/Navs/Nav";
@@ -8,6 +8,9 @@ import Background from './public/background.jpeg';
 import Logo from './public/logo.png';
 import { motion } from 'motion/react';
 import Login from "./components/Auth/Login";
+import Signup from "./components/Auth/Signup";
+import Layout from "./Dashboard/Layout";
+import Home from "./Dashboard/dashboard/Home";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -61,18 +64,44 @@ const App = () => {
     );
   }
 
-  return (
-    <section>
-      <Nav />
+    return (
       <BrowserRouter>
+        <ConditionalNav />
         <Routes>
+          {/* Public Pages */}
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+  
+          <Route path="/dashboard" element={<Layout />}>
+            <Route index element={<Home />} />
+            {/* <Route path="profile" element={<Profile />} />  */}
+          </Route>
         </Routes>
+        <ConditionalFooter />
       </BrowserRouter>
-      <Footer />
-    </section>
-  );
-};
-
-export default App;
+    );
+  };
+  
+  const ConditionalNav = () => {
+    const location = useLocation();
+    const isDashboardRoute = location.pathname.startsWith("/dashboard");
+  
+    return !isDashboardRoute ? (
+      <>
+        <Nav />
+      </>
+    ) : null;
+  };
+  const ConditionalFooter = () => {
+    const location = useLocation();
+    const isDashboardRoute = location.pathname.startsWith("/dashboard");
+  
+    return !isDashboardRoute ? (
+      <>
+        <Footer />
+      </>
+    ) : null;
+  };
+  
+  export default App

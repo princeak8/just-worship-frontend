@@ -4,15 +4,15 @@ import { Card, CardContent } from '../ui/card';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
+import Logo from '@/public/logo.png';
 
-const Login: React.FC = () => {
+const Signup: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const controls = useAnimation();
 
   const handleLogin = () => {
     console.log('Logging in with:', username, password);
-    window.location.href="/dashboard"
   };
 
   useEffect(() => {
@@ -41,15 +41,35 @@ const Login: React.FC = () => {
         transition={{ duration: 0.5 }}
         className="md:p-8 rounded-lg w-full md:max-w-lg lg:max-w-xl md:flex items-center justify-center"
       >
-        <Card className="overflow-hidden w-full md:w- h-screen md:h-[34rem] flex items-center justify-center">
+        <Card className="overflow-hidden w-full md:w- h-screen md:h-[54rem] flex items-center justify-center my-28">
           <CardContent className="md:my-8 w-full">
             <form className="p-6 md:p-8">
               <div className="flex flex-col gap-6">
                 <div className="flex flex-col items-center text-center">
-                  <h1 className="text-2xl font-bold">Welcome back</h1>
+                  <h1 className="text-2xl font-bold">Create an account</h1>
                   <p className="text-balance text-muted-foreground">
-                    Login to your account
+                  Join our community of faith. Experience the power of fellowship, worship, and love.
                   </p>
+                </div>
+                <div className='flex gap-4'>
+                <div className="grid gap-2">
+                  <Label htmlFor="email">First Name</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="m@example.com"
+                    required
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="email">Last Name</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="m@example.com"
+                    required
+                  />
+                </div>
                 </div>
                 <div className="grid gap-2">
                   <Label htmlFor="email">Email</Label>
@@ -61,14 +81,32 @@ const Login: React.FC = () => {
                   />
                 </div>
                 <div className="grid gap-2">
+                  <Label htmlFor="email">Phone Number</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="m@example.com"
+                    required
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="email">Country</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="m@example.com"
+                    required
+                  />
+                </div>
+                <div className="grid gap-2">
                   <div className="flex items-center">
                     <Label htmlFor="password">Password</Label>
-                    <a
-                      href="#"
-                      className="ml-auto text-sm underline-offset-2 hover:underline"
-                    >
-                      Forgot your password?
-                    </a>
+                  </div>
+                  <Input id="password" type="password" required />
+                </div>
+                <div className="grid gap-2">
+                  <div className="flex items-center">
+                    <Label htmlFor="password">Confirm Password</Label>
                   </div>
                   <Input id="password" type="password" required />
                 </div>
@@ -78,7 +116,7 @@ const Login: React.FC = () => {
                    className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
                   onClick={handleLogin}
                 >
-                  Login
+                  Sign up
                 </Button>
                 <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
                   <span className="relative z-10 bg-background px-2 text-muted-foreground">
@@ -115,9 +153,9 @@ const Login: React.FC = () => {
                   </Button>
                 </div>
                 <div className="text-center text-sm">
-                  Don&apos;t have an account?{" "}
-                  <a href="/signup" className="underline underline-offset-4">
-                    Sign up
+                  Have an account?{" "}
+                  <a href="/login" className="underline underline-offset-4">
+                    Login
                   </a>
                 </div>
               </div>
@@ -130,4 +168,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default Signup;

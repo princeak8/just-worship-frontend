@@ -144,3 +144,6 @@ code {
   }
 }
 
+.content{
+  scrollbar-width: none;
+}
