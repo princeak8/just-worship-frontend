@@ -1,5 +1,6 @@
 import type React from 'react';
 import {motion} from "motion/react"
+import BG from '@/public/gallery/gallery4.jpeg'
 
 interface Event {
   id: number;
@@ -35,13 +36,16 @@ const events: Event[] = [
 
 const Events: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gray-100 py-10 px-4 sm:px-6 lg:px-8 py-28">
-      <header className="text-center mb-12">
-        <h1 className="text-4xl font-bold text-gray-900 mb-3">Upcoming Events</h1>
-        <p className="text-lg text-gray-600">Check out our exciting lineup of events!</p>
-      </header>
+    <div className="min-h-screen bg-gray-100 lg:px-4 sm:px-6 lg:px-8 py-24">
+      <section className='h-60 flex items-center mb-12' style={{backgroundImage: `url(${BG})`, backgroundSize: 'cover'}}>
+        <div className='slant w-7/12 bg-black bg-opacity-50 h-full flex items-center lg:px-40 text-white'>
+        <header className="text-center p-2">
+          <h1 className="text-lg lg:text-4xl font-bold mb-3">Upcoming Events</h1>
+        </header>
+        </div>
+      </section>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-2">
         {events.map((event, index) => (
             <motion.div key={index}
             initial={{ opacity: 0, y: 20 }}

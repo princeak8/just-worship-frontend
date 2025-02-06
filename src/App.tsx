@@ -12,6 +12,8 @@ import Signup from "./components/Auth/Signup";
 import Layout from "./Dashboard/Layout";
 import Home from "./Dashboard/dashboard/Home";
 import Events from "./Events/Events";
+import AboutUs from "./AboutUs/AboutUs";
+import ContactUs from "./Contact/Contact";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -70,9 +72,11 @@ const App = () => {
         <ConditionalNav />
         <Routes>
           <Route path="/" element={<Landing />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/contact" element={<ContactUs />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/events" element={<Events />} />
   
           <Route path="/dashboard" element={<Layout />}>
             <Route index element={<Home />} />

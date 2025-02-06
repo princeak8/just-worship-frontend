@@ -147,3 +147,7 @@ code {
 .content{
   scrollbar-width: none;
 }
+
+.slant {
+  clip-path: polygon(100% 100%, 0% 100%, 0 0, 80% 0);
+}
