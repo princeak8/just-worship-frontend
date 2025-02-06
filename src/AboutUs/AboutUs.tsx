@@ -46,7 +46,7 @@ const AboutUs: React.FC = () => {
         </div>
       </section>
 
-      <section className="container my-12 px-4 sm:px-6 lg:px-8">
+      <section className="container py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-8">
           <div className="w-full lg:w-1/2">
             <img
@@ -69,11 +69,23 @@ const AboutUs: React.FC = () => {
       </section>
 
       <section className="container py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-6">Our Mission</h2>
-          <p className="text-lg text-gray-700">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vitae eveniet eaque sed possimus expedita quaerat accusamus qui reprehenderit, facere alias! Magnam exercitationem dolor totam voluptates cupiditate nesciunt quos, consequatur ut, doloremque molestiae sapiente ipsam quidem illum sit suscipit perferendis, reprehenderit incidunt asperiores explicabo libero eos et magni deserunt adipisci? Impedit dignissimos hic rem voluptate alias reiciendis ducimus doloremque quae veritatis, ipsum necessitatibus deleniti quam voluptates esse temporibus officia a nostrum minima animi dicta. Aut possimus ad consectetur, dolores nihil molestiae temporibus vitae molestias cumque, repellat eius. Dolor aliquid deleniti consectetur numquam aut harum, laboriosam eligendi? Provident cupiditate odio voluptas veniam!
-          </p>
+        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-8">
+          <div className="w-full lg:w-1/2">
+            <h2 className="text-3xl font-bold mb-6">Our Mission</h2>
+            <p className="text-lg text-gray-700 mb-4">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus inventore dolorem ratione illo quidem quia earum aliquam, at, facere veritatis veniam natus dolore rerum, quam totam amet quisquam nemo possimus numquam quas fugiat minus animi officiis tempore. Fugit libero repudiandae numquam quae non assumenda unde eum dolor? Rerum, quos accusamus.
+            </p>
+            <p className="text-lg text-gray-700">
+              Our goal is to empower businesses and individuals by providing cutting-edge services and products that make a real difference. We believe in building long-term relationships with our clients and helping them achieve their goals.
+            </p>
+          </div>
+          <div className="w-full lg:w-1/2 order-first lg:order-last">
+            <img
+              src={Avatar}
+              alt="About Us"
+              className="w-full h-auto rounded-lg shadow-lg"
+            />
+          </div>
         </div>
       </section>
 
