@@ -7,7 +7,7 @@ const ContactUs: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-100 lg:px-4 sm:px-6 lg:px-8 py-24">
       <motion.section 
-        className='h-60 flex items-center mb-12' 
+        className='h-60 flex items-center mb-12 overflow-hidden' 
         style={{backgroundImage: `url(${BG})`, backgroundSize: 'cover'}}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
