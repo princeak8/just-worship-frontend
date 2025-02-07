@@ -47,7 +47,7 @@ export default function Gallery() {
                         </p>
                     </div>
                     <div className='lg:flex space-y-4 items-center gap-4 py-10'>
-                        <div className='border border-white rounded-full flex items-center p-1 px-4'><Search /> <input type='text' placeholder='Search...' className='p-2 bg-transparent focus:outline-none' /></div>
+                        <div className='border border-white rounded-full flex items-center p-1 px-4'><Search /> <input type='text' placeholder='Search...' className='p-2 py-1 bg-transparent focus:outline-none' /></div>
                         <div className='border border-white rounded-full flex items-center p-1 px-4'>
                             <select className='p-2 bg-transparent focus:outline-none w-full'>
                                 <option>Location</option>

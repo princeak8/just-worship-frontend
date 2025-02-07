@@ -39,7 +39,7 @@ const Login: React.FC = () => {
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="md:p-8 rounded-lg w-full md:max-w-lg lg:max-w-xl md:flex items-center justify-center"
+        className="md:p-8 md:rounded-lg w-full md:max-w-lg lg:max-w-xl md:flex items-center justify-center"
       >
         <Card className="overflow-hidden w-full md:w- h-screen md:h-[34rem] flex items-center justify-center">
           <CardContent className="md:my-8 w-full">
