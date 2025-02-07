@@ -14,6 +14,7 @@ import Home from "./Dashboard/dashboard/Home";
 import Events from "./Events/Events";
 import AboutUs from "./AboutUs/AboutUs";
 import ContactUs from "./Contact/Contact";
+import Store from "./Store/Store";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -74,6 +75,7 @@ const App = () => {
           <Route path="/" element={<Landing />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/events" element={<Events />} />
+          <Route path="/store" element={<Store />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />

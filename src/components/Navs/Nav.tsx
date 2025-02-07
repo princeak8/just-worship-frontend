@@ -13,7 +13,7 @@ export default function Nav() {
                     <a href="/about" className="hover:text-yellow-500 transition">About</a>
                     <a href="/events" className="hover:text-yellow-500 transition">Events</a>
                     <a href="#" className="hover:text-yellow-500 transition">LIVE</a>
-                    <a href="#" className="hover:text-yellow-500 transition">Store</a>
+                    <a href="/store" className="hover:text-yellow-500 transition">Store</a>
                     <a href="#" className="hover:text-yellow-500 transition">Giving</a>
                     <a href="/contact" className="hover:text-yellow-500 transition">Contact us</a>
                     <a href="/login" className="hover:bg-yellow-500 transition bg-purple-500 p-2 px-4 rounded-lg ">Login</a>
@@ -34,7 +34,7 @@ export default function Nav() {
                     <a href="/about" className="text-xl hover:text-yellow-500 transition" onClick={() => setIsOpen(false)}>About</a>
                     <a href="/events" className="text-xl hover:text-yellow-500 transition" onClick={() => setIsOpen(false)}>Events</a>
                     <a href="#" className="text-xl hover:text-yellow-500 transition" onClick={() => setIsOpen(false)}>LIVE</a>
-                    <a href="#" className="text-xl hover:text-yellow-500 transition" onClick={() => setIsOpen(false)}>Store</a>
+                    <a href="/store" className="text-xl hover:text-yellow-500 transition" onClick={() => setIsOpen(false)}>Store</a>
                     <a href="#" className="text-xl hover:text-yellow-500 transition" onClick={() => setIsOpen(false)}>Giving</a>
                     <a href="/contact" className="text-xl hover:text-yellow-500 transition" onClick={() => setIsOpen(false)}>Contact us</a>
                     <a href="/login" className="hover:bg-yellow-500 transition bg-purple-500 p-2 px-4 rounded-lg " onClick={() => setIsOpen(false)}>Login</a>

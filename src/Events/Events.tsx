@@ -37,13 +37,38 @@ const events: Event[] = [
 const Events: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-100 lg:px-4 sm:px-6 lg:px-8 py-24">
-      <section className='h-60 flex items-center mb-12' style={{backgroundImage: `url(${BG})`, backgroundSize: 'cover'}}>
+       <motion.section 
+        className='h-60 flex items-center mb-12' 
+        style={{backgroundImage: `url(${BG})`, backgroundSize: 'cover'}}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        <motion.div 
+          className='slant w-7/12 bg-black bg-opacity-50 h-full flex items-center lg:px-40 text-white'
+          initial={{ x: -100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+        >
+          <header className="text-center p-2">
+            <motion.h1 
+              className="text-lg lg:text-4xl font-bold mb-3"
+              initial={{ y: -20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 1 }}
+            >
+              Upcoming Events
+            </motion.h1>
+          </header>
+        </motion.div>
+      </motion.section>
+      {/* <section className='h-60 flex items-center mb-12' style={{backgroundImage: `url(${BG})`, backgroundSize: 'cover'}}>
         <div className='slant w-7/12 bg-black bg-opacity-50 h-full flex items-center lg:px-40 text-white'>
         <header className="text-center p-2">
           <h1 className="text-lg lg:text-4xl font-bold mb-3">Upcoming Events</h1>
         </header>
         </div>
-      </section>
+      </section> */}
 
       <div className="container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-2">
         {events.map((event, index) => (
