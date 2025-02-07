@@ -115,7 +115,7 @@ const ContactUs: React.FC = () => {
               </motion.div>
               <motion.button
                 type="submit"
-                className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300"
+                className="bg-black rounded-lg p-4 px-10 text-white w-full py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors duration-300"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
