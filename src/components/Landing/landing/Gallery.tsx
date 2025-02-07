@@ -39,56 +39,60 @@ export default function Gallery() {
             <div className="w-full h-full bg-black bg-opacity-90 p-10">
                 <section className="container space-y-4 text-center lg:py-20">
                     <div className="lg:leading-10">
-                    <h2 className="text-xl lg:text-5xl font-bold lg:font-normal uppercase bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Gallery</h2>
+                        <h2 className="text-xl lg:text-5xl font-bold lg:font-normal uppercase bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Gallery</h2>
                         <p>
                             Lorem ipsum dolor sit amet consectetur adipisicing
                             elit. Laborum at cum veritatis omnis modi aperiam
                             libero voluptatum sequi expedita facilis.
                         </p>
                     </div>
-                    <div className='lg:flex space-y-4 items-center gap-4 py-10'>
-                        <div className='border border-white rounded-full flex items-center p-1 px-4'><Search /> <input type='text' placeholder='Search...' className='p-2 py-1 bg-transparent focus:outline-none' /></div>
-                        <div className='border border-white rounded-full flex items-center p-1 px-4'>
+                    <div className='flex flex-wrap lg:flex-nowrap items-center gap-4 py-10'>
+                        <div className='border border-white rounded-full flex items-center p-1 px-4 w-full lg:w-auto'>
+                            <Search />
+                            <input type='text' placeholder='Search...' className='p-2 py-1 bg-transparent focus:outline-none w-full' />
+                        </div>
+                        <div className='border border-white rounded-full flex items-center p-1 px-4 w-full lg:w-auto'>
                             <select className='p-2 bg-transparent focus:outline-none w-full'>
                                 <option>Location</option>
                             </select>
                         </div>
-                        <div className='border border-white rounded-full flex items-center p-1 px-4'>
+                        <div className='border border-white rounded-full flex items-center p-1 px-4 w-full lg:w-auto'>
                             <select className='p-2 bg-transparent focus:outline-none w-full'>
                                 <option>Select by Event</option>
                             </select>
                         </div>
-                        <div className='grid grid-cols-2 gap-2 lg:gap-4'>
-                        <div className='border border-white rounded-full flex items-center p-1 px-4'>
-                            <select className='p-2 bg-transparent focus:outline-none w-full' >
-                                <option>Select by Year</option>
-                            </select>
-                        </div>
-                        <div className='border border-white rounded-full flex items-center justify-center p-1 px-4'>
-                            <select className='p-2 bg-transparent focus:outline-none w-full'>
-                                <option>Sort by</option>
-                            </select>
-                        </div>
+                        <div className='flex flex-wrap lg:flex-nowrap gap-4 w-full lg:w-auto'>
+                            <div className='border border-white rounded-full flex items-center p-1 px-4 w-full lg:w-auto'>
+                                <select className='p-2 bg-transparent focus:outline-none w-full'>
+                                    <option>Select by Year</option>
+                                </select>
+                            </div>
+                            <div className='border border-white rounded-full flex items-center justify-center p-1 px-4 w-full lg:w-auto'>
+                                <select className='p-2 bg-transparent focus:outline-none w-full'>
+                                    <option>Sort by</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
+
                     <section className="grid md:grid-cols-2 lg:flex !w-full flex-wrap gap-4 space-y-4">
                         {GalleryImages.map((image, index) => (
                             <motion.div key={index}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 1, delay: index * 0.5 }}
-                            viewport={{once: true}}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 1, delay: index * 0.5 }}
+                                viewport={{ once: true }}
                             >
-                            <img
-                                src={image.image}
-                                alt={`Gallery ${index + 1}`}
-                                style={{
-                                    width: customWidths[index % customWidths.length],
-                                    height: '200px',
-                                    objectFit: 'cover',
-                                }}
-                                className="rounded-lg"
-                            />
+                                <img
+                                    src={image.image}
+                                    alt={`Gallery ${index + 1}`}
+                                    style={{
+                                        width: customWidths[index % customWidths.length],
+                                        height: '200px',
+                                        objectFit: 'cover',
+                                    }}
+                                    className="rounded-lg"
+                                />
                             </motion.div>
                         ))}
                     </section>

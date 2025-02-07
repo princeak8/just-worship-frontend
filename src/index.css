@@ -151,3 +151,7 @@ code {
 .slant {
   clip-path: polygon(100% 100%, 0% 100%, 0 0, 80% 0);
 }
+
+.h1{
+  font-family: 'Aboreto',
+}
