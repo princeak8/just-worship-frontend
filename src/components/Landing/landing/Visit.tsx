@@ -123,8 +123,18 @@ export default function Visit() {
                             transition={{ duration: 0.8, delay: 0.4 }}
                             viewport={{ once: true }}
                         >
-                            <img src={card1} alt='Introductory video' className='w-full h-full object-cover' />
+                            <iframe
+                                width="100%"
+                                height="100%"
+                                src="https://www.youtube.com/embed/_DcrrrlE3Og?si=SsZqNElJHR2p5Xjo"
+                                title="Introductory Video"
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                                className='w-full h-full object-cover'
+                            />
                         </motion.div>
+
                     </div>
                 </section>
             </section>
