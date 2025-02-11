@@ -18,7 +18,7 @@ export default function Hero() {
                 A worship expereince like never before.
               </motion.h1>
 
-              <p className=''>Encounter the divine presence of God through intimate Praise and Worship.</p>
+              <p className=''>Encounter the divine presence of God through intimate Praise and Worship</p>
                 <motion.button className="btn bg-white text-black font-bold p-4 rounded-full z-10">
                   Find us now
                 </motion.button>
