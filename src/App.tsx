@@ -15,6 +15,9 @@ import Events from "./Events/Events";
 import AboutUs from "./AboutUs/AboutUs";
 import ContactUs from "./Contact/Contact";
 import Store from "./Store/Store";
+import Report from "./Dashboard/dashboard/R&A/Report";
+import HomeCMS from "./Dashboard/dashboard/CMS/Home/HomeCMS";
+import CreateHome from "./Dashboard/dashboard/CMS/Home/CreateHome";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -82,7 +85,9 @@ const App = () => {
   
           <Route path="/dashboard" element={<Layout />}>
             <Route index element={<Home />} />
-            {/* <Route path="profile" element={<Profile />} />  */}
+            <Route path="report" element={<Report />} /> 
+            <Route path="cms/home" element={<HomeCMS />} /> 
+            <Route path="cms/home/create" element={<CreateHome />} /> 
           </Route>
         </Routes>
         <ConditionalFooter />

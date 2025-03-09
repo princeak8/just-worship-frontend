@@ -2,11 +2,13 @@ import type React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
 import { Progress } from "@/components/ui/progress";
+import { ArrowUp, Gem } from "lucide-react";
 
 interface Cards {
 title: string;
 value: string;
 percentage: number;
+trend?: number;
 }
 
 const salesData = [
@@ -19,14 +21,24 @@ const salesData = [
   { name: 'Jan 7', value: 75 },
 ];
 
-const MetricCard: React.FC<Cards> = ({ title, value, percentage }) => (
-  <Card className="bg-opacity-20 bg-white text-black backdrop-blur-sm">
+const MetricCard: React.FC<Cards> = ({ title, value, percentage, trend }) => (
+  <Card className="bg-gradient-to-br from-purple-50 to-indigo-50 backdrop-blur-sm relative overflow-hidden w-full">
+    <div className="absolute -right-6 -top-6 bg-purple-100 w-20 h-20 rounded-full" />
     <CardContent className="p-6">
       <div className="flex justify-between items-center">
         <div>
-          <p className="text-sm text-purple-900 uppercase">{title}</p>
-          <h3 className="text-2xl font-bold  mt-1">{value}</h3>
-          <p className="text-xs text-gray-500 mt-1">PER DAY</p>
+          <div className="flex items-center gap-2 mb-2">
+            <Gem className="w-4 h-4 text-purple-600" />
+            <p className="text-sm text-purple-900 font-medium uppercase tracking-wide">{title}</p>
+          </div>
+          <h3 className="text-3xl font-bold text-gray-900 mt-1">{value}</h3>
+          <div className="flex items-center gap-2 mt-2">
+            <span className={`text-sm ${trend && trend > 0 ? 'text-green-600' : 'text-red-600'}`}>
+              {trend && trend > 0 ? <ArrowUp className="w-4 h-4 inline" /> : <ArrowUp className="w-4 h-4 inline rotate-180" />}
+              {Math.abs(trend || 0)}%
+            </span>
+            <span className="text-xs text-gray-500">vs previous month</span>
+          </div>
         </div>
         <div className="relative w-16 h-16">
           <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
@@ -39,7 +51,7 @@ const MetricCard: React.FC<Cards> = ({ title, value, percentage }) => (
               fill="transparent"
             />
             <circle
-              className="text-purple-500 stroke-current"
+              className="text-purple-600 stroke-current"
               strokeWidth="12"
               strokeLinecap="round"
               cx="50"
@@ -51,7 +63,7 @@ const MetricCard: React.FC<Cards> = ({ title, value, percentage }) => (
             />
           </svg>
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <span className="text-sm text-white">{percentage}%</span>
+            <span className="text-sm font-bold text-purple-900">{percentage}%</span>
           </div>
         </div>
       </div>
@@ -61,7 +73,7 @@ const MetricCard: React.FC<Cards> = ({ title, value, percentage }) => (
 
 const Home = () => {
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-100 w-full">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         <MetricCard title="VIEWS" value="500" percentage={78} />
         <MetricCard title="ORDERS" value="3200" percentage={45} />
@@ -83,7 +95,7 @@ const Home = () => {
                   <Line 
                     type="monotone" 
                     dataKey="value" 
-                    stroke="#a855f7" 
+                    stroke="#FFD700" 
                     strokeWidth={2}
                   />
                 </LineChart>

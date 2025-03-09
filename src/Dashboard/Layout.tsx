@@ -4,11 +4,13 @@ import Sidebar from './dashboard/Sidebar';
 
 const Layout = () => {
     return (
-        <section className="min-h-screen bg-gray-100 w-full fixed">
-            <Sidebar />
-            <div className="ml-20 p-6">
+        <section className="flex min-h-screen bg-gray-100 w-full fixed">
+            <div className='w-2/12 h-screen'>
+                <Sidebar />
+            </div>
+            <div className=" p-6 w-full">
             <Header />  
-            <div className='content w-full h-screen overflow-y-scroll pb-28'>
+            <div className='content w-full  h-screen overflow-y-scroll pb-28'>
                 <Outlet />
             </div>         
             </div>
