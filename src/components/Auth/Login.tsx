@@ -1,19 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { Card, CardContent } from '../ui/card';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
+import useLogin from './useLogin';
 
 const Login: React.FC = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
   const controls = useAnimation();
-
-  const handleLogin = () => {
-    console.log('Logging in with:', username, password);
-    window.location.href="/dashboard"
-  };
+  const { formInstance, isLoading, onSubmit } = useLogin();
+  const { handleSubmit, register } = formInstance;
 
   useEffect(() => {
     controls.start({
@@ -43,7 +39,7 @@ const Login: React.FC = () => {
       >
         <Card className="overflow-hidden w-full md:w- h-screen md:h-[34rem] flex items-center justify-center">
           <CardContent className="md:my-8 w-full">
-            <form className="p-6 md:p-8">
+            <form onSubmit={handleSubmit(onSubmit)} className="p-6 md:p-8">
               <div className="flex flex-col gap-6">
                 <div className="flex flex-col items-center text-center">
                   <h1 className="text-2xl font-bold">Welcome back</h1>
@@ -56,6 +52,7 @@ const Login: React.FC = () => {
                   <Input
                     id="email"
                     type="email"
+                    {...register('email')}
                     placeholder="m@example.com"
                     required
                   />
@@ -64,21 +61,20 @@ const Login: React.FC = () => {
                   <div className="flex items-center">
                     <Label htmlFor="password">Password</Label>
                     <a
-                      href="#"
+                      href="/"
                       className="ml-auto text-sm underline-offset-2 hover:underline"
                     >
                       Forgot your password?
                     </a>
                   </div>
-                  <Input id="password" type="password" required />
+                  <Input id="password" type="password" {...register('password')} required />
                 </div>
                 <Button
                   type="submit"
                   variant="default"
                    className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
-                  onClick={handleLogin}
                 >
-                  Login
+                  {isLoading ? 'Logging in...' : 'Login'}
                 </Button>
                 <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
                   <span className="relative z-10 bg-background px-2 text-muted-foreground">

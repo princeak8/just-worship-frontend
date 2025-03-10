@@ -7,7 +7,7 @@ export default function Nav() {
     const nav = useLocation()
     const [isOpen, setIsOpen] = useState(false);
 
-    console.log("nav", nav)
+    // console.log("nav", nav)
 
     return (
         <nav className="fixed w-full bg-black bg-opacity-60 backdrop-blur-lg text-white text-lg lg:px-28 lg:py-2 z-50">

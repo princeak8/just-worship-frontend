@@ -84,7 +84,7 @@ const Sidebar = () => {
           <nav className={`custom-scrollbar flex flex-col overflow-y-auto h-[88svh] `}>
             {paths?.map((path: any, index: number) => (
               <section className={`grid `}>
-              <Link to={path.path} key={index} className={`m-2 mx-2 p-4 px-2 hover:bg-purple-100 hover:text-purple-500 rounded-lg flex items-center gap-4 text-sm ${root.pathname === path.path && 'bg-[#FFD700] bg-opacity-70'}`}>
+              <Link to={path.path} key={index} className={`m-2 mx-2 p-4 px-2 hover:bg-purple-100 hover:text-purple-500 rounded-lg flex items-center gap-4 text-sm ${root.pathname === path.path && 'bg-[#FFD700] bg-opacity-50'}`}>
                 <div onClick={() => { path?.sub && setIsSubOpen(!isSubOpen) }} className='flex gap-4'>{path.icon}<p>{path.name}</p></div>
                 {path?.sub && ( isSubOpen ? <ChevronDown onClick={() => { path?.sub && setIsSubOpen(!isSubOpen) }}/> : <ChevronLeft onClick={() => { path?.sub && setIsSubOpen(!isSubOpen) }}/>)}
               </Link>
