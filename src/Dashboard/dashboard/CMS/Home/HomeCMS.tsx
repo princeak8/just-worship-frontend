@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Trash2, Edit, Plus, Search } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useGetHeroQuery } from '@/app/api';
 
 export const dummySlides = [
   {
@@ -31,12 +32,15 @@ interface Slide {
 }
 
 export default function HomeCMS() {
+  const {data, isLoading} = useGetHeroQuery()
   const [slides, setSlides] = useState<Slide[]>([]);
   const [currentSlide, setCurrentSlide] = useState<Partial<Slide>>({});
 
+  // console.log("data: ", data)
+
   useEffect(() => {
-    localStorage.setItem('slides', JSON.stringify(slides));
-  }, [slides]);
+    setSlides(data?.data)
+  }, [data]);
 
 
   const handleEditSlide = (slide: Slide) => {
@@ -67,7 +71,7 @@ export default function HomeCMS() {
                 <CardTitle>Current Slides</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {slides.length > 0 ?
+                {slides?.length > 0 ?
                 slides?.map(slide => (
                   <div key={slide.id} className="border w-full rounded-lg p-4 bg-white">
                     <div className="flex gap-4 w-full ">

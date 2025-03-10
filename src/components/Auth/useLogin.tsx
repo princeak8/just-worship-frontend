@@ -49,6 +49,7 @@ function useLogin() {
     try {
       const response = await login({ email, password }).unwrap();
       localStorage.setItem("user", response?.data?.user?.name)
+      localStorage.setItem("role", response?.data?.user?.role)
       Cookies.set("token", response?.data?.token, {
         expires: 7,
         // secure: true,

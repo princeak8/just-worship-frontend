@@ -26,12 +26,12 @@ export const paths = [
         },
         {
           name: 'About',
-          path: '#',
+          path: '/dashboard/cms/about',
           icon: <Dot size={30}/>
         },
         {
           name: 'Team',
-          path: '#',
+          path: '/dashboard/cms/team',
           icon: <Dot size={30}/>
         },
         {

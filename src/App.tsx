@@ -19,6 +19,8 @@ import Report from "./Dashboard/dashboard/R&A/Report";
 import HomeCMS from "./Dashboard/dashboard/CMS/Home/HomeCMS";
 import CreateHome from "./Dashboard/dashboard/CMS/Home/CreateHome";
 import Cookies from "js-cookie";
+import AboutCMS from "./Dashboard/dashboard/CMS/About/AboutCMS";
+import TeamCMS from "./Dashboard/dashboard/CMS/Team/TeamCMS";
 
 const isUserAuthenticated = () => {
   return Cookies.get("token") !== undefined;
@@ -103,6 +105,8 @@ const App = () => {
           <Route path="report" element={<Report />} />
           <Route path="cms/home" element={<HomeCMS />} />
           <Route path="cms/home/create" element={<CreateHome />} />
+          <Route path="cms/about" element={<AboutCMS />} />
+          <Route path="cms/team" element={<TeamCMS />} />
         </Route>
       </Routes>
       <ConditionalFooter />
