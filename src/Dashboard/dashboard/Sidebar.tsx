@@ -36,17 +36,17 @@ export const paths = [
         },
         {
           name: 'Store',
-          path: '#',
+          path: '/dashboard/cms/store',
           icon: <Dot size={30}/>
         },
         {
           name: 'Events',
-          path: '#',
+          path: '/dashboard/cms/event',
           icon: <Dot size={30}/>
         },
         {
           name: 'Contact',
-          path: '#',
+          path: '/dashboard/cms/contact',
           icon: <Dot size={30}/>
         },
         {
@@ -58,7 +58,7 @@ export const paths = [
   },
   {
     name: 'Settings',
-    path: '/',
+    path: '/dashboard/setting',
     icon: <SettingsIcon />
   },
 ]

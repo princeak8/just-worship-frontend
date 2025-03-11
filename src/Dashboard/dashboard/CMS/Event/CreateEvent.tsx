@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Save } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import Placeholder from '@/public/photo1.png'
-import useHome from './useHome';
+import useHome from './useEvent';
 import { TextArea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { useGetHeroQuery } from '@/app/api';
@@ -19,7 +19,7 @@ interface Slide {
   buttonLink: string;
 }
 
-export default function CreateHome() {
+export default function CreateEvent() {
   const { formInstance, isLoading, onSubmit } = useHome()
   const { handleSubmit, addHeroDetail } = formInstance;
 

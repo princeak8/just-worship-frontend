@@ -20,6 +20,12 @@ const api = apiClient.injectEndpoints({
             }),
         }),
 
+        getHeroById:builder.query({
+            query: (data: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.hero}/${data}`
+            }),
+        }),
+
         addHeroDetails:builder.mutation({
             query: (data: any)=>({
                 url: `${VITE_BASE_URL}/${apiRoutes.hero}`,
@@ -34,13 +40,47 @@ const api = apiClient.injectEndpoints({
             }),
         }),
 
+        getAboutById:builder.query({
+            query: (data: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.hero}/${data}`
+            }),
+        }),
 
+        getTeam:builder.query({
+            query: (url: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.team}`
+            }),
+        }),
+
+        getContact:builder.query({
+            query: (url: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.contact}`
+            }),
+        }),
+
+        getEvent:builder.query({
+            query: (url: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.event}`
+            }),
+        }),
+
+        getUser:builder.query({
+            query: (url: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.user}`
+            }),
+        }),
     })
 });
 
 export const {
     useLoginMutation,
     useGetHeroQuery,
+    useGetHeroByIdQuery,
     useAddHeroDetailsMutation,
     useGetAboutQuery,
+    useGetAboutByIdQuery,
+    useGetTeamQuery,
+    useGetContactQuery,
+    useGetEventQuery,
+    useGetUserQuery,
 } = api

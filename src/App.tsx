@@ -21,6 +21,14 @@ import CreateHome from "./Dashboard/dashboard/CMS/Home/CreateHome";
 import Cookies from "js-cookie";
 import AboutCMS from "./Dashboard/dashboard/CMS/About/AboutCMS";
 import TeamCMS from "./Dashboard/dashboard/CMS/Team/TeamCMS";
+import EditAbout from "./Dashboard/dashboard/CMS/About/EditAbout";
+import AddTeam from "./Dashboard/dashboard/CMS/Team/AddTeam";
+import StoreCMS from "./Dashboard/dashboard/CMS/Store/StoreCMS";
+import AddItem from "./Dashboard/dashboard/CMS/Store/AddItem";
+import ContactCMS from "./Dashboard/dashboard/CMS/Contact/ContactCMS";
+import EditContact from "./Dashboard/dashboard/CMS/Contact/EditContact";
+import EventCMS from "./Dashboard/dashboard/CMS/Event/EventCMS";
+import UserProfileSettings from "./Dashboard/dashboard/Setting/Settings";
 
 const isUserAuthenticated = () => {
   return Cookies.get("token") !== undefined;
@@ -105,8 +113,20 @@ const App = () => {
           <Route path="report" element={<Report />} />
           <Route path="cms/home" element={<HomeCMS />} />
           <Route path="cms/home/create" element={<CreateHome />} />
+          <Route path="cms/home/:id" element={<CreateHome />} />
           <Route path="cms/about" element={<AboutCMS />} />
+          <Route path="cms/about/:id" element={<EditAbout />} />
           <Route path="cms/team" element={<TeamCMS />} />
+          <Route path="cms/team/add" element={<AddTeam />} />
+          <Route path="cms/team/:id" element={<AddTeam />} />
+          <Route path="cms/store" element={<StoreCMS />} />
+          <Route path="cms/store/add" element={<AddItem />} />
+          <Route path="cms/store/:id" element={<AddItem />} />
+          <Route path="cms/contact" element={<ContactCMS />} />
+          <Route path="cms/contact/:id" element={<EditContact />} />
+          <Route path="cms/event" element={<EventCMS />} />
+
+          <Route path="setting" element={<UserProfileSettings />} />
         </Route>
       </Routes>
       <ConditionalFooter />

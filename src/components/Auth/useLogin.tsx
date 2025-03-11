@@ -4,6 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import Cookies from 'js-cookie';
 
+interface LoginResponse {
+  data: {
+    user: { name: string; role: string };
+    token: string;
+  }
+}
+
+
 interface LoginFormValues {
   email: string;
   password: string;
@@ -47,7 +55,7 @@ function useLogin() {
   async function onSubmit(data: LoginFormValues) {
     const { email, password } = data;
     try {
-      const response = await login({ email, password }).unwrap();
+      const response = await login({ email, password }).unwrap() as LoginResponse;
       localStorage.setItem("user", response?.data?.user?.name)
       localStorage.setItem("role", response?.data?.user?.role)
       Cookies.set("token", response?.data?.token, {
@@ -56,7 +64,6 @@ function useLogin() {
         // sameSite: "strict",
       });
       navigate(`/dashboard`);
-      // window.location.reload();
     } catch (error: any) {
       console.log(error)
       // toast(error.data.error);

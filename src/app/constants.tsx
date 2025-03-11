@@ -1,5 +1,9 @@
 export const apiRoutes = {
-  login: 'api/auth/login',
-  hero: 'api/slides',
-  about: 'api/about'
+  login: 'auth/login',
+  hero: 'slides',
+  about: 'about',
+  team: 'team',
+  contact: 'contact',
+  event: 'event',
+  user: 'user'
 }

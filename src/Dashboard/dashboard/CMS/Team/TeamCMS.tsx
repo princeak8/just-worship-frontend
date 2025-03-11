@@ -3,65 +3,60 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Trash2, Edit, Plus, Search } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useGetAboutQuery } from '@/app/api';
+import { useGetAboutQuery, useGetTeamQuery } from '@/app/api';
 
-interface AboutSection {
-  id: string;
-  title: string;
-  subtitle?: string;
-  content: string;
-  image?: string;
-  teamMembers?: TeamMember[];
+interface TeamData {
+  data: TeamData[]
 }
 
 interface TeamMember {
+  id?: string;
   name: string;
   position: string;
-  bio: string;
+  biography: string;
   avatar: string;
 }
 
-export const dummyAboutContent = [
+export const teamMembers = [
   {
-    id: '1',
-    title: 'Our Mission',
-    subtitle: 'Dedicated to excellence in education',
-    content: "At our institution, we are committed to fostering intellectual growth and personal development...",
-    image: 'https://example.com/mission-image.jpg'
+    id: 1,
+    name: 'John Doe',
+    position: 'President',
+    biography: 'Seasoned academic leader with 20+ years experience...',
+    avatar: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
   },
   {
-    id: '2',
-    title: 'Our Team',
-    subtitle: 'Experienced professionals',
-    content: "Meet our dedicated team of educators and administrators...",
-    teamMembers: [
-      {
-        name: 'John Doe',
-        position: 'President',
-        bio: 'Seasoned academic leader with 20+ years experience...',
-        avatar: 'https://example.com/avatar1.jpg'
-      }
-    ]
+    id: 2,
+    name: 'Jane Smith',
+    position: 'Vice President',
+    biography: 'Experienced administrator with focus on student success...',
+    avatar: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
+  },
+  {
+    id: 3,
+    name: 'Jane Smith',
+    position: 'Vice President',
+    biography: 'Experienced administrator with focus on student success...',
+    avatar: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
   },
 ];
 
 export default function TeamCMS() {
-  const { data, isLoading } = useGetAboutQuery();
-  const [sections, setSections] = useState<AboutSection[]>([]);
-  const [currentSection, setCurrentSection] = useState<Partial<AboutSection>>({});
+  const { data, isLoading } = useGetTeamQuery<TeamData | any | undefined>(undefined);
+  const [members, setMembers] = useState<TeamMember[]>([]);
+  const [currentMember, setCurrentMember] = useState<Partial<TeamMember>>({});
 
   useEffect(() => {
-    setSections(data?.data || []);
+    setMembers(data?.data || teamMembers || []);
   }, [data]);
 
-  const handleEditSection = (section: AboutSection) => {
-    setCurrentSection(section);
+  const handleDeleteMember = (id?: string) => {
+    if (!id) return;
+    setMembers(prev => prev.filter(member => member.id !== id));
+    if (currentMember.id === id) setCurrentMember({});
   };
 
-  const handleDeleteSection = (id: string) => {
-    setSections(prev => prev.filter(section => section.id !== id));
-    if (currentSection.id === id) setCurrentSection({});
-  };
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <div className="min-h-screen p-8 bg-gray-50">
@@ -69,7 +64,7 @@ export default function TeamCMS() {
         <div className='flex items-center justify-between'>
           <h1 className="text-3xl font-bold mb-8">Team Page Manager</h1>
           <Link 
-            to={'/dashboard/cms/about/create'} 
+            to={'/dashboard/cms/team/add'} 
             className='flex gap-2 bg-purple-500 hover:bg-purple-600 rounded-md p-2 px-4 text-white'
           >
             <Plus /> Add Member
@@ -79,74 +74,52 @@ export default function TeamCMS() {
         <div className="grid gap-8">
           <Card>
             <CardContent className="space-y-4 py-4">
-              {sections?.length > 0 ? sections.map(section => (
-                <div key={section.id} className="border w-full rounded-lg p-4 bg-white">
-                  <div className="flex gap-4 w-full">
-                    <div className="flex flex-col justify-between w-full p-2">
-                      <div>
-                        <h3 className="font-semibold text-xl mb-2">{section.title}</h3>
-                        {section.subtitle && (
-                          <h4 className="text-lg text-gray-600 mb-2">{section.subtitle}</h4>
-                        )}
-                        <p className="text-sm text-gray-600 line-clamp-4 text-justify">
-                          {section.content}
-                        </p>
-                        
-                        {section.teamMembers && (
-                          <div className="mt-4">
-                            <h4 className="font-medium mb-2">Team Members:</h4>
-                            <div className="grid grid-cols-2 gap-4">
-                              {section.teamMembers.map(member => (
-                                <div key={member.name} className="flex items-center gap-3">
-                                  <img 
-                                    src={member.avatar} 
-                                    alt={member.name}
-                                    className="w-12 h-12 rounded-full object-cover"
-                                  />
-                                  <div>
-                                    <p className="font-medium">{member.name}</p>
-                                    <p className="text-sm text-gray-600">{member.position}</p>
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        )}
+              {members?.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {members.map(member => (
+                    <div key={member.id || member.name} className="border rounded-lg p-4 bg-white flex flex-col items-start justify-between">
+                      <div className="flex flex-col items-center gap-4 flex-1">
+                        <img 
+                          src={member.avatar} 
+                          alt={member.name}
+                          className="w-full h-40 object-cover rounded-md"
+                        />
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-lg">{member.name}</h3>
+                          <p className="text-sm text-gray-600 mb-2">{member.position}</p>
+                          <p className="text-sm text-gray-700 line-clamp-2">{member.biography}</p>
+                        </div>
                       </div>
                       
-                      <div className="flex gap-2 mt-4">
+                      <div className="flex gap-2 my-4 w-full items-center justify-between">
                         <Button 
                           size="sm" 
                           variant="outline"
-                          onClick={() => handleEditSection(section)}
+                          onClick={() => setCurrentMember(member)}
+                          asChild
                         >
-                          <Edit className="w-4 h-4 mr-2" />
-                          Edit
+                          <Link to={`/dashboard/cms/team/${member.id}`}>
+                            <Edit className="w-4 h-4 mr-2" />
+                            Edit
+                          </Link>
                         </Button>
                         <Button
                           size="sm"
                           variant="destructive"
-                          onClick={() => handleDeleteSection(section.id)}
+                          onClick={() => handleDeleteMember(member.id)}
                         >
                           <Trash2 className="w-4 h-4 mr-2" />
                           Delete
                         </Button>
                       </div>
                     </div>
-                    
-                    {section.image && (
-                      <div className='w-4/12'>
-                        <img 
-                          src={section.image} 
-                          alt={section.title} 
-                          className="w-full h-48 object-cover rounded"
-                        />
-                      </div>
-                    )}
-                  </div>
+                  ))}
                 </div>
-              )) : (
-                <p className='flex gap-2'><Search /> No sections available...</p>
+              ) : (
+                <div className="text-center py-8">
+                  <Search className="mx-auto mb-4" />
+                  <p>No team members found</p>
+                </div>
               )}
             </CardContent>
           </Card>

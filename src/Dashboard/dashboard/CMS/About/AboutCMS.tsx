@@ -5,50 +5,42 @@ import { Trash2, Edit, Plus, Search } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useGetAboutQuery } from '@/app/api';
 
+
 interface AboutSection {
     id: string;
     title: string;
     subtitle?: string;
     content: string;
     image?: string;
-    teamMembers?: TeamMember[];
 }
 
-interface TeamMember {
-    name: string;
-    position: string;
-    bio: string;
-    avatar: string;
-}
 
-export const dummyAboutContent = [
+export const dummyAboutContent =
     {
         id: '1',
         title: 'About us',
         subtitle: 'Dedicated to excellence in education',
         content: "At our institution, we are committed to fostering intellectual growth and personal development. At our institution, we are committed to fostering intellectual growth and personal development. At our institution, we are committed to fostering intellectual growth and personal development. At our institution, we are committed to fostering intellectual growth and personal development At our institution, we are committed to fostering intellectual growth and personal development. At our institution, we are committed to fostering intellectual growth and personal development. At our institution, we are committed to fostering intellectual growth and personal development. At our institution, we are committed to fostering intellectual growth and personal development",
         image: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
-    },
-];
+    }
 
-export const dummyMissionContent = [
+export const dummyMissionContent = 
     {
         id: '1',
         title: 'Our Mission',
         subtitle: 'Dedicated to excellence in education',
         content: "At our institution, we are committed to fostering intellectual growth and personal development. At our institution, we are committed to fostering intellectual growth and personal development. At our institution, we are committed to fostering intellectual growth and personal development. At our institution, we are committed to fostering intellectual growth and personal development At our institution, we are committed to fostering intellectual growth and personal development. At our institution, we are committed to fostering intellectual growth and personal development. At our institution, we are committed to fostering intellectual growth and personal development. At our institution, we are committed to fostering intellectual growth and personal development",
         image: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
-    },
-];
+    }
 
 export default function AboutCMS() {
-    const { data, isLoading } = useGetAboutQuery();
-    const [aboutSections, setAboutSections] = useState<AboutSection[]>([]);
-    const [missionSections, setMissionSections] = useState<AboutSection[]>([]);
+    const { data, isLoading } = useGetAboutQuery<AboutSection | any | undefined>(undefined);
+    const [aboutSections, setAboutSections] = useState<AboutSection | null>(null);
+    const [missionSections, setMissionSections] = useState<AboutSection | null>(null);
 
     useEffect(() => {
-        setAboutSections(data?.data || dummyAboutContent);
-        setMissionSections(data?.data || dummyMissionContent);
+        setAboutSections(data || dummyAboutContent);
+        setMissionSections(data || dummyMissionContent);
     }, [data]);
 
 
@@ -64,20 +56,20 @@ export default function AboutCMS() {
                 <div className="grid gap-8">
                     <Card>
                         <CardContent className="space-y-4 py-4">
-                            {aboutSections?.length > 0 ? aboutSections.map(section => (
-                                <div key={section.id} className="border w-full rounded-lg p-4 bg-white">
+                            
+                                <div className="border w-full rounded-lg p-4 bg-white">
                                     <div className="flex gap-4 w-full">
                                         <div className="flex flex-col justify-between w-full p-2">
                                             <div>
-                                                <h3 className="font-semibold text-xl mb-2">{section.title}</h3>
+                                                <h3 className="font-semibold text-xl mb-2">{aboutSections?.title}</h3>
                                                 <p className="text-sm text-gray-600 text-justify">
-                                                    {section.content}
+                                                    {aboutSections?.content}
                                                 </p>
                                             </div>
 
                                             <div className="flex gap-2 mt-4">
                                                 <Link
-                                                    to={'/dashboard/cms/about/create'}
+                                                    to={`/dashboard/cms/about/${aboutSections?.id}`}
                                                     className='flex items-center gap-2 bg-purple-500 hover:bg-purple-600 rounded-md p-2 px-4 text-white'
                                                 >
                                                     <Edit className="w-4 h-4 mr-2" />
@@ -86,20 +78,17 @@ export default function AboutCMS() {
                                             </div>
                                         </div>
 
-                                        {section?.image && (
+                                        {aboutSections?.image && (
                                             <div className='w-5/12'>
                                                 <img
-                                                    src={section.image}
-                                                    alt={section.title}
+                                                    src={aboutSections?.image}
+                                                    alt={aboutSections?.title}
                                                     className="w-full h-60 object-cover rounded"
                                                 />
                                             </div>
                                         )}
                                     </div>
                                 </div>
-                            )) : (
-                                <p className='flex gap-2'><Search /> No sections available...</p>
-                            )}
                         </CardContent>
                     </Card>
                 </div>
@@ -107,20 +96,19 @@ export default function AboutCMS() {
                 <div className="grid gap-8">
                     <Card>
                         <CardContent className="space-y-4 py-4">
-                            {missionSections?.length > 0 ? missionSections.map(section => (
-                                <div key={section.id} className="border w-full rounded-lg p-4 bg-white">
+                                <div className="border w-full rounded-lg p-4 bg-white">
                                     <div className="flex gap-4 w-full">
                                         <div className="flex flex-col justify-between w-full p-2">
                                             <div>
-                                                <h3 className="font-semibold text-xl mb-2">{section.title}</h3>
+                                                <h3 className="font-semibold text-xl mb-2">{missionSections?.title}</h3>
                                                 <p className="text-sm text-gray-600 text-justify">
-                                                    {section.content}
+                                                    {missionSections?.content}
                                                 </p>
                                             </div>
 
                                             <div className="flex gap-2 mt-4">
                                                 <Link
-                                                    to={'/dashboard/cms/about/create'}
+                                                    to={`/dashboard/cms/about/${missionSections?.id}`}
                                                     className='flex items-center gap-2 bg-purple-500 hover:bg-purple-600 rounded-md p-2 px-4 text-white'
                                                 >
                                                     <Edit className="w-4 h-4 mr-2" />
@@ -129,20 +117,17 @@ export default function AboutCMS() {
                                             </div>
                                         </div>
 
-                                        {section?.image && (
+                                        {missionSections?.image && (
                                             <div className='w-5/12'>
                                                 <img
-                                                    src={section.image}
-                                                    alt={section.title}
+                                                    src={missionSections?.image}
+                                                    alt={missionSections?.title}
                                                     className="w-full h-60 object-cover rounded"
                                                 />
                                             </div>
                                         )}
                                     </div>
                                 </div>
-                            )) : (
-                                <p className='flex gap-2'><Search /> No sections available...</p>
-                            )}
                         </CardContent>
                     </Card>
                 </div>

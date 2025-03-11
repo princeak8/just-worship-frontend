@@ -1,14 +1,25 @@
 import { BellIcon, SearchIcon, User2 } from "lucide-react"
 
 const Header = () => {
-  const userName = localStorage.getItem('user')
+  const user = localStorage.getItem('user')
 
-    // console.log("user: ", userName)
+  const date = new Date()
+
+  const greet = () => {
+    if(date.getHours() <= 11){
+      return "Good Morning"
+    }else if(date.getHours() >= 12 && date.getHours() < 16 ){
+      return 'Good Afternoon'
+    }else{
+      return "Good Evening"
+    }
+  }
+
 
   return (
     <div>
       <div className="flex justify-between items-center mb-6 w-full">
-          <h1 className="text-2xl font-bold">Good Afternoon, User</h1>
+          <h1 className="text-2xl font-bold">{greet()}, {user}</h1>
           <div className="flex items-center space-x-4">
             <button className="p-2 hover:bg-gray-200 rounded-full">
               <SearchIcon />
@@ -18,7 +29,7 @@ const Header = () => {
             </button>
             <div className="flex items-center gap-2">
               <User2 size={40} className="border border-purple-500 text-purple-500 rounded-full "/>
-              <p>{userName}</p>
+              <p>{user}</p>
             </div>
           </div>
         </div>

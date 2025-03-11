@@ -3,29 +3,30 @@ import { useForm } from 'react-hook-form';
 import { Navigate} from 'react-router-dom';
 
 interface FormDataDetail {
-    title: string;
-    biography: string;
-    position: string;
-    image: FileList;
+    name: string;
+    description: string;
+    price: string;
+    image: string;
 }
 
-const useTeam = () => {
+const useStore = () => {
     const [addHero, isLoading] = useAddHeroDetailsMutation()
 
     const {
-        register: addHeroDetail, 
+        register: addItemDetail, 
         handleSubmit,
         formState: {errors},
     } = useForm<FormDataDetail>({
         defaultValues: {
-            title: '',
-            biography: '',
-            position: '',
+            name: '',
+            description: '',
+            price: '',
+            image: ''
         },
     });
 
     const rules = {
-        title: {
+        name: {
             required: 'Page title is very much required',
         },
         image: {
@@ -34,13 +35,13 @@ const useTeam = () => {
     };
 
     async function onSubmit(data: FormDataDetail){
-        const {title, biography, position, image} = data;
+        const {name, description, price, image } = data;
 
         const formdata = new FormData()
 
-        formdata.append('title', title)
-        formdata.append('message', biography)
-        formdata.append('buttonText', position)
+        formdata.append('title', name)
+        formdata.append('message', description)
+        formdata.append('buttonText', price)
         
         if (image && image.length > 0) {
             formdata.append('photo', image[0]);
@@ -48,7 +49,7 @@ const useTeam = () => {
 
         try{
             await addHero(formdata).unwrap()
-            return <Navigate to={'/dashboard/cms/team'} />
+            return <Navigate to={'/dashboard/cms/store'} />
         }catch(err){
             console.log(err)
         }
@@ -57,9 +58,9 @@ const useTeam = () => {
 
   return{
     isLoading,
-    formInstance: {addHeroDetail, handleSubmit, errors, rules},
+    formInstance: {addItemDetail, handleSubmit, errors, rules},
     onSubmit,
   }
 }
 
-export default useTeam
+export default useStore

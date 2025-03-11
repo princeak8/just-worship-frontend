@@ -1,16 +1,21 @@
-import { useAddHeroDetailsMutation } from '@/app/api'
+import { useAddHeroDetailsMutation, useGetHeroByIdQuery } from '@/app/api'
 import { useForm } from 'react-hook-form';
-import { Navigate} from 'react-router-dom';
+import { Navigate, useParams} from 'react-router-dom';
 
 interface FormDataDetail {
     title: string;
-    biography: string;
-    position: string;
+    description: string;
+    button_text: string;
+    button_link: string;
     image: FileList;
 }
 
-const useTeam = () => {
+const useHome = () => {
+    const {id} = useParams()
+  const {getHeroById} = useGetHeroByIdQuery<any>(id, {skip: !id})
     const [addHero, isLoading] = useAddHeroDetailsMutation()
+
+    console.log("id: ", getHeroById)
 
     const {
         register: addHeroDetail, 
@@ -19,8 +24,9 @@ const useTeam = () => {
     } = useForm<FormDataDetail>({
         defaultValues: {
             title: '',
-            biography: '',
-            position: '',
+            description: '',
+            button_text: '',
+            button_link: '',
         },
     });
 
@@ -34,13 +40,14 @@ const useTeam = () => {
     };
 
     async function onSubmit(data: FormDataDetail){
-        const {title, biography, position, image} = data;
+        const {title, description, button_text, button_link, image} = data;
 
         const formdata = new FormData()
 
         formdata.append('title', title)
-        formdata.append('message', biography)
-        formdata.append('buttonText', position)
+        formdata.append('message', description)
+        formdata.append('buttonText', button_text)
+        formdata.append('button_link', button_link)
         
         if (image && image.length > 0) {
             formdata.append('photo', image[0]);
@@ -48,7 +55,7 @@ const useTeam = () => {
 
         try{
             await addHero(formdata).unwrap()
-            return <Navigate to={'/dashboard/cms/team'} />
+            return <Navigate to={'/dashboard/cms/home'} />
         }catch(err){
             console.log(err)
         }
@@ -62,4 +69,4 @@ const useTeam = () => {
   }
 }
 
-export default useTeam
+export default useHome
