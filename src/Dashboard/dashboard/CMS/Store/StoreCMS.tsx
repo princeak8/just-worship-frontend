@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Trash2, Edit, Plus, Search } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useGetAboutQuery } from '@/app/api';
@@ -74,53 +74,45 @@ export default function StoreCMS() {
         <div className="grid gap-8">
           <Card>
             <CardContent className="space-y-4 py-4">
-              {items?.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  {items.map(item => (
-                    <div key={item.id || item.name} className="border rounded-lg p-4 bg-white flex flex-col items-start justify-between">
-                      <div className="flex flex-col items-center gap-4 flex-1">
-                        <img 
-                          src={item.image} 
-                          alt={item.name}
-                          className="w-full h-40 object-cover rounded-md"
-                        />
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-lg">{item.name}</h3>
-                          <p className="text-sm text-gray-600 mb-2">${item.price.toFixed(2)}</p>
-                          <p className="text-sm text-gray-700 line-clamp-2">{item.description}</p>
-                        </div>
-                      </div>
-                      
-                      <div className="flex gap-2 my-4 w-full items-center justify-between">
-                        <Button 
-                          size="sm" 
-                          variant="outline"
-                          onClick={() => setCurrentItem(item)}
-                          asChild
-                        >
-                          <Link to={`/dashboard/cms/store/${item.id}`}>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {items?.length > 0 ? (
+                  items.map((item) => (
+                    <Card key={item.id}>
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-full h-48 object-cover"
+                      />
+                      <CardHeader>
+                        <CardTitle className="text-xl">{item.name}</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-2">
+                        <p className="text-sm text-gray-500">${item.price.toFixed(2)}</p>
+                        <p className="text-base text-gray-700">{item.description}</p>
+                      </CardContent>
+                      <div className="flex justify-between p-4">
+                        <Button asChild size="sm" variant="outline">
+                        <Link to={`/dashboard/cms/store/${item.id}`}>
                             <Edit className="w-4 h-4 mr-2" />
                             Edit
                           </Link>
                         </Button>
-                        <Button
-                          size="sm"
-                          variant="destructive"
-                          onClick={() => handleDeleteItem(item.id)}
-                        >
+                        <Button size="sm" variant="destructive">
                           <Trash2 className="w-4 h-4 mr-2" />
                           Delete
                         </Button>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-8">
-                  <Search className="mx-auto mb-4" />
-                  <p>No items found</p>
-                </div>
-              )}
+                    </Card>
+                  ))
+                ) : (
+                  <div className="text-center py-8">
+                    <Search className="mx-auto mb-4" />
+                    <p>No events found</p>
+                  </div>
+                )}
+              </div>
+
             </CardContent>
           </Card>
         </div>

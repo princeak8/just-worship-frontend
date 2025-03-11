@@ -87,7 +87,7 @@ export default function EventCMS() {
                 </CardContent>
                 <div className="flex justify-between p-4">
                   <Button asChild size="sm" variant="outline">
-                    <Link to={`/dashboard/cms/events/${event.id}`}>
+                    <Link to={`/dashboard/cms/event/${event.id}`}>
                       <Edit className="w-4 h-4 mr-2" />
                       Edit
                     </Link>
