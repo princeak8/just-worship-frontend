@@ -1,31 +1,48 @@
-import { useAddHeroDetailsMutation } from '@/app/api'
+import { useAddTeamMutation, useGetMemberByIdQuery, useUpdateMemberMutation } from '@/app/api'
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { Navigate} from 'react-router-dom';
+import { Navigate, useNavigate, useParams} from 'react-router-dom';
 
 interface FormDataDetail {
-    title: string;
+    name: string;
     biography: string;
     position: string;
     image: FileList;
 }
 
 const useTeam = () => {
-    const [addHero, isLoading] = useAddHeroDetailsMutation()
+    const navigate = useNavigate()
+    const {id} = useParams()
+    const [addMember, {isLoading}] = useAddTeamMutation()
+    const [updateMember] = useUpdateMemberMutation()
+    const {data: member, isLoading: loading} = useGetMemberByIdQuery<any | object | null>(id, {skip: !id})
+
+    // console.log("data: ", data.data.name)
 
     const {
-        register: addHeroDetail, 
+        register: addMemberDetail, 
         handleSubmit,
+        setValue,
         formState: {errors},
     } = useForm<FormDataDetail>({
         defaultValues: {
-            title: '',
-            biography: '',
+            name: '',
             position: '',
+            biography: '',
         },
     });
 
+    useEffect(() =>{
+           if(member?.data){
+           setValue('name', member?.data?.name || '');
+           setValue('position', member?.data?.position || '');
+           setValue('biography', member?.data?.biography || '');
+           setValue('image', member?.data?.photo.url || '' as unknown as FileList);
+           }
+    }, [member, setValue])
+
     const rules = {
-        title: {
+        name: {
             required: 'Page title is very much required',
         },
         image: {
@@ -34,21 +51,26 @@ const useTeam = () => {
     };
 
     async function onSubmit(data: FormDataDetail){
-        const {title, biography, position, image} = data;
+        const {name, biography, position, image} = data;
 
         const formdata = new FormData()
-
-        formdata.append('title', title)
-        formdata.append('message', biography)
-        formdata.append('buttonText', position)
+        console.log('submit: ', data)
+        formdata.append('name', name)
+        formdata.append('biography', biography)
+        formdata.append('position', position)
         
-        if (image && image.length > 0) {
+        if (image && image.length > 0 && image[0] instanceof File && image[0] !== member?.data?.photo?.url) {
             formdata.append('photo', image[0]);
         }
 
         try{
-            await addHero(formdata).unwrap()
-            return <Navigate to={'/dashboard/cms/team'} />
+            if(id){
+                await updateMember({ formdata, id }).unwrap()
+            }else{
+                await addMember(formdata).unwrap()
+            }
+            return window.location.href = '/dashboard/cms/team'
+            // return navigate('/dashboard/cms/team')
         }catch(err){
             console.log(err)
         }
@@ -57,8 +79,9 @@ const useTeam = () => {
 
   return{
     isLoading,
-    formInstance: {addHeroDetail, handleSubmit, errors, rules},
+    formInstance: {addMemberDetail, handleSubmit, errors, rules},
     onSubmit,
+    memberImage: member?.data?.photo?.url,
   }
 }
 

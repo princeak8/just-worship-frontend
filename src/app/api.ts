@@ -52,6 +52,35 @@ const api = apiClient.injectEndpoints({
             }),
         }),
 
+        getMemberById: builder.query({
+            query: (data: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.teamById}/${data}`
+            }),
+        }),
+
+        addTeam:builder.mutation({
+            query: (data: any) => ({
+                url: `${VITE_BASE_URL}/${apiRoutes.team}`,
+                method: 'POST',
+                body: data,
+            }),
+        }),
+
+        updateMember:builder.mutation({
+            query: ({formdata, id}:{formdata: any, id: any}) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.teamById}/${id}`,
+                method: "POST",
+                body: formdata,
+            }),
+        }),
+
+        deleteMember:builder.mutation({
+            query: (id: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.teamById}/${id}`,
+                method: "DELETE",
+            }),
+        }),
+
         getContact:builder.query({
             query: (url: any) =>({
                 url: `${VITE_BASE_URL}/${apiRoutes.contact}`
@@ -80,6 +109,10 @@ export const {
     useGetAboutQuery,
     useGetAboutByIdQuery,
     useGetTeamQuery,
+    useGetMemberByIdQuery,
+    useAddTeamMutation,
+    useUpdateMemberMutation,
+    useDeleteMemberMutation,
     useGetContactQuery,
     useGetEventQuery,
     useGetUserQuery,

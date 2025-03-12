@@ -108,7 +108,7 @@ export default function HomeCMS() {
                           <img
                             src={slide?.photo?.url}
                             alt={slide.title}
-                            className="w-full object-cover rounded"
+                            className="w-full h-60 object-cover rounded"
                           />
                         </div>
                       </div>

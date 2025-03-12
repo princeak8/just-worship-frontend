@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Save } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import Placeholder from '@/public/photo1.png'
-import useHome from './useTeam';
+import useTeam from './useTeam';
 import { TextArea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { useGetHeroQuery } from '@/app/api';
@@ -21,13 +21,19 @@ interface Slide {
 
 export default function AddTeam() {
   const {id} = useParams()
-  const { formInstance, isLoading, onSubmit } = useHome()
-  const { handleSubmit, addHeroDetail } = formInstance;
+  const { formInstance, isLoading, onSubmit, memberImage } = useTeam()
+  const { handleSubmit, addMemberDetail } = formInstance;
 
   const [isEditing, setIsEditing] = useState(false);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
+
+  useEffect(() => {
+    if (memberImage) {
+      setPreviewImage(memberImage);
+    }
+  }, [memberImage]);
 
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,17 +72,8 @@ export default function AddTeam() {
                   <div>
                     <Label>Name <span className='text-red-500'>*</span></Label>
                     <Input
-                      id="title"
-                      {...addHeroDetail('title')}
-                    />
-                  </div>
-
-                  <div>
-                    <Label>Biography</Label>
-                    <TextArea
-                      id="biography"
-                      rows={3}
-                      {...addHeroDetail('biography')}
+                      id="name"
+                      {...addMemberDetail('name')}
                     />
                   </div>
 
@@ -84,9 +81,19 @@ export default function AddTeam() {
                     <Label>Position</Label>
                     <Input
                       id="position"
-                      {...addHeroDetail('position')}
+                      {...addMemberDetail('position')}
                     />
                   </div>
+                  <div>
+                    <Label>Biography</Label>
+                    <TextArea
+                      id="biography"
+                      rows={3}
+                      {...addMemberDetail('biography')}
+                    />
+                  </div>
+
+
                   {/* <div className='grid grid-cols-2 gap-4'>
                     <div>
                       <Label>Button Text</Label>
@@ -125,9 +132,9 @@ export default function AddTeam() {
                     type="file"
                     accept="image/*"
                     className="mt-1"
-                    {...addHeroDetail('image', {
+                    {...addMemberDetail('image', {
                       onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                        addHeroDetail('image').onChange(e);
+                        addMemberDetail('image').onChange(e);
                         handleFileChange(e);
                       },
                     })}

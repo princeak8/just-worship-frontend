@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Trash2, Edit, Plus, Search } from 'lucide-react';
+import { Trash2, Edit, Plus, Search, Loader2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useGetAboutQuery, useGetTeamQuery } from '@/app/api';
+import { useDeleteMemberMutation, useGetTeamQuery } from '@/app/api';
 
 interface TeamData {
   data: TeamData[]
@@ -14,52 +14,59 @@ interface TeamMember {
   name: string;
   position: string;
   biography: string;
-  avatar: string;
+  photo:{
+    url: string;
+  } 
 }
 
-export const teamMembers = [
-  {
-    id: 1,
-    name: 'John Doe',
-    position: 'President',
-    biography: 'Seasoned academic leader with 20+ years experience...',
-    avatar: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
-  },
-  {
-    id: 2,
-    name: 'Jane Smith',
-    position: 'Vice President',
-    biography: 'Experienced administrator with focus on student success...',
-    avatar: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
-  },
-  {
-    id: 3,
-    name: 'Jane Smith',
-    position: 'Vice President',
-    biography: 'Experienced administrator with focus on student success...',
-    avatar: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
-  },
-];
+interface Select{
+  name: string,
+  id: string | undefined
+}
+
 
 export default function TeamCMS() {
   const { data, isLoading } = useGetTeamQuery<TeamData | any | undefined>(undefined);
+  const [deleteMember] = useDeleteMemberMutation()
   const [members, setMembers] = useState<TeamMember[]>([]);
   const [currentMember, setCurrentMember] = useState<Partial<TeamMember>>({});
+  const [warning, setWarning] = useState(false)
+  const [selectedMember, setSelectedMember] = useState<Select>({
+    name: '',
+    id: ''
+  })
 
   useEffect(() => {
-    setMembers(data?.data || teamMembers || []);
+    setMembers(data?.data || []);
   }, [data]);
 
-  const handleDeleteMember = (id?: string) => {
+  const handleDeleteMember = async (id?: string) => {
     if (!id) return;
-    setMembers(prev => prev.filter(member => member.id !== id));
-    if (currentMember.id === id) setCurrentMember({});
+    try{
+      await deleteMember(id).unwrap()
+      setMembers(prev => prev.filter(member => member.id !== id));
+      setWarning(false); 
+      setSelectedMember({name: '', id: ''});
+    }catch(err){
+      console.log(err)
+    }
   };
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div className='w-full h-screen flex items-center justify-center'><Loader2 size={50} className='text-purple-500 animate-spin' /></div>;
 
   return (
     <div className="min-h-screen p-8 bg-gray-50">
+      {warning && (
+        <section className=' fixed w-full h-screen inset-0 bg-purple-500 bg-opacity-20 flex items-center justify-center'>
+          <div className='w-[25em] bg-white rounded-md border border-yellow-500 overflow-hidden p-4 text-center space-y-4'>
+            <p>Are you sure you want to delete &apos;<span className='italic font-bold text-red-700'>{selectedMember?.name || "member"}</span>&apos;?</p>
+            <div className='flex items-center justify-between'> 
+              <Button size={'sm'} onClick={() =>{setWarning(false); setSelectedMember({name: '', id: ''})}} variant={'default'} >Cancel</Button>
+              <Button size={'sm'} onClick={() => handleDeleteMember(selectedMember.id)} variant={'destructive'} >Delete</Button>
+            </div>
+          </div>
+        </section>
+      )}
       <div className="w-full mx-auto">
         <div className='flex items-center justify-between'>
           <h1 className="text-3xl font-bold mb-8">Team Page Manager</h1>
@@ -79,7 +86,7 @@ export default function TeamCMS() {
                   members.map((member) => (
                     <Card key={member.id}>
                       <img
-                        src={member.avatar}
+                        src={member.photo.url}
                         alt={member.name}
                         className="w-full h-48 object-cover"
                       />
@@ -91,13 +98,13 @@ export default function TeamCMS() {
                         <p className="text-base text-gray-700">{member.biography}</p>
                       </CardContent>
                       <div className="flex justify-between p-4">
-                        <Button asChild size="sm" variant="outline">
+                        <Button asChild size="sm" variant="default">
                           <Link to={`/dashboard/cms/team/${member.id}`}>
                             <Edit className="w-4 h-4 mr-2" />
                             Edit
                           </Link>
                         </Button>
-                        <Button size="sm" variant="destructive">
+                        <Button size="sm" onClick={()=>{setWarning(true); setSelectedMember({name: member.name, id: member.id})}} variant="destructive">
                           <Trash2 className="w-4 h-4 mr-2" />
                           Delete
                         </Button>
@@ -107,7 +114,7 @@ export default function TeamCMS() {
                 ) : (
                   <div className="text-center py-8">
                     <Search className="mx-auto mb-4" />
-                    <p>No events found</p>
+                    <p>No member yet</p>
                   </div>
                 )}
               </div>
