@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { useDeleteMemberMutation, useGetTeamQuery } from '@/app/api';
 
 interface TeamData {
-  data: TeamData[]
+  data: TeamMember[]
 }
 
 interface TeamMember {

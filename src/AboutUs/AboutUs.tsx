@@ -2,40 +2,41 @@ import type React from 'react';
 import { motion } from "framer-motion";
 import BG from '@/public/gallery/gallery4.jpeg';
 import Avatar from '@/public/card1.jpeg';
+import { useGetAboutQuery, useGetTeamQuery } from '@/app/api';
 
-interface TeamMember {
-  id: number;
-  name: string;
-  role: string;
-  description: string;
-  imageUrl: string;
+interface AboutSection {
+  id: string;
+  vision: string;
+  visionPhoto:{
+  url: string;
+  }
+  mission?: string;
+  missionPhoto:{
+      url: string;
+      }
 }
 
-const teamMembers: TeamMember[] = [
-  {
-    id: 1,
-    name: 'John Doe',
-    role: 'CEO',
-    description: 'John has over 10 years of experience in the tech industry.',
-    imageUrl: Avatar,
-  },
-  {
-    id: 2,
-    name: 'Jane Smith',
-    role: 'CTO',
-    description: 'Jane is passionate about innovation and technology.',
-    imageUrl: Avatar,
-  },
-  {
-    id: 3,
-    name: 'Alice Johnson',
-    role: 'Design Lead',
-    description: 'Alice specializes in user experience and interface design.',
-    imageUrl: Avatar,
-  },
-];
+interface TeamData {
+  data: TeamMember[]
+}
+
+interface TeamMember {
+  id?: string;
+  name: string;
+  position: string;
+  biography: string;
+  photo:{
+    url: string;
+  } 
+}
+
 
 const AboutUs: React.FC = () => {
+
+  const { data: about, isLoading } = useGetAboutQuery<AboutSection | any | undefined>(undefined);
+  const { data: team, isLoading: loading } = useGetTeamQuery<TeamData | any | undefined>(undefined);
+
+
   return (
     <div className="min-h-screen bg-gray-100 lg:px-4 sm:px-6 lg:px-8 py-24 overflow-x-hidden">
       <motion.section 
@@ -105,22 +106,13 @@ const AboutUs: React.FC = () => {
               Who We Are
             </motion.h2>
             <motion.p 
-              className="text-lg text-gray-700 mb-4"
+              className="text-lg text-gray-700 mb-4 text-justify"
               initial={{ y: 20, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.8 }}
               viewport={{ once: true }}
             >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus inventore dolorem ratione illo quidem quia earum aliquam, at, facere veritatis veniam natus dolore rerum, quam totam amet quisquam nemo possimus numquam quas fugiat minus animi officiis tempore. Fugit libero repudiandae numquam quae non assumenda unde eum dolor? Rerum, quos accusamus.
-            </motion.p>
-            <motion.p 
-              className="text-lg text-gray-700"
-              initial={{ y: 20, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 1 }}
-              viewport={{ once: true }}
-            >
-              Our goal is to empower businesses and individuals by providing cutting-edge services and products that make a real difference. We believe in building long-term relationships with our clients and helping them achieve their goals.
+              {about?.data?.vision}
             </motion.p>
           </motion.div>
         </div>
@@ -151,22 +143,13 @@ const AboutUs: React.FC = () => {
               Our Mission
             </motion.h2>
             <motion.p 
-              className="text-lg text-gray-700 mb-4"
+              className="text-lg text-gray-700 mb-4 text-justify"
               initial={{ y: 20, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.6 }}
               viewport={{ once: true }}
             >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus inventore dolorem ratione illo quidem quia earum aliquam, at, facere veritatis veniam natus dolore rerum, quam totam amet quisquam nemo possimus numquam quas fugiat minus animi officiis tempore. Fugit libero repudiandae numquam quae non assumenda unde eum dolor? Rerum, quos accusamus.
-            </motion.p>
-            <motion.p 
-              className="text-lg text-gray-700"
-              initial={{ y: 20, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.8 }}
-              viewport={{ once: true }}
-            >
-              Our goal is to empower businesses and individuals by providing cutting-edge services and products that make a real difference. We believe in building long-term relationships with our clients and helping them achieve their goals.
+              {about?.data?.mission}
             </motion.p>
           </motion.div>
           <motion.div 
@@ -204,7 +187,7 @@ const AboutUs: React.FC = () => {
           Meet Our Team
         </motion.h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {teamMembers.map((member, index) => (
+          {team?.data?.map((member: any, index: number) => (
             <motion.div 
               key={index}
               initial={{ opacity: 0, y: 20 }}
@@ -215,7 +198,7 @@ const AboutUs: React.FC = () => {
               className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
             >
               <motion.img
-                src={member.imageUrl}
+                src={member?.photo?.url}
                 alt={member.name}
                 className="w-full h-48 object-cover"
                 whileHover={{ scale: 1.05 }}
@@ -229,8 +212,8 @@ const AboutUs: React.FC = () => {
                 viewport={{ once: true }}
               >
                 <h2 className="text-xl font-semibold text-gray-900 mb-2">{member.name}</h2>
-                <p className="text-sm text-gray-500 mb-4">{member.role}</p>
-                <p className="text-base text-gray-700">{member.description}</p>
+                <p className="text-sm text-gray-500 mb-4">{member?.position}</p>
+                <p className="text-base text-gray-700">{member?.biography}</p>
               </motion.div>
             </motion.div>
           ))}
