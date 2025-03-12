@@ -81,7 +81,7 @@ const Giving: React.FC = () => {
           viewport={{ once: true }}
         >
           <p className="text-xl font-light text-gray-600 leading-relaxed max-w-2xl mx-auto">
-            "Each gift sows seeds of transformation, cultivating hope in our shared spiritual journey."
+            Each gift sows seeds of transformation, cultivating hope in our shared spiritual journey.
           </p>
         </motion.div>
 
