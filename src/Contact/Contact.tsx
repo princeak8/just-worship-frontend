@@ -162,8 +162,8 @@ const ContactUs: React.FC = () => {
                   transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
                   viewport={{ once: true }}
                 >
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">{item.title}</h3>
-                  <p className="text-lg text-gray-700">{item.content}</p>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">{item?.title}</h3>
+                  <p className="text-lg text-gray-700">{item?.content}</p>
                 </motion.div>
               ))}
             </div>

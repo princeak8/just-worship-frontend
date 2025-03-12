@@ -2,7 +2,8 @@ import type React from 'react';
 import { motion } from "motion/react"
 import BG from '@/public/gallery/gallery4.jpeg'
 import { useGetEventQuery } from '@/app/api';
-import { Users } from 'lucide-react';
+import { Calendar, Scroll, ShoppingCart, Users } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 interface GetEvent {
   data: Event[]
@@ -68,17 +69,27 @@ const Events: React.FC = () => {
             className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
           >
             <img
-              src={event.coverPhoto?.url}
-              alt={event.title}
+              src={event?.coverPhoto?.url}
+              alt={event?.title}
               className="w-full h-48 object-cover"
             />
             <div className="p-6">
               <div className='flex items-center justify-between mb-2'>
-                <p className="text-sm text-gray-500">{event.date}</p>
-                <p className="text-sm text-white flex items-center gap-2 bg-purple-500 p-1 px-2 rounded-md"><Users size={15} className='' />{event.bookings.length}</p>
+                <p className="text-sm text-gray-500 flex items-center gap-2"><Calendar size={15}/>{event?.date}</p>
+                <p className="text-sm text-white flex items-center gap-2 bg-purple-500 p-1 px-2 rounded-md"><Users size={15} className='' />{event?.bookings?.length}</p>
               </div>
-              <p className="text-base text-gray-700 text-justify">{event.content}</p>
+              <p className="text-base text-gray-700 text-justify">{event?.content}</p>
             </div>
+              <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full flex items-center justify-center"
+                >
+                  <Button className="w-full gap-2 m-6 ">
+                    <Scroll className="h-4 w-4" />
+                    Book Event
+                  </Button>
+                </motion.div>
           </motion.div>
         ))}
       </div>
