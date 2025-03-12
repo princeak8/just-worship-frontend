@@ -104,7 +104,7 @@ const Store = () => {
               <CardContent className="p-6">
                 <div className="flex justify-between items-start mb-2">
                   <h2 className="text-xl font-semibold text-gray-900">{product?.name}</h2>
-                  <span className="text-lg font-bold text-blue-600">${product?.price}</span>
+                  <span className="text-lg font-bold text-blue-600">${Number(product?.price).toLocaleString()}</span>
                 </div>
                 <p className="text-sm text-gray-600 mb-2">{product?.category}</p>
                 <p className="text-base text-gray-700">{product?.description}</p>
