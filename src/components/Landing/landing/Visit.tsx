@@ -11,8 +11,24 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+import { useGetAboutQuery } from '@/app/api';
+import {useNavigate} from 'react-router-dom';
+
+interface AboutSection {
+    id: string;
+    vision: string;
+    visionPhoto:{
+    url: string;
+    }
+    mission?: string;
+    missionPhoto:{
+        url: string;
+        }
+  }
 
 export default function Visit() {
+    const navigate = useNavigate()
+    const { data: about, isLoading } = useGetAboutQuery<AboutSection | any | undefined>(undefined);
     const Cards = [
         {
             image: card1,
@@ -40,6 +56,10 @@ export default function Visit() {
             alt: 'image 5'
         },
     ];
+
+    const routeToAboutPage = () =>{
+        return navigate('/about')
+    }
 
     return (
         <div className="w-full p-10 overflow-x-hidden bg-gradient-to-br from-purple-50 to-blue-50">
@@ -102,15 +122,13 @@ export default function Visit() {
                             viewport={{ once: true }}
                         >
                             <p>
-                                Just Worship International is a Christian worship outreach team dedicated to spreading the gospel through music and worship. Lorem ipsum dolor sit amet consectetur. Gravida sit dignissim pellentesque ut lectus. Eu orci arcu leo commodo tincidunt id. Amet vestibulum morbi quis consequat cras ut nulla.
-                            </p>
-                            <p>
-                                Nisl dolor sit amet eget tristique adipiscing tellus tristique posuere. Lorem ipsum dolor sit amet consectetur. Gravida sit dignissim pellentesque ut lectus. Eu orci arcu leo commodo tincidunt id. consequat cras ut nulla. dcuj c Just Worship Watch Later Share Read More YouTube
+                            {about?.data?.vision}
                             </p>
                             <motion.button
                                 className='border-2 border-black bg-transparent rounded-full p-1 px-4 hover:bg-black hover:text-white transition-all'
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
+                                onClick={routeToAboutPage}
                             >
                                 Read More
                             </motion.button>

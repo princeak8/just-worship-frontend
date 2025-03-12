@@ -1,30 +1,38 @@
 import Background from '../../../public/galleryBG.jpeg';
-import gallery1 from '../../../public/gallery/gallery1.jpeg';
-import gallery2 from '../../../public/gallery/gallery2.jpeg';
-import gallery3 from '../../../public/gallery/gallery3.jpeg';
-import gallery4 from '../../../public/gallery/gallery4.jpeg';
-import gallery5 from '../../../public/gallery/gallery5.jpeg';
-import gallery6 from '../../../public/gallery/gallery6.jpeg';
-import gallery7 from '../../../public/gallery/gallery7.jpeg';
-import gallery8 from '../../../public/gallery/gallery8.jpeg';
-import gallery9 from '../../../public/gallery/gallery9.jpeg';
-import gallery10 from '../../../public/gallery/gallery10.jpeg';
 import { Search } from 'lucide-react';
 import { motion } from 'motion/react';
+import { useGetGalleryQuery } from '@/app/api';
+import { useEffect, useState } from 'react';
+
+interface StockData {
+    data: Stock[]
+  }
+  
+  interface Stock {
+    id?: string;
+    title: string;
+    event: string;
+    photo:{
+      url: string;
+    } 
+  }
 
 export default function Gallery() {
-    const GalleryImages = [
-        { image: gallery1 },
-        { image: gallery2 },
-        { image: gallery3 },
-        { image: gallery4 },
-        { image: gallery5 },
-        { image: gallery6 },
-        { image: gallery7 },
-        { image: gallery8 },
-        { image: gallery9 },
-        { image: gallery10 },
-    ];
+const { data, isLoading } = useGetGalleryQuery<StockData[] | any | undefined>(undefined);
+const [Gallery, setGallery] = useState([])
+const [searchparams, setSearchParams] = useState('')
+
+const search = () => {
+    if (!data?.data) return [];
+    return data.data.filter((item: Stock) =>
+        item.title.toLowerCase().includes(searchparams.toLowerCase().trim())
+    );
+};
+
+useEffect(() => {
+    setGallery(search());
+}, [data?.data, searchparams]);
+
 
     const customWidths = ['450px', '450px', '450px', '335px', '335px', '335px', '335px'];
 
@@ -41,15 +49,13 @@ export default function Gallery() {
                     <div className="lg:leading-10">
                         <h2 className="text-xl lg:text-5xl font-bold lg:font-normal uppercase bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Gallery</h2>
                         <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Laborum at cum veritatis omnis modi aperiam
-                            libero voluptatum sequi expedita facilis.
+                        A Tapestry of Worship, Woven with Faith, Fellowship, and Divine Purpose
                         </p>
                     </div>
                     <div className='flex flex-wrap lg:flex-nowrap items-center gap-4 py-10'>
                         <div className='border border-white rounded-full flex items-center p-1 px-4 w-full lg:w-auto'>
                             <Search />
-                            <input type='text' placeholder='Search...' className='p-2 py-1 bg-transparent focus:outline-none w-full' />
+                            <input type='text' value={searchparams} onChange={(e) => setSearchParams(e.target.value)} placeholder='Search...' className='p-2 py-1 bg-transparent focus:outline-none w-full' />
                         </div>
                         <div className='border border-white rounded-full flex items-center p-1 px-4 w-full lg:w-auto'>
                             <select className='p-2 bg-transparent focus:outline-none w-full'>
@@ -76,7 +82,7 @@ export default function Gallery() {
                     </div>
 
                     <section className="grid md:grid-cols-2 lg:flex !w-full flex-wrap gap-4 ">
-                        {GalleryImages.map((image, index) => (
+                        {Gallery?.map((image: any, index: number) => (
                             <motion.div key={index}
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
@@ -84,7 +90,7 @@ export default function Gallery() {
                                 viewport={{ once: true }}
                             >
                                 <img
-                                    src={image.image}
+                                    src={image.photo.url}
                                     alt={`Gallery ${index + 1}`}
                                     style={{
                                         width: customWidths[index % customWidths.length],
