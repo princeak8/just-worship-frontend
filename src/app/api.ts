@@ -157,6 +157,14 @@ const api = apiClient.injectEndpoints({
             }),
         }),
 
+        updateContact:builder.mutation({
+            query: (data: any) => ({
+                url: `${VITE_BASE_URL}/${apiRoutes.contact}`,
+                method: "POST",
+                body: data,
+            }),
+        }),
+
 
         getUser:builder.query({
             query: (url: any) =>({
@@ -189,5 +197,6 @@ export const {
     useUpdateEventMutation,
     useDeleteEventMutation,
     useGetContactQuery,
+    useUpdateContactMutation,
     useGetUserQuery,
 } = api

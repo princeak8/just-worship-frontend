@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Edit } from 'lucide-react';
+import { Edit, Loader2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useGetContactQuery } from '@/app/api';
 
@@ -12,24 +12,18 @@ interface ContactData {
   phoneNumber: string | null;
 }
 
-const dummyContactData: ContactData = {
-  id: '1',
-  address: '123 Tech Street, Innovation City, IC 45678',
-  email: 'info@techcompany.com',
-  phoneNumber: '+1 (123) 456-7890'
-};
 
 export default function ContactCMS() {
   const { data, isLoading } = useGetContactQuery<ContactData | any | undefined>(undefined);
-  const [contactData, setContactData] = useState<ContactData>(dummyContactData);
+  const [contactData, setContactData] = useState<ContactData | any>({});
 
   useEffect(() => {
     
-      setContactData(data || dummyContactData || []);
+      setContactData(data?.data || []);
     
   }, [data]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div className='w-full h-screen flex items-center justify-center'><Loader2 size={50} className='text-purple-500 animate-spin' /></div>;
 
   return (
     <div className="min-h-screen p-8 bg-gray-50">

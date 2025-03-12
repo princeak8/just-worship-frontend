@@ -1,4 +1,5 @@
-import { useAddHeroDetailsMutation, useGetContactQuery } from '@/app/api'
+import { useAddHeroDetailsMutation, useGetContactQuery, useUpdateContactMutation } from '@/app/api'
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Navigate, useParams} from 'react-router-dom';
 
@@ -10,22 +11,31 @@ interface FormDataDetail {
 
 const useContact = () => {
     const {id} = useParams()
-  const {getContact} = useGetContactQuery<any>(id, {skip: !id})
-    const [addHero, isLoading] = useAddHeroDetailsMutation()
+  const {data: contact} = useGetContactQuery<any | undefined>(undefined)
+    const [updateContact, isLoading] = useUpdateContactMutation()
 
     // console.log("id: ", getAboutById)
 
     const {
         register: addContactDetail, 
         handleSubmit,
+        setValue,
         formState: {errors},
     } = useForm<FormDataDetail>({
         defaultValues: {
-            address: getContact?.address || '',
-            email: getContact?.email || '',
-            phoneNumber: getContact?.phoneNumber || '',
+            address: '',
+            email: '',
+            phoneNumber: '',
         },
     });
+
+    useEffect(()=> {
+        if(contact?.data){
+            setValue('address', contact?.data.address )
+            setValue('email', contact?.data.email )
+            setValue('phoneNumber', contact?.data.phoneNumber )
+        }
+    },[contact?.data])
 
     const rules = {
         title: {
@@ -41,13 +51,14 @@ const useContact = () => {
 
         const formdata = new FormData()
 
-        formdata.append('title', address)
-        formdata.append('message', email)
-        formdata.append('buttonText', phoneNumber)
+        formdata.append('address', address)
+        formdata.append('email', email)
+        formdata.append('phoneNumber', phoneNumber)
 
         try{
-            await addHero(formdata).unwrap()
-            return <Navigate to={'/dashboard/cms/contact'} />
+            await updateContact(formdata).unwrap()
+            return window.location.href='/dashboard/cms/contact'
+            // return <Navigate to={'/dashboard/cms/contact'} />
         }catch(err){
             console.log(err)
         }
