@@ -1,65 +1,71 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Trash2, Edit, Plus, Search } from 'lucide-react';
+import { Trash2, Edit, Plus, Search, Loader2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useGetAboutQuery } from '@/app/api';
+import {  useDeleteStockMutation, useGetStockQuery } from '@/app/api';
 
-interface ItemData {
-  data: Item[]
+interface StockData {
+  data: Stock[]
 }
 
-interface Item {
+interface Stock {
   id?: string;
   name: string;
   price: number;
   description: string;
-  image: string;
+  coverPhoto:{
+    url: string;
+  } 
 }
 
-export const defaultItems = [
-  {
-    id: '1',
-    name: 'Wireless Headphones',
-    price: 199.99,
-    description: 'High-quality wireless headphones with noise cancellation.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
-  },
-  {
-    id: '2',
-    name: 'Smartwatch',
-    price: 149.99,
-    description: 'Modern smartwatch with multiple health tracking features.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
-  },
-  {
-    id: '3',
-    name: 'Gaming Laptop',
-    price: 1299.99,
-    description: 'Powerful gaming laptop with high performance graphics.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
-  },
-];
+interface Select{
+  name: string,
+  id: string | undefined
+}
 
 export default function StoreCMS() {
-  const { data, isLoading } = useGetAboutQuery<ItemData[] | any | undefined>(undefined);
-  const [items, setItems] = useState<Item[]>([]);
-  const [currentItem, setCurrentItem] = useState<Partial<Item>>({});
+  const { data, isLoading } = useGetStockQuery<StockData[] | any | undefined>(undefined);
+  const [deleteItem] = useDeleteStockMutation()
+  const [items, setItems] = useState<Stock[]>([]);
+  const [currentItem, setCurrentItem] = useState<Partial<Stock>>({});
+  const [warning, setWarning] = useState(false)
+    const [selectedItem, setSelectedItem] = useState<Select>({
+      name: '',
+      id: ''
+    })
 
   useEffect(() => {
-    setItems(data?.data || defaultItems || []);
+    setItems(data?.data || []);
   }, [data]);
 
-  const handleDeleteItem = (id?: string) => {
+  const handleDeleteMember = async (id?: string) => {
     if (!id) return;
-    setItems(prev => prev.filter(item => item.id !== id));
-    if (currentItem.id === id) setCurrentItem({});
+    try{
+      await deleteItem(id).unwrap()
+      setItems(prev => prev.filter(member => member.id !== id));
+      setWarning(false); 
+      setSelectedItem({name: '', id: ''});
+    }catch(err){
+      console.log(err)
+    }
   };
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div className='w-full h-screen flex items-center justify-center'><Loader2 size={50} className='text-purple-500 animate-spin' /></div>;
 
   return (
     <div className="min-h-screen p-8 bg-gray-50">
+       {warning && (
+        <section className=' fixed w-full h-screen inset-0 bg-purple-500 bg-opacity-20 flex items-center justify-center'>
+          <div className='w-[25em] bg-white rounded-md border border-yellow-500 overflow-hidden p-4 text-center space-y-4'>
+            <p>Are you sure you want to remove &apos;<span className='italic font-bold text-red-700'>{selectedItem?.name || "member"}</span>&apos; from stock?</p>
+            <div className='flex items-center justify-between'> 
+              <Button size={'sm'} onClick={() =>{setWarning(false); setCurrentItem({name: '', id: ''})}} variant={'default'} >Cancel</Button>
+              <Button size={'sm'} onClick={() => handleDeleteMember(selectedItem.id)} variant={'destructive'} >Delete</Button>
+            </div>
+          </div>
+        </section>
+      )}
       <div className="w-full mx-auto">
         <div className="flex items-center justify-between">
           <h1 className="text-3xl font-bold mb-8">Store Page Manager</h1>
@@ -80,25 +86,25 @@ export default function StoreCMS() {
                   items.map((item) => (
                     <Card key={item.id}>
                       <img
-                        src={item.image}
+                        src={item.coverPhoto.url}
                         alt={item.name}
                         className="w-full h-48 object-cover"
                       />
                       <CardHeader>
                         <CardTitle className="text-xl">{item.name}</CardTitle>
                       </CardHeader>
-                      <CardContent className="space-y-2">
-                        <p className="text-sm text-gray-500">${item.price.toFixed(2)}</p>
-                        <p className="text-base text-gray-700">{item.description}</p>
+                      <CardContent className="">
+                        <p className="text-sm text-gray-500">₦{Number(item.price).toLocaleString()}</p>
+                        <p className="text-base text-gray-700 line-clamp-2">{item.description}</p>
                       </CardContent>
                       <div className="flex justify-between p-4">
-                        <Button asChild size="sm" variant="outline">
+                        <Button asChild size="sm" variant="default">
                         <Link to={`/dashboard/cms/store/${item.id}`}>
                             <Edit className="w-4 h-4 mr-2" />
                             Edit
                           </Link>
                         </Button>
-                        <Button size="sm" variant="destructive">
+                        <Button size="sm" onClick={()=>{setWarning(true); setSelectedItem({name: item.name, id: item.id})}} variant="destructive">
                           <Trash2 className="w-4 h-4 mr-2" />
                           Delete
                         </Button>
@@ -108,7 +114,7 @@ export default function StoreCMS() {
                 ) : (
                   <div className="text-center py-8">
                     <Search className="mx-auto mb-4" />
-                    <p>No events found</p>
+                    <p>No stock found</p>
                   </div>
                 )}
               </div>

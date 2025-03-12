@@ -4,6 +4,7 @@ export const apiRoutes = {
   about: 'about',
   team: 'team',
   teamById: 'team/member',
+  store: 'store',
   contact: 'contact',
   event: 'event',
   user: 'user'

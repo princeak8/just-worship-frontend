@@ -11,11 +11,17 @@ import { Button } from '@/components/ui/button';
 
 export default function AddItem() {
   const { id } = useParams();
-  const { formInstance, isLoading, onSubmit } = useStore();
+  const { formInstance, isLoading, onSubmit, fetchedImage } = useStore();
   const { handleSubmit, addItemDetail } = formInstance;
 
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  useEffect(() => {
+    if(fetchedImage){
+      setPreviewImage(fetchedImage)
+    }
+  },[fetchedImage])
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -82,10 +88,7 @@ export default function AddItem() {
           </div>
           <div className="w-4/12">
             <Card>
-              <CardHeader>
-                <CardTitle>Item Image</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-4 p-8">
                 <div>
                   <Label>Image <span className="text-red-500">*</span></Label>
                   <img

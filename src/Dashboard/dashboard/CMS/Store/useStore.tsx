@@ -1,36 +1,49 @@
-import { useAddHeroDetailsMutation } from '@/app/api'
+import { useAddHeroDetailsMutation, useAddStockMutation, useGetStockByIdQuery, useUpdateStockMutation } from '@/app/api'
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { Navigate} from 'react-router-dom';
+import { Navigate, useParams} from 'react-router-dom';
 
 interface FormDataDetail {
     name: string;
     description: string;
     price: string;
-    image: string;
+    image: FileList;
 }
 
 const useStore = () => {
-    const [addHero, isLoading] = useAddHeroDetailsMutation()
+    const {id} = useParams()
+    const {data: stock} = useGetStockByIdQuery<any>(id, {skip: !id})
+    const [addItem, isLoading] = useAddStockMutation()
+    const [updateStock] = useUpdateStockMutation()
 
     const {
         register: addItemDetail, 
         handleSubmit,
+        setValue,
         formState: {errors},
     } = useForm<FormDataDetail>({
         defaultValues: {
             name: '',
             description: '',
             price: '',
-            image: ''
         },
     });
 
+    useEffect(()=>{
+        if(stock?.data){
+        setValue('name', stock?.data?.name );
+        setValue('price', stock?.data?.price)
+        setValue('description', stock?.data?.description)
+        setValue('image', stock?.data?.coverPhoto?.url || '' as unknown as FileList)
+        }
+    },[stock?.data, setValue])
+
     const rules = {
         name: {
-            required: 'Page title is very much required',
+            required: 'item name is very much required',
         },
         image: {
-            required: 'Hero Image is required',
+            required: 'Image is required',
         }
     };
 
@@ -39,17 +52,23 @@ const useStore = () => {
 
         const formdata = new FormData()
 
-        formdata.append('title', name)
-        formdata.append('message', description)
-        formdata.append('buttonText', price)
+        formdata.append('name', name)
+        formdata.append('price', price)
+        formdata.append('description', description)
         
-        if (image && image.length > 0) {
-            formdata.append('photo', image[0]);
+        if (image && image.length > 0 && image[0] instanceof File && image[0] !== stock?.data?.coverPhoto?.url) {
+            formdata.append('coverPhoto', image[0]);
         }
 
         try{
-            await addHero(formdata).unwrap()
-            return <Navigate to={'/dashboard/cms/store'} />
+            if(id){
+                await updateStock({formdata, id}).unwrap()
+            }else{
+
+                await addItem(formdata).unwrap()
+            }
+            return window.location.href= '/dashboard/cms/store'
+            // return <Navigate to={'/dashboard/cms/store'} />
         }catch(err){
             console.log(err)
         }
@@ -60,6 +79,7 @@ const useStore = () => {
     isLoading,
     formInstance: {addItemDetail, handleSubmit, errors, rules},
     onSubmit,
+    fetchedImage: stock?.data?.coverPhoto?.url,
   }
 }
 

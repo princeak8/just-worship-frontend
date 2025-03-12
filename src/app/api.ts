@@ -81,6 +81,41 @@ const api = apiClient.injectEndpoints({
             }),
         }),
 
+        getStock:builder.query({
+            query: (url: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.store}`
+            }),
+        }),
+
+        getStockById: builder.query({
+            query: (data: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.store}/${data}`
+            }),
+        }),
+
+        addStock:builder.mutation({
+            query: (data: any) => ({
+                url: `${VITE_BASE_URL}/${apiRoutes.store}`,
+                method: 'POST',
+                body: data,
+            }),
+        }),
+
+        updateStock:builder.mutation({
+            query: ({formdata, id}:{formdata: any, id: any}) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.store}/${id}`,
+                method: "POST",
+                body: formdata,
+            }),
+        }),
+
+        deleteStock:builder.mutation({
+            query: (id: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.store}/${id}`,
+                method: "DELETE",
+            }),
+        }),
+
         getContact:builder.query({
             query: (url: any) =>({
                 url: `${VITE_BASE_URL}/${apiRoutes.contact}`
@@ -113,6 +148,11 @@ export const {
     useAddTeamMutation,
     useUpdateMemberMutation,
     useDeleteMemberMutation,
+    useGetStockQuery,
+    useGetStockByIdQuery,
+    useAddStockMutation,
+    useUpdateStockMutation,
+    useDeleteStockMutation,
     useGetContactQuery,
     useGetEventQuery,
     useGetUserQuery,
