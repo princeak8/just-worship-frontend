@@ -1,26 +1,35 @@
 import type React from 'react';
 import { motion } from "framer-motion";
 import BG from '@/public/gallery/gallery4.jpeg';
-import MapImage from '@/public/mapsample.jpg'; 
+import MapImage from '@/public/mapsample.jpg';
+import { useGetContactQuery } from '@/app/api';
+
+interface ContactData {
+  id: string | null;
+  address: string | null;
+  email: string | null;
+  phoneNumber: string | null;
+}
 
 const ContactUs: React.FC = () => {
+  const { data, isLoading } = useGetContactQuery<ContactData | any | undefined>(undefined);
   return (
     <div className="min-h-screen bg-gray-100 lg:px-4 sm:px-6 lg:px-8 py-24">
-      <motion.section 
-        className='h-60 flex items-center mb-12 overflow-hidden' 
-        style={{backgroundImage: `url(${BG})`, backgroundSize: 'cover'}}
+      <motion.section
+        className='h-60 flex items-center mb-12 overflow-hidden'
+        style={{ backgroundImage: `url(${BG})`, backgroundSize: 'cover' }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
-        <motion.div 
+        <motion.div
           className='slant w-7/12 bg-black bg-opacity-50 h-full flex items-center lg:px-40 text-white'
           initial={{ x: -100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.5 }}
         >
           <header className="text-center p-2">
-            <motion.h1 
+            <motion.h1
               className="text-lg lg:text-4xl font-bold mb-3"
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -32,7 +41,7 @@ const ContactUs: React.FC = () => {
         </motion.div>
       </motion.section>
 
-      <motion.section 
+      <motion.section
         className="container pb-12 px-4 sm:px-6 lg:px-8"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -40,14 +49,14 @@ const ContactUs: React.FC = () => {
         viewport={{ once: true }}
       >
         <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-8">
-          <motion.div 
+          <motion.div
             className="w-full lg:w-1/2 bg-white rounded-lg shadow-lg p-8"
             initial={{ x: -50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <motion.h2 
+            <motion.h2
               className="text-3xl font-bold mb-6"
               initial={{ y: -20, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
@@ -62,7 +71,7 @@ const ContactUs: React.FC = () => {
               transition={{ duration: 0.5, delay: 0.6 }}
               viewport={{ once: true }}
             >
-              <motion.div 
+              <motion.div
                 className="mb-6"
                 initial={{ x: -20, opacity: 0 }}
                 whileInView={{ x: 0, opacity: 1 }}
@@ -79,7 +88,7 @@ const ContactUs: React.FC = () => {
                   required
                 />
               </motion.div>
-              <motion.div 
+              <motion.div
                 className="mb-6"
                 initial={{ x: -20, opacity: 0 }}
                 whileInView={{ x: 0, opacity: 1 }}
@@ -96,7 +105,7 @@ const ContactUs: React.FC = () => {
                   required
                 />
               </motion.div>
-              <motion.div 
+              <motion.div
                 className="mb-6"
                 initial={{ x: -20, opacity: 0 }}
                 whileInView={{ x: 0, opacity: 1 }}
@@ -124,14 +133,14 @@ const ContactUs: React.FC = () => {
             </motion.form>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="w-full lg:w-1/2 bg-white rounded-lg shadow-lg p-8"
             initial={{ x: 50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <motion.h2 
+            <motion.h2
               className="text-3xl font-bold mb-6"
               initial={{ y: -20, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
@@ -142,16 +151,15 @@ const ContactUs: React.FC = () => {
             </motion.h2>
             <div className="space-y-6">
               {[
-                { title: "Address", content: "123 Tech Street, Innovation City, IC 45678" },
-                { title: "Phone", content: "+1 (123) 456-7890" },
-                { title: "Email", content: "info@techcompany.com" },
-                { title: "Working Hours", content: "Mon - Fri: 9:00 AM - 6:00 PM" }
+                { title: "Address", content: data?.data?.address },
+                { title: "Phone", content: data?.data?.phoneNumber },
+                { title: "Email", content: data?.data?.email },
               ].map((item, index) => (
                 <motion.div
-                  key={index}
+                  key={item.title}
                   initial={{ x: 50, opacity: 0 }}
                   whileInView={{ x: 0, opacity: 1 }}
-                  transition={{ duration: 0.5, delay: 0.6 + (index * 0.1) }}
+                  transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
                   viewport={{ once: true }}
                 >
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">{item.title}</h3>
@@ -159,11 +167,12 @@ const ContactUs: React.FC = () => {
                 </motion.div>
               ))}
             </div>
+
           </motion.div>
         </div>
       </motion.section>
 
-      <motion.section 
+      <motion.section
         className="px-4 sm:px-6 lg:px-8"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -171,7 +180,7 @@ const ContactUs: React.FC = () => {
         viewport={{ once: true }}
       >
         <div className="max-w-6xl mx-auto">
-          <motion.h2 
+          <motion.h2
             className="text-3xl font-bold text-center mb-8"
             initial={{ y: -20, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
@@ -180,7 +189,7 @@ const ContactUs: React.FC = () => {
           >
             Our Location
           </motion.h2>
-          <motion.div 
+          <motion.div
             className="bg-white rounded-lg shadow-lg overflow-hidden"
             initial={{ scale: 0.95, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
