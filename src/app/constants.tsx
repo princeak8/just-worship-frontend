@@ -7,5 +7,9 @@ export const apiRoutes = {
   store: 'store',
   contact: 'contact',
   event: 'events',
+  gallery: 'gallery',
+  addGallery: 'gallery/add_photo',
+  updateGallery: 'gallery/update_photo',
+  deleteGallery: 'gallery/delete_photo',
   user: 'user'
 }

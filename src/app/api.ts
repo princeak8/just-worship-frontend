@@ -165,6 +165,42 @@ const api = apiClient.injectEndpoints({
             }),
         }),
 
+        getGallery:builder.query({
+            query: (url: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.gallery}`
+            }),
+        }),
+
+        getGallerytById: builder.query({
+            query: (data: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.gallery}/${data}`
+            }),
+        }),
+
+        addGalleryImage:builder.mutation({
+            query: (data: any) => ({
+                url: `${VITE_BASE_URL}/${apiRoutes.addGallery}`,
+                method: 'POST',
+                body: data,
+            }),
+        }),
+
+        updateGalleryImage:builder.mutation({
+            query: ({formdata, id}:{formdata: any, id: any}) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.updateGallery}/${id}`,
+                method: "POST",
+                body: formdata,
+            }),
+        }),
+
+        deleteGalleryImage:builder.mutation({
+            query: (id: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.deleteGallery}/${id}`,
+                method: "DELETE",
+            }),
+        }),
+        
+
 
         getUser:builder.query({
             query: (url: any) =>({
@@ -198,5 +234,10 @@ export const {
     useDeleteEventMutation,
     useGetContactQuery,
     useUpdateContactMutation,
+    useGetGalleryQuery,
+    useGetGallerytByIdQuery,
+    useAddGalleryImageMutation,
+    useUpdateGalleryImageMutation,
+    useDeleteGalleryImageMutation,
     useGetUserQuery,
 } = api

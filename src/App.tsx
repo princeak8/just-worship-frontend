@@ -30,6 +30,8 @@ import EditContact from "./Dashboard/dashboard/CMS/Contact/EditContact";
 import EventCMS from "./Dashboard/dashboard/CMS/Event/EventCMS";
 import UserProfileSettings from "./Dashboard/dashboard/Setting/Settings";
 import CreateEvent from "./Dashboard/dashboard/CMS/Event/CreateEvent";
+import GalleryCMS from "./Dashboard/dashboard/CMS/Gallery/GalleryCMS";
+import AddImage from "./Dashboard/dashboard/CMS/Gallery/AddImage";
 
 const isUserAuthenticated = () => {
   return Cookies.get("token") !== undefined;
@@ -128,6 +130,9 @@ const App = () => {
           <Route path="cms/events" element={<EventCMS />} />
           <Route path="cms/events/add" element={<CreateEvent />} />
           <Route path="cms/events/:id" element={<CreateEvent />} />
+          <Route path="cms/gallery" element={<GalleryCMS />} />
+          <Route path="cms/gallery/add" element={<AddImage />} />
+          <Route path="cms/gallery/:id" element={<AddImage />} />
 
           <Route path="setting" element={<UserProfileSettings />} />
         </Route>

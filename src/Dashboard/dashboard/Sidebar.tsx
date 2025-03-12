@@ -51,7 +51,7 @@ export const paths = [
         },
         {
           name: 'Gallery',
-          path: '#',
+          path: '/dashboard/cms/gallery',
           icon: <Dot size={30}/>
         },
       ]
