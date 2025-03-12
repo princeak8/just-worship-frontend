@@ -154,6 +154,7 @@ const ContactUs: React.FC = () => {
                 { title: "Address", content: data?.data?.address },
                 { title: "Phone", content: data?.data?.phoneNumber },
                 { title: "Email", content: data?.data?.email },
+                { title: "Working Hours", content: "Mon - Fri: 9:00 AM - 6:00 PM" },
               ].map((item, index) => (
                 <motion.div
                   key={item.title}
