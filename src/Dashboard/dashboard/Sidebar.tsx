@@ -1,7 +1,8 @@
-import { BoxIcon, ChartBarIcon, ChevronDown, ChevronLeft, Dot, HomeIcon, SettingsIcon } from 'lucide-react'
+import { BoxIcon, ChartBarIcon, ChevronDown, ChevronLeft, Dot, HomeIcon, Power, SettingsIcon } from 'lucide-react'
 import Logo from '@/public/logo.png'
 import { Link, useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import Cookies from 'js-cookie'
 
 export const paths = [
   {
@@ -73,6 +74,11 @@ const Sidebar = () => {
     }
   },[])
 
+  const logout = () => {
+    Cookies.remove('token')
+    return window.location.replace('/login')
+  }
+
   return (
     <div>
       <div className="left-0 top-0 h-screen w-full bg-purple-500 text-white">
@@ -81,7 +87,8 @@ const Sidebar = () => {
 
             <img src={Logo} alt='Logo' className='w-20' />
           </div>
-          <nav className={`custom-scrollbar flex flex-col overflow-y-auto h-[88svh] `}>
+          <nav className={`custom-scrollbar flex flex-col overflow-y-auto h-[88svh] justify-between `}>
+            <div>
             {paths?.map((path: any, index: number) => (
               <section className={`grid `}>
               <Link to={path.path} key={index} className={`m-2 mx-2 p-4 px-2 hover:bg-purple-100 hover:text-purple-500 rounded-lg flex items-center gap-4 text-sm ${root.pathname === path.path && 'bg-[#FFD700] bg-opacity-50'}`}>
@@ -99,6 +106,12 @@ const Sidebar = () => {
                 }
               </section>
             ))}
+            </div>
+            <div className={`m-2 mx-2 p-4 px-2 items-center gap-4 text-sm border-t`}>
+              <p onClick={logout} className={`m-2 mx-2 p-4 px-2 hover:bg-purple-100 rounded-lg hover:text-purple-500 flex items-center gap-4 text-sm cursor-pointer`}>
+              <Power /> Logout
+              </p>
+              </div>
           </nav>
         </div>
       </div>

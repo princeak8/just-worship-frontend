@@ -73,7 +73,7 @@ const MetricCard: React.FC<Cards> = ({ title, value, percentage, trend }) => (
 
 const Home = () => {
   return (
-    <div className="min-h-screen bg-gray-100 w-full">
+    <div className="min-h-screen bg-gray-50 p-8">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         <MetricCard title="VIEWS" value="500" percentage={78} />
         <MetricCard title="ORDERS" value="3200" percentage={45} />
