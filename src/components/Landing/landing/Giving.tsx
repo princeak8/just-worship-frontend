@@ -125,7 +125,7 @@ export default function Giving() {
                             </motion.div>
 
                             <motion.button
-                                className='btn bg-black text-white w-full rounded-full p-3 font-bold my-4 transition-all flex items-center justify-center'
+                                className='btn bg-black text-white w-full rounded-full p-3 font-bold my-4 transition-all flex items-center justify-center !rounded-md'
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                             >
