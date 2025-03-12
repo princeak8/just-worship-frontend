@@ -81,9 +81,9 @@ const AboutUs: React.FC = () => {
             viewport={{ once: true }}
           >
             <motion.img
-              src={Avatar}
+              src={about?.data?.visionPhoto?.url}
               alt="About Us"
-              className="w-full h-auto rounded-lg shadow-lg"
+              className="w-full  h-96 rounded-lg shadow-lg"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
             />
@@ -160,9 +160,9 @@ const AboutUs: React.FC = () => {
             viewport={{ once: true }}
           >
             <motion.img
-              src={Avatar}
+              src={about?.data?.missionPhoto?.url}
               alt="About Us"
-              className="w-full h-auto rounded-lg shadow-lg"
+              className="w-full h-96 rounded-lg shadow-lg"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
             />
