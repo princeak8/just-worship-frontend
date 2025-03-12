@@ -5,6 +5,7 @@ import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import useLogin from './useLogin';
+import { Loader2 } from 'lucide-react';
 
 const Login: React.FC = () => {
   const controls = useAnimation();
@@ -69,13 +70,16 @@ const Login: React.FC = () => {
                   </div>
                   <Input id="password" type="password" {...register('password')} required />
                 </div>
+                  {isLoading ? <div className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600  flex items-center justify-center"><Loader2 size={15} className='animate-spin'  /></div> :(
                 <Button
                   type="submit"
                   variant="default"
                    className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
                 >
-                  {isLoading ? 'Logging in...' : 'Login'}
-                </Button>
+                    Login
+                  </Button>
+                  ) 
+                  }
                 <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
                   <span className="relative z-10 bg-background px-2 text-muted-foreground">
                     Or continue with
