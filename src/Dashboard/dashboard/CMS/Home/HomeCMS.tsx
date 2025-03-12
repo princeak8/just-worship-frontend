@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Trash2, Edit, Plus, Search } from 'lucide-react';
+import { Trash2, Edit, Plus, Search, Loader2 } from 'lucide-react';
 import { Link, Navigate } from 'react-router-dom';
 import { useGetHeroQuery } from '@/app/api';
 
@@ -61,6 +61,8 @@ export default function HomeCMS() {
   const resetForm = () => {
     setCurrentSlide({});
   };
+
+  if (isLoading) return <div className='w-full h-screen flex items-center justify-center'><Loader2 size={50} className='text-purple-500 animate-spin' /></div>;
 
   return (
     <div className="min-h-screen p-8 bg-gray-50">

@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Save } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import Placeholder from '@/public/photo1.png'
-import useHome from './useEvent';
+import useEvent from './useEvent';
 import { TextArea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { useGetHeroQuery } from '@/app/api';
@@ -20,14 +20,18 @@ interface Slide {
 }
 
 export default function CreateEvent() {
-  const { formInstance, isLoading, onSubmit } = useHome()
-  const { handleSubmit, addHeroDetail } = formInstance;
+  const {id} = useParams()
+  const { formInstance, isLoading, onSubmit, fetchedImage } = useEvent()
+  const { handleSubmit, addEventDetail } = formInstance;
 
-  const [isEditing, setIsEditing] = useState(false);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-
+useEffect(()=>{
+  if(fetchedImage){
+    setPreviewImage(fetchedImage)
+  }
+},[fetchedImage])
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -48,8 +52,8 @@ export default function CreateEvent() {
     <form onSubmit={handleSubmit(onSubmit)} className="min-h-screen p-8 bg-gray-50">
       <div className="max-w-6xl mx-auto">
         <div className='flex items-center justify-between'>
-          <h1 className="text-3xl font-bold mb-8">Home Page Slides Manager</h1>
-          <Button type='submit' className='flex items-center gap-2 bg-purple-500 hover:bg-purple-600 rounded-md p-2 px-4 text-white'><Save className="w-4 h-4" />{isEditing ? 'Update Slide' : 'Save Slide'}</Button>
+          <h1 className="text-3xl font-bold mb-8">Event Page Manager</h1>
+          <Button type='submit' className='flex items-center gap-2 bg-purple-500 hover:bg-purple-600 rounded-md p-2 px-4 text-white'><Save className="w-4 h-4" />{id ? 'Update Event' : 'Save Event'}</Button>
         </div>
 
         <div className="flex gap-8">
@@ -57,43 +61,35 @@ export default function CreateEvent() {
             <Card>
               <CardHeader>
                 <CardTitle>
-                  {isEditing ? 'Edit Slide' : 'Create New Slide'}
+                  {id ? 'Edit Event' : 'Create New Event'}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   <div>
-                    <Label>Slide Title <span className='text-red-500'>*</span></Label>
+                    <Label>Title <span className='text-red-500'>*</span></Label>
                     <Input
-                      id="title"
-                      {...addHeroDetail('title')}
+                      id="name"
+                      {...addEventDetail('name')}
                     />
                   </div>
 
                   <div>
-                    <Label>Slide Description</Label>
+                    <Label>Date <span className='text-red-500'>*</span></Label>
+                    <Input
+                    type='date'
+                      id="date"
+                      {...addEventDetail('date')}
+                    />
+                  </div>
+
+                  <div>
+                    <Label>Description</Label>
                     <TextArea
                       id="description"
                       rows={3}
-                      {...addHeroDetail('description')}
+                      {...addEventDetail('description')}
                     />
-                  </div>
-                  <div className='grid grid-cols-2 gap-4'>
-                    <div>
-                      <Label>Button Text</Label>
-                      <Input
-                        id="button_text"
-                        {...addHeroDetail('button_text')}
-                      />
-                    </div>
-
-                    <div>
-                      <Label>Button Link</Label>
-                      <Input
-                        id="buttonLink"
-                        {...addHeroDetail('button_link')}
-                      />
-                    </div>
                   </div>
 
                   {/* <div className="flex gap-2">
@@ -117,7 +113,7 @@ export default function CreateEvent() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <Label>Slide Image <span className='text-red-500'>*</span></Label>
+                  <Label>Image <span className='text-red-500'>*</span></Label>
                   <img
                     src={previewImage || Placeholder}
                     alt="Preview"
@@ -128,9 +124,9 @@ export default function CreateEvent() {
                     type="file"
                     accept="image/*"
                     className="mt-1"
-                    {...addHeroDetail('image', {
+                    {...addEventDetail('image', {
                       onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                        addHeroDetail('image').onChange(e);
+                        addEventDetail('image').onChange(e);
                         handleFileChange(e);
                       },
                     })}

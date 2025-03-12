@@ -41,7 +41,7 @@ export const paths = [
         },
         {
           name: 'Events',
-          path: '/dashboard/cms/event',
+          path: '/dashboard/cms/events',
           icon: <Dot size={30}/>
         },
         {

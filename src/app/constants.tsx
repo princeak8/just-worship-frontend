@@ -6,6 +6,6 @@ export const apiRoutes = {
   teamById: 'team/member',
   store: 'store',
   contact: 'contact',
-  event: 'event',
+  event: 'events',
   user: 'user'
 }

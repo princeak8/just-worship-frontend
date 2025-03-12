@@ -116,17 +116,47 @@ const api = apiClient.injectEndpoints({
             }),
         }),
 
+        getEvent:builder.query({
+            query: (url: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.event}`
+            }),
+        }),
+
+        getEventById: builder.query({
+            query: (data: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.event}/${data}`
+            }),
+        }),
+
+        addEvent:builder.mutation({
+            query: (data: any) => ({
+                url: `${VITE_BASE_URL}/${apiRoutes.event}`,
+                method: 'POST',
+                body: data,
+            }),
+        }),
+
+        updateEvent:builder.mutation({
+            query: ({formdata, id}:{formdata: any, id: any}) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.event}/${id}`,
+                method: "POST",
+                body: formdata,
+            }),
+        }),
+
+        deleteEvent:builder.mutation({
+            query: (id: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.event}/${id}`,
+                method: "DELETE",
+            }),
+        }),
+        
         getContact:builder.query({
             query: (url: any) =>({
                 url: `${VITE_BASE_URL}/${apiRoutes.contact}`
             }),
         }),
 
-        getEvent:builder.query({
-            query: (url: any) =>({
-                url: `${VITE_BASE_URL}/${apiRoutes.event}`
-            }),
-        }),
 
         getUser:builder.query({
             query: (url: any) =>({
@@ -153,7 +183,11 @@ export const {
     useAddStockMutation,
     useUpdateStockMutation,
     useDeleteStockMutation,
-    useGetContactQuery,
     useGetEventQuery,
+    useGetEventByIdQuery,
+    useAddEventMutation,
+    useUpdateEventMutation,
+    useDeleteEventMutation,
+    useGetContactQuery,
     useGetUserQuery,
 } = api

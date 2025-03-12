@@ -1,34 +1,44 @@
-import { useAddHeroDetailsMutation, useGetHeroByIdQuery } from '@/app/api'
+import { useAddEventMutation, useGetEventByIdQuery, useUpdateEventMutation } from '@/app/api'
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Navigate, useParams} from 'react-router-dom';
 
 interface FormDataDetail {
-    title: string;
+    name: string;
+    date: string;
     description: string;
-    button_text: string;
-    button_link: string;
     image: FileList;
 }
 
-const useHome = () => {
+const useEvent = () => {
     const {id} = useParams()
-  const {getHeroById} = useGetHeroByIdQuery<any>(id, {skip: !id})
-    const [addHero, isLoading] = useAddHeroDetailsMutation()
+  const {data: event} = useGetEventByIdQuery<any>(id, {skip: !id})
+    const [addEvent, isLoading] = useAddEventMutation()
+    const [updateEvent] = useUpdateEventMutation()
 
-    console.log("id: ", getHeroById)
+    // console.log("id: ", getHeroById)
 
     const {
-        register: addHeroDetail, 
+        register: addEventDetail, 
         handleSubmit,
+        setValue,
         formState: {errors},
     } = useForm<FormDataDetail>({
         defaultValues: {
-            title: '',
+            name: '',
+            date: '',
             description: '',
-            button_text: '',
-            button_link: '',
         },
     });
+
+    useEffect(() => {
+        if(event?.data){
+            setValue('name', event?.data?.name)
+            setValue('date', event?.data.date?.toLocaleString())
+            setValue('description', event?.data?.content)
+            setValue('image',  event?.data?.coverPhoto?.url || '' as unknown as FileList )
+        }
+    }, [event?.data, setValue])
 
     const rules = {
         title: {
@@ -40,22 +50,26 @@ const useHome = () => {
     };
 
     async function onSubmit(data: FormDataDetail){
-        const {title, description, button_text, button_link, image} = data;
+        const {name, description, date, image} = data;
 
         const formdata = new FormData()
 
-        formdata.append('title', title)
-        formdata.append('message', description)
-        formdata.append('buttonText', button_text)
-        formdata.append('button_link', button_link)
+        formdata.append('name', name)
+        formdata.append('eventDate', date)
+        formdata.append('content', description)
         
-        if (image && image.length > 0) {
-            formdata.append('photo', image[0]);
+        if (image && image.length > 0 && image[0] instanceof File && image[0] !== event?.data?.coverPhoto?.url) {
+            formdata.append('coverPhoto', image[0]);
         }
 
         try{
-            await addHero(formdata).unwrap()
-            return <Navigate to={'/dashboard/cms/home'} />
+            if(id){
+                await updateEvent({formdata, id}).unwrap()
+            }else{
+                await addEvent(formdata).unwrap()
+            }
+            return window.location.href='/dashboard/cms/events'
+            // return <Navigate to={'/dashboard/cms/events'} />
         }catch(err){
             console.log(err)
         }
@@ -64,9 +78,10 @@ const useHome = () => {
 
   return{
     isLoading,
-    formInstance: {addHeroDetail, handleSubmit, errors, rules},
+    formInstance: { addEventDetail, handleSubmit, errors, rules},
     onSubmit,
+    fetchedImage: event?.data?.coverPhoto?.url,
   }
 }
 
-export default useHome
+export default useEvent
