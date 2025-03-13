@@ -12,7 +12,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { useGetAboutQuery } from '@/app/api';
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 interface AboutSection {
     id: string;
@@ -130,7 +130,9 @@ export default function Visit() {
                                 whileTap={{ scale: 0.95 }}
                                 onClick={routeToAboutPage}
                             >
-                                Read More
+                                <a href='/about'>
+                                    Read More
+                                </a>
                             </motion.button>
                         </motion.div>
 

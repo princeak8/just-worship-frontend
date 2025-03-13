@@ -81,7 +81,7 @@ const AboutUs: React.FC = () => {
             viewport={{ once: true }}
           >
             <motion.img
-              src={about?.data?.visionPhoto?.url}
+              src={about?.data?.visionPhoto?.url || Avatar}
               alt="About Us"
               className="w-full  h-96 rounded-lg shadow-lg"
               whileHover={{ scale: 1.02 }}
@@ -160,7 +160,7 @@ const AboutUs: React.FC = () => {
             viewport={{ once: true }}
           >
             <motion.img
-              src={about?.data?.missionPhoto?.url}
+              src={about?.data?.missionPhoto?.url || Avatar}
               alt="About Us"
               className="w-full h-96 rounded-lg shadow-lg"
               whileHover={{ scale: 1.02 }}
