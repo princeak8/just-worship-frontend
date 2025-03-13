@@ -20,14 +20,19 @@ interface Slide {
 }
 
 export default function CreateHome() {
-  const { formInstance, isLoading, onSubmit } = useHome()
+  const {id} = useParams()
+  const { formInstance, isLoading, onSubmit, fetchedImage } = useHome()
   const { handleSubmit, addHeroDetail } = formInstance;
 
   const [isEditing, setIsEditing] = useState(false);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-
+useEffect(()=>{
+  if(fetchedImage){
+    setPreviewImage(fetchedImage)
+  }
+},[fetchedImage])
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -49,7 +54,7 @@ export default function CreateHome() {
       <div className="max-w-6xl mx-auto">
         <div className='flex items-center justify-between'>
           <h1 className="text-3xl font-bold mb-8">Home Page Slides Manager</h1>
-          <Button type='submit' className='flex items-center gap-2 bg-purple-500 hover:bg-purple-600 rounded-md p-2 px-4 text-white'><Save className="w-4 h-4" />{isEditing ? 'Update Slide' : 'Save Slide'}</Button>
+          <Button type='submit' className='flex items-center gap-2 bg-purple-500 hover:bg-purple-600 rounded-md p-2 px-4 text-white'><Save className="w-4 h-4" />{id ? 'Update Slide' : 'Save Slide'}</Button>
         </div>
 
         <div className="flex gap-8">
@@ -57,7 +62,7 @@ export default function CreateHome() {
             <Card>
               <CardHeader>
                 <CardTitle>
-                  {isEditing ? 'Edit Slide' : 'Create New Slide'}
+                  {id ? 'Edit Slide' : 'Create New Slide'}
                 </CardTitle>
               </CardHeader>
               <CardContent>

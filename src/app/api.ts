@@ -34,6 +34,21 @@ const api = apiClient.injectEndpoints({
             }),
         }),
 
+        updateHeroDetails:builder.mutation({
+            query: ({formdata, id} : {formdata: any, id: any}) => ({
+                url: `${VITE_BASE_URL}/${apiRoutes.hero}/${id}`,
+                method: "POST",
+                body: formdata,
+            }),
+        }),
+
+        deleteHeroDetails:builder.mutation({
+            query: (id: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.hero}/${id}`,
+                method: "DELETE",
+            }),
+        }),
+
         getAbout:builder.query({
             query: (url: any) =>({
                 url: `${VITE_BASE_URL}/${apiRoutes.about}`
@@ -215,6 +230,8 @@ export const {
     useGetHeroQuery,
     useGetHeroByIdQuery,
     useAddHeroDetailsMutation,
+    useUpdateHeroDetailsMutation,
+    useDeleteHeroDetailsMutation,
     useGetAboutQuery,
     useGetAboutByIdQuery,
     useGetTeamQuery,

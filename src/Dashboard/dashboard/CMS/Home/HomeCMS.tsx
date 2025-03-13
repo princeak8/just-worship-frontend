@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Trash2, Edit, Plus, Search, Loader2 } from 'lucide-react';
 import { Link, Navigate } from 'react-router-dom';
-import { useGetHeroQuery } from '@/app/api';
+import { useDeleteHeroDetailsMutation, useGetHeroQuery } from '@/app/api';
 
 // export const dummySlides = [
 //   {
@@ -37,10 +37,21 @@ interface Slide {
   button_link: string;
 }
 
+interface Select {
+  title: string,
+  id: string | undefined
+}
+
 export default function HomeCMS() {
   const { data, isLoading } = useGetHeroQuery<SlideData[] | any | undefined>(undefined)
+  const [deleteHeroDetails] = useDeleteHeroDetailsMutation()
   const [slides, setSlides] = useState<Slide[] | any>([]);
   const [currentSlide, setCurrentSlide] = useState<Partial<Slide>>({});
+  const [warning, setWarning] = useState(false)
+  const [selectedSlide, setSelectedSlide] = useState<Select>({
+    title: '',
+    id: ''
+  })
 
   // console.log("data: ", data)
 
@@ -49,13 +60,16 @@ export default function HomeCMS() {
   }, [data]);
 
 
-  const handleEditSlide = (slide: Slide) => {
-    return <Navigate to={`/dashboard/cms/home/${slide}`} />
-  };
-
-  const handleDeleteSlide = (id: string) => {
-    setSlides((prev: any) => prev.filter((slide: any) => slide.id !== id));
-    if (currentSlide.id === id) resetForm();
+  const handleDeleteSlide = async (id?: string) => {
+    if (!id) return;
+    try {
+      await deleteHeroDetails(id).unwrap()
+      setSlides((prev: any) => prev.filter((slide: any) => slide.id !== id));
+      setWarning(false);
+      setSelectedSlide({ title: '', id: '' });
+    } catch (err) {
+      console.log(err)
+    }
   };
 
   const resetForm = () => {
@@ -66,6 +80,17 @@ export default function HomeCMS() {
 
   return (
     <div className="min-h-screen p-8 bg-gray-50">
+      {warning && (
+        <section className=' fixed w-full h-screen inset-0 bg-purple-500 bg-opacity-20 flex items-center justify-center'>
+          <div className='w-[25em] bg-white rounded-md border border-yellow-500 overflow-hidden p-4 text-center space-y-4'>
+            <p>Are you sure you want to delete &apos;<span className='italic font-bold text-red-700'>{selectedSlide?.title || "slide"}</span>&apos;?</p>
+            <div className='flex items-center justify-between'>
+              <Button size={'sm'} onClick={() => { setWarning(false); setSelectedSlide({ title: '', id: '' }) }} variant={'default'} >Cancel</Button>
+              <Button size={'sm'} onClick={() => handleDeleteSlide(selectedSlide.id)} variant={'destructive'} >Delete</Button>
+            </div>
+          </div>
+        </section>
+      )}
       <div className="w-full mx-auto">
         <div className='flex items-center justify-between'>
           <h1 className="text-3xl font-bold mb-8">Home Page Slides Manager</h1>
@@ -90,20 +115,19 @@ export default function HomeCMS() {
                             <a href={slide.button_link} ><button className="bg-gray-900 p-2 px-4 my-4 rounded-lg text-white text-sm text-gray-600 text-justify" >{slide.buttonText}</button></a>
                           </div>
                           <div className="flex gap-2 mt-2 ">
-                            <Link
-                              to={`/dashboard/cms/home/${slide.id}`}
-                              className='w-20 p-2 flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md '
-                            >
-                              <Edit className="w-4 h-4" />
-                              Edit
-                            </Link>
-                            <div
-                              onClick={() => handleDeleteSlide(slide.id)}
-                              className='w-20 p-2 flex items-center justify-center gap-2 bg-red-500 hover:bg-red-600 text-white rounded-md '
-                            >
-                              <Trash2 className="w-4 h-4" />
+                            <Button asChild size="sm" variant="default">
+                              <Link
+                                to={`/dashboard/cms/home/${slide.id}`}
+                                className='w-20 p-2 flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md '
+                              >
+                                <Edit className="w-4 h-4 mr-2" />
+                                Edit
+                              </Link>
+                            </Button>
+                            <Button size="sm" onClick={() => { setWarning(true); setSelectedSlide({ title: slide.title, id: slide.id }) }} variant="destructive">
+                              <Trash2 className="w-4 h-4 mr-2" />
                               Delete
-                            </div>
+                            </Button>
                           </div>
                         </div>
                         <div className='w-4/12'>

@@ -1,4 +1,5 @@
-import { useAddHeroDetailsMutation, useGetHeroByIdQuery } from '@/app/api'
+import { useAddHeroDetailsMutation, useGetHeroByIdQuery, useUpdateHeroDetailsMutation } from '@/app/api'
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Navigate, useParams} from 'react-router-dom';
 
@@ -12,14 +13,16 @@ interface FormDataDetail {
 
 const useHome = () => {
     const {id} = useParams()
-  const {getHeroById} = useGetHeroByIdQuery<any>(id, {skip: !id})
+  const {data: getHeroById } = useGetHeroByIdQuery<any>(id, {skip: !id})
     const [addHero, isLoading] = useAddHeroDetailsMutation()
+    const [updateHeroDetails] = useUpdateHeroDetailsMutation()
 
-    console.log("id: ", getHeroById)
+    // console.log("id: ", getHeroById)
 
     const {
         register: addHeroDetail, 
         handleSubmit,
+        setValue,
         formState: {errors},
     } = useForm<FormDataDetail>({
         defaultValues: {
@@ -29,6 +32,16 @@ const useHome = () => {
             button_link: '',
         },
     });
+
+    useEffect(()=>{
+        if(getHeroById?.data){
+            setValue('title', getHeroById?.data?.title)
+            setValue('description', getHeroById?.data?.message)
+            setValue('button_text', getHeroById?.data?.buttonText)
+            setValue('button_link', getHeroById?.data?.buttonLink)
+            setValue('image', getHeroById?.data?.photo?.url || '' as unknown as FileList)
+        }
+    },[getHeroById?.data, setValue])
 
     const rules = {
         title: {
@@ -47,15 +60,20 @@ const useHome = () => {
         formdata.append('title', title)
         formdata.append('message', description)
         formdata.append('buttonText', button_text)
-        formdata.append('button_link', button_link)
+        formdata.append('buttonLink', button_link)
         
-        if (image && image.length > 0) {
+        if (image && image.length > 0 && image[0] instanceof File && image[0] !== getHeroById?.data?.photo?.url) {
             formdata.append('photo', image[0]);
         }
 
         try{
-            await addHero(formdata).unwrap()
-            return <Navigate to={'/dashboard/cms/home'} />
+            if(id){
+                await updateHeroDetails({formdata, id}).unwrap()
+            }else{
+                await addHero(formdata).unwrap()
+            }
+            return window.location.href='/dashboard/cms/home'
+            // return <Navigate to={'/dashboard/cms/home'} />
         }catch(err){
             console.log(err)
         }
@@ -66,6 +84,7 @@ const useHome = () => {
     isLoading,
     formInstance: {addHeroDetail, handleSubmit, errors, rules},
     onSubmit,
+    fetchedImage: getHeroById?.data?.photo?.url,
   }
 }
 
