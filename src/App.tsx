@@ -33,6 +33,7 @@ import CreateEvent from "./Dashboard/dashboard/CMS/Event/CreateEvent";
 import GalleryCMS from "./Dashboard/dashboard/CMS/Gallery/GalleryCMS";
 import AddImage from "./Dashboard/dashboard/CMS/Gallery/AddImage";
 import Giving from "./Giving/Giving";
+import GivingCMS from "./Dashboard/dashboard/CMS/Giving/GivingCMS";
 
 const isUserAuthenticated = () => {
   return Cookies.get("token") !== undefined;
@@ -132,6 +133,7 @@ const App = () => {
           <Route path="cms/events" element={<EventCMS />} />
           <Route path="cms/events/add" element={<CreateEvent />} />
           <Route path="cms/events/:id" element={<CreateEvent />} />
+          <Route path="cms/giving" element={<GivingCMS />} />
           <Route path="cms/gallery" element={<GalleryCMS />} />
           <Route path="cms/gallery/add" element={<AddImage />} />
           <Route path="cms/gallery/:id" element={<AddImage />} />

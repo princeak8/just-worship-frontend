@@ -180,6 +180,12 @@ const api = apiClient.injectEndpoints({
             }),
         }),
 
+        getGiving:builder.query({
+            query: (url: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.giving}`
+            }),
+        }),
+
         getGallery:builder.query({
             query: (url: any) =>({
                 url: `${VITE_BASE_URL}/${apiRoutes.gallery}`
@@ -251,6 +257,7 @@ export const {
     useDeleteEventMutation,
     useGetContactQuery,
     useUpdateContactMutation,
+    useGetGivingQuery,
     useGetGalleryQuery,
     useGetGallerytByIdQuery,
     useAddGalleryImageMutation,

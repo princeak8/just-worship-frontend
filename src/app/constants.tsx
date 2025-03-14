@@ -11,5 +11,6 @@ export const apiRoutes = {
   addGallery: 'gallery/add_photo',
   updateGallery: 'gallery/update_photo',
   deleteGallery: 'gallery/delete_photo',
+  giving: 'giving/modes',
   user: 'user'
 }
