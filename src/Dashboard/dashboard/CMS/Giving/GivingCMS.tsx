@@ -16,7 +16,7 @@ export default function GivingCMS() {
     const [newMethodName, setNewMethodName] = useState('');
     const [editingMethod, setEditingMethod] = useState<PaymentMethod | null>(null);
     const [paymentOptions, setPaymentOptions] = useState([]);
-    const [binary,setBinary] = useState(0)
+    const [binary, setBinary] = useState(0)
 
     useEffect(() => {
         if (data?.data) {
@@ -73,7 +73,7 @@ export default function GivingCMS() {
                     <div className="flex items-center justify-between p-4 border-b">
                         <h2 className="text-lg font-semibold">Payment Methods</h2>
                         <button
-                            onClick={() =>{setIsCreateModalOpen(true); setBinary(0)}}
+                            onClick={() => { setIsCreateModalOpen(true); setBinary(0) }}
                             className="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 flex items-center gap-2"
                         >
                             <Plus size={20} />
@@ -107,7 +107,7 @@ export default function GivingCMS() {
                     <div className="flex items-center justify-between p-4 border-b">
                         <h2 className="text-lg font-semibold">Payment Options</h2>
                         <button
-                            onClick={() =>{setIsCreateModalOpen(true); setBinary(1)}}
+                            onClick={() => { setIsCreateModalOpen(true); setBinary(1) }}
                             className="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 flex items-center gap-2"
                         >
                             <Plus size={20} />
@@ -169,7 +169,7 @@ export default function GivingCMS() {
                 {editingMethod && (
                     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
                         <div className="bg-white rounded-lg p-6 w-full max-w-md">
-                            <h2 className="text-xl font-bold mb-4">{binary === 0 ? 'Edit Payment Method': 'Edit Payment Option'}</h2>
+                            <h2 className="text-xl font-bold mb-4">{binary === 0 ? 'Edit Payment Method' : 'Edit Payment Option'}</h2>
                             <input
                                 type="text"
                                 value={editingMethod.name}
