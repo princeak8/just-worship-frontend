@@ -1,14 +1,17 @@
+import { useGetGivingQuery, useGetOptionsQuery } from '@/app/api';
 import card1 from '../../../public/card1.jpeg';
 import { motion } from 'framer-motion';
 import { CreditCard, Banknote } from 'lucide-react';
 
 export default function Giving() {
-    const Options = ['Partnership', 'Tithe & Offering', 'Donations'];
-    const Payments = [
-        { name: 'Debit Card', icon: <CreditCard className="w-6 h-6" /> },
-        { name: 'Credit Card', icon: <CreditCard className="w-6 h-6" /> },
-        { name: 'Bank Transfer', icon: <Banknote className="w-6 h-6" /> },
-    ];
+    const { data: Payments, isLoading } = useGetGivingQuery<any | undefined>(undefined);
+    const { data: Options } = useGetOptionsQuery<any | undefined>(undefined);
+    // const Options = ['Partnership', 'Tithe & Offering', 'Donations'];
+    // const Payments = [
+    //     { name: 'Debit Card', icon: <CreditCard className="w-6 h-6" /> },
+    //     { name: 'Credit Card', icon: <CreditCard className="w-6 h-6" /> },
+    //     { name: 'Bank Transfer', icon: <Banknote className="w-6 h-6" /> },
+    // ];
 
     return (
         <div className="w-full p-10 overflow-x-hidden bg-gradient-to-br from-purple-50 to-blue-50">
@@ -58,14 +61,14 @@ export default function Giving() {
                                     Choose an option
                                 </h1>
                                 <div className='grid grid-cols-3 gap-2'>
-                                    {Options.map((option, index) => (
+                                    {Options?.data?.map((option: any, index: number) => (
                                         <motion.div
                                             key={index}
                                             className='bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer border border-gray-200 hover:border-purple-500'
                                             whileHover={{ scale: 1.05 }}
                                             whileTap={{ scale: 0.95 }}
                                         >
-                                            <p className='text-gray-700 font-medium'>{option}</p>
+                                            <p className='text-gray-700 font-medium'>{option.name}</p>
                                         </motion.div>
                                     ))}
                                 </div>
@@ -85,14 +88,14 @@ export default function Giving() {
                                     Choose how you want to give
                                 </h1>
                                 <div className='grid grid-cols-3 gap-2'>
-                                    {Payments.map((option, index) => (
+                                    {Payments?.data?.map((option: any, index: number) => (
                                         <motion.div
                                             key={index}
                                             className='bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer border border-gray-200 hover:border-purple-500 flex flex-col items-center justify-center'
                                             whileHover={{ scale: 1.05 }}
                                             whileTap={{ scale: 0.95 }}
                                         >
-                                            <div className='text-purple-600'>{option.icon}</div>
+                                            <div className='text-purple-600'><CreditCard className="w-6 h-6" /></div>
                                             <p className='text-gray-700 font-medium mt-2'>{option.name}</p>
                                         </motion.div>
                                     ))}
