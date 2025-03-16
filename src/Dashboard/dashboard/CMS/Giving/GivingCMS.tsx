@@ -1,70 +1,198 @@
 import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Banknote, Edit, Loader2, Trash2 } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { useGetGivingQuery } from '@/app/api';
+import { Loader2, Edit, Trash, Plus } from 'lucide-react';
+import { useGetGivingQuery, useGetOptionsQuery } from '@/app/api';
 
 interface PaymentMethod {
     id: number;
     name: string;
+    accounts: any[];
 }
 
 export default function GivingCMS() {
     const { data, isLoading } = useGetGivingQuery<any | undefined>(undefined);
+    const { data: Options } = useGetOptionsQuery<any | undefined>(undefined);
     const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([]);
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+    const [newMethodName, setNewMethodName] = useState('');
+    const [editingMethod, setEditingMethod] = useState<PaymentMethod | null>(null);
+    const [paymentOptions, setPaymentOptions] = useState([]);
+    const [binary,setBinary] = useState(0)
 
     useEffect(() => {
         if (data?.data) {
             setPaymentMethods(data?.data);
+            setPaymentOptions(Options?.data || []);
         }
-    }, [data?.data]);
+    }, [data?.data, Options?.data]);
 
-    if(isLoading)return  <section className='w-full h-screen flex items-center justify-center'><Loader2 size={50} className='text-purple-500 animate-spin' /></section>
+    const handleDelete = (id: number) => {
+        setPaymentMethods(prev => prev.filter(method => method.id !== id));
+    };
+
+    const handleCreate = () => {
+        if (newMethodName.trim()) {
+            const newMethod = {
+                id: Date.now(),
+                name: newMethodName,
+                accounts: []
+            };
+            setPaymentMethods(prev => [...prev, newMethod]);
+            setNewMethodName('');
+            setIsCreateModalOpen(false);
+        }
+    };
+
+    const handleUpdate = () => {
+        if (editingMethod?.name.trim()) {
+            setPaymentMethods(prev =>
+                prev.map(method =>
+                    method.id === editingMethod.id ?
+                        { ...method, name: editingMethod.name } :
+                        method
+                )
+            );
+            setEditingMethod(null);
+        }
+    };
+
+    if (isLoading) return (
+        <section className='w-full h-screen flex items-center justify-center'>
+            <Loader2 size={50} className='text-purple-500 animate-spin' />
+        </section>
+    );
 
     return (
         <div className="min-h-screen p-8 bg-gray-50">
-            <div className="w-full mx-auto">
-                <div className='flex items-center justify-between'>
-                    <h1 className="text-3xl font-bold mb-8">Payment Methods Manager</h1>
-                </div>
-                    <section className='space-y-6'>
-                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                            {paymentMethods.map((method) => (
-                                <Card key={method.id}>
-                                    <CardContent className="space-y-4 py-4">
-                                        <div className="p-2 bg-white">
-                                            <div className="flex gap-4 w-full items-center justify-between">
-                                                <div className="flex flex-col justify-between w-full p-2">
-                                                    <div>
-                                                        <h3 className="flex items-center font-semibold text-2xl mb-2 gap-2">
-                                                            <Banknote className='text-purple-500'/>
-                                                            {method.name}
-                                                        </h3>
-                                                    </div>
-                                                </div>
+            <div className="w-full max-w-4xl mx-auto">
+                <div className='flex items-center justify-between mb-8'>
+                    <h1 className="text-3xl font-bold">Payment Management</h1>
 
-                                                <div className="flex gap-2 -mt-16">
-                                                    <Link
-                                                        to={`/dashboard/cms/giving/${method.id}`}
-                                                        className='flex items-center rounded-md p-2 '
-                                                    >
-                                                        <Edit className="w-4 h-4" />
-                                                    </Link>
-                                                    <Link
-                                                        to={`/dashboard/cms/giving/${method.id}`}
-                                                        className='flex items-center rounded-md text-red-500'
-                                                    >
-                                                        <Trash2 className="w-4 h-4" />
-                                                    </Link>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            ))}
+                </div>
+
+                <div className="bg-white rounded-lg shadow-sm border mb-6">
+                    <div className="flex items-center justify-between p-4 border-b">
+                        <h2 className="text-lg font-semibold">Payment Methods</h2>
+                        <button
+                            onClick={() =>{setIsCreateModalOpen(true); setBinary(0)}}
+                            className="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 flex items-center gap-2"
+                        >
+                            <Plus size={20} />
+                            Add Payment Method
+                        </button>
+                    </div>
+                    <div className="divide-y">
+                        {paymentMethods.map((method) => (
+                            <div key={method.id} className="flex items-center justify-between p-4 hover:bg-gray-50">
+                                <span className="font-medium">{method.name}</span>
+                                <div className="flex gap-3">
+                                    <button
+                                        onClick={() => setEditingMethod(method)}
+                                        className="text-gray-400 hover:text-blue-500 p-1 rounded-md"
+                                    >
+                                        <Edit size={18} />
+                                    </button>
+                                    <button
+                                        onClick={() => handleDelete(method.id)}
+                                        className="text-gray-400 hover:text-red-500 p-1 rounded-md"
+                                    >
+                                        <Trash size={18} />
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="bg-white rounded-lg shadow-sm border">
+                    <div className="flex items-center justify-between p-4 border-b">
+                        <h2 className="text-lg font-semibold">Payment Options</h2>
+                        <button
+                            onClick={() =>{setIsCreateModalOpen(true); setBinary(1)}}
+                            className="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 flex items-center gap-2"
+                        >
+                            <Plus size={20} />
+                            Add Payment Option
+                        </button>
+                    </div>
+                    <div className="divide-y">
+                        {paymentOptions?.map((account: any) => (
+                            <div key={account.id} className="flex items-center justify-between p-4 hover:bg-gray-50">
+                                <span className="font-medium">{account.name}</span>
+                                <div className="flex gap-3">
+                                    <button
+                                        onClick={() => setEditingMethod(account)}
+                                        className="text-gray-400 hover:text-blue-500 p-1 rounded-md"
+                                    >
+                                        <Edit size={18} />
+                                    </button>
+                                    <button
+                                        onClick={() => handleDelete(account.id)}
+                                        className="text-gray-400 hover:text-red-500 p-1 rounded-md"
+                                    >
+                                        <Trash size={18} />
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {isCreateModalOpen && (
+                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+                        <div className="bg-white rounded-lg p-6 w-full max-w-md">
+                            <h2 className="text-xl font-bold mb-4">{binary === 0 ? 'Add New Payment Method' : 'Add New Payment Option'}</h2>
+                            <input
+                                type="text"
+                                value={newMethodName}
+                                onChange={(e) => setNewMethodName(e.target.value)}
+                                className="w-full p-2 border rounded-lg mb-4 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                placeholder="Method name"
+                            />
+                            <div className="flex justify-end gap-2">
+                                <button
+                                    onClick={() => setIsCreateModalOpen(false)}
+                                    className="px-4 py-2 text-gray-500 hover:text-gray-700"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    onClick={handleCreate}
+                                    className="px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600"
+                                >
+                                    Create
+                                </button>
+                            </div>
                         </div>
-                    </section>
+                    </div>
+                )}
+
+                {editingMethod && (
+                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+                        <div className="bg-white rounded-lg p-6 w-full max-w-md">
+                            <h2 className="text-xl font-bold mb-4">{binary === 0 ? 'Edit Payment Method': 'Edit Payment Option'}</h2>
+                            <input
+                                type="text"
+                                value={editingMethod.name}
+                                onChange={(e) => setEditingMethod({ ...editingMethod, name: e.target.value })}
+                                className="w-full p-2 border rounded-lg mb-4 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                            />
+                            <div className="flex justify-end gap-2">
+                                <button
+                                    onClick={() => setEditingMethod(null)}
+                                    className="px-4 py-2 text-gray-500 hover:text-gray-700"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    onClick={handleUpdate}
+                                    className="px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600"
+                                >
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );
