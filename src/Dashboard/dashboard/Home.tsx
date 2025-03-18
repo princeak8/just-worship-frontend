@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
 import { Progress } from "@/components/ui/progress";
 import { ArrowUp, Gem } from "lucide-react";
+import { useGetEventQuery, useGetMembersQuery, useGetSubscribersQuery } from "@/app/api";
 
 interface Cards {
 title: string;
@@ -72,16 +73,24 @@ const MetricCard: React.FC<Cards> = ({ title, value, percentage, trend }) => (
 );
 
 const Home = () => {
+  const { data: subscribers, isLoading } = useGetSubscribersQuery<any | undefined>(undefined)
+  const { data: members, isLoading: loading } = useGetMembersQuery<any | undefined>(undefined)
+  const { data: events, isLoading: isloading } = useGetEventQuery<any | undefined>(undefined)
+
+  console.log("data: ", subscribers?.data?.length)
   return (
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-        <MetricCard title="VIEWS" value="500" percentage={78} />
-        <MetricCard title="ORDERS" value="3200" percentage={45} />
-        <MetricCard title="SALES" value="2800" percentage={72} />
+        {/* <MetricCard title="VIEWS" value="500" percentage={78} /> */}
+        <MetricCard title="SUBSCRIBERS" value={subscribers?.data?.length} percentage={subscribers?.data?.length} />
+        <MetricCard title="MEMBERS" value={members?.data?.length} percentage={members?.data?.length} />
+        <MetricCard title="EVENTS" value={events?.data?.length} percentage={events?.data?.length} />
+        {/* <MetricCard title="ORDERS" value="3200" percentage={45} /> */}
+        {/* <MetricCard title="SALES" value="2800" percentage={72} /> */}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <Card className="col-span-2">
+        {/* <Card className="col-span-2">
           <CardHeader>
             <CardTitle>Total Revenue</CardTitle>
           </CardHeader>
@@ -121,7 +130,7 @@ const Home = () => {
               ))}
             </div>
           </CardContent>
-        </Card>
+        </Card> */}
 
         <Card className="col-span-2">
           <CardHeader>
@@ -178,22 +187,22 @@ const Home = () => {
                     cy="50"
                     r="40"
                     fill="transparent"
-                    strokeDasharray="251.2"
-                    strokeDashoffset="62.8"
+                    strokeDasharray="0"
+                    strokeDashoffset="0"
                   />
                 </svg>
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                  <span className="text-2xl font-bold">75%</span>
+                  <span className="text-2xl font-bold">0%</span>
                 </div>
               </div>
               <div className="mt-4 flex justify-between w-full">
                 <div>
                   <div className="text-sm text-gray-500">Target</div>
-                  <div className="font-bold">$999</div>
+                  <div className="font-bold">₦20,000</div>
                 </div>
                 <div>
                   <div className="text-sm text-gray-500">Sales</div>
-                  <div className="font-bold">$750</div>
+                  <div className="font-bold">₦0</div>
                 </div>
               </div>
             </div>

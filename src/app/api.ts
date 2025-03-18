@@ -227,8 +227,20 @@ const api = apiClient.injectEndpoints({
                 method: "DELETE",
             }),
         }),
-        
 
+
+        getSubscribers:builder.query({
+            query: (url: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.subscribers}`
+            }),
+        }),
+
+        getMembers:builder.query({
+            query: (url: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.members}`
+            }),
+        }),
+        
 
         getUser:builder.query({
             query: (url: any) =>({
@@ -271,5 +283,7 @@ export const {
     useAddGalleryImageMutation,
     useUpdateGalleryImageMutation,
     useDeleteGalleryImageMutation,
+    useGetSubscribersQuery,
+    useGetMembersQuery,
     useGetUserQuery,
 } = api

@@ -10,11 +10,11 @@ export const paths = [
     path: '/dashboard',
     icon: <HomeIcon />
   },
-  {
-    name: 'Report and Analysis',
-    path: '/dashboard/report',
-    icon: <ChartBarIcon />
-  },
+  // {
+  //   name: 'Report and Analysis',
+  //   path: '/dashboard/report',
+  //   icon: <ChartBarIcon />
+  // },
   {
     name: 'Content Management',
     path: '#',
@@ -71,7 +71,7 @@ export const paths = [
 
 const Sidebar = () => {
   const root = useLocation();
-  const [isSubOpen, setIsSubOpen] = useState(false)
+  const [isSubOpen, setIsSubOpen] = useState(true)
 
   useEffect(() => {
     if(root.pathname.includes('cms')){
@@ -97,8 +97,16 @@ const Sidebar = () => {
             {paths?.map((path: any, index: number) => (
               <section className={`grid `}>
               <Link to={path.path} key={index} className={`m-2 mx-2 p-4 px-2 hover:bg-purple-100 hover:text-purple-500 rounded-lg flex items-center gap-4 text-sm ${root.pathname === path.path && 'bg-[#FFD700] bg-opacity-50'}`}>
-                <div onClick={() => { path?.sub && setIsSubOpen(!isSubOpen) }} className='flex gap-4'>{path.icon}<p>{path.name}</p></div>
-                {path?.sub && ( isSubOpen ? <ChevronDown onClick={() => { path?.sub && setIsSubOpen(!isSubOpen) }}/> : <ChevronLeft onClick={() => { path?.sub && setIsSubOpen(!isSubOpen) }}/>)}
+                <div onClick={() => { path?.sub && 
+                  // setIsSubOpen(!isSubOpen) }} 
+                  setIsSubOpen(true) }} 
+                  className='flex gap-4'>{path.icon}<p>{path.name}</p></div>
+                {path?.sub && ( isSubOpen ? <ChevronDown
+                 onClick={() => { path?.sub && 
+                  // setIsSubOpen(!isSubOpen) 
+                  setIsSubOpen(true)
+                }}/>
+                  : <ChevronLeft onClick={() => { path?.sub && setIsSubOpen(!isSubOpen) }}/>)}
               </Link>
                 {path?.sub && 
                 <section className={`-mt-2 ${isSubOpen && 'bg-gradient-to-b from-purple-500 via-purple-700 to-purple-500 p-4 px-2'}`}>

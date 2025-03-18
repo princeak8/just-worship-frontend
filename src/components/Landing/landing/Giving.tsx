@@ -112,7 +112,7 @@ export default function Giving() {
                                 </p>
                             </motion.div>
 
-                            {selectedOption.toLowerCase().trim() === 'transfer' ? (
+                            {/* {selectedOption.toLowerCase().trim() === 'transfer' ? ( */}
                                 <div className="space-y-6">
                                     <motion.div
                                         initial={{ opacity: 0, y: 20 }}
@@ -145,7 +145,7 @@ export default function Giving() {
                                         </div>
                                     </motion.div>
                                 </div>
-                            ) : (
+                            {/* ) : (
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
@@ -180,7 +180,7 @@ export default function Giving() {
                                         Give Now
                                     </motion.button>
                                 </motion.div>
-                            )}
+                            )} */}
                         </div>
                     </div>
                 </section>

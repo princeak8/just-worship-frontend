@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Trash2, Edit, Plus, Search, Loader2 } from 'lucide-react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDeleteHeroDetailsMutation, useGetHeroQuery } from '@/app/api';
 
 // export const dummySlides = [
@@ -43,6 +43,7 @@ interface Select {
 }
 
 export default function HomeCMS() {
+
   const { data, isLoading } = useGetHeroQuery<SlideData[] | any | undefined>(undefined)
   const [deleteHeroDetails] = useDeleteHeroDetailsMutation()
   const [slides, setSlides] = useState<Slide[] | any>([]);
@@ -110,9 +111,9 @@ export default function HomeCMS() {
                       <div className="flex gap-4 w-full ">
                         <div className="flex flex-col justify-between w-8/12 p-2">
                           <div className='space-y-4'>
-                            <h3 className="font-semibold mb-2">{slide.title}</h3>
-                            <p className="text-sm text-gray-600 line-clamp-[9] text-justify">{slide.message}</p>
-                            <a href={slide.button_link} ><button className="bg-gray-900 p-2 px-4 my-4 rounded-lg text-white text-sm text-gray-600 text-justify" >{slide.buttonText}</button></a>
+                            <h3 className="font-semibold mb-2">{slide?.title}</h3>
+                            <p className="text-sm text-gray-600 line-clamp-[9] text-justify">{slide?.message}</p>
+                            {slide?.button_link && <a href={slide?.button_link} ><button className="bg-gray-900 p-2 px-4 my-4 rounded-lg text-white text-sm text-gray-600 text-justify" >{slide?.buttonText}</button></a>}
                           </div>
                           <div className="flex gap-2 mt-2 ">
                             <Button asChild size="sm" variant="default">

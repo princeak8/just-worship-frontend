@@ -65,7 +65,7 @@ export default function UserProfileSettings() {
                                         {editMode ? 'Preview' : 'Edit'}
                                     </Button>
                                 </div>
-                                
+
                                 <CardContent className="pt-12">
                                     <div className="flex items-center gap-6 mb-8">
                                         <div className="relative group">
@@ -80,7 +80,7 @@ export default function UserProfileSettings() {
                                                     <input
                                                         type="file"
                                                         className="hidden"
-                                                        // onChange={(e) => {}
+                                                    // onChange={(e) => {}
                                                     />
                                                 </label>
                                             )}
@@ -100,33 +100,33 @@ export default function UserProfileSettings() {
                                     <div className="space-y-6">
                                         <div className="grid gap-6">
                                             <section className='grid grid-cols-2 gap-4'>
-                                            <div>
-                                                <label className="block text-sm font-medium mb-2">Email</label>
-                                                {editMode ? (
-                                                    <input
-                                                        type="email"
-                                                        value={user.email}
-                                                        onChange={(e) => setUser({ ...user, email: e.target.value })}
-                                                        className="w-full p-2 rounded border"
-                                                    />
-                                                ) : (
-                                                    <p>{user.email}</p>
-                                                )}
-                                            </div>
+                                                <div>
+                                                    <label className="block text-sm font-medium mb-2">Email</label>
+                                                    {editMode ? (
+                                                        <input
+                                                            type="email"
+                                                            value={user.email}
+                                                            onChange={(e) => setUser({ ...user, email: e.target.value })}
+                                                            className="w-full p-2 rounded border"
+                                                        />
+                                                    ) : (
+                                                        <p>{user.email}</p>
+                                                    )}
+                                                </div>
 
-                                            <div>
-                                                <label className="block text-sm font-medium mb-2">Phone</label>
-                                                {editMode ? (
-                                                    <input
-                                                        type="text"
-                                                        value={user.phone}
-                                                        onChange={(e) => setUser({ ...user, phone: e.target.value })}
-                                                        className="w-full p-2 rounded border"
-                                                    />
-                                                ) : (
-                                                    <p>{user.phone}</p>
-                                                )}
-                                            </div>
+                                                <div>
+                                                    <label className="block text-sm font-medium mb-2">Phone</label>
+                                                    {editMode ? (
+                                                        <input
+                                                            type="text"
+                                                            value={user.phone}
+                                                            onChange={(e) => setUser({ ...user, phone: e.target.value })}
+                                                            className="w-full p-2 rounded border"
+                                                        />
+                                                    ) : (
+                                                        <p>{user.phone}</p>
+                                                    )}
+                                                </div>
                                             </section>
 
                                             <div>
@@ -152,7 +152,7 @@ export default function UserProfileSettings() {
                 </div>
 
                 <Card className="mt-8 border-red-200 bg-red-50 font-bold">
-                <CardContent className="flex items-center justify-between p-6">
+                    <CardContent className="flex items-center justify-between p-6">
                         <div className="flex items-center gap-2 text-blue-600">
                             <Key className="w-5 h-5" />
                             <span>Change Password</span>

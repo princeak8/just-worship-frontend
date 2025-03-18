@@ -142,7 +142,7 @@ const Giving: React.FC = () => {
               </p>
             </motion.div>
 
-            {selectedOption.toLowerCase().trim() === 'transfer' ? (
+            {/* {selectedOption.toLowerCase().trim() === 'transfer' ? ( */}
               <div className="space-y-6">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -243,7 +243,7 @@ const Giving: React.FC = () => {
             </motion.button> */}
                 </motion.div>
               </div>
-            ) : (
+            {/* ) : (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -278,7 +278,7 @@ const Giving: React.FC = () => {
                   Give Now
                 </motion.button>
               </motion.div>
-            )}
+            )} */}
           </div>
         </div>
       </div>

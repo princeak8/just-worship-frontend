@@ -13,5 +13,8 @@ export const apiRoutes = {
   deleteGallery: 'gallery/delete_photo',
   giving: 'giving/modes',
   givingOptions: 'giving/options',
-  user: 'user'
+  user: 'user',
+  subscribers: 'subscribers',
+  members: 'members'
+  
 }
