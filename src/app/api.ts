@@ -193,6 +193,14 @@ const api = apiClient.injectEndpoints({
             }),
         }),
 
+        editGivingOption:builder.mutation({
+            query: (data: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.editgivingOptions}`,
+                method: 'POST',
+                body: data
+            }),
+        }),
+
         getGallery:builder.query({
             query: (url: any) =>({
                 url: `${VITE_BASE_URL}/${apiRoutes.gallery}`
@@ -247,6 +255,14 @@ const api = apiClient.injectEndpoints({
                 url: `${VITE_BASE_URL}/${apiRoutes.user}`
             }),
         }),
+
+        getAccount:builder.query({
+            query: (url: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.accounts}`
+            }),
+        }),
+
+
     })
 });
 
@@ -277,6 +293,7 @@ export const {
     useGetContactQuery,
     useUpdateContactMutation,
     useGetGivingQuery,
+    useEditGivingOptionMutation,
     useGetOptionsQuery,
     useGetGalleryQuery,
     useGetGallerytByIdQuery,
@@ -286,4 +303,5 @@ export const {
     useGetSubscribersQuery,
     useGetMembersQuery,
     useGetUserQuery,
+    useGetAccountQuery,
 } = api

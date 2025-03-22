@@ -13,8 +13,10 @@ export const apiRoutes = {
   deleteGallery: 'gallery/delete_photo',
   giving: 'giving/modes',
   givingOptions: 'giving/options',
+  editgivingOptions: 'giving/save_giving_account',
   user: 'user',
   subscribers: 'subscribers',
-  members: 'members'
+  members: 'members',
+  accounts: 'bank_accounts',
   
 }

@@ -1,22 +1,32 @@
 import { useGetGivingQuery, useGetOptionsQuery } from '@/app/api';
 import card1 from '../../../public/card1.jpeg';
 import { motion } from 'framer-motion';
-import { CreditCard, Banknote } from 'lucide-react';
-import { useState } from 'react';
+import { CreditCard, Banknote, Search } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 export default function Giving() {
     const { data: Payments, isLoading } = useGetGivingQuery<any | undefined>(undefined);
     const { data: Options } = useGetOptionsQuery<any | undefined>(undefined);
     const [selectedMethod, setSelectedMethod] = useState('tithe & offering')
-      const [selectedOption, setSelectedOption] = useState('transfer')
+    const [selected, setSelected] = useState<any>({})
+    const [selectedOption, setSelectedOption] = useState('transfer')
     const [amount, setAmount] = useState('');
-   
+
     // const Options = ['Partnership', 'Tithe & Offering', 'Donations'];
     // const Payments = [
     //     { name: 'Debit Card', icon: <CreditCard className="w-6 h-6" /> },
     //     { name: 'Credit Card', icon: <CreditCard className="w-6 h-6" /> },
     //     { name: 'Bank Transfer', icon: <Banknote className="w-6 h-6" /> },
     // ];
+
+    useEffect(() => {
+        if (Payments?.data) {
+            const found = Payments.data.find(
+                (p: any) => p?.name.toLowerCase().trim() === selectedMethod.toLowerCase().trim()
+            );
+            setSelected(found);
+        }
+    }, [Payments]);
 
     return (
         <div className="w-full p-10 overflow-x-hidden bg-gradient-to-br from-purple-50 to-blue-50">
@@ -69,7 +79,7 @@ export default function Giving() {
                                     {Options?.data?.map((option: any, index: number) => (
                                         <motion.div
                                             key={index}
-                                            onClick={() => setSelectedMethod(option.name)}
+                                            onClick={() => { setSelected(option); setSelectedMethod(option.name) }}
                                             className={`p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer border border-gray-200 hover:border-purple-500 ${selectedMethod.toLowerCase().trim() === option?.name?.toLowerCase().trim() ? 'bg-purple-500 text-white' : 'bg-white text-black'}`}
                                             whileHover={{ scale: 1.05 }}
                                             whileTap={{ scale: 0.95 }}
@@ -114,38 +124,47 @@ export default function Giving() {
                             </motion.div>
 
                             {/* {selectedOption.toLowerCase().trim() === 'transfer' ? ( */}
-                                <div className="space-y-6">
-                                    <motion.div
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 0.4 }}
-                                    >
-                                        <h1 className="text-2xl font-bold text-center mb-6 text-gray-800">
-                                            Bank Transfer Instructions
-                                        </h1>
+                            <div className="space-y-6">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.4 }}
+                                >
+                                    <h1 className="text-2xl font-bold text-center mb-6 text-gray-800">
+                                        Bank Transfer Instructions
+                                    </h1>
 
-                                        <div className="bg-gray-50 p-4 rounded-lg mb-6">
-                                            <h2 className="font-semibold mb-3">Account Details</h2>
-                                            <div className="space-y-2 text-sm">
-                                                <div className="flex justify-between">
-                                                    <span className="text-gray-600">Bank Name:</span>
-                                                    <span className="font-medium">Just worship Bank</span>
+                                    {selected?.accounts?.length > 0 ? (
+                                        selected?.accounts?.map((account: any, index: number) => (
+                                            <div key={index} className="bg-gray-50 p-4 rounded-lg mb-6">
+                                                <h2 className="font-semibold mb-3">Account Details</h2>
+                                                <div className="space-y-2 text-sm">
+                                                    <div className="flex justify-between">
+                                                        <span className="text-gray-600">Bank Name:</span>
+                                                        <span className="font-medium">
+                                                            {account?.bank || 'No Bank Provided'}
+                                                        </span>
+                                                    </div>
+                                                    <div className="flex justify-between">
+                                                        <span className="text-gray-600">Account Number:</span>
+                                                        <span className="font-medium">{account?.number || '-'}</span>
+                                                    </div>
+                                                    <div className="flex justify-between">
+                                                        <span className="text-gray-600">Account Name:</span>
+                                                        <span className="font-medium">{account?.name || '-'}</span>
+                                                    </div>
+                                                    <p className="text-sm text-gray-500 mt-2 text-center">
+                                                        Please include &apos;<span className='font-bold text-purple-500'>{selectedMethod || 'Just Worship'}</span>&apos; in your transfer narration
+                                                    </p>
                                                 </div>
-                                                <div className="flex justify-between">
-                                                    <span className="text-gray-600">Account Number:</span>
-                                                    <span className="font-medium">1234 5678 9012</span>
-                                                </div>
-                                                <div className="flex justify-between">
-                                                    <span className="text-gray-600">Account Name:</span>
-                                                    <span className="font-medium">Just worship</span>
-                                                </div>
-                                                <p className="text-sm text-gray-500 mt-2 text-center">
-                                                    Please include &apos;<span className='font-bold text-purple-500'>{selectedMethod || 'Just Worship'}</span>&apos; in your transfer narration
-                                                </p>
                                             </div>
-                                        </div>
-                                    </motion.div>
-                                </div>
+                                        ))
+
+                                    ) : (
+                                        <p className='w-full text-center italic flex items-center justify-center gap-4'><Search /> No Account Provided for {selectedMethod}</p>
+                                    )}
+                                </motion.div>
+                            </div>
                             {/* ) : (
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}

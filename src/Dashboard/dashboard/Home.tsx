@@ -1,26 +1,27 @@
 import type React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
-import { Progress } from "@/components/ui/progress";
-import { ArrowUp, Gem } from "lucide-react";
+// import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
+// import { Progress } from "@/components/ui/progress";
+import { ArrowUp, Gem, Search } from "lucide-react";
 import { useGetEventQuery, useGetMembersQuery, useGetSubscribersQuery } from "@/app/api";
+import { Table, TableHead, TableRow } from "@/components/ui/table";
 
 interface Cards {
-title: string;
-value: string;
-percentage: number;
-trend?: number;
+  title: string;
+  value: string;
+  percentage: number;
+  trend?: number;
 }
 
-const salesData = [
-  { name: 'Jan 1', value: 30 },
-  { name: 'Jan 2', value: 45 },
-  { name: 'Jan 3', value: 55 },
-  { name: 'Jan 4', value: 75 },
-  { name: 'Jan 5', value: 65 },
-  { name: 'Jan 6', value: 85 },
-  { name: 'Jan 7', value: 75 },
-];
+// const salesData = [
+//   { name: 'Jan 1', value: 30 },
+//   { name: 'Jan 2', value: 45 },
+//   { name: 'Jan 3', value: 55 },
+//   { name: 'Jan 4', value: 75 },
+//   { name: 'Jan 5', value: 65 },
+//   { name: 'Jan 6', value: 85 },
+//   { name: 'Jan 7', value: 75 },
+// ];
 
 const MetricCard: React.FC<Cards> = ({ title, value, percentage, trend }) => (
   <Card className="bg-gradient-to-br from-purple-50 to-indigo-50 backdrop-blur-sm relative overflow-hidden w-full">
@@ -77,7 +78,7 @@ const Home = () => {
   const { data: members, isLoading: loading } = useGetMembersQuery<any | undefined>(undefined)
   const { data: events, isLoading: isloading } = useGetEventQuery<any | undefined>(undefined)
 
-  console.log("data: ", subscribers?.data?.length)
+  // console.log("data: ", subscribers?.data?.length)
   return (
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
@@ -134,10 +135,10 @@ const Home = () => {
 
         <Card className="col-span-2">
           <CardHeader>
-            <CardTitle>Top 3 tithers</CardTitle>
+            <CardTitle>Subscribers</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
+            {/* <div className="space-y-4">
               <div>
                 <div className="flex justify-between mb-1">
                   <span>Tither 1</span>
@@ -159,7 +160,17 @@ const Home = () => {
                 </div>
                 <Progress value={65} className="h-2 bg-purple-200 [&>div]:bg-purple-500" />
               </div>
-            </div>
+            </div> */}
+
+            <Table>
+              <TableRow>
+                <TableHead>S/N</TableHead>
+                <TableHead>Email</TableHead>
+                <TableHead>Date</TableHead>
+              </TableRow>
+            </Table>
+                <p className="w-full text-center mt-4 flex justify-center"><Search /> No Subscribers yet</p>
+
           </CardContent>
         </Card>
 

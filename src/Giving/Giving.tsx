@@ -3,8 +3,8 @@ import { motion } from "framer-motion";
 import BG from '@/public/gallery/gallery4.jpeg';
 import card1 from "@/public/card1.jpeg"
 import { useGetGivingQuery, useGetOptionsQuery } from '@/app/api';
-import { Banknote, CreditCard } from 'lucide-react';
-import { useState } from 'react';
+import { Banknote, CreditCard, Search } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 
 const Giving: React.FC = () => {
@@ -12,6 +12,7 @@ const Giving: React.FC = () => {
   const { data: Payments, isLoading } = useGetGivingQuery<any | undefined>(undefined);
   const { data: Options } = useGetOptionsQuery<any | undefined>(undefined);
   const [selectedMethod, setSelectedMethod] = useState('tithe & offering')
+  const [selected, setSelected] = useState<any>({})
   const [selectedOption, setSelectedOption] = useState('transfer')
   const [amount, setAmount] = useState('');
   // const [code, setCode] = useState('');
@@ -31,6 +32,18 @@ const Giving: React.FC = () => {
   //   setCopied(true);
   //   setTimeout(() => setCopied(false), 2000);
   // };
+
+
+  useEffect(() => {
+    if (Payments?.data) {
+      const found = Payments.data.find(
+        (p: any) => p?.name.toLowerCase().trim() === selectedMethod.toLowerCase().trim()
+      );
+      setSelected(found);
+    }
+  }, [Payments]);
+
+  console.log(selected)
 
   return (
     <div className="min-h-screen bg-gray-100 lg:px-4 sm:px-6 lg:px-8 py-24 overflow-x-hidden">
@@ -99,7 +112,7 @@ const Giving: React.FC = () => {
                 {Options?.data?.map((option: any, index: number) => (
                   <motion.div
                     key={index}
-                    onClick={() => setSelectedMethod(option.name)}
+                    onClick={() => { setSelected(option); setSelectedMethod(option.name) }}
                     className={`p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer border border-gray-200 hover:border-purple-500 ${selectedMethod.toLowerCase().trim() === option?.name?.toLowerCase().trim() ? 'bg-purple-500 text-white' : 'bg-white text-black'}`}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -144,38 +157,48 @@ const Giving: React.FC = () => {
             </motion.div>
 
             {/* {selectedOption.toLowerCase().trim() === 'transfer' ? ( */}
-              <div className="space-y-6">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4 }}
-                >
-                  <h1 className="text-2xl font-bold text-center mb-6 text-gray-800">
-                    Bank Transfer Instructions
-                  </h1>
+            <div className="space-y-6">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+              >
+                <h1 className="text-2xl font-bold text-center mb-6 text-gray-800">
+                  Bank Transfer Instructions
+                </h1>
 
-                  <div className="bg-gray-50 p-4 rounded-lg mb-6">
-                    <h2 className="font-semibold mb-3">Account Details</h2>
-                    <div className="space-y-2 text-sm">
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Bank Name:</span>
-                        <span className="font-medium">Just worship Bank</span>
+                {selected?.accounts?.length > 0 ? (
+                  selected?.accounts?.map((account: any, index: number) => (
+                    <div key={index} className="bg-gray-50 p-4 rounded-lg mb-6">
+                      <h2 className="font-semibold mb-3">Account Details</h2>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Bank Name:</span>
+                          <span className="font-medium">
+                            {account?.bank || 'No Bank Provided'}
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Account Number:</span>
+                          <span className="font-medium">{account?.number || '-'}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Account Name:</span>
+                          <span className="font-medium">{account?.name || '-'}</span>
+                        </div>
+                        <p className="text-sm text-gray-500 mt-2 text-center">
+                          Please include &apos;<span className='font-bold text-purple-500'>{selectedMethod || 'Just Worship'}</span>&apos; in your transfer narration
+                        </p>
                       </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Account Number:</span>
-                        <span className="font-medium">1234 5678 9012</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Account Name:</span>
-                        <span className="font-medium">Just worship</span>
-                      </div>
-                      <p className="text-sm text-gray-500 mt-2 text-center">
-                        Please include &apos;<span className='font-bold text-purple-500'>{selectedMethod || 'Just Worship'}</span>&apos; in your transfer narration
-                      </p>
                     </div>
-                  </div>
+                  ))
 
-                  {/* <div className="mb-6">
+                ) : (
+                  <p className='w-full text-center italic flex items-center justify-center gap-4'><Search /> No Account Provided for {selectedMethod}</p>
+                )}
+
+
+                {/* <div className="mb-6">
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Transfer Amount
               </label>
@@ -190,7 +213,7 @@ const Giving: React.FC = () => {
               </div>
             </div> */}
 
-                  {/* <div className="mb-6">
+                {/* <div className="mb-6">
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Upload transfer receipt
               </label>
@@ -209,7 +232,7 @@ const Giving: React.FC = () => {
 
 
 
-                  {/* <div className="mb-8">
+                {/* <div className="mb-8">
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Payment Narration Code
               </label>
@@ -234,7 +257,7 @@ const Giving: React.FC = () => {
               </p>
             </div> */}
 
-                  {/* <motion.button
+                {/* <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="btn w-full bg-purple-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-purple-700 transition-colors"
@@ -242,8 +265,8 @@ const Giving: React.FC = () => {
             >
               Confirm Transfer
             </motion.button> */}
-                </motion.div>
-              </div>
+              </motion.div>
+            </div>
             {/* ) : (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
