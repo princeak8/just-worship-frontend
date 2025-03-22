@@ -7,8 +7,8 @@ import { useState } from 'react';
 export default function Giving() {
     const { data: Payments, isLoading } = useGetGivingQuery<any | undefined>(undefined);
     const { data: Options } = useGetOptionsQuery<any | undefined>(undefined);
-    const [selectedMethod, setSelectedMethod] = useState('')
-    const [selectedOption, setSelectedOption] = useState('')
+    const [selectedMethod, setSelectedMethod] = useState('tithe & offering')
+      const [selectedOption, setSelectedOption] = useState('transfer')
     const [amount, setAmount] = useState('');
    
     // const Options = ['Partnership', 'Tithe & Offering', 'Donations'];
@@ -97,8 +97,9 @@ export default function Giving() {
                                     {Payments?.data?.map((option: any, index: number) => (
                                         <motion.div
                                             key={index}
-                                            onClick={() => setSelectedOption(option.name)}
-                                            className={`px-4 py-2 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer border border-gray-200 hover:border-purple-500 flex flex-col items-center justify-center ${selectedOption.toLowerCase().trim() === option?.name?.toLowerCase().trim() ? 'bg-purple-500 text-white' : 'bg-white text-black'}`}
+                                            // onClick={() => setSelectedOption(option.name)}
+                                            // className={`px-4 py-2 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer border border-gray-200 hover:border-purple-500 flex flex-col items-center justify-center ${selectedOption.toLowerCase().trim() === option?.name?.toLowerCase().trim() ? 'bg-purple-500 text-white' : 'bg-white text-black'}`}
+                                            className={`px-4 py-2 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer border border-gray-200 hover:border-purple-500 flex flex-col items-center justify-center ${option?.name?.toLowerCase().trim() !== 'transfer' ? 'cursor-not-allowed bg-white text-black' : 'bg-purple-500 text-white'}`}
                                             whileHover={{ scale: 1.05 }}
                                             whileTap={{ scale: 0.95 }}
                                         >
