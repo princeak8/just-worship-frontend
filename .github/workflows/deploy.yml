@@ -23,14 +23,14 @@ jobs:
     - name: Pull latest changes from GitHub
       run: |
         ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@premium198.web-hosting.com -p21098 << 'EOF'
-        cd /home/justxlid/public_html
+        cd /home/justxlid/public_html/src
         git pull https://${{ secrets.GH_ACCESS_TOKEN }}@github.com/princeak8/just-worship-frontend.git main
         EOF
 
     - name: Run post-deployment scripts
       run: |
         ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@premium198.web-hosting.com -p21098 << 'EOF'
-        cd /home/justxlid/public_html
+        cd /home/justxlid/public_html/src
 
         # Run npm install
         npm install
