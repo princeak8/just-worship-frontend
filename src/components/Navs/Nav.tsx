@@ -41,7 +41,7 @@ export default function Nav() {
                     <a href="/store" className={`hover:text-yellow-400 transition ${nav.pathname === '/store' ? 'text-yellow-500' : null}`} onClick={() => setIsOpen(false)}>Store</a>
                     <a href=".giving" className="text-xl hover:text-yellow-500 transition" onClick={() => setIsOpen(false)}>Giving</a>
                     <a href="/contact" className={`hover:text-yellow-400 transition ${nav.pathname === '#' ? 'text-yellow-500' : null}`} onClick={() => setIsOpen(false)}>Contact us</a>
-                    <a href="/login" className={`w-20 hover:bg-yellow-400 transition py-1 px-4 rounded-lg ${nav.pathname === '/login' ? 'bg-yellow-500' : 'bg-purple-400'}`} onClick={() => setIsOpen(false)}>Login</a>
+                    {/* <a href="/login" className={`w-20 hover:bg-yellow-400 transition py-1 px-4 rounded-lg ${nav.pathname === '/login' ? 'bg-yellow-500' : 'bg-purple-400'}`} onClick={() => setIsOpen(false)}>Login</a> */}
                 </div>
             </div>
         </nav>
