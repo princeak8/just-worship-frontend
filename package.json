@@ -4,9 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "clean": "node clean.js", 
     "dev": "vite",
     "start": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && npm run clean && vite build",
     "preview": "vite preview",
     "test": "vitest run",
     "format": "prettier --write .",
