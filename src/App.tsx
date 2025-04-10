@@ -34,6 +34,7 @@ import GalleryCMS from "./Dashboard/dashboard/CMS/Gallery/GalleryCMS";
 import AddImage from "./Dashboard/dashboard/CMS/Gallery/AddImage";
 import Giving from "./Giving/Giving";
 import GivingCMS from "./Dashboard/dashboard/CMS/Giving/GivingCMS";
+import Live from "./Live/Live";
 
 const isUserAuthenticated = () => {
   return Cookies.get("token") !== undefined;
@@ -108,6 +109,7 @@ const App = () => {
         <Route path="/" element={<Landing />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/events" element={<Events />} />
+        <Route path="/live" element={<Live />} />
         <Route path="/giving" element={<Giving />} />
         <Route path="/store" element={<Store />} />
         <Route path="/contact" element={<ContactUs />} />

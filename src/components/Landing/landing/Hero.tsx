@@ -42,7 +42,7 @@ export default function Hero() {
                 animate={{ y: 0 }}
                 transition={{ duration: 2 }}
               >
-                A worship expereince like never before.
+                A worship expereince like never before
               </motion.h1>
 
               <p className=''>Encounter the divine presence of God through intimate Praise and Worship</p>
