@@ -149,7 +149,7 @@ const ContactUs: React.FC = () => {
         </div>
       </section>
 
-      <div className="container mx-auto lg:px-4 sm:px-6 lg:px-8 py-24  p-4">
+      <div className="container mx-auto lg:px-4 sm:px-6 lg:px-8 py-24  p-4 overflow-hidden">
         <motion.div
           className="w-full"
           initial={{ x: 50, opacity: 0 }}
@@ -175,7 +175,7 @@ const ContactUs: React.FC = () => {
           >
             We’d love to hear from you!
           </motion.p>
-          <div className='w-full lg:flex gap-10  overflow-x-hidden '>
+          <div className='w-full lg:flex gap-10  overflow-hidden '>
             <motion.form
               className="space-y-4 w-full lg:w-8/12"
               initial={{ y: 20, opacity: 0 }}
@@ -246,7 +246,7 @@ const ContactUs: React.FC = () => {
             </motion.form>
 
             <motion.div
-              className="w-full lg:w-5/12 bg-gray-200 px-10 py-20 rounded-2xl flex flex-col justify-between"
+              className="w-full lg:w-5/12 bg-gray-200 px-10 py-20 rounded-2xl flex flex-col justify-between overflow-hidden"
               initial={{ x: 50, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.4 }}
