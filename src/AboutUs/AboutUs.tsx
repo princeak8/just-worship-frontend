@@ -111,7 +111,7 @@ const AboutUs: React.FC = () => {
             viewport={{ once: true }}
           >
             <motion.h2
-              className="text-3xl font-bold mb-6"
+              className="text-3xl font-bold mb-6 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent"
               initial={{ y: -20, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.6 }}
@@ -205,7 +205,7 @@ const AboutUs: React.FC = () => {
             viewport={{ once: true }}
           >
             <motion.h2
-              className="text-3xl font-bold mb-6 uppercase"
+              className="text-3xl font-bold mb-6 uppercase bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent"
               initial={{ y: -20, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.6 }}
@@ -232,7 +232,7 @@ const AboutUs: React.FC = () => {
             viewport={{ once: true }}
           >
             <motion.h2
-              className="text-3xl font-bold mb-6 uppercase"
+              className="text-3xl font-bold mb-6 uppercase bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent"
               initial={{ y: -20, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.4 }}
@@ -263,7 +263,7 @@ const AboutUs: React.FC = () => {
           viewport={{ once: true }}
         >
           <motion.h2
-            className="text-3xl font-bold mb-2"
+            className="text-3xl font-bold mb-2 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent"
             initial={{ y: -20, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -320,7 +320,7 @@ const AboutUs: React.FC = () => {
             <div className="container grid lg:grid-cols-2 px-4 py-12 max-w-6xl mx-auto" >
               <div className="text-center mb-8 flex flex-col items-center justify-center">
                 <div className="lg:flex items-center justify-center gap-2 mb-2">
-                  <div className='w-full flex items-center justify-center'>
+                  <div className='flex items-center justify-center'>
                     <img src={logo} alt="Just Worship Logo" className="w-24" />
                   </div>
                   <h2 className="text-4xl uppercase font-[Aboreto]">WORSHIP SCHOOL</h2>

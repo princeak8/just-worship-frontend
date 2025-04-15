@@ -2,7 +2,7 @@ import type React from 'react';
 import { motion } from "framer-motion";
 import Avatar from '@/public/card1.jpeg';
 import Avatar2 from '@/public/about.png';
-import { useGetAboutQuery, useGetGalleryQuery, useGetTeamQuery } from '@/app/api';
+import { useGetAboutQuery, useGetGalleryQuery, useGetGivingQuery, useGetOptionsQuery, useGetTeamQuery } from '@/app/api';
 import background from '../public/giving.jpeg';
 import worship from '../public/praise.jpeg';
 import logo from '@/public/logo.png';
@@ -14,7 +14,8 @@ import image4 from '@/public/card4.jpeg';
 import vector from '@/public/Vector.png';
 import vector2 from '@/public/Vector 2.png';
 import vector3 from '@/public/Vector 3.png';
-import { ArrowRight, ChevronDown, ChevronLeft } from 'lucide-react';
+import { ArrowRight, Banknote, ChevronDown, ChevronLeft, CreditCard, Search } from 'lucide-react';
+import card1 from '@/public/card1.jpeg';
 
 interface AboutSection {
   id: string;
@@ -56,13 +57,35 @@ interface Stock {
 }
 
 const Giving: React.FC = () => {
-  const { data: about, isLoading } = useGetAboutQuery<AboutSection | any | undefined>(undefined);
   const { data: team, isLoading: loading } = useGetTeamQuery<TeamData | any | undefined>(undefined);
   const { data, isLoading: load } = useGetGalleryQuery<StockData[] | any | undefined>(undefined);
   const [Gallery, setGallery] = useState<any>([]);
   const [searchparams, setSearchParams] = useState('');
   const [modal, setModal] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
+
+   const { data: Payments, isLoading } = useGetGivingQuery<any | undefined>(undefined);
+      const { data: Options } = useGetOptionsQuery<any | undefined>(undefined);
+      const [selectedMethod, setSelectedMethod] = useState('tithe & offering')
+      const [selected, setSelected] = useState<any>({})
+      const [selectedOption, setSelectedOption] = useState('transfer')
+      const [amount, setAmount] = useState('');
+  
+      // const Options = ['Partnership', 'Tithe & Offering', 'Donations'];
+      // const Payments = [
+      //     { name: 'Debit Card', icon: <CreditCard className="w-6 h-6" /> },
+      //     { name: 'Credit Card', icon: <CreditCard className="w-6 h-6" /> },
+      //     { name: 'Bank Transfer', icon: <Banknote className="w-6 h-6" /> },
+      // ];
+  
+      useEffect(() => {
+          if (Payments?.data) {
+              const found = Payments.data.find(
+                  (p: any) => p?.name.toLowerCase().trim() === selectedMethod.toLowerCase().trim()
+              );
+              setSelected(found);
+          }
+      }, [Payments]);
 
   // Determine if we're on mobile
   useEffect(() => {
@@ -199,7 +222,7 @@ const Giving: React.FC = () => {
           <div className="flex flex-col lg:flex-row gap-10">
             <div className="w-full lg:w-7/12">
               <motion.h2
-                className="text-3xl mb-2 font-[DM Sans] font-semibold"
+                className="text-3xl mb-2 font-[DM Sans] font-semibold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent"
                 initial={{ y: -20, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.6 }}
@@ -315,7 +338,7 @@ const Giving: React.FC = () => {
         </div>
       </div>
 
-      <section
+      {/* <section
 
         className="container mx-auto py-16 border-t border-t-black border-b border-b-black">
         <motion.div
@@ -359,7 +382,175 @@ const Giving: React.FC = () => {
 
           <button className="w-full py-4 bg-gray-200 rounded-full font-medium">Give Now</button>
         </motion.div>
-      </section>
+      </section> */}
+
+<div className="w-full p-10 overflow-x-hidden bg-gradient-to-br from-purple-50 to-blue-50">
+            <section className="container space-y-4">
+                <section className='w-full'>
+                    <div className="lg:leading-10 text-center flex flex-col items-center justify-center my-5 lg:my-10">
+                        <motion.h2
+                            className="text-xl lg:text-5xl font-bold lg:font-normal uppercase bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent"
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8 }}
+                            viewport={{ once: true }}
+                        >
+                            Giving
+                        </motion.h2>
+                        <motion.p
+                            className='lg:w-5/12 text-gray-600'
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.2 }}
+                            viewport={{ once: true }}
+                        >
+                            Be a part in advancing the kingdom of Heaven.
+                        </motion.p>
+                    </div>
+
+                    <div className='flex justify-center w-full gap-10 text-justify leading-10'>
+                        <div className='lg:space-y-12 lg:leading-12'>
+                            <motion.div
+                                className='text-center lg:leading-12 lg:space-y-8'
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.2 }}
+                                viewport={{ once: true }}
+                            >
+                                <h1 className='font-semibold text-center text-lg lg:text-2xl my-4 text-gray-800'>
+                                    Choose an option
+                                </h1>
+                                <div className='grid grid-cols-3 gap-2'>
+                                    {Options?.data?.map((option: any, index: number) => (
+                                        <motion.div
+                                            key={index}
+                                            onClick={() => { setSelected(option); setSelectedMethod(option.name) }}
+                                            className={`p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer border border-gray-200 hover:border-purple-500 ${selectedMethod.toLowerCase().trim() === option?.name?.toLowerCase().trim() ? 'bg-purple-500 text-white' : 'bg-white text-black'}`}
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.95 }}
+                                        >
+                                            <p className='font-medium'>{option.name}</p>
+                                        </motion.div>
+                                    ))}
+                                </div>
+                                <p className='text-gray-500 mt-4'>
+                                    Nisl dolor sit amet eget tristique adipiscing tellus tristique
+                                </p>
+                            </motion.div>
+
+                            <motion.div
+                                className='text-center leading-12 space-y-8'
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.4 }}
+                                viewport={{ once: true }}
+                            >
+                                <h1 className='font-semibold text-center text-lg lg:text-2xl my-4 text-gray-800'>
+                                    Choose how you want to give
+                                </h1>
+                                <div className='grid grid-cols-3 gap-2'>
+                                    {Payments?.data?.map((option: any, index: number) => (
+                                        <motion.div
+                                            key={index}
+                                            // onClick={() => setSelectedOption(option.name)}
+                                            // className={`px-4 py-2 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer border border-gray-200 hover:border-purple-500 flex flex-col items-center justify-center ${selectedOption.toLowerCase().trim() === option?.name?.toLowerCase().trim() ? 'bg-purple-500 text-white' : 'bg-white text-black'}`}
+                                            className={`px-4 py-2 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer border border-gray-200 hover:border-purple-500 flex flex-col items-center justify-center ${option?.name?.toLowerCase().trim() !== 'transfer' ? 'cursor-not-allowed bg-white text-black' : 'bg-purple-500 text-white'}`}
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.95 }}
+                                        >
+                                            <div className={selectedOption.toLowerCase().trim() === option?.name?.toLowerCase().trim() ? ' text-yellow-200' : 'text-purple-500'}>{option?.name.toLowerCase().trim() === 'transfer' ? <Banknote className="w-6 h-6" /> : <CreditCard className="w-6 h-6" />}</div>
+                                            <p className='font-medium'>{option.name}</p>
+                                        </motion.div>
+                                    ))}
+                                </div>
+                                <p className='text-gray-500 mt-4'>
+                                    Nisl dolor sit amet eget tristique adipiscing tellus tristique
+                                </p>
+                            </motion.div>
+
+                            {/* {selectedOption.toLowerCase().trim() === 'transfer' ? ( */}
+                            <div className="space-y-6">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.4 }}
+                                >
+                                    <h1 className="text-2xl font-bold text-center mb-6 text-gray-800">
+                                        Bank Transfer Instructions
+                                    </h1>
+
+                                    {selected?.accounts?.length > 0 ? (
+                                        selected?.accounts?.map((account: any, index: number) => (
+                                            <div key={index} className="bg-gray-50 p-4 rounded-lg mb-6">
+                                                <h2 className="font-semibold mb-3">Account Details</h2>
+                                                <div className="space-y-2 text-sm">
+                                                    <div className="flex justify-between">
+                                                        <span className="text-gray-600">Bank Name:</span>
+                                                        <span className="font-medium">
+                                                            {account?.bank || 'No Bank Provided'}
+                                                        </span>
+                                                    </div>
+                                                    <div className="flex justify-between">
+                                                        <span className="text-gray-600">Account Number:</span>
+                                                        <span className="font-medium">{account?.number || '-'}</span>
+                                                    </div>
+                                                    <div className="flex justify-between">
+                                                        <span className="text-gray-600">Account Name:</span>
+                                                        <span className="font-medium">{account?.name || '-'}</span>
+                                                    </div>
+                                                    <p className="text-sm text-gray-500 mt-2 text-center">
+                                                        Please include &apos;<span className='font-bold text-purple-500'>{selectedMethod || 'Just Worship'}</span>&apos; in your transfer narration
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        ))
+
+                                    ) : (
+                                        <p className='w-full text-center italic flex items-center justify-center gap-4'><Search /> No Account Provided for {selectedMethod}</p>
+                                    )}
+                                </motion.div>
+                            </div>
+                            {/* ) : (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.4 }}
+                                    className="space-y-6"
+                                >
+                                    <h1 className="text-2xl font-bold text-center mb-6 text-gray-800">
+                                        Enter Amount
+                                    </h1>
+
+                                    <div className="mb-6">
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Amount
+                                        </label>
+                                        <div className="relative rounded-md shadow-sm">
+                                            <input
+                                                type="number"
+                                                value={amount}
+                                                onChange={(e) => setAmount(e.target.value)}
+                                                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                                placeholder="Enter amount"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <motion.button
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                        className="btn w-full bg-purple-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-purple-700 transition-colors"
+                                        disabled={!amount}
+                                    >
+                                        Give Now
+                                    </motion.button>
+                                </motion.div>
+                            )} */}
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </div>
 
       <section className="container mx-auto sm:px-6 lg:px-4 py-24 p-4">
         <div className="max-w-4xl">
