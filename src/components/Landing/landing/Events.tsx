@@ -11,18 +11,18 @@ import { useGetEventQuery } from '@/app/api';
 
 interface GetEvent {
     data: Event[]
-  }
-  
-  interface Event {
+}
+
+interface Event {
     id: string;
     name: string;
     date: string;
     bookings: string;
     content: string;
     coverPhoto: {
-      url: string;
+        url: string;
     }
-  }
+}
 
 export default function Events() {
     const { data: events, isLoading } = useGetEventQuery<GetEvent[] | any | undefined>(undefined);
@@ -48,7 +48,7 @@ export default function Events() {
                     <Swiper
                         modules={[Navigation, Pagination, Scrollbar, A11y]}
                         spaceBetween={30}
-                        slidesPerView={1.1}
+                        slidesPerView={events?.data?.length === 1 ? 1 : 1.1}
                         navigation={{
                             nextEl: ".swiper-button-next",
                             prevEl: ".swiper-button-prev",
@@ -66,12 +66,12 @@ export default function Events() {
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/60 to-transparent"></div>
 
                                 <div className="absolute bottom-6 left-6 text-white">
-                                    
+
                                     <h3 className="text-3xl font-bold">{event.title}</h3>
                                     <p className="text-lg">{event.subtitle}</p>
                                     <div className='flex flex-col mb-2 space-y-4'>
                                         <p className="text-sm text-white flex items-center gap-2 bg-purple-500 p-1 px-2 rounded-md w-14"><Users size={15} className='' />{event?.bookings?.length}</p>
-                                    <p className="bg-red-600 px-3 py-1 rounded-md inline-block text-sm font-semibold flex gap-2 w-32"><Calendar size={15} /> {event.date}</p>
+                                        <p className="bg-red-600 px-3 py-1 rounded-md inline-block text-sm font-semibold flex gap-2 w-32"><Calendar size={15} /> {event.date}</p>
                                     </div>
                                     <p className="text-md mt-2">{event.content}</p>
 
@@ -83,13 +83,16 @@ export default function Events() {
                             </SwiperSlide>
                         ))}
                     </Swiper>
-
+                    {events?.data?.length > 1 && (
+                        <>
                     <button className="hidden lg:flex swiper-button-prev absolute left-4 top-1/2 transform -translate-y-1/2 z-10 p-8 border-2 border-blue-500 shadow-md rounded-full">
                         <CircleArrowLeft size={32} className="text-gray-700" />
                     </button>
                     <button className="hidden lg:flex swiper-button-next absolute right-4 top-1/2 transform -translate-y-1/2 z-10 p-8 border-2 border-blue-500 shadow-md rounded-full overflow-hidden">
                         <CircleArrowRight size={10} className=" text-red-500" />
                     </button>
+                    </>
+                    )}
                 </div>
             </section>
         </div>
