@@ -2,7 +2,7 @@ import type React from 'react';
 import { motion } from "framer-motion";
 import Avatar from '@/public/card1.jpeg';
 import Avatar2 from '@/public/about.png';
-import { useGetAboutQuery, useGetGalleryQuery, useGetTeamQuery } from '@/app/api';
+import { useGetAboutQuery, useGetEventQuery, useGetGalleryQuery, useGetTeamQuery } from '@/app/api';
 import background from '../public/events.jpeg';
 import map from '../public/maps.svg';
 import worship from '@/public/worship-school.jpeg';
@@ -82,7 +82,7 @@ const buttonHover = {
 
 const Events: React.FC = () => {
 
-  const { data: about, isLoading } = useGetAboutQuery<AboutSection | any | undefined>(undefined);
+  const { data: events, isLoading } = useGetEventQuery<AboutSection | any | undefined>(undefined);
   const { data: team, isLoading: loading } = useGetTeamQuery<TeamData | any | undefined>(undefined);
   const { data, isLoading: load } = useGetGalleryQuery<StockData[] | any | undefined>(undefined);
   const [Gallery, setGallery] = useState<any>([]);
@@ -100,11 +100,11 @@ const Events: React.FC = () => {
     setGallery([ image1, image2, image3, image4,  image1, image2, image3, image4,  image1, image2 ])
   },[]);
 
-  const events = [
+  const event = [
     {
       id: 1,
-      title: "Just Worship: The Pentecost",
-      subtitle: "Part One Act",
+      name: "Just Worship: The Pentecost",
+      content: "Part One Act",
       date: "June 23, 2025",
       time: "5:00PM",
       location: "UNN Enugu Campus",
@@ -114,8 +114,8 @@ const Events: React.FC = () => {
     },
     {
       id: 2,
-      title: "Just Worship: The Pentecost",
-      subtitle: "Part One Act",
+      name: "Just Worship: The Pentecost",
+      content: "Part One Act",
       date: "June 23, 2025",
       time: "5:00PM",
       location: "UNN Enugu Campus",
@@ -124,8 +124,8 @@ const Events: React.FC = () => {
     },
     {
       id: 3,
-      title: "Just Worship: The Pentecost",
-      subtitle: "Part One Act",
+      name: "Just Worship: The Pentecost",
+      content: "Part One Act",
       date: "June 23, 2025",
       time: "5:00PM",
       location: "UNN Enugu Campus",
@@ -174,7 +174,7 @@ const Events: React.FC = () => {
             </motion.h2>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-              {events.map((event, index) => (
+              {event.map((event, index) => (
                 <motion.div 
                   key={event.id}
                   className="bg-[#252C31] overflow-hidden shadow-md"
@@ -187,14 +187,14 @@ const Events: React.FC = () => {
                   <div className="relative">
                     <img 
                       src={event.imageUrl} 
-                      alt={event.title} 
+                      alt={event.name} 
                       className="w-full h-96 object-cover"
                     />
                   </div>
                   
                   <div className="p-4 py-8 text-start">
-                    <h3 className="text-lg font-semibold">{event.title}</h3>
-                    <div className="text-xs mb-3">{event.subtitle}</div>
+                    <h3 className="text-lg font-semibold">{event.name}</h3>
+                    <div className="text-xs mb-3">{event.content}</div>
                     
                     <div className="flex items-center gap-2 mb-2">
                       <div className="w-5 h-5 flex items-center justify-center bg-gray-100 rounded-full">
@@ -262,7 +262,7 @@ const Events: React.FC = () => {
             </motion.h2>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-              {events.map((event, index) => (
+              {events?.data?.map((event: any, index: number) => (
                 <motion.div 
                   key={event.id}
                   className="overflow-hidden shadow-md"
@@ -274,15 +274,15 @@ const Events: React.FC = () => {
                 >
                   <div className="relative">
                     <img 
-                      src={event.imageUrl} 
-                      alt={event.title} 
+                      src={event?.coverPhoto?.url} 
+                      alt={event?.name} 
                       className="w-full h-80 object-cover"
                     />
                   </div>
                   
                   <div className="p-4 py-8 text-start">
-                    <h3 className="text-lg font-semibold">{event.title}</h3>
-                    <div className="text-xs mb-3">{event.subtitle}</div>
+                    <h3 className="text-lg font-semibold">{event?.name}</h3>
+                    <div className="text-xs mb-3">{event?.content}</div>
                     
                     <div className="flex items-center gap-2 mb-2">
                       <div className="w-5 h-5 flex items-center justify-center bg-gray-100 rounded-full">
@@ -290,7 +290,7 @@ const Events: React.FC = () => {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
                       </div>
-                      <span className="text-sm">{event.date}</span>
+                      <span className="text-sm">{event?.date}</span>
                     </div>
                     
                     <div className="flex items-center gap-2 mb-2">
@@ -299,7 +299,7 @@ const Events: React.FC = () => {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                       </div>
-                      <span className="text-sm">{event.time}</span>
+                      <span className="text-sm">{event?.time}</span>
                     </div>
                     
                     <div className="flex items-center gap-2 mb-4">
@@ -309,7 +309,7 @@ const Events: React.FC = () => {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
                       </div>
-                      <span className="text-sm ">{event.location}</span>
+                      <span className="text-sm ">{event?.location}</span>
                     </div>
 
                     <div className='w-full flex items-center justify-start'>

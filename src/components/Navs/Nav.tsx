@@ -16,7 +16,7 @@ export default function Nav() {
                 <div className="flex gap-10">
                     <a href="/about" className={`hover:text-yellow-400 transition ${nav.pathname === '/about' ? 'text-yellow-500' : null}`}>About</a>
                     <a href="/events" className={`hover:text-yellow-400 transition ${nav.pathname === '/events' ? 'text-yellow-500' : null}`}>Events</a>
-                    <a href="/live" className={`hover:text-yellow-400 transition ${nav.pathname === 'live' ? 'text-yellow-500' : null}`}>LIVE</a>
+                    <a href="/live" className={`hover:text-yellow-400 transition ${nav.pathname === '/live' ? 'text-yellow-500' : null}`}>LIVE</a>
                     <a href="/store" className={`hover:text-yellow-400 transition ${nav.pathname === '/store' ? 'text-yellow-500' : null}`}>Store</a>
                     <a href="/giving" className={`hover:text-yellow-400 transition ${nav.pathname === '/giving' ? 'text-yellow-500' : null}`}>Giving</a>
                     <a href="/contact" className={`hover:text-yellow-400 transition ${nav.pathname === '/contact' ? 'text-yellow-500' : null}`}>Contact us</a>
