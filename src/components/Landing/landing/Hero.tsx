@@ -31,8 +31,9 @@ export default function Hero() {
   const { data, isLoading } = useGetHeroQuery<SlideData[] | any | undefined>(undefined)
 
   if(
-    isLoading || 
-    !data?.data
+    isLoading 
+    || 
+    data?.data == 0
   ) 
   return (
     <section className='w-full h-screen text-white' style={{ backgroundImage: `url(${background})`, backgroundRepeat: "no-repeat, no-repeat", backgroundSize: "cover" }}>

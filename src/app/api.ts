@@ -262,6 +262,11 @@ const api = apiClient.injectEndpoints({
             }),
         }),
 
+        getLive:builder.query({
+            query: (url: any) =>({
+                url:    `${VITE_BASE_URL}/${apiRoutes.live}`
+            })
+        })
 
     })
 });
@@ -304,4 +309,5 @@ export const {
     useGetMembersQuery,
     useGetUserQuery,
     useGetAccountQuery,
+    useGetLiveQuery,
 } = api

@@ -1,17 +1,13 @@
 import type React from 'react';
 import { motion } from "framer-motion";
-import Avatar from '@/public/card1.jpeg';
-import Avatar2 from '@/public/about.png';
-import { useGetAboutQuery, useGetEventQuery, useGetGalleryQuery, useGetTeamQuery } from '@/app/api';
+import { useGetEventQuery, useGetGalleryQuery, useGetTeamQuery } from '@/app/api';
 import background from '../public/events.jpeg';
-import map from '../public/maps.svg';
-import worship from '@/public/worship-school.jpeg';
-import logo from '@/public/logo.png';
 import { useEffect, useState } from 'react';
 import image1 from '@/public/card1.jpeg';
 import image2 from '@/public/card2.jpeg';
 import image3 from '@/public/card3.jpeg';
 import image4 from '@/public/card4.jpeg';
+import SkeletonLoader from '@/SkeletonLoader';
 
 interface AboutSection {
   id: string;
@@ -261,15 +257,21 @@ const Events: React.FC = () => {
               All Events
             </motion.h2>
             
+              {isLoading && (
+                <section className='grid grid-cols-1 md:grid-cols-3 gap-8 mt-12'>
+                  <SkeletonLoader className={'w-full h-[30rem] border '} />
+                  <SkeletonLoader className={'w-full h-[30rem] border '} />
+                  <SkeletonLoader className={'w-full h-[30rem] border '} />
+                </section>
+              )}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
               {events?.data?.map((event: any, index: number) => (
                 <motion.div 
                   key={event.id}
                   className="overflow-hidden shadow-md"
-                  variants={fadeInUp}
-                  initial="hidden"
-                  whileInView="visible"
-                  custom={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1, delay: index * 0.5 }}
                   viewport={{ once: true }}
                 >
                   <div className="relative">

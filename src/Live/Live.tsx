@@ -1,13 +1,14 @@
 import type React from 'react';
 import { motion } from "framer-motion";
-import { useGetAboutQuery, useGetGalleryQuery, useGetTeamQuery } from '@/app/api';
+import { useGetAboutQuery, useGetGalleryQuery, useGetLiveQuery, useGetTeamQuery } from '@/app/api';
 import background from '../public/live.jpeg'
 import { useEffect, useState } from 'react';
 import image1 from '@/public/live2.jpeg'
 import image2 from '@/public/card2.jpeg'
 import image3 from '@/public/card3.jpeg'
 import image4 from '@/public/card4.jpeg'
-import { Calendar, ConciergeBell } from 'lucide-react';
+import { Calendar, ConciergeBell, Search } from 'lucide-react';
+import SkeletonLoader from '@/SkeletonLoader';
 
 interface AboutSection {
   id: string;
@@ -51,7 +52,7 @@ interface Stock {
 
 const Live: React.FC = () => {
 
-  const { data: about, isLoading } = useGetAboutQuery<AboutSection | any | undefined>(undefined);
+  const { data: live, isLoading } = useGetLiveQuery<AboutSection | any | undefined>(undefined);
   const { data: team, isLoading: loading } = useGetTeamQuery<TeamData | any | undefined>(undefined);
   const { data, isLoading: load } = useGetGalleryQuery<StockData[] | any | undefined>(undefined);
 
@@ -182,11 +183,20 @@ const Live: React.FC = () => {
         >
           More LIVE Streams
         </motion.h2>
-        
+
+        {isLoading ? (
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mt-12">
+            <SkeletonLoader className={'w-full h-48'}/>
+            <SkeletonLoader className={'w-full h-48'}/>
+            <SkeletonLoader className={'w-full h-48'}/>
+            <SkeletonLoader className={'w-full h-48'}/>
+          </div>
+        ):(
+        live?.data ? (
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mt-12">
-          {events.map((event, index) => (
+          {live?.data?.map((live: any, index: number) => (
             <motion.div 
-              key={event.id}
+              key={live.id}
               className="overflow-hidden"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -195,19 +205,22 @@ const Live: React.FC = () => {
             >
               <div className="relative">
                 <img 
-                  src={event.imageUrl} 
-                  alt={event.title} 
+                  src={live.coverPhoto.url} 
+                  alt={live.title} 
                   className="w-full h-48 rounded-2xl object-cover"
                 />
               </div>
               
               <div className="p-2 text-start space-y-2">
-                <h3 className="text-md font-semibold">{event.title}</h3>
-                <div className="text-xs mb-3">{event.subtitle}</div>
+                <h3 className="text-md font-semibold">{live.title}</h3>
+                <div className="text-xs mb-3">{live.description}</div>
               </div>
             </motion.div>
           ))}
         </div>
+        ):(
+          <p className='flex gap-2'><Search />No Live Stream available at the moment</p>
+        ))}
       </motion.div>
     </div>
     </section>

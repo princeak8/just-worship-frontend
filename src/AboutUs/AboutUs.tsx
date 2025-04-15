@@ -72,9 +72,9 @@ const AboutUs: React.FC = () => {
   //   setGallery(search());
   // }, [data?.data, searchparams]);
 
-  useEffect(()=>{
-    setGallery([ image1, image2, image3, image4,  image1, image2, image3, image4,  image1, image2])
-  },[])
+  useEffect(() => {
+    setGallery([image1, image2, image3, image4, image1, image2, image3, image4, image1, image2])
+  }, [])
 
   const customWidths = ['450px', '450px', '450px', '335px', '335px', '335px', '335px'];
 
@@ -100,100 +100,103 @@ const AboutUs: React.FC = () => {
         </div>
       </section>
 
-      <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-8 lg:px-4 sm:px-6 lg:px-8 py-24 overflow-x-hidden p-4">
-        <motion.div
-          className="w-full text-center"
-          initial={{ x: 50, opacity: 0 }}
-          whileInView={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          viewport={{ once: true }}
-        >
-          <motion.h2
-            className="text-3xl font-bold mb-6"
-            initial={{ y: -20, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-            viewport={{ once: true }}
-          >
-            Just Worship International is a Christian worship outreach team dedicated to spreading the gospel through praise and worship
-          </motion.h2>
-          <motion.p
-            className="text-lg text-gray-700 mb-4 text-center"
-            initial={{ y: 20, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.8 }}
-            viewport={{ once: true }}
-          >
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore quos enim unde nihil odio? Maxime quis totam officiis omnis tempora possimus consequatur nisi! Molestiae rerum sapiente repudiandae animi? Molestiae cupiditate accusantium numquam explicabo ab doloribus nesciunt quis odit neque magnam deserunt, magni, officiis natus modi reprehenderit obcaecati vero at quae sequi. Neque veritatis at maxime totam? Molestias inventore eum architecto placeat rerum perspiciatis, quae blanditiis sapiente quam doloribus corrupti! Itaque recusandae ratione beatae consequuntur delectus quam hic assumenda culpa odio, tenetur voluptatibus illo ex, dolores officiis obcaecati eligendi omnis! Excepturi veritatis delectus quidem quaerat esse sequi provident in corrupti impedit.
-            {/* {about?.data?.vision} */}
-          </motion.p>
-        </motion.div>
-      </div>
 
-
-      <motion.section
-        className="lg:py-12 px-4 sm:px-6 lg:px-8 bg-[#181D21] lg:h-[616px] text-white"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-      >
-        <div className="container max-w-6xl mx-auto flex flex-col lg:flex-row items-center lg:gap-40 lg:px-4 sm:px-6 lg:px-8 pt-24 lg:py-24 overflow-x-hidden">
+      {(about?.data?.header || about?.data?.content) && (
+        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-8 lg:px-4 sm:px-6 lg:px-8 py-24 overflow-x-hidden p-4">
           <motion.div
-            className="w-full lg:w-3/6"
+            className="w-full text-center"
             initial={{ x: 50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
             viewport={{ once: true }}
           >
             <motion.h2
-              className="text-[24px] mb-6 font-[Aboreto]"
+              className="text-3xl font-bold mb-6"
               initial={{ y: -20, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.6 }}
               viewport={{ once: true }}
             >
-              LEAD PASTOR
+              {about?.data?.header}
             </motion.h2>
             <motion.p
-              className="text-lg mb-4 text-justify font-[DM Sans]"
+              className="text-lg text-gray-700 mb-4 text-center"
               initial={{ y: 20, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.8 }}
               viewport={{ once: true }}
             >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, fugiat, dolorum facere omnis sunt earum vero perferendis dolor molestiae dolore a voluptatum! Quos quasi facilis exercitationem! Obcaecati repellendus tempora quas nobis nostrum enim veniam molestiae, est maiores vitae repudiandae sunt culpa. Magnam reiciendis officia iusto repudiandae voluptate deleniti rerum, quod porro. Modi, iusto iste! Excepturi, dolore laborum ratione, esse itaque, sint mollitia temporibus in dolorem at tenetur! Similique voluptas sequi asperiores. Adipisci similique id placeat ad maiores, sunt dicta dignissimos?
-              {/* {about?.data?.vision} */}
+              {about?.data?.content}
             </motion.p>
           </motion.div>
-          <motion.div
-            className="w-full lg:w-2/6"
-            initial={{ x: -50, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            <motion.img
-            src={Avatar2}
-              // src={about?.data?.visionPhoto?.url || Avatar}
-              alt="About Us"
-              className="w-full  lg:h-[29rem] rounded-lg shadow-lg"
-              whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.3 }}
-            />
-          </motion.div>
         </div>
-      </motion.section>
+      )}
+
+
+      {about?.data?.pastorBio && (
+        <motion.section
+          className="lg:py-12 px-4 sm:px-6 lg:px-8 bg-[#181D21] lg:h-[616px] text-white"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <div className="container max-w-6xl mx-auto flex flex-col lg:flex-row items-center lg:gap-40 lg:px-4 sm:px-6 lg:px-8 pt-24 lg:py-24 overflow-x-hidden">
+            <motion.div
+              className="w-full lg:w-3/6"
+              initial={{ x: 50, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              viewport={{ once: true }}
+            >
+              <motion.h2
+                className="text-[24px] mb-6 font-[Aboreto] uppercase"
+                initial={{ y: -20, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
+                viewport={{ once: true }}
+              >
+                {about?.data?.pastorTitle}
+              </motion.h2>
+              <motion.p
+                className="text-lg mb-4 text-justify font-[DM Sans]"
+                initial={{ y: 20, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.8 }}
+                viewport={{ once: true }}
+              >
+                {about?.data?.pastorBio}
+              </motion.p>
+            </motion.div>
+            <motion.div
+              className="w-full lg:w-2/6"
+              initial={{ x: -50, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              <motion.img
+                // src={Avatar2}
+                src={about?.data?.pastorPhoto?.url || Avatar}
+                alt="About Us"
+                className="w-full  lg:h-[29rem] rounded-lg shadow-lg"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              />
+            </motion.div>
+          </div>
+        </motion.section>
+      )}
 
 
       <motion.section
-        className="container lg:py-12 px-4 sm:px-6 lg:px-8"
+        className={`container  px-4 sm:px-6 lg:px-8 lg:py-12 ${about?.data?.pastorBio ? 'lg:py-12' : ''}`}
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
       >
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-10 lg:gap-28 sm:px-6 lg:px-2 py-24 overflow-x-hidden text-center">
+        <div className={`max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-10 lg:gap-28 sm:px-6 lg:px-2  overflow-x-hidden text-center ${about?.data?.pastorBio ? 'py-24' : ''}`}>
           <motion.div
             className="w-full"
             initial={{ x: 50, opacity: 0 }}
@@ -217,8 +220,7 @@ const AboutUs: React.FC = () => {
               transition={{ duration: 0.5, delay: 0.8 }}
               viewport={{ once: true }}
             >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. In facilis neque iste tempora, fugit quas ratione quod. Nam, facilis quos.
-              {/* {about?.data?.vision} */}
+              {about?.data?.vision}
             </motion.p>
           </motion.div>
 
@@ -245,8 +247,7 @@ const AboutUs: React.FC = () => {
               transition={{ duration: 0.5, delay: 0.6 }}
               viewport={{ once: true }}
             >
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Distinctio assumenda illum excepturi sint cumque ut corporis! Tenetur dolorem perspiciatis amet.
-              {/* {about?.data?.mission} */}
+              {about?.data?.mission}
             </motion.p>
           </motion.div>
 
@@ -281,7 +282,7 @@ const AboutUs: React.FC = () => {
           </motion.p>
 
           <div className="flex flex-wrap justify-between gap-4 mb-8">
-          <div className="px-8 py-2 hover:text-gray-500">Nigeria</div>
+            <div className="px-8 py-2 hover:text-gray-500">Nigeria</div>
             <div className="px-8 py-2 hover:text-gray-500">South Africa</div>
             <div className="px-8 py-2 hover:text-gray-500">United Kingdom</div>
           </div>
@@ -320,7 +321,7 @@ const AboutUs: React.FC = () => {
               <div className="text-center mb-8 flex flex-col items-center justify-center">
                 <div className="lg:flex items-center justify-center gap-2 mb-2">
                   <div className='w-full flex items-center justify-center'>
-                  <img src={logo} alt="Just Worship Logo" className="w-24" />
+                    <img src={logo} alt="Just Worship Logo" className="w-24" />
                   </div>
                   <h2 className="text-4xl uppercase font-[Aboreto]">WORSHIP SCHOOL</h2>
                 </div>
@@ -398,9 +399,9 @@ const AboutUs: React.FC = () => {
                   </button>
                 </form>
               </div>
-              </div>
             </div>
-            <div className='py-4 bg-[#181D21]'>
+          </div>
+          <div className='py-4 bg-[#181D21]'>
             <div className="container w-full text-center ">
               <div className="flex justify-between items-center px-40">
                 <div className='font-[Aboreto]'>
@@ -415,8 +416,8 @@ const AboutUs: React.FC = () => {
                 </button>
               </div>
             </div>
-            </div>
           </div>
+        </div>
 
       </motion.section>
 
