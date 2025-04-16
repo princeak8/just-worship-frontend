@@ -57,7 +57,14 @@ const api = apiClient.injectEndpoints({
 
         getAboutById:builder.query({
             query: (data: any) =>({
-                url: `${VITE_BASE_URL}/${apiRoutes.hero}/${data}`
+                url: `${VITE_BASE_URL}/${apiRoutes.about}/${data}`
+            }),
+        }),
+        updateAbout:builder.mutation({
+            query: (data: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.about}`,
+                method: 'POST',
+                body: data,
             }),
         }),
 
@@ -280,6 +287,7 @@ export const {
     useDeleteHeroDetailsMutation,
     useGetAboutQuery,
     useGetAboutByIdQuery,
+    useUpdateAboutMutation,
     useGetTeamQuery,
     useGetMemberByIdQuery,
     useAddTeamMutation,

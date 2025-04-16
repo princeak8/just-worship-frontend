@@ -42,7 +42,7 @@ const MetricCard: React.FC<Cards> = ({ title, value, percentage, trend }) => (
             <span className="text-xs text-gray-500">vs previous month</span>
           </div>
         </div>
-        <div className="relative w-16 h-16">
+        {/* <div className="relative w-16 h-16">
           <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
             <circle
               className="text-purple-200 stroke-current"
@@ -67,7 +67,7 @@ const MetricCard: React.FC<Cards> = ({ title, value, percentage, trend }) => (
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             <span className="text-sm font-bold text-purple-900">{percentage}%</span>
           </div>
-        </div>
+        </div> */}
       </div>
     </CardContent>
   </Card>

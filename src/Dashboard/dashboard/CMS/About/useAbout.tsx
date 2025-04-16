@@ -1,34 +1,92 @@
-import { useAddHeroDetailsMutation, useGetAboutByIdQuery } from '@/app/api'
+import { useAddHeroDetailsMutation,useGetAboutQuery, useUpdateAboutMutation } from '@/app/api'
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Navigate, useParams} from 'react-router-dom';
 
+interface AboutSection {
+    id: number;
+    header: string;
+    content: string;
+    pastorTitle: string;
+    pastorBio: string;
+    pastorPhoto?: {
+      id: number;
+      url: string;
+      mimeType: string;
+      filename: string;
+      extension: string;
+      size: number;
+    };
+    vision: string;
+    visionPhoto?: {
+      id: number;
+      url: string;
+      mimeType: string;
+      filename: string;
+      extension: string;
+      size: number;
+    };
+    mission: string;
+    missionPhoto?: {
+      id: number;
+      url: string;
+      mimeType: string;
+      filename: string;
+      extension: string;
+      size: number;
+    };
+  }
+
 interface FormDataDetail {
-    title: string;
-    description: string;
-    button_text: string;
-    button_link: string;
+    header: string,
+    content: string,
+    vision: string,
+    mission: string,
+    pastorTitle: string,
+    pastorBio: string,
     image: FileList;
+
 }
+
+interface ApiResponse {
+    statusCode: number;
+    data: AboutSection;
+  }
 
 const useAbout = () => {
     const {id} = useParams()
-  const {getAboutById} = useGetAboutByIdQuery<any>(id, {skip: !id})
-    const [addHero, isLoading] = useAddHeroDetailsMutation()
+  const { data: about, isLoading } = useGetAboutQuery<ApiResponse|any>(undefined);
+    const [updateAbout, {isLoading: load}] = useUpdateAboutMutation()
 
-    console.log("id: ", getAboutById)
+    // console.log("id: ", getAboutById)
 
     const {
         register: addHeroDetail, 
         handleSubmit,
+        setValue,
         formState: {errors},
     } = useForm<FormDataDetail>({
         defaultValues: {
-            title: '',
-            description: '',
-            button_text: '',
-            button_link: '',
+            header: '',
+            content: '',
+            vision: '',
+            mission: '',
+            pastorTitle: '',
+            pastorBio: '',
         },
     });
+
+    useEffect(()=>{
+        if(about?.data){
+            setValue('header', about?.data?.header)
+            setValue('content', about?.data?.content)
+            setValue('vision', about?.data?.vision)
+            setValue('mission', about?.data?.mission)
+            setValue('pastorTitle', about?.data?.pastorTitle)
+            setValue('pastorBio', about?.data?.pastorBio)
+            setValue('image', about?.data?.pastorPhoto?.url || '' as unknown as FileList )
+        }
+    },[about?.data])
 
     const rules = {
         title: {
@@ -40,22 +98,25 @@ const useAbout = () => {
     };
 
     async function onSubmit(data: FormDataDetail){
-        const {title, description, button_text, button_link, image} = data;
+        const {header, content, vision, mission, pastorTitle, pastorBio, image} = data;
 
         const formdata = new FormData()
 
-        formdata.append('title', title)
-        formdata.append('message', description)
-        formdata.append('buttonText', button_text)
-        formdata.append('button_link', button_link)
+        formdata.append('header', header)
+        formdata.append('content', content)
+        formdata.append('vision', vision)
+        formdata.append('mission', mission)
+        formdata.append('pastorTitle', pastorTitle)
+        formdata.append('pastorBio', pastorBio )
         
-        if (image && image.length > 0) {
-            formdata.append('photo', image[0]);
+        if (image && image.length > 0 && image[0] instanceof File && image[0] !== about?.data?.pastorPhoto?.url) {
+            formdata.append('pastorPhoto', image[0]);
         }
 
         try{
-            await addHero(formdata).unwrap()
-            return <Navigate to={'/dashboard/cms/home'} />
+            await updateAbout(formdata).unwrap()
+            return window.location.href='/dashboard/cms/about'
+            // return <Navigate to={'/dashboard/cms/about'} />
         }catch(err){
             console.log(err)
         }
@@ -66,7 +127,9 @@ const useAbout = () => {
     isLoading,
     formInstance: {addHeroDetail, handleSubmit, errors, rules},
     onSubmit,
+    fetchedImage: about?.data?.pastorPhoto?.url ,
   }
 }
 
 export default useAbout
+
