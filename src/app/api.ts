@@ -285,6 +285,13 @@ const api = apiClient.injectEndpoints({
             }),
         }),
 
+        deleteAccount:builder.mutation({
+            query: (id: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.accounts}/${id}`,
+                method: "DELETE",
+            }),
+        }),
+
         getLive:builder.query({
             query: (url: any) =>({
                 url:    `${VITE_BASE_URL}/${apiRoutes.live}`
@@ -335,5 +342,6 @@ export const {
     useGetAccountQuery,
     useCreateAccountMutation,
     useEditAccountMutation,
+    useDeleteAccountMutation,
     useGetLiveQuery,
 } = api

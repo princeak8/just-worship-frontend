@@ -1,11 +1,17 @@
 import { useState, useEffect } from 'react';
 import { Loader2, Edit, Trash, Plus, Currency } from 'lucide-react';
-import { useCreateAccountMutation, useEditAccountMutation, useEditGivingOptionMutation, useGetAccountQuery, useGetGivingQuery, useGetOptionsQuery } from '@/app/api';
+import { useCreateAccountMutation, useDeleteAccountMutation, useEditAccountMutation, useEditGivingOptionMutation, useGetAccountQuery, useGetGivingQuery, useGetOptionsQuery } from '@/app/api';
+import { Button } from '@/components/ui/button';
 
 interface PaymentMethod {
     id: number;
     name: string;
     accounts: any[];
+}
+
+interface Select {
+    name: string,
+    id: string | undefined
 }
 
 export default function GivingCMS() {
@@ -23,6 +29,12 @@ export default function GivingCMS() {
     const [editAccount, { isLoading: load2 }] = useEditAccountMutation()
     const [editgivingOptions] = useEditGivingOptionMutation()
     const [Accounts, setAccounts] = useState<any>([])
+    const [warning, setWarning] = useState(false)
+    const [deleteAccount] = useDeleteAccountMutation()
+    const [selectedAccount, setSelectedAccount] = useState<Select>({
+        name: '',
+        id: ''
+    })
 
     useEffect(() => {
         if (data?.data) {
@@ -45,7 +57,7 @@ export default function GivingCMS() {
             formdata.append('name', newMethodName?.name);
             formdata.append('number', newMethodName?.number);
             formdata.append('countryId', '1');
-    
+
             try {
                 await createAccount(formdata).unwrap();
             } catch (error) {
@@ -124,6 +136,18 @@ export default function GivingCMS() {
 
     };
 
+    const handleDeleteAccount = async (id?: string) => {
+        if (!id) return;
+        try {
+            await deleteAccount(id).unwrap()
+            setAccounts((prev: any) => prev.filter((account: any) => account.id !== id));
+            setWarning(false);
+            //   setSelected({ name: '', id: '' });
+        } catch (err) {
+            console.log(err)
+        }
+    };
+
     if (isLoading) return (
         <section className='w-full h-screen flex items-center justify-center'>
             <Loader2 size={50} className='text-purple-500 animate-spin' />
@@ -132,6 +156,17 @@ export default function GivingCMS() {
 
     return (
         <div className="min-h-screen p-8 bg-gray-50">
+            {warning && (
+                <section className=' fixed w-full h-screen inset-0 bg-purple-500 bg-opacity-20 flex items-center justify-center'>
+                    <div className='w-[25em] bg-white rounded-md border border-yellow-500 overflow-hidden p-4 text-center space-y-4'>
+                        <p>Are you sure you want to delete &apos;<span className='italic font-bold text-red-700'>{selectedAccount?.name || "member"}</span>&apos;?</p>
+                        <div className='flex items-center justify-between'>
+                            <Button size={'sm'} onClick={() => { setWarning(false); setSelectedAccount({ name: '', id: '' }) }} variant={'default'} >Cancel</Button>
+                            <Button size={'sm'} onClick={() => handleDeleteAccount(selectedAccount.id)} variant={'destructive'} >Delete</Button>
+                        </div>
+                    </div>
+                </section>
+            )}
             <div className="w-full max-w-4xl mx-auto">
                 <div className='flex items-center justify-between mb-8'>
                     <h1 className="text-3xl font-bold">Payment Management</h1>
@@ -198,7 +233,7 @@ export default function GivingCMS() {
                                         onClick={() => handleDelete(method.id)}
                                         className="text-gray-400 hover:text-red-500 p-1 rounded-md"
                                     >
-                                        <Trash size={18} />
+                                        <Trash size={18} onClick={() => { setWarning(true); setSelectedAccount(method) }} />
                                     </button>
                                 </div>
                             </div>
