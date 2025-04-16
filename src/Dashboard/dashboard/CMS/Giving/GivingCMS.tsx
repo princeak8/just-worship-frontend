@@ -263,12 +263,12 @@ export default function GivingCMS() {
                                     >
                                         <Edit size={18} />
                                     </button>
-                                    <button
+                                    {/* <button
                                         onClick={() => handleDelete(account.id)}
                                         className="text-gray-400 hover:text-red-500 p-1 rounded-md"
                                     >
                                         <Trash size={18} />
-                                    </button>
+                                    </button> */}
                                 </div>
                             </div>
                         ))}
