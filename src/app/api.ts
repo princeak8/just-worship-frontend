@@ -270,10 +270,10 @@ const api = apiClient.injectEndpoints({
         }),
 
         createAccount:builder.mutation({
-            query: (formdata: any) =>({
+            query: (data: any) => ({
                 url: `${VITE_BASE_URL}/${apiRoutes.accounts}`,
                 method: 'POST',
-                body: formdata,
+                body: data,
             }),
         }),
 

@@ -13,7 +13,7 @@ export default function GivingCMS() {
     const { data: Options } = useGetOptionsQuery<any | undefined>(undefined);
     const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([]);
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-    const [newMethodName, setNewMethodName] = useState<any>(null);
+    const [newMethodName, setNewMethodName] = useState<PaymentMethod | any | null>(null);
     const [linkAccount, setLinkAccount] = useState('');
     const [editingMethod, setEditingMethod] = useState<PaymentMethod | any | null>(null);
     const [paymentOptions, setPaymentOptions] = useState([]);
@@ -40,29 +40,21 @@ export default function GivingCMS() {
         const formdata = new FormData()
 
         if (binary === 1) {
-
-            // const newMethod = {
-            //     id: Date.now(),
-            //     name: newMethodName.name,
-            //     bank: newMethodName.bank,
-            //     currency: newMethodName.currency,
-            //     number: newMethodName.number,
-            // };
-
-            formdata.append('currency', editingMethod?.currency)
-            formdata.append('bank', editingMethod?.bank)
-            formdata.append('name', editingMethod?.name)
-            formdata.append('number', editingMethod?.number)
-
+            formdata.append('currency', newMethodName?.currency);
+            formdata.append('bank', newMethodName?.bank);
+            formdata.append('name', newMethodName?.name);
+            formdata.append('number', newMethodName?.number);
+            formdata.append('countryId', '1');
+    
             try {
-                await createAccount(formdata).unwrap()
+                await createAccount(formdata).unwrap();
             } catch (error) {
-                console.log(error)
+                console.log(error);
             }
             window.location.reload()
             // setAccounts((prev: any) => [...prev, newMethod]);
-            setEditingMethod(null);
-            setIsCreateModalOpen(false);
+            // setEditingMethod(null);
+            // setIsCreateModalOpen(false);
         }
 
         // if (newMethodName.trim()) {
