@@ -269,6 +269,22 @@ const api = apiClient.injectEndpoints({
             }),
         }),
 
+        createAccount:builder.mutation({
+            query: (formdata: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.accounts}`,
+                method: 'POST',
+                body: formdata,
+            }),
+        }),
+
+        editAccount:builder.mutation({
+            query: ({formdata, id}: {formdata: any , id:number}) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.accounts}/${id}`,
+                method: 'POST',
+                body: formdata,
+            }),
+        }),
+
         getLive:builder.query({
             query: (url: any) =>({
                 url:    `${VITE_BASE_URL}/${apiRoutes.live}`
@@ -317,5 +333,7 @@ export const {
     useGetMembersQuery,
     useGetUserQuery,
     useGetAccountQuery,
+    useCreateAccountMutation,
+    useEditAccountMutation,
     useGetLiveQuery,
 } = api
