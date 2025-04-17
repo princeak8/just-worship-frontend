@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import type React from 'react';
 import { motion } from "framer-motion";
 import { useGetAboutQuery, useGetGalleryQuery, useGetLiveQuery, useGetTeamQuery } from '@/app/api';
@@ -10,16 +11,14 @@ import image4 from '@/public/card4.jpeg'
 import { Calendar, ConciergeBell, Search } from 'lucide-react';
 import SkeletonLoader from '@/SkeletonLoader';
 
-interface AboutSection {
+interface LiveData {
   id: string;
-  vision: string;
-  visionPhoto: {
-    url: string;
-  }
-  mission?: string;
-  missionPhoto: {
-    url: string;
-  }
+  title: string;
+  date: string
+  time?: string;
+  url: string;
+  minister?: string;
+  description?: string;
 }
 
 interface TeamData {
@@ -52,7 +51,7 @@ interface Stock {
 
 const Live: React.FC = () => {
 
-  const { data: live, isLoading } = useGetLiveQuery<AboutSection | any | undefined>(undefined);
+  const { data: live, isLoading } = useGetLiveQuery<LiveData | any | undefined>(undefined);
   const { data: team, isLoading: loading } = useGetTeamQuery<TeamData | any | undefined>(undefined);
   const { data, isLoading: load } = useGetGalleryQuery<StockData[] | any | undefined>(undefined);
 
@@ -83,8 +82,17 @@ const Live: React.FC = () => {
     },
   ];
 
-  console.log("lll: ", live?.data[1])
-  console.log('live', `https://www.youtube.com/embed/${getYouTubeVideoId(live?.data[1]?.url)}`);
+  // const [currentLive, setCurrentLive] = useState(live?.data.length ? live.data[0] : null);
+  const [currentLive, setCurrentLive] = useState<LiveData | null>(null);
+
+useEffect(() => {
+  if (!isLoading && live?.data?.length) {
+    setCurrentLive(live.data[0]);
+  }
+}, [isLoading, live]);
+
+  console.log("lll: ", currentLive)
+  console.log('live', `https://www.youtube.com/embed/${getYouTubeVideoId(currentLive?.url)}`);
 
   function getYouTubeVideoId(url: string): string | null {
     try {
@@ -161,7 +169,7 @@ const Live: React.FC = () => {
                   <iframe
                     width="100%"
                     height="1000%"
-                    src={`https://www.youtube.com/embed/${getYouTubeVideoId(live?.data[0]?.url)}`}
+                    src={`https://www.youtube.com/embed/${getYouTubeVideoId(currentLive?.url)}`}
                     title="Introductory Video"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -172,12 +180,12 @@ const Live: React.FC = () => {
 
                 <section className='w-full lg:flex items-center justify-between gap-6'>
                   <div className="lg:w-6/12 p-4 py-8 text-start overflow-hidden">
-                    <h3 className="text-lg font-semibold">{live?.data[0]?.title ?? 'The Pentecost - Annual Worship Experience 2024'}</h3>
+                    <h3 className="text-lg font-semibold">{currentLive?.title ?? 'The Pentecost - Annual Worship Experience 2024'}</h3>
                     {/* <div className="text-xs mb-3">Pastor Chidi Ani</div> */}
-                    <div className="text-xs mb-3 flex gap-2 items-center"><Calendar /> {live?.data[0]?.live_date ?? ''}</div>
+                    <div className="text-xs mb-3 flex gap-2 items-center"><Calendar /> {currentLive?.date ?? ''}</div>
 
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="text-sm text-justify">{live?.data[0]?.description ?? 'Live Description'}</span>
+                      <span className="text-sm text-justify">{currentLive?.description ?? 'Live Description'}</span>
                     </div>
                   </div>
 
@@ -242,7 +250,7 @@ const Live: React.FC = () => {
                       transition={{ duration: 0.8, delay: index * 0.5 }}
                       viewport={{ once: true }}
                     >
-                      <div className="relative">
+                      <div className="relative" onClick={ () => setCurrentLive(live)}>
                         <img
                           src={live.coverPhoto.url}
                           alt={live.title}
