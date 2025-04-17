@@ -60,6 +60,7 @@ const useLive = () => {
             setValue('date', live?.data.date?.toLocaleString())
             setValue('time', live?.data.time?.toLocaleString())
             setValue('description', live?.data?.description)
+            setValue('url', live?.data?.url)
             setValue('image', live?.data?.coverPhoto?.url || '' as unknown as FileList)
         }
     }, [live?.data, setValue])
@@ -82,8 +83,7 @@ const useLive = () => {
         formdata.append('title', title)
         formdata.append('liveDate', date)
         formdata.append('liveTime', time)
-
-        formdata.append('content', description)
+        formdata.append('description', description)
 
         if (image && image.length > 0 && image[0] instanceof File && image[0] !== live?.data?.coverPhoto?.url) {
             formdata.append('coverPhoto', image[0]);
