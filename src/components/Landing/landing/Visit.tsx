@@ -65,11 +65,11 @@ export default function Visit() {
         <div className="w-full p-10 overflow-x-hidden bg-gradient-to-br from-purple-50 to-blue-50">
             <section className="container space-y-4">
                 <h2 className='font-semibold text-xl'>Where would you like to visit?</h2>
-                <section className="hidden container lg:grid grid-cols-5 gap-4">
+                <section className=" container grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                     {Cards.map((card, index) => (
                         <motion.div
                             key={index}
-                            className='h-80 rounded-2xl w-64 border-2 border-yellow-500 bg-cover bg-center'
+                            className='h-80 rounded-2xl border-2 border-yellow-500 bg-cover bg-center'
                             style={{ backgroundImage: `url(${card.image})` }}
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -83,7 +83,7 @@ export default function Visit() {
                     ))}
                 </section>
 
-                <div className="relative lg:hidden my-10">
+                {/* <div className="relative lg:hidden my-10">
                     <Swiper
                         modules={[Pagination, Scrollbar, A11y, Autoplay]}
                         spaceBetween={30}
@@ -100,7 +100,7 @@ export default function Visit() {
                             </SwiperSlide>
                         ))}
                     </Swiper>
-                </div>
+                </div> */}
 
                 <section className='w-full text-md lg:text-lg'>
                     <motion.h2
