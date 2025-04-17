@@ -84,11 +84,35 @@ const Live: React.FC = () => {
   ];
 
   console.log("lll: ", live?.data[1])
+  console.log('live', `https://www.youtube.com/embed/${getYouTubeVideoId(live?.data[1]?.url)}`);
 
   function getYouTubeVideoId(url: string): string | null {
-    const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/;
-    const match = url?.match(regex);
-    return match ? match[1] : null;
+    try {
+      const parsedUrl = new URL(url);
+      const hostname = parsedUrl.hostname;
+  
+      // Case: youtu.be/<id>
+      if (hostname === 'youtu.be') {
+        return parsedUrl.pathname.slice(1);
+      }
+  
+      // Case: youtube.com/watch?v=<id>
+      if (parsedUrl.searchParams.has('v')) {
+        return parsedUrl.searchParams.get('v');
+      }
+  
+      // Case: youtube.com/embed/<id> or /live/<id>
+      const pathSegments = parsedUrl.pathname.split('/');
+      const possibleId = pathSegments[pathSegments.length - 1];
+  
+      if (possibleId && possibleId.length === 11) {
+        return possibleId;
+      }
+  
+      return null;
+    } catch {
+      return null;
+    }
   }
 
 
@@ -137,7 +161,7 @@ const Live: React.FC = () => {
                   <iframe
                     width="100%"
                     height="1000%"
-                    src={`https://www.youtube.com/embed/${getYouTubeVideoId(live?.data[1]?.url)}`}
+                    src={`https://www.youtube.com/embed/${getYouTubeVideoId(live?.data[0]?.url)}`}
                     title="Introductory Video"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -148,12 +172,12 @@ const Live: React.FC = () => {
 
                 <section className='w-full lg:flex items-center justify-between gap-6'>
                   <div className="lg:w-6/12 p-4 py-8 text-start overflow-hidden">
-                    <h3 className="text-lg font-semibold">The Pentecost - Annual Worship Experience 2024</h3>
-                    <div className="text-xs mb-3">Pastor Chidi Ani</div>
-                    <div className="text-xs mb-3 flex gap-2 items-center"><Calendar /> November 9, 2024</div>
+                    <h3 className="text-lg font-semibold">{live?.data[0]?.title ?? 'The Pentecost - Annual Worship Experience 2024'}</h3>
+                    {/* <div className="text-xs mb-3">Pastor Chidi Ani</div> */}
+                    <div className="text-xs mb-3 flex gap-2 items-center"><Calendar /> {live?.data[0]?.live_date ?? ''}</div>
 
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="text-sm text-justify">Lorem ipsum dolor sit amet consectetur. Sed tellus integer at porta viverra at. Dignissim nulla tristique a sed dui sodales. A facilisis massa est ullamcorper. Sed eu risus urna vitae. Lorem ipsum dolor sit amet consectetur. Sed tellus integer at porta viverra at. Dignissim nulla tristique a sed dui sodales. A facilisis massa est ullamcorper. Sed eu risus urna vitae. Lorem ipsum dolor sit amet consectetur. Sed tellus integer at porta viverra at. Dignissim nulla tristique a sed dui sodales. A facilisis massa est ullamcorper. Sed eu risus urna vitae.</span>
+                      <span className="text-sm text-justify">{live?.data[0]?.description ?? 'Live Description'}</span>
                     </div>
                   </div>
 
