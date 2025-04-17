@@ -92,7 +92,7 @@ useEffect(() => {
 }, [isLoading, live]);
 
   console.log("lll: ", currentLive)
-  console.log('live', `https://www.youtube.com/embed/${getYouTubeVideoId(currentLive?.url)}`);
+  console.log('live', `https://www.youtube.com/embed/${getYouTubeVideoId(currentLive?.url ?? '')}`);
 
   function getYouTubeVideoId(url: string): string | null {
     try {
@@ -169,7 +169,7 @@ useEffect(() => {
                   <iframe
                     width="100%"
                     height="1000%"
-                    src={`https://www.youtube.com/embed/${getYouTubeVideoId(currentLive?.url)}`}
+                    src={`https://www.youtube.com/embed/${getYouTubeVideoId(currentLive?.url ?? '')}`}
                     title="Introductory Video"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
