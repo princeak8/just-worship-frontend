@@ -299,8 +299,8 @@ const api = apiClient.injectEndpoints({
         }),
 
         getLiveById:builder.query({
-            query: (url: any, id: any) =>({
-                url:    `${VITE_BASE_URL}/${apiRoutes.live}/${id}`
+            query: (data: any) =>({
+                url:    `${VITE_BASE_URL}/${apiRoutes.live}/${data}`
             })
         }),
 
@@ -313,10 +313,10 @@ const api = apiClient.injectEndpoints({
         }),
 
         editLive:builder.mutation({
-            query: (data: any, id: any) =>({
+            query: ({formdata, id}: {formdata: any , id:number}) =>({
                 url:    `${VITE_BASE_URL}/${apiRoutes.live}/${id}`,
                 method: 'POST',
-                body: data,
+                body: formdata,
             })
         }),
 
