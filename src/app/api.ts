@@ -296,7 +296,36 @@ const api = apiClient.injectEndpoints({
             query: (url: any) =>({
                 url:    `${VITE_BASE_URL}/${apiRoutes.live}`
             })
-        })
+        }),
+
+        getLiveById:builder.query({
+            query: (url: any, id: any) =>({
+                url:    `${VITE_BASE_URL}/${apiRoutes.live}/${id}`
+            })
+        }),
+
+        addLive:builder.mutation({
+            query: (data: any) =>({
+                url:    `${VITE_BASE_URL}/${apiRoutes.live}`,
+                method: 'POST',
+                body: data,
+            })
+        }),
+
+        editLive:builder.mutation({
+            query: (data: any, id: any) =>({
+                url:    `${VITE_BASE_URL}/${apiRoutes.live}/${id}`,
+                method: 'POST',
+                body: data,
+            })
+        }),
+
+        deleteLive:builder.mutation({
+            query: (id: any) =>({
+                url:    `${VITE_BASE_URL}/${apiRoutes.live}/${id}`,
+                method: 'DELETE',
+            })
+        }),
 
     })
 });
@@ -344,4 +373,8 @@ export const {
     useEditAccountMutation,
     useDeleteAccountMutation,
     useGetLiveQuery,
+    useGetLiveByIdQuery,
+    useAddLiveMutation,
+    useEditLiveMutation,
+    useDeleteLiveMutation,
 } = api

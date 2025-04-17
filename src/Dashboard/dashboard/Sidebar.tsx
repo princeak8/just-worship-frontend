@@ -1,4 +1,4 @@
-import { BoxIcon, ChartBarIcon, ChevronDown, ChevronLeft, Dot, HomeIcon, Power, SettingsIcon } from 'lucide-react'
+import { BoxIcon, ChevronDown, ChevronLeft, Dot, HomeIcon, Power, SettingsIcon } from 'lucide-react'
 import Logo from '@/public/logo.png'
 import { Link, useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'

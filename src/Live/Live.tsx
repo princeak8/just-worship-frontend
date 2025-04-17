@@ -83,6 +83,14 @@ const Live: React.FC = () => {
     },
   ];
 
+  console.log("lll: ", live?.data[1])
+
+  function getYouTubeVideoId(url: string): string | null {
+    const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/;
+    const match = url?.match(regex);
+    return match ? match[1] : null;
+  }
+
 
   return (
     <div className="min-h-screen bg-gray-100 ">
@@ -97,7 +105,7 @@ const Live: React.FC = () => {
                   animate={{ y: 0 }}
                   transition={{ duration: 2 }}
                 >
-                  Join us Live from anywhere around the world 
+                  Join us Live from anywhere around the world
                 </motion.h1>
               </div>
             </div>
@@ -106,124 +114,131 @@ const Live: React.FC = () => {
       </section>
 
       <section className='bg-[#181D21] text-white'>
-      <div className="container mx-auto flex flex-col lg:flex-row items-center gap-8 lg:px-4 sm:px-6 lg:px-8 py-14 overflow-x-hidden">
-      <motion.div
-        className="w-full text-center"
-        initial={{ x: 50, opacity: 0 }}
-        whileInView={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.4 }}
-        viewport={{ once: true }}
-      >
-        
-        <div className="grid grid-cols-1 gap-8 lg:mt-12 p-4">
-            <motion.div 
-              className="space-y-4"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              <div className="relative">
-                <img 
-                  src={image2} 
-                  alt={'image'} 
-                  className="w-full lg:h-[40rem] object-cover rounded-2xl"
-                />
-              </div>
-              
-              <section className='w-full lg:flex items-center justify-between gap-6'>
-              <div className="lg:w-6/12 p-4 py-8 text-start overflow-hidden">
-                <h3 className="text-lg font-semibold">The Pentecost - Annual Worship Experience 2024</h3>
-                <div className="text-xs mb-3">Pastor Chidi Ani</div>
-                <div className="text-xs mb-3 flex gap-2 items-center"><Calendar /> November 9, 2024</div>
-                
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-sm text-justify">Lorem ipsum dolor sit amet consectetur. Sed tellus integer at porta viverra at. Dignissim nulla tristique a sed dui sodales. A facilisis massa est ullamcorper. Sed eu risus urna vitae. Lorem ipsum dolor sit amet consectetur. Sed tellus integer at porta viverra at. Dignissim nulla tristique a sed dui sodales. A facilisis massa est ullamcorper. Sed eu risus urna vitae. Lorem ipsum dolor sit amet consectetur. Sed tellus integer at porta viverra at. Dignissim nulla tristique a sed dui sodales. A facilisis massa est ullamcorper. Sed eu risus urna vitae.</span>
-                </div>
-              </div>
+        <div className="container mx-auto flex flex-col lg:flex-row items-center gap-8 lg:px-4 sm:px-6 lg:px-8 py-14 overflow-x-hidden">
+          <motion.div
+            className="w-full text-center"
+            initial={{ x: 50, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            viewport={{ once: true }}
+          >
 
-              <div className="lg:w-4/12 p-4 py-8 text-center bg-[#252C31] overflow-hidden shadow-md rounded-2xl space-y-4">
-                
-                <h3 className="text-lg font-semibold flex flex-col items-center"><ConciergeBell /> Latest Resources</h3>
-                
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-sm">Subscribe to get the latest events, sermons, live streams, etc directly into your mail. Never miss an update from us. </span>
-                </div>
-                
-                <motion.button 
-                  className="text-black text-sm py-2 px-4 rounded-full border border-white w-full bg-gray-300"
-                  whileHover={{ backgroundColor: '#111827', color: '#fff' }}
-                  transition={{ duration: 0.3 }}
+            <div className="grid grid-cols-1 gap-8 lg:mt-12 p-4">
+              <motion.div
+                className="space-y-4"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                viewport={{ once: true }}
+              >
+                <div
+                  className='overflow-hidden lg:h-[40rem] rounded-lg'
                 >
-                  View Details
-                </motion.button>
-              </div>
-              </section>
-            </motion.div>
+                  <iframe
+                    width="100%"
+                    height="1000%"
+                    src={`https://www.youtube.com/embed/${getYouTubeVideoId(live?.data[1]?.url)}`}
+                    title="Introductory Video"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className='w-full h-full object-cover'
+                  />
+                </div>
+
+                <section className='w-full lg:flex items-center justify-between gap-6'>
+                  <div className="lg:w-6/12 p-4 py-8 text-start overflow-hidden">
+                    <h3 className="text-lg font-semibold">The Pentecost - Annual Worship Experience 2024</h3>
+                    <div className="text-xs mb-3">Pastor Chidi Ani</div>
+                    <div className="text-xs mb-3 flex gap-2 items-center"><Calendar /> November 9, 2024</div>
+
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-sm text-justify">Lorem ipsum dolor sit amet consectetur. Sed tellus integer at porta viverra at. Dignissim nulla tristique a sed dui sodales. A facilisis massa est ullamcorper. Sed eu risus urna vitae. Lorem ipsum dolor sit amet consectetur. Sed tellus integer at porta viverra at. Dignissim nulla tristique a sed dui sodales. A facilisis massa est ullamcorper. Sed eu risus urna vitae. Lorem ipsum dolor sit amet consectetur. Sed tellus integer at porta viverra at. Dignissim nulla tristique a sed dui sodales. A facilisis massa est ullamcorper. Sed eu risus urna vitae.</span>
+                    </div>
+                  </div>
+
+                  <div className="lg:w-4/12 p-4 py-8 text-center bg-[#252C31] overflow-hidden shadow-md rounded-2xl space-y-4">
+
+                    <h3 className="text-lg font-semibold flex flex-col items-center"><ConciergeBell /> Latest Resources</h3>
+
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-sm">Subscribe to get the latest events, sermons, live streams, etc directly into your mail. Never miss an update from us. </span>
+                    </div>
+
+                    <motion.button
+                      className="text-black text-sm py-2 px-4 rounded-full border border-white w-full bg-gray-300"
+                      whileHover={{ backgroundColor: '#111827', color: '#fff' }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      View Details
+                    </motion.button>
+                  </div>
+                </section>
+              </motion.div>
+            </div>
+          </motion.div>
         </div>
-      </motion.div>
-    </div>
-    </section>
+      </section>
 
-    <section className='bg-[#282828] text-white p-4'>
-      <div className="container mx-auto flex flex-col lg:flex-row items-center gap-8 lg:px-4 sm:px-6 lg:px-8 py-24 overflow-x-hidden">
-      <motion.div
-        className="w-full text-center"
-        initial={{ x: 50, opacity: 0 }}
-        whileInView={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.4 }}
-        viewport={{ once: true }}
-      >
-        <motion.h2
-          className="text-xl font-bold mb-6 text-start"
-          initial={{ y: -20, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          viewport={{ once: true }}
-        >
-          More LIVE Streams
-        </motion.h2>
-
-        {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mt-12">
-            <SkeletonLoader className={'w-full h-48'}/>
-            <SkeletonLoader className={'w-full h-48'}/>
-            <SkeletonLoader className={'w-full h-48'}/>
-            <SkeletonLoader className={'w-full h-48'}/>
-          </div>
-        ):(
-        live?.data ? (
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mt-12">
-          {live?.data?.map((live: any, index: number) => (
-            <motion.div 
-              key={live.id}
-              className="overflow-hidden"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.5 }}
+      <section className='bg-[#282828] text-white p-4'>
+        <div className="container mx-auto flex flex-col lg:flex-row items-center gap-8 lg:px-4 sm:px-6 lg:px-8 py-24 overflow-x-hidden">
+          <motion.div
+            className="w-full text-center"
+            initial={{ x: 50, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            viewport={{ once: true }}
+          >
+            <motion.h2
+              className="text-xl font-bold mb-6 text-start"
+              initial={{ y: -20, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
               viewport={{ once: true }}
             >
-              <div className="relative">
-                <img 
-                  src={live.coverPhoto.url} 
-                  alt={live.title} 
-                  className="w-full h-48 rounded-2xl object-cover"
-                />
+              More LIVE Streams
+            </motion.h2>
+
+            {isLoading ? (
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mt-12">
+                <SkeletonLoader className={'w-full h-48'} />
+                <SkeletonLoader className={'w-full h-48'} />
+                <SkeletonLoader className={'w-full h-48'} />
+                <SkeletonLoader className={'w-full h-48'} />
               </div>
-              
-              <div className="p-2 text-start space-y-2">
-                <h3 className="text-md font-semibold">{live.title}</h3>
-                <div className="text-xs mb-3">{live.description}</div>
-              </div>
-            </motion.div>
-          ))}
+            ) : (
+              live?.data ? (
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mt-12">
+                  {live?.data?.map((live: any, index: number) => (
+                    <motion.div
+                      key={live.id}
+                      className="overflow-hidden"
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, delay: index * 0.5 }}
+                      viewport={{ once: true }}
+                    >
+                      <div className="relative">
+                        <img
+                          src={live.coverPhoto.url}
+                          alt={live.title}
+                          className="w-full h-48 rounded-2xl object-cover"
+                        />
+                      </div>
+
+                      <div className="p-2 text-start space-y-2">
+                        <h3 className="text-md font-semibold">{live.title}</h3>
+                        <div className="text-xs mb-3">{live.description}</div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              ) : (
+                <p className='flex gap-2'><Search />No Live Stream available at the moment</p>
+              ))}
+          </motion.div>
         </div>
-        ):(
-          <p className='flex gap-2'><Search />No Live Stream available at the moment</p>
-        ))}
-      </motion.div>
-    </div>
-    </section>
+      </section>
 
     </div>
   );
