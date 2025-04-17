@@ -38,7 +38,7 @@ const useHome = () => {
             setValue('title', getHeroById?.data?.title)
             setValue('description', getHeroById?.data?.message)
             setValue('button_text', getHeroById?.data?.buttonText)
-            setValue('button_link', getHeroById?.data?.buttonLink)
+            setValue('button_link', getHeroById?.data?.buttonUrl)
             setValue('image', getHeroById?.data?.photo?.url || '' as unknown as FileList)
         }
     },[getHeroById?.data, setValue])
@@ -60,7 +60,7 @@ const useHome = () => {
         formdata.append('title', title)
         formdata.append('message', description)
         formdata.append('buttonText', button_text)
-        formdata.append('buttonLink', button_link)
+        formdata.append('buttonUrl', button_link)
         
         if (image && image.length > 0 && image[0] instanceof File && image[0] !== getHeroById?.data?.photo?.url) {
             formdata.append('photo', image[0]);

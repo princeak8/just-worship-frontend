@@ -139,6 +139,7 @@ const App = () => {
           <Route path="cms/gallery" element={<GalleryCMS />} />
           <Route path="cms/gallery/add" element={<AddImage />} />
           <Route path="cms/gallery/:id" element={<AddImage />} />
+          <Route path="cms/live" element={<GalleryCMS />} />
 
           <Route path="setting" element={<UserProfileSettings />} />
         </Route>

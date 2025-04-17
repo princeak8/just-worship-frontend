@@ -113,7 +113,7 @@ export default function HomeCMS() {
                           <div className='space-y-4'>
                             <h3 className="font-semibold mb-2">{slide?.title}</h3>
                             <p className="text-sm text-gray-600 line-clamp-[9] text-justify">{slide?.message}</p>
-                            {slide?.button_link && <a href={slide?.button_link} ><button className="bg-gray-900 p-2 px-4 my-4 rounded-lg text-white text-sm text-gray-600 text-justify" >{slide?.buttonText}</button></a>}
+                            {slide?.buttonUrl && <a href={slide?.buttonUrl} ><button className="bg-gray-900 p-2 px-4 my-4 rounded-lg text-white text-sm text-gray-600 text-justify" >{slide?.buttonText}</button></a>}
                           </div>
                           <div className="flex gap-2 mt-2 ">
                             <Button asChild size="sm" variant="default">
