@@ -116,9 +116,9 @@ export default function Hero() {
                     </motion.h1>
 
                     <p className=''>{slide?.message}</p>
-                    {slide?.button_link && (
+                    {slide?.buttonUrl && (
                       <motion.button className="btn bg-white text-black font-bold p-4 rounded-full z-10">
-                        <a href={slide?.buttonLink}>{slide?.buttonText}</a>
+                        <a href={slide?.buttonUrl}>{slide?.buttonText}</a>
                       </motion.button>
                     )}
                   </div>
