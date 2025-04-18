@@ -95,7 +95,7 @@ useEffect(() => {
                         </div>
                         <div className='border border-white rounded-full flex items-center p-1 px-4 w-full lg:w-auto'>
                             <select className='p-2 bg-transparent focus:outline-none w-full'
-                                    value={selectedEvent}
+                                    value={selectedLocation}
                                     onChange={(e) => setSelectedLocation(e.target.value)}
                             >
                                 <option value="">All Locations</option>
