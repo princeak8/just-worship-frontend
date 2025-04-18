@@ -4660,7 +4660,7 @@ react-property@2.0.2:
 
 react-qr-code@^2.0.15:
   version "2.0.15"
-  resolved "https://registry.npmjs.org/react-qr-code/-/react-qr-code-2.0.15.tgz"
+  resolved "https://registry.yarnpkg.com/react-qr-code/-/react-qr-code-2.0.15.tgz#fbfc12952c504bcd64275647e9d1ea63251742ce"
   integrity sha512-MkZcjEXqVKqXEIMVE0mbcGgDpkfSdd8zhuzXEl9QzYeNcw8Hq2oVIzDLWuZN2PQBwM5PWjc2S31K8Q1UbcFMfw==
   dependencies:
     prop-types "^15.8.1"
