@@ -45,7 +45,7 @@ const search = () => {
     return data.data.filter((item: Stock) => {
         // item.title.toLowerCase().includes(searchparams.toLowerCase().trim())
         const matchesTitle = item.title.toLowerCase().includes(searchparams.toLowerCase().trim());
-        const matchesEvent = selectedEvent ? item.event.name === selectedEvent : true;
+        const matchesEvent = selectedEvent ? item?.event?.name === selectedEvent : true;
         const matchesLocation = selectedLocation ? item.location === selectedLocation : true;
         const matchesYear = selectedYear ? item.year === selectedYear : true;
 
