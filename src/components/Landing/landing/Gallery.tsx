@@ -7,11 +7,24 @@ import { useEffect, useState } from 'react';
 interface StockData {
     data: Stock[]
   }
+
+  interface Event {
+    id: string;
+    name: string;
+    date: string;
+    bookings: string;
+    content: string;
+    coverPhoto: {
+      url: string;
+    }
+  }
   
   interface Stock {
     id?: string;
     title: string;
-    event: string;
+    event: Event;
+    location: string;
+    year: string;
     photo:{
       url: string;
     } 
@@ -22,16 +35,39 @@ const { data, isLoading } = useGetGalleryQuery<StockData[] | any | undefined>(un
 const [Gallery, setGallery] = useState([])
 const [searchparams, setSearchParams] = useState('')
 
+const [selectedEvent, setSelectedEvent] = useState('');
+const [selectedYear, setSelectedYear] = useState('');
+const [selectedLocation, setSelectedLocation] = useState('');
+
+
 const search = () => {
     if (!data?.data) return [];
-    return data.data.filter((item: Stock) =>
-        item.title.toLowerCase().includes(searchparams.toLowerCase().trim())
-    );
+    return data.data.filter((item: Stock) => {
+        // item.title.toLowerCase().includes(searchparams.toLowerCase().trim())
+        const matchesTitle = item.title.toLowerCase().includes(searchparams.toLowerCase().trim());
+        const matchesEvent = selectedEvent ? item.event.name === selectedEvent : true;
+        const matchesLocation = selectedLocation ? item.location === selectedLocation : true;
+        const matchesYear = selectedYear ? item.year === selectedYear : true;
+
+        return matchesTitle && matchesEvent && matchesLocation && matchesYear;  
+    });
 };
+
+const events = Array.from(
+    new Set(data?.data?.map((item: Stock) => item.event?.name).filter(Boolean))
+  );
+  
+  const locations = Array.from(
+    new Set(data?.data?.map((item: Stock) => item.location).filter(Boolean))
+  );
+  
+  const years = Array.from(
+    new Set(data?.data?.map((item: Stock) => item.year).filter(Boolean))
+  );
 
 useEffect(() => {
     setGallery(search());
-}, [data?.data, searchparams]);
+}, [data?.data, searchparams, selectedEvent, selectedLocation, selectedYear]);
 
 
     const customWidths = ['450px', '450px', '450px', '335px', '335px', '335px', '335px'];
@@ -58,26 +94,44 @@ useEffect(() => {
                             <input type='text' value={searchparams} onChange={(e) => setSearchParams(e.target.value)} placeholder='Search...' className='p-2 py-1 bg-transparent focus:outline-none w-full' />
                         </div>
                         <div className='border border-white rounded-full flex items-center p-1 px-4 w-full lg:w-auto'>
-                            <select className='p-2 bg-transparent focus:outline-none w-full'>
-                                <option>Location</option>
+                            <select className='p-2 bg-transparent focus:outline-none w-full'
+                                    value={selectedEvent}
+                                    onChange={(e) => setSelectedLocation(e.target.value)}
+                            >
+                                <option value="">All Locations</option>
+                                {locations.map((loc, i) => (
+                                <option key={i} value={loc as string}>{loc as string}</option>
+                                ))}
                             </select>
                         </div>
                         <div className='border border-white rounded-full flex items-center p-1 px-4 w-full lg:w-auto'>
-                            <select className='p-2 bg-transparent focus:outline-none w-full'>
-                                <option>Select by Event</option>
+                            <select className='p-2 bg-transparent focus:outline-none w-full'
+                                value={selectedEvent}
+                                onChange={(e) => setSelectedEvent(e.target.value)}
+                            >
+                                <option value="">All Events</option>
+                                {events.map((event, i) => (
+                                <option key={i} value={event as string}>{event as string}</option>
+                                ))}
                             </select>
                         </div>
                         <div className='flex flex-wrap lg:flex-nowrap gap-4 w-full lg:w-auto'>
                             <div className='border border-white rounded-full flex items-center p-1 px-4 w-full lg:w-auto'>
-                                <select className='p-2 bg-transparent focus:outline-none w-full'>
-                                    <option>Select by Year</option>
+                                <select className='p-2 bg-transparent focus:outline-none w-full'
+                                        value={selectedEvent}
+                                        onChange={(e) => setSelectedYear(e.target.value)}
+                                >
+                                    <option value="">All Years</option>
+                                    {years.map((year, i) => (
+                                    <option key={i} value={year as number}>{year as number}</option>
+                                    ))}
                                 </select>
                             </div>
-                            <div className='border border-white rounded-full flex items-center justify-center p-1 px-4 w-full lg:w-auto'>
+                            {/* <div className='border border-white rounded-full flex items-center justify-center p-1 px-4 w-full lg:w-auto'>
                                 <select className='p-2 bg-transparent focus:outline-none w-full'>
                                     <option>Sort by</option>
                                 </select>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
 
