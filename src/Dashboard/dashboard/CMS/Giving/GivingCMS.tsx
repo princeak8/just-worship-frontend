@@ -368,7 +368,7 @@ export default function GivingCMS() {
                                             Account Name
                                         </label>
                                         <input
-                                            value={formState?.name || newMethodName.name}
+                                            value={formState?.name || newMethodName?.name}
                                             onChange={(e) => {
                                                 if (formState) {
                                                     setFormState({ ...formState, name: e.target.value });
@@ -475,7 +475,7 @@ export default function GivingCMS() {
                                     <input
                                         type="text"
                                         value={editingMethod?.name}
-                                        onChange={(e) => setFormState({ ...formState, name: e.target.value })}
+                                        onChange={(e) => setEditingMethod({ ...editingMethod, name: e.target.value })}
                                         className="w-full p-2 border rounded-lg mb-4 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                                     />
                                     <div>
