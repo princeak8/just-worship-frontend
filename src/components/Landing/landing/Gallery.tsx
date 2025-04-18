@@ -94,7 +94,7 @@ useEffect(() => {
                             <input type='text' value={searchparams} onChange={(e) => setSearchParams(e.target.value)} placeholder='Search...' className='p-2 py-1 bg-transparent focus:outline-none w-full' />
                         </div>
                         <div className='border border-white rounded-full flex items-center p-1 px-4 w-full lg:w-auto'>
-                            <select className='p-2 bg-transparent focus:outline-none w-full'
+                            <select className='p-2 bg-transparent focus:outline-none w-full text-purple-700'
                                     value={selectedLocation}
                                     onChange={(e) => setSelectedLocation(e.target.value)}
                             >
@@ -105,7 +105,7 @@ useEffect(() => {
                             </select>
                         </div>
                         <div className='border border-white rounded-full flex items-center p-1 px-4 w-full lg:w-auto'>
-                            <select className='p-2 bg-transparent focus:outline-none w-full'
+                            <select className='p-2 bg-transparent focus:outline-none w-full text-purple-700'
                                 value={selectedEvent}
                                 onChange={(e) => setSelectedEvent(e.target.value)}
                             >
@@ -117,8 +117,8 @@ useEffect(() => {
                         </div>
                         <div className='flex flex-wrap lg:flex-nowrap gap-4 w-full lg:w-auto'>
                             <div className='border border-white rounded-full flex items-center p-1 px-4 w-full lg:w-auto'>
-                                <select className='p-2 bg-transparent focus:outline-none w-full'
-                                        value={selectedEvent}
+                                <select className='p-2 bg-transparent focus:outline-none w-full text-purple-700'
+                                        value={selectedYear}
                                         onChange={(e) => setSelectedYear(e.target.value)}
                                 >
                                     <option value="">All Years</option>
