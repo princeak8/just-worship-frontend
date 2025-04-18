@@ -487,7 +487,7 @@ const Giving: React.FC = () => {
                             <div className="flex justify-between">
                               <span className="text-gray-600">Bank Name:</span>
                               <span className="font-medium">
-                                {account?.bank || 'No Bank Provided'}
+                                {account?.bank?.name || 'No Bank Provided'}
                               </span>
                             </div>
                             <div className="flex justify-between">
@@ -496,7 +496,7 @@ const Giving: React.FC = () => {
                             </div>
                             <div className="flex justify-between">
                               <span className="text-gray-600">Account Name:</span>
-                              <span className="font-medium">{account?.name || '-'}</span>
+                              <span className="font-medium">{account?.name?.name || '-'}</span>
                             </div>
                             <p className="text-sm text-gray-500 mt-2 text-center">
                               Please include &apos;<span className='font-bold text-purple-500'>{selectedMethod || 'Just Worship'}</span>&apos; in your transfer narration

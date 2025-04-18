@@ -327,6 +327,13 @@ const api = apiClient.injectEndpoints({
             })
         }),
 
+        onlineAccount:builder.query({
+            query: (url: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.onlineAccount}`
+            })
+        }),
+
+
     })
 });
 
@@ -377,4 +384,5 @@ export const {
     useAddLiveMutation,
     useEditLiveMutation,
     useDeleteLiveMutation,
+    useOnlineAccountQuery,
 } = api

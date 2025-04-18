@@ -14,6 +14,7 @@ export const apiRoutes = {
   giving: 'giving/modes',
   givingOptions: 'giving/options',
   editgivingOptions: 'giving/save_giving_account',
+  onlineAccount: 'online_accounts',
   user: 'user',
   subscribers: 'subscribers',
   members: 'members',

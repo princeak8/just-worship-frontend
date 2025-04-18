@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Loader2, Edit, Trash, Plus, Currency } from 'lucide-react';
-import { useCreateAccountMutation, useDeleteAccountMutation, useEditAccountMutation, useEditGivingOptionMutation, useGetAccountQuery, useGetGivingQuery, useGetOptionsQuery } from '@/app/api';
+import { useCreateAccountMutation, useDeleteAccountMutation, useEditAccountMutation, useEditGivingOptionMutation, useGetAccountQuery, useGetGivingQuery, useGetOptionsQuery, useOnlineAccountQuery } from '@/app/api';
 import { Button } from '@/components/ui/button';
 
 interface PaymentMethod {
@@ -17,10 +17,12 @@ interface Select {
 export default function GivingCMS() {
     const { data, isLoading } = useGetGivingQuery<any | undefined>(undefined);
     const { data: Options } = useGetOptionsQuery<any | undefined>(undefined);
+    const { data: onlineAccount } = useOnlineAccountQuery<any | undefined>(undefined);
     const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([]);
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     const [newMethodName, setNewMethodName] = useState<PaymentMethod | any | null>(null);
     const [linkAccount, setLinkAccount] = useState('');
+    const [linkOnlineAccount, setLinkOnlineAccount] = useState('');
     const [editingMethod, setEditingMethod] = useState<PaymentMethod | any | null>(null);
     const [paymentOptions, setPaymentOptions] = useState([]);
     const [binary, setBinary] = useState(0)
@@ -29,6 +31,7 @@ export default function GivingCMS() {
     const [editAccount, { isLoading: load2 }] = useEditAccountMutation()
     const [editgivingOptions] = useEditGivingOptionMutation()
     const [Accounts, setAccounts] = useState<any>([])
+    const [onlineAccounts, setOnlineAccounts] = useState<any>([])
     const [warning, setWarning] = useState(false)
     const [deleteAccount] = useDeleteAccountMutation()
     const [selectedAccount, setSelectedAccount] = useState<Select>({
@@ -40,9 +43,12 @@ export default function GivingCMS() {
         if (data?.data) {
             setPaymentMethods(data?.data);
             setAccounts(accounts?.data)
+            setOnlineAccounts(onlineAccount?.data)
             setPaymentOptions(Options?.data || []);
         }
     }, [data?.data, Options?.data]);
+
+    // console.log("Data: ", onlineAccounts)
 
     const handleDelete = (id: number) => {
         setPaymentMethods(prev => prev.filter(method => method.id !== id));
@@ -221,7 +227,7 @@ export default function GivingCMS() {
                     <div className="divide-y">
                         {Accounts?.map((method: any) => (
                             <div key={method.id} className="flex items-center justify-between p-4 hover:bg-gray-50">
-                                <span className="font-medium">{method?.number} - {method?.name} ({method?.bank})</span>
+                                <span className="font-medium">{method?.number} - {method?.name?.name} <strong>({method?.bank?.name})</strong></span>
                                 <div className="flex gap-3">
                                     <button
                                         onClick={() => { setEditingMethod(method); setBinary(1) }}
@@ -254,8 +260,8 @@ export default function GivingCMS() {
                     </div>
                     <div className="divide-y">
                         {paymentOptions?.map((account: any) => (
-                            <div key={account.id} className="flex items-center justify-between p-4 hover:bg-gray-50">
-                                <span className="font-medium">{account.name}</span>
+                            <div key={account?.id} className="flex items-center justify-between p-4 hover:bg-gray-50">
+                                <span className="font-medium">{account?.name}</span>
                                 <div className="flex gap-3">
                                     <button
                                         onClick={() => { setEditingMethod(account); setBinary(2) }}
@@ -418,14 +424,17 @@ export default function GivingCMS() {
                                         <select value={linkAccount} onChange={(e) => setLinkAccount(e.target.value)} className="w-full p-2 border rounded-lg mb-4 focus:ring-2 focus:ring-purple-500 focus:border-transparent " >
                                             <option>Add Account</option>
                                             {accounts?.data?.map((account: any, index: number) => (
-                                                <option key={index} value={account.id}>{account.number} - {account.name} ({account.bank})</option>
+                                                <option key={index} value={account.id}>{account?.number} - {account?.name?.name} ({account?.bank?.name})</option>
                                             ))}
                                         </select>
                                     </div>
                                     <div>
                                         <p className="text-sm mb-2">Link Online Account (optional)</p>
-                                        <select value={linkAccount} onChange={(e) => setLinkAccount(e.target.value)} className="w-full p-2 border rounded-lg mb-4 focus:ring-2 focus:ring-purple-500 focus:border-transparent " >
-                                            <option>Account name</option>
+                                        <select value={linkOnlineAccount} onChange={(e) => setLinkOnlineAccount(e.target.value)} className="w-full p-2 border rounded-lg mb-4 focus:ring-2 focus:ring-purple-500 focus:border-transparent " >
+                                            <option>Add Online Account</option>
+                                            {onlineAccounts?.map((account: any, index: number) => (
+                                                <option key={index} value={account.id}>{account?.name}</option>
+                                            ))}
                                         </select>
                                     </div>
                                 </section>

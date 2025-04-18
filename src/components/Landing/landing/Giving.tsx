@@ -66,34 +66,6 @@ export default function Giving() {
 
                         <div className='lg:space-y-12 lg:leading-12'>
                             <motion.div
-                                className='text-center lg:leading-12 lg:space-y-8'
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, delay: 0.2 }}
-                                viewport={{ once: true }}
-                            >
-                                <h1 className='font-semibold text-center text-lg lg:text-2xl my-4 text-gray-800'>
-                                    Choose an option
-                                </h1>
-                                <div className='grid grid-cols-3 gap-2'>
-                                    {Options?.data?.map((option: any, index: number) => (
-                                        <motion.div
-                                            key={index}
-                                            onClick={() => { setSelected(option); setSelectedMethod(option.name) }}
-                                            className={`p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer border border-gray-200 hover:border-purple-500 ${selectedMethod.toLowerCase().trim() === option?.name?.toLowerCase().trim() ? 'bg-purple-500 text-white' : 'bg-white text-black'}`}
-                                            whileHover={{ scale: 1.05 }}
-                                            whileTap={{ scale: 0.95 }}
-                                        >
-                                            <p className='font-medium'>{option.name}</p>
-                                        </motion.div>
-                                    ))}
-                                </div>
-                                <p className='text-gray-500 mt-4'>
-                                    Nisl dolor sit amet eget tristique adipiscing tellus tristique
-                                </p>
-                            </motion.div>
-
-                            <motion.div
                                 className='text-center leading-12 space-y-8'
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
@@ -122,6 +94,33 @@ export default function Giving() {
                                     Nisl dolor sit amet eget tristique adipiscing tellus tristique
                                 </p>
                             </motion.div>
+                            <motion.div
+                                className='text-center lg:leading-12 lg:space-y-8'
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.2 }}
+                                viewport={{ once: true }}
+                            >
+                                <h1 className='font-semibold text-center text-lg lg:text-2xl my-4 text-gray-800'>
+                                    Choose an option
+                                </h1>
+                                <div className='grid grid-cols-3 gap-2'>
+                                    {Options?.data?.map((option: any, index: number) => (
+                                        <motion.div
+                                            key={index}
+                                            onClick={() => { setSelected(option); setSelectedMethod(option.name) }}
+                                            className={`p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer border border-gray-200 hover:border-purple-500 ${selectedMethod.toLowerCase().trim() === option?.name?.toLowerCase().trim() ? 'bg-purple-500 text-white' : 'bg-white text-black'}`}
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.95 }}
+                                        >
+                                            <p className='font-medium'>{option.name}</p>
+                                        </motion.div>
+                                    ))}
+                                </div>
+                                {/* <p className='text-gray-500 mt-4'>
+                                    Nisl dolor sit amet eget tristique adipiscing tellus tristique
+                                </p> */}
+                            </motion.div>
 
                             {/* {selectedOption.toLowerCase().trim() === 'transfer' ? ( */}
                             <div className="space-y-6">
@@ -142,7 +141,7 @@ export default function Giving() {
                                                     <div className="flex justify-between">
                                                         <span className="text-gray-600">Bank Name:</span>
                                                         <span className="font-medium">
-                                                            {account?.bank || 'No Bank Provided'}
+                                                            {account?.bank?.name || 'No Bank Provided'}
                                                         </span>
                                                     </div>
                                                     <div className="flex justify-between">
@@ -151,7 +150,7 @@ export default function Giving() {
                                                     </div>
                                                     <div className="flex justify-between">
                                                         <span className="text-gray-600">Account Name:</span>
-                                                        <span className="font-medium">{account?.name || '-'}</span>
+                                                        <span className="font-medium">{account?.name?.name || '-'}</span>
                                                     </div>
                                                     <p className="text-sm text-gray-500 mt-2 text-center">
                                                         Please include &apos;<span className='font-bold text-purple-500'>{selectedMethod || 'Just Worship'}</span>&apos; in your transfer narration
