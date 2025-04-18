@@ -333,6 +333,17 @@ const api = apiClient.injectEndpoints({
             })
         }),
 
+        banks:builder.query({
+            query: (url: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.banks}`
+            })
+        }),
+
+        countries:builder.query({
+            query: (url: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.countries}`
+            })
+        }),
 
     })
 });
@@ -385,4 +396,6 @@ export const {
     useEditLiveMutation,
     useDeleteLiveMutation,
     useOnlineAccountQuery,
+    useBanksQuery,
+    useCountriesQuery,
 } = api

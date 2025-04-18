@@ -19,6 +19,8 @@ export const apiRoutes = {
   subscribers: 'subscribers',
   members: 'members',
   accounts: 'bank_accounts',
-  live: 'live'
+  live: 'live',
+  banks: 'banks',
+  countries: 'countries',
   
 }

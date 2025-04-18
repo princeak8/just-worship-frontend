@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Loader2, Edit, Trash, Plus, Currency, Trash2, Eye, X, Search } from 'lucide-react';
-import { useCreateAccountMutation, useDeleteAccountMutation, useEditAccountMutation, useEditGivingOptionMutation, useGetAccountQuery, useGetGivingQuery, useGetOptionsQuery, useOnlineAccountQuery } from '@/app/api';
+import { useBanksQuery, useCountriesQuery, useCreateAccountMutation, useDeleteAccountMutation, useEditAccountMutation, useEditGivingOptionMutation, useGetAccountQuery, useGetGivingQuery, useGetOptionsQuery, useOnlineAccountQuery } from '@/app/api';
 import { Button } from '@/components/ui/button';
 
 interface PaymentMethod {
@@ -18,11 +18,19 @@ export default function GivingCMS() {
     const { data, isLoading } = useGetGivingQuery<any | undefined>(undefined);
     const { data: Options } = useGetOptionsQuery<any | undefined>(undefined);
     const { data: onlineAccount } = useOnlineAccountQuery<any | undefined>(undefined);
+    const { data: banks } = useBanksQuery<any | undefined>(undefined)
+    const { data: countries } = useCountriesQuery<any | undefined>(undefined)
     const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([]);
     const [isOpen, setIsModalOpen] = useState(false);
     const [viewMethod, setViewMethod] = useState<PaymentMethod | any | null>(null);
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-    const [newMethodName, setNewMethodName] = useState<PaymentMethod | any | null>(null);
+    const [newMethodName, setNewMethodName] = useState({
+        name: '',
+        number: '',
+        currency: '',
+        bank: '',
+        country: ''
+    });
     const [linkAccount, setLinkAccount] = useState('');
     const [linkOnlineAccount, setLinkOnlineAccount] = useState('');
     const [editingMethod, setEditingMethod] = useState<PaymentMethod | any | null>(null);
@@ -40,8 +48,18 @@ export default function GivingCMS() {
         name: '',
         id: ''
     })
+    const blankForm = {
+        id: '',
+        name: '',
+        number: '',
+        currency: '',
+        bank: '',
+        country: '',
+    };
+    const [formState, setFormState] = useState({ ...blankForm });
 
-    console.log(editingMethod)
+
+    // console.log(formState)
 
     useEffect(() => {
         if (data?.data) {
@@ -59,25 +77,27 @@ export default function GivingCMS() {
     };
 
     const handleCreate = async () => {
+        // console.log("editing")
+
         const formdata = new FormData()
 
-        if (binary === 1) {
-            formdata.append('currency', newMethodName?.currency);
-            formdata.append('bank', newMethodName?.bank);
-            formdata.append('name', newMethodName?.name);
-            formdata.append('number', newMethodName?.number);
-            formdata.append('countryId', '1');
-
+        // if (binary === 0) {
+            formdata.append('name', newMethodName.name);
+            formdata.append('number', newMethodName.number);
+            formdata.append('bankId', newMethodName.bank);
+            formdata.append('currency', newMethodName.currency);
+            formdata.append('countryId', newMethodName.country);
+          
             try {
-                await createAccount(formdata).unwrap();
+              await createAccount(formdata).unwrap();
+              window.location.reload();
             } catch (error) {
-                console.log(error);
+              console.error('Creation error:', error);
             }
-            window.location.reload()
-            // setAccounts((prev: any) => [...prev, newMethod]);
-            // setEditingMethod(null);
-            // setIsCreateModalOpen(false);
-        }
+        // setAccounts((prev: any) => [...prev, newMethod]);
+        // setEditingMethod(null);
+        // setIsCreateModalOpen(false);
+        // }
 
         // if (newMethodName.trim()) {
         //     const newMethod = {
@@ -95,28 +115,31 @@ export default function GivingCMS() {
 
     const handleUpdate = async () => {
         const formdata = new FormData()
-        if (binary === 1) {
+        if (binary === 0) {
             if (editingMethod?.id) {
 
-                formdata.append('accountId', editingMethod?.id)
-                formdata.append('currency', editingMethod?.currency)
-                formdata.append('bank', editingMethod?.bank)
-                formdata.append('name', editingMethod?.name)
-                formdata.append('number', editingMethod?.number)
+                formdata.append('accountId', formState?.id)
+                formdata.append('currency', formState?.currency)
+                formdata.append('bankId', formState?.bank)
+                formdata.append('name', formState?.name)
+                formdata.append('number', formState?.number)
 
                 try {
-                    await editAccount({ formdata, id: editingMethod?.id }).unwrap()
+                    await editAccount({ formdata, id: formState?.id }).unwrap()
+                    setAccounts((prev: any) =>
+                        prev.map((method: any) =>
+                            method.id === formState.id ?
+                                { ...method, name: formState?.name, ...method, bank: formState?.bank, ...method, number: formState?.number, ...method, currency: formState?.currency, ...method } :
+                                method
+                        )
+                    );
+                    setEditingMethod(null);
+                    setIsCreateModalOpen(false);
+                    setFormState({ ...blankForm });
                 } catch (error) {
                     console.log(error)
                 }
-                setAccounts((prev: any) =>
-                    prev.map((method: any) =>
-                        method.id === editingMethod.id ?
-                            { ...method, name: editingMethod.name, ...method, bank: editingMethod.bank, ...method, number: editingMethod.number, ...method, currency: editingMethod.currency, ...method } :
-                            method
-                    )
-                );
-                setEditingMethod(null);
+
             }
         }
 
@@ -203,7 +226,7 @@ export default function GivingCMS() {
                 <div className="bg-white rounded-lg shadow-sm border mb-6">
                     <div className="flex items-center justify-between p-4 border-b">
                         <h2 className="text-lg font-semibold text-gray-700">Bank Accounts</h2>
-                        <Button onClick={() => { setIsCreateModalOpen(true); setBinary(1) }} className='bg-purple-500'>
+                        <Button onClick={() => { setIsCreateModalOpen(true); setBinary(0) }} className='bg-purple-500'>
                             <Plus className="mr-2 h-4 w-4" />
                             Add Account
                         </Button>
@@ -213,7 +236,7 @@ export default function GivingCMS() {
                             <div key={method.id} className="flex items-center justify-between p-4 hover:bg-gray-50">
                                 <div>
                                     <p className="font-medium text-gray-800">
-                                        {method?.number} - {method?.name?.name}
+                                        {method?.number} - {method?.name}
                                     </p>
                                     <p className="text-sm text-gray-500">{method?.bank?.name} ({method?.currency})</p>
                                 </div>
@@ -221,14 +244,25 @@ export default function GivingCMS() {
                                     <Button
                                         variant='ghost'
                                         size='icon'
-                                        onClick={() => { setEditingMethod(method); setBinary(1) }}
+                                        onClick={() => { setEditingMethod(method); setBinary(0) }}
                                     >
                                         <Eye className="h-4 w-4 text-purple-600" />
                                     </Button>
                                     <Button
                                         variant='ghost'
-                                        size='icon'
-                                        onClick={() => { setEditingMethod(method); setBinary(1) }}
+                                        onClick={() => {
+                                            setFormState({
+                                                id: method.id,
+                                                name: method.name,
+                                                number: method.number,
+                                                currency: method.currency,
+                                                bank: method.bank.id,
+                                                country: method.country.id,
+                                            });
+                                            setBinary(0);
+                                            setIsCreateModalOpen(true);
+                                            setEditingMethod(method);
+                                        }}
                                     >
                                         <Edit className="h-4 w-4 text-blue-600" />
                                     </Button>
@@ -324,21 +358,112 @@ export default function GivingCMS() {
                         <div className="bg-white rounded-lg p-6 w-full max-w-md space-y-4">
                             <h2 className="text-xl font-bold text-gray-800">
                                 {editingMethod ? 'Edit' : 'Create'}
-                                {binary === 1 ? ' Bank Account' : ' Payment Option'}
+                                {binary === 0 ? ' Bank Account' : binary === 1 ? ' Online Account' : ' Payment Option'}
                             </h2>
 
-                            {binary === 1 && (
+                            {binary === 0 && (
                                 <div className="space-y-4">
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-1">
                                             Account Name
                                         </label>
                                         <input
+                                            value={formState?.name || newMethodName.name}
+                                            onChange={(e) => {
+                                                if (formState) {
+                                                    setFormState({ ...formState, name: e.target.value });
+                                                } else {
+                                                    setNewMethodName({ ...newMethodName, name: e.target.value });
+                                                }
+                                            }}
+                                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                            placeholder="Account name"
                                             required
-                                            value={editingMethod?.name || newMethodName?.name || ''}
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                                            Account number
+                                        </label>
+                                        <input
+                                            value={formState?.number || newMethodName?.number || ''}
                                             onChange={(e) => editingMethod
-                                                ? setEditingMethod({ ...editingMethod, name: e.target.value })
-                                                : setNewMethodName({ ...newMethodName, name: e.target.value })}
+                                                ? setEditingMethod({ ...formState, number: e.target.value })
+                                                : setNewMethodName({ ...newMethodName, number: e.target.value })}
+                                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                                            Bank
+                                        </label>
+                                        <select
+                                            value={formState?.bank || newMethodName?.bank || ''}
+                                            onChange={e => {
+                                                const bank = e.target.value;
+                                                if (formState) {
+                                                    setFormState({
+                                                        ...formState,
+                                                        bank,
+                                                    });
+                                                } else {
+                                                    setNewMethodName({
+                                                        ...newMethodName,
+                                                        bank,
+                                                    });
+                                                }
+                                            }}
+                                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                        >
+                                            <option value="">Select Bank</option>
+                                            {banks?.data.map((bank: any) => (
+                                                <option key={bank.id} value={bank.id}>
+                                                    {bank.name}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                                            Country
+                                        </label>
+                                        <select
+                                            value={formState?.country || newMethodName?.country || ''}
+                                            onChange={e => {
+                                                const country = e.target.value;
+                                                if (formState) {
+                                                    setFormState({
+                                                        ...formState,
+                                                        country,
+                                                    });
+                                                } else {
+                                                    setNewMethodName({
+                                                        ...newMethodName,
+                                                        country,
+                                                    });
+                                                }
+                                            }}
+                                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                        >
+                                            <option value="">Select Country</option>
+                                            {countries?.data.map((country: any) => (
+                                                <option key={country.id} value={country.id}>
+                                                    {country.name}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                                            Currency
+                                        </label>
+                                        <input
+                                            value={formState?.currency || newMethodName?.currency || ''}
+                                            onChange={(e) => formState
+                                                ? setFormState({ ...formState, currency: e.target.value })
+                                                : setNewMethodName({ ...newMethodName, currency: e.target.value })}
                                             className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                                         />
                                     </div>
@@ -350,7 +475,7 @@ export default function GivingCMS() {
                                     <input
                                         type="text"
                                         value={editingMethod?.name}
-                                        onChange={(e) => setEditingMethod({ ...editingMethod, name: e.target.value })}
+                                        onChange={(e) => setFormState({ ...formState, name: e.target.value })}
                                         className="w-full p-2 border rounded-lg mb-4 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                                     />
                                     <div>
@@ -417,8 +542,9 @@ export default function GivingCMS() {
                                 <Button
                                     variant='outline'
                                     onClick={() => {
-                                        if (editingMethod) setEditingMethod(null);
-                                        else setIsCreateModalOpen(false);
+                                        setEditingMethod(null);
+                                        setIsCreateModalOpen(false);
+                                        setFormState({ ...blankForm })
                                     }}
 
                                 >
