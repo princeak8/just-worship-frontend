@@ -482,12 +482,37 @@ const Giving: React.FC = () => {
                     {selected?.accounts?.length > 0 ? (
                       selected?.accounts?.map((account: any, index: number) => (
                         <div key={index} className="bg-gray-50 p-4 rounded-lg mb-6">
-                          <h2 className="font-semibold mb-3">Account Details</h2>
+                          {account?.bank ? (
+                            <>
+                            <h2 className="font-semibold mb-3">Account Details</h2>
                           <div className="space-y-2 text-sm">
                             <div className="flex justify-between">
                               <span className="text-gray-600">Bank Name:</span>
                               <span className="font-medium">
                                 {account?.bank?.name || 'No Bank Provided'}
+                              </span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-gray-600">Account Number:</span>
+                              <span className="font-medium">{account?.number || '-'}</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-gray-600">Account Name:</span>
+                              <span className="font-medium">{account?.name || '-'}</span>
+                            </div>
+                            <p className="text-sm text-gray-500 mt-2 text-center">
+                              Please include &apos;<span className='font-bold text-purple-500'>{selectedMethod || 'Just Worship'}</span>&apos; in your transfer narration
+                            </p>
+                          </div>
+                            </>
+                          ):(
+                            <>
+                            <h2 className="font-semibold mb-3">Online Account Details</h2>
+                          <div className="space-y-2 text-sm">
+                            <div className="flex justify-between">
+                              <span className="text-gray-600">Account Name:</span>
+                              <span className="font-medium">
+                                {account?.name || 'No Bank Provided'}
                               </span>
                             </div>
                             <div className="flex justify-between">
@@ -502,6 +527,9 @@ const Giving: React.FC = () => {
                               Please include &apos;<span className='font-bold text-purple-500'>{selectedMethod || 'Just Worship'}</span>&apos; in your transfer narration
                             </p>
                           </div>
+                            </>
+                          )}
+                          
                         </div>
                       ))
 

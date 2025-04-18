@@ -58,6 +58,13 @@ export default function GivingCMS() {
     };
     const [formState, setFormState] = useState({ ...blankForm });
 
+    const blankForm2 = {
+        id: '',
+        name: '',
+        url: '',
+        qrCodePhoto: '',
+    };
+    const [formState2, setFormState2] = useState({ ...blankForm2 });
 
     // console.log(formState)
 
@@ -82,18 +89,18 @@ export default function GivingCMS() {
         const formdata = new FormData()
 
         // if (binary === 0) {
-            formdata.append('name', newMethodName.name);
-            formdata.append('number', newMethodName.number);
-            formdata.append('bankId', newMethodName.bank);
-            formdata.append('currency', newMethodName.currency);
-            formdata.append('countryId', newMethodName.country);
-          
-            try {
-              await createAccount(formdata).unwrap();
-              window.location.reload();
-            } catch (error) {
-              console.error('Creation error:', error);
-            }
+        formdata.append('name', newMethodName.name);
+        formdata.append('number', newMethodName.number);
+        formdata.append('bankId', newMethodName.bank);
+        formdata.append('currency', newMethodName.currency);
+        formdata.append('countryId', newMethodName.country);
+
+        try {
+            await createAccount(formdata).unwrap();
+            window.location.reload();
+        } catch (error) {
+            console.error('Creation error:', error);
+        }
         // setAccounts((prev: any) => [...prev, newMethod]);
         // setEditingMethod(null);
         // setIsCreateModalOpen(false);
@@ -241,13 +248,13 @@ export default function GivingCMS() {
                                     <p className="text-sm text-gray-500">{method?.bank?.name} ({method?.currency})</p>
                                 </div>
                                 <div className="flex gap-2">
-                                    <Button
+                                    {/* <Button
                                         variant='ghost'
                                         size='icon'
                                         onClick={() => { setEditingMethod(method); setBinary(0) }}
                                     >
                                         <Eye className="h-4 w-4 text-purple-600" />
-                                    </Button>
+                                    </Button> */}
                                     <Button
                                         variant='ghost'
                                         onClick={() => {
@@ -297,17 +304,27 @@ export default function GivingCMS() {
                                     <p className="text-sm text-gray-500">Online Account</p>
                                 </div>
                                 <div className="flex gap-2">
-                                    <Button
+                                    {/* <Button
                                         variant='ghost'
                                         size='icon'
                                         onClick={() => { setEditingMethod(method); setBinary(1) }}
                                     >
                                         <Eye className="h-4 w-4 text-purple-600" />
-                                    </Button>
+                                    </Button> */}
                                     <Button
                                         variant='ghost'
                                         size='icon'
-                                        onClick={() => { setEditingMethod(method); setBinary(1) }}
+                                        onClick={() => {
+                                            setFormState2({
+                                                id: method.id,
+                                                name: method.name,
+                                                url: method.url,
+                                                qrCodePhoto: method.qrCodePhoto,
+                                            });
+                                            setBinary(1);
+                                            setIsCreateModalOpen(true);
+                                            setEditingMethod(method);
+                                        }}
                                     >
                                         <Edit className="h-4 w-4 text-blue-600" />
                                     </Button>
@@ -470,6 +487,115 @@ export default function GivingCMS() {
                                 </div>
                             )}
 
+                            {binary === 1 && (
+                                <div className="space-y-4">
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                                            Account Name
+                                        </label>
+                                        <input
+                                            value={formState?.name || newMethodName?.name}
+                                            onChange={(e) => {
+                                                if (formState) {
+                                                    setFormState({ ...formState, name: e.target.value });
+                                                } else {
+                                                    setNewMethodName({ ...newMethodName, name: e.target.value });
+                                                }
+                                            }}
+                                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                            placeholder="Account name"
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                                            Account number
+                                        </label>
+                                        <input
+                                            value={formState?.number || newMethodName?.number || ''}
+                                            onChange={(e) => editingMethod
+                                                ? setEditingMethod({ ...formState, number: e.target.value })
+                                                : setNewMethodName({ ...newMethodName, number: e.target.value })}
+                                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                                            Bank
+                                        </label>
+                                        <select
+                                            value={formState?.bank || newMethodName?.bank || ''}
+                                            onChange={e => {
+                                                const bank = e.target.value;
+                                                if (formState) {
+                                                    setFormState({
+                                                        ...formState,
+                                                        bank,
+                                                    });
+                                                } else {
+                                                    setNewMethodName({
+                                                        ...newMethodName,
+                                                        bank,
+                                                    });
+                                                }
+                                            }}
+                                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                        >
+                                            <option value="">Select Bank</option>
+                                            {banks?.data.map((bank: any) => (
+                                                <option key={bank.id} value={bank.id}>
+                                                    {bank.name}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                                            Country
+                                        </label>
+                                        <select
+                                            value={formState?.country || newMethodName?.country || ''}
+                                            onChange={e => {
+                                                const country = e.target.value;
+                                                if (formState) {
+                                                    setFormState({
+                                                        ...formState,
+                                                        country,
+                                                    });
+                                                } else {
+                                                    setNewMethodName({
+                                                        ...newMethodName,
+                                                        country,
+                                                    });
+                                                }
+                                            }}
+                                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                        >
+                                            <option value="">Select Country</option>
+                                            {countries?.data.map((country: any) => (
+                                                <option key={country.id} value={country.id}>
+                                                    {country.name}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                                            Currency
+                                        </label>
+                                        <input
+                                            value={formState?.currency || newMethodName?.currency || ''}
+                                            onChange={(e) => formState
+                                                ? setFormState({ ...formState, currency: e.target.value })
+                                                : setNewMethodName({ ...newMethodName, currency: e.target.value })}
+                                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                        />
+                                    </div>
+                                </div>
+                            )}
+
                             {binary === 2 && editingMethod && (
                                 <div className="space-y-4">
                                     <input
@@ -489,7 +615,7 @@ export default function GivingCMS() {
                                                     <div key={account.id} className="flex items-center justify-between bg-gray-50 p-2 rounded mb-2">
                                                         {account?.bank?.name ? (
                                                             <span className="text-sm">
-                                                                {account?.number} - {account?.name?.name}
+                                                                {account?.number} - {account?.name}
                                                             </span>
                                                         ) : (
                                                             <span className="text-sm">
@@ -520,7 +646,7 @@ export default function GivingCMS() {
                                                 <option value="">Select an account</option>
                                                 {accounts?.data?.map((account: any) => (
                                                     <option key={account?.id} value={account?.id}>
-                                                        {account?.number} - {account?.name?.name}
+                                                        {account?.number} - {account?.name} ({account?.bank?.name})
                                                     </option>
                                                 ))}
                                             </select>
@@ -583,7 +709,7 @@ export default function GivingCMS() {
                                                 <div key={account.id} className="flex items-center justify-between bg-gray-50 p-2 rounded mb-2">
                                                     {account?.bank?.name ? (
                                                         <span className="text-sm">
-                                                            {account?.number} - {account.name?.name}
+                                                            <p>{account?.number} - ({account?.bank?.name})</p> {account?.name}
                                                         </span>
                                                     ) : (
                                                         <span className="text-sm">
