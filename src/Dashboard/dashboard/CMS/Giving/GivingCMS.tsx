@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Loader2, Edit, Trash, Plus, Currency, Trash2, Eye, X, Search } from 'lucide-react';
-import { useBanksQuery, useCountriesQuery, useCreateAccountMutation, useDeleteAccountMutation, useEditAccountMutation, useEditGivingOptionMutation, useGetAccountQuery, useGetGivingQuery, useGetOptionsQuery, useOnlineAccountQuery } from '@/app/api';
+import { useBanksQuery, useCountriesQuery, useCreateAccountMutation, useCreateOnlineAccountMutation, useDeleteAccountMutation, useEditAccountMutation, useEditGivingOptionMutation, useEditOnlineAccountMutation, useGetAccountQuery, useGetGivingQuery, useGetOptionsQuery, useOnlineAccountQuery } from '@/app/api';
 import { Button } from '@/components/ui/button';
 
 interface PaymentMethod {
@@ -24,13 +24,7 @@ export default function GivingCMS() {
     const [isOpen, setIsModalOpen] = useState(false);
     const [viewMethod, setViewMethod] = useState<PaymentMethod | any | null>(null);
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-    const [newMethodName, setNewMethodName] = useState({
-        name: '',
-        number: '',
-        currency: '',
-        bank: '',
-        country: ''
-    });
+    const [newMethodName, setNewMethodName] = useState<any>(null);
     const [linkAccount, setLinkAccount] = useState('');
     const [linkOnlineAccount, setLinkOnlineAccount] = useState('');
     const [editingMethod, setEditingMethod] = useState<PaymentMethod | any | null>(null);
@@ -44,6 +38,8 @@ export default function GivingCMS() {
     const [onlineAccounts, setOnlineAccounts] = useState<any>([])
     const [warning, setWarning] = useState(false)
     const [deleteAccount] = useDeleteAccountMutation()
+    const [createOnlineAccount] = useCreateOnlineAccountMutation()
+    const [editOnlineAccount] = useEditOnlineAccountMutation()
     const [selectedAccount, setSelectedAccount] = useState<Select>({
         name: '',
         id: ''
@@ -88,34 +84,60 @@ export default function GivingCMS() {
 
         const formdata = new FormData()
 
-        // if (binary === 0) {
-        formdata.append('name', newMethodName.name);
-        formdata.append('number', newMethodName.number);
-        formdata.append('bankId', newMethodName.bank);
-        formdata.append('currency', newMethodName.currency);
-        formdata.append('countryId', newMethodName.country);
+        if (binary === 0) {
+            formdata.append('name', newMethodName.name);
+            formdata.append('number', newMethodName.number);
+            formdata.append('bankId', newMethodName.bank);
+            formdata.append('currency', newMethodName.currency);
+            formdata.append('countryId', newMethodName.country);
 
-        try {
-            await createAccount(formdata).unwrap();
-            window.location.reload();
-        } catch (error) {
-            console.error('Creation error:', error);
+            try {
+                await createAccount(formdata).unwrap();
+                window.location.reload();
+            } catch (error) {
+                console.error('Creation error:', error);
+            }
+            // setAccounts((prev: any) => [...prev, newMethod]);
+            // setEditingMethod(null);
+            // setIsCreateModalOpen(false);
+            // }
+
+            // if (newMethodName.trim()) {
+            //     const newMethod = {
+            //         id: Date.now(),
+            //         name: newMethodName,
+            //         accounts: []
+            //     };
+            //     setPaymentMethods(prev => [...prev, newMethod]);
+            //     setNewMethodName('');
+            //     setIsCreateModalOpen(false);
         }
-        // setAccounts((prev: any) => [...prev, newMethod]);
-        // setEditingMethod(null);
-        // setIsCreateModalOpen(false);
-        // }
 
-        // if (newMethodName.trim()) {
-        //     const newMethod = {
-        //         id: Date.now(),
-        //         name: newMethodName,
-        //         accounts: []
-        //     };
-        //     setPaymentMethods(prev => [...prev, newMethod]);
-        //     setNewMethodName('');
-        //     setIsCreateModalOpen(false);
-        // }
+        if (binary === 1) {
+            formdata.append('name', newMethodName.name);
+            formdata.append('url', newMethodName.url);
+
+            try {
+                await createOnlineAccount(formdata).unwrap();
+                window.location.reload();
+            } catch (error) {
+                console.error('Creation error:', error);
+            }
+            // setAccounts((prev: any) => [...prev, newMethod]);
+            // setEditingMethod(null);
+            // setIsCreateModalOpen(false);
+            // }
+
+            // if (newMethodName.trim()) {
+            //     const newMethod = {
+            //         id: Date.now(),
+            //         name: newMethodName,
+            //         accounts: []
+            //     };
+            //     setPaymentMethods(prev => [...prev, newMethod]);
+            //     setNewMethodName('');
+            //     setIsCreateModalOpen(false);
+        }
     };
 
     // console.log("option: ", editingMethod)
@@ -143,6 +165,34 @@ export default function GivingCMS() {
                     setEditingMethod(null);
                     setIsCreateModalOpen(false);
                     setFormState({ ...blankForm });
+                    setFormState2({ ...blankForm2 });
+                } catch (error) {
+                    console.log(error)
+                }
+
+            }
+        }
+
+        if (binary === 1) {
+            if (editingMethod?.id) {
+
+                formdata.append('accountId', formState?.id)
+                formdata.append('name', formState2?.name)
+                formdata.append('url', formState2?.url)
+
+                try {
+                    await editOnlineAccount({ formdata, id: formState2?.id }).unwrap()
+                    setAccounts((prev: any) =>
+                        prev.map((method: any) =>
+                            method.id === formState.id ?
+                                { ...method, name: formState2?.name, ...method, url: formState2?.url, ...method } :
+                                method
+                        )
+                    );
+                    setEditingMethod(null);
+                    setIsCreateModalOpen(false);
+                    setFormState({ ...blankForm });
+                    setFormState2({ ...blankForm2 });
                 } catch (error) {
                     console.log(error)
                 }
@@ -174,7 +224,11 @@ export default function GivingCMS() {
                             method
                     )
                 );
+
                 setEditingMethod(null);
+                setIsCreateModalOpen(false);
+                setFormState({ ...blankForm });
+                setFormState2({ ...blankForm2 });
             }
         }
 
@@ -405,7 +459,7 @@ export default function GivingCMS() {
                                         <input
                                             value={formState?.number || newMethodName?.number || ''}
                                             onChange={(e) => editingMethod
-                                                ? setEditingMethod({ ...formState, number: e.target.value })
+                                                ? setFormState({ ...formState, number: e.target.value })
                                                 : setNewMethodName({ ...newMethodName, number: e.target.value })}
                                             className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                                         />
@@ -494,102 +548,22 @@ export default function GivingCMS() {
                                             Account Name
                                         </label>
                                         <input
-                                            value={formState?.name || newMethodName?.name}
-                                            onChange={(e) => {
-                                                if (formState) {
-                                                    setFormState({ ...formState, name: e.target.value });
-                                                } else {
-                                                    setNewMethodName({ ...newMethodName, name: e.target.value });
-                                                }
-                                            }}
-                                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                                            placeholder="Account name"
-                                            required
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                                            Account number
-                                        </label>
-                                        <input
-                                            value={formState?.number || newMethodName?.number || ''}
+                                            value={formState2?.name || newMethodName?.name || ''}
                                             onChange={(e) => editingMethod
-                                                ? setEditingMethod({ ...formState, number: e.target.value })
-                                                : setNewMethodName({ ...newMethodName, number: e.target.value })}
+                                                ? setFormState2({ ...formState2, name: e.target.value })
+                                                : setNewMethodName({ ...newMethodName, name: e.target.value })}
                                             className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                                         />
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-1">
-                                            Bank
-                                        </label>
-                                        <select
-                                            value={formState?.bank || newMethodName?.bank || ''}
-                                            onChange={e => {
-                                                const bank = e.target.value;
-                                                if (formState) {
-                                                    setFormState({
-                                                        ...formState,
-                                                        bank,
-                                                    });
-                                                } else {
-                                                    setNewMethodName({
-                                                        ...newMethodName,
-                                                        bank,
-                                                    });
-                                                }
-                                            }}
-                                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                                        >
-                                            <option value="">Select Bank</option>
-                                            {banks?.data.map((bank: any) => (
-                                                <option key={bank.id} value={bank.id}>
-                                                    {bank.name}
-                                                </option>
-                                            ))}
-                                        </select>
-                                    </div>
-
-                                    <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                                            Country
-                                        </label>
-                                        <select
-                                            value={formState?.country || newMethodName?.country || ''}
-                                            onChange={e => {
-                                                const country = e.target.value;
-                                                if (formState) {
-                                                    setFormState({
-                                                        ...formState,
-                                                        country,
-                                                    });
-                                                } else {
-                                                    setNewMethodName({
-                                                        ...newMethodName,
-                                                        country,
-                                                    });
-                                                }
-                                            }}
-                                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                                        >
-                                            <option value="">Select Country</option>
-                                            {countries?.data.map((country: any) => (
-                                                <option key={country.id} value={country.id}>
-                                                    {country.name}
-                                                </option>
-                                            ))}
-                                        </select>
-                                    </div>
-
-                                    <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                                            Currency
+                                            Account URL
                                         </label>
                                         <input
-                                            value={formState?.currency || newMethodName?.currency || ''}
-                                            onChange={(e) => formState
-                                                ? setFormState({ ...formState, currency: e.target.value })
-                                                : setNewMethodName({ ...newMethodName, currency: e.target.value })}
+                                            value={formState2?.url || newMethodName?.url || ''}
+                                            onChange={(e) => editingMethod
+                                                ? setFormState2({ ...formState2, url: e.target.value })
+                                                : setNewMethodName({ ...newMethodName, url: e.target.value })}
                                             className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                                         />
                                     </div>
@@ -670,7 +644,8 @@ export default function GivingCMS() {
                                     onClick={() => {
                                         setEditingMethod(null);
                                         setIsCreateModalOpen(false);
-                                        setFormState({ ...blankForm })
+                                        setFormState({ ...blankForm });
+                                        setFormState2({ ...blankForm2 });
                                     }}
 
                                 >

@@ -333,6 +333,22 @@ const api = apiClient.injectEndpoints({
             })
         }),
 
+        createOnlineAccount:builder.mutation({
+            query: (data: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.onlineAccount}`,
+                method: 'POST',
+                body: data,
+            })
+        }),
+
+        editOnlineAccount:builder.mutation({
+            query: ({formdata, id}: {formdata: any , id:number}) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.onlineAccount}/${id}`,
+                method: 'POST',
+                body: formdata,
+            })
+        }),
+
         banks:builder.query({
             query: (url: any) =>({
                 url: `${VITE_BASE_URL}/${apiRoutes.banks}`
@@ -396,6 +412,8 @@ export const {
     useEditLiveMutation,
     useDeleteLiveMutation,
     useOnlineAccountQuery,
+    useCreateOnlineAccountMutation,
+    useEditOnlineAccountMutation,
     useBanksQuery,
     useCountriesQuery,
 } = api
