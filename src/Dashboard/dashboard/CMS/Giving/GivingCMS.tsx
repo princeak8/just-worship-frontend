@@ -173,20 +173,33 @@ export default function GivingCMS() {
             }
         }
 
+        function urlExists(url: string, accounts: { id: string, url: string }[], currentId: string) {
+            return accounts.some(acc => acc.url === url && acc.id !== currentId);
+        }
+
         if (binary === 1) {
             if (editingMethod?.id) {
 
-                formdata.append('accountId', formState?.id)
+                formdata.append('accountId', formState2?.id)
                 formdata.append('name', formState2?.name)
-                formdata.append('url', formState2?.url)
+                if (
+                    formState2.url?.trim() &&
+                    urlExists(formState2.url.trim(), onlineAccounts, formState2.id)
+                ) {
+                    formdata.append('url', formState2.url.trim());
+                }
 
                 try {
                     await editOnlineAccount({ formdata, id: formState2?.id }).unwrap()
-                    setAccounts((prev: any) =>
+                    setOnlineAccounts((prev: any) =>
                         prev.map((method: any) =>
-                            method.id === formState.id ?
-                                { ...method, name: formState2?.name, ...method, url: formState2?.url, ...method } :
-                                method
+                            method.id === formState2.id ?
+                                {
+                                    ...method,
+                                    name: formState2.name,
+                                    url: formState2.url
+                                }
+                                : method
                         )
                     );
                     setEditingMethod(null);
