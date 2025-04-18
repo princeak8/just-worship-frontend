@@ -9,10 +9,23 @@ interface StockData {
   data: Stock[]
 }
 
+interface Event {
+  id: string;
+  name: string;
+  date: string;
+  bookings: string;
+  content: string;
+  location: string;
+  year: string;
+  coverPhoto: {
+    url: string;
+  }
+}
+
 interface Stock {
   id?: string;
   title: string;
-  event: string;
+  event: Event;
   photo:{
     url: string;
   } 
@@ -93,7 +106,7 @@ export default function GalleryCMS() {
                         <CardTitle className="text-xl">{item.title}</CardTitle>
                       </CardHeader>
                       <CardContent className="">
-                        <p className="text-base text-gray-700 line-clamp-2">{item.event}</p>
+                        <p className="text-base text-gray-700 line-clamp-2">{item?.event?.name}</p>
                       </CardContent>
                       <div className="flex justify-between p-4">
                         <Button asChild size="sm" variant="default">

@@ -8,9 +8,27 @@ import Placeholder from '@/public/photo1.png';
 import useGallery from './useGallery';
 import { TextArea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
+import { useGetEventQuery } from '@/app/api';
 
 export default function AddImage() {
+
+  interface GetEvent {
+    data: Event[]
+  }
+  
+  interface Event {
+    id: string;
+    name: string;
+    date: string;
+    bookings: string;
+    content: string;
+    coverPhoto: {
+      url: string;
+    }
+  }
+
   const { id } = useParams();
+  const { data:events, isLoading: isLoadingEvents } = useGetEventQuery<GetEvent[] | any | undefined>(undefined);
   const { formInstance, isLoading, onSubmit, fetchedImage } = useGallery();
   const { handleSubmit, addItemDetail } = formInstance;
 
@@ -65,12 +83,33 @@ export default function AddImage() {
                   </div>
 
                   <div>
-                    <Label>Description</Label>
-                    <TextArea
-                      id="description"
-                      rows={7}
-                      {...addItemDetail('event')}
+                    <Label>Location</Label>
+                    <Input
+                      id="location"
+                      type="text"
+                      {...addItemDetail('location')}
                     />
+                  </div>
+
+                  <div>
+                    <Label>year</Label>
+                    <Input
+                      id="year"
+                      type="text"
+                      {...addItemDetail('year')}
+                    />
+                  </div>
+
+                  <div>
+                    <Label>Event</Label>
+                    <select id="event" className="w-full border rounded p-2 mt-1 bg-white text-black" {...addItemDetail('event')}>
+                      <option value="">Select an event</option>
+                      {events?.data?.map((event: Event) => (
+                        <option key={event.id} value={event.id}>
+                          {event.name}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                 </div>
               </CardContent>

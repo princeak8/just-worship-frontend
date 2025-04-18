@@ -5,7 +5,10 @@ import { Navigate, useParams} from 'react-router-dom';
 
 interface FormDataDetail {
     title: string;
-    event: string;
+    event: number | null;
+    location?: string | null;
+    year?: number | null;
+    description?: string | null
     image: FileList;
 }
 
@@ -23,7 +26,10 @@ const useGallery = () => {
     } = useForm<FormDataDetail>({
         defaultValues: {
             title: '',
-            event: '',
+            event: null,
+            location: null,
+            year: null,
+            description: null
         },
     });
 
@@ -31,6 +37,9 @@ const useGallery = () => {
         if(galleryImage?.data){
         setValue('title', galleryImage?.data?.title );
         setValue('event', galleryImage?.data?.event)
+        setValue('location', galleryImage?.data?.location)
+        setValue('year', galleryImage?.data?.year)
+        setValue('description', galleryImage?.data?.description)
         setValue('image', galleryImage?.data?.photo?.url || '' as unknown as FileList)
         }
     },[galleryImage?.data, setValue])
@@ -45,12 +54,15 @@ const useGallery = () => {
     };
 
     async function onSubmit(data: FormDataDetail){
-        const {title, event, image } = data;
+        const {title, event, image, location, year, description } = data;
 
         const formdata = new FormData()
 
         formdata.append('title', title)
-        formdata.append('event', event)
+        if(event) formdata.append('eventId', event.toString())
+        if(location) formdata.append('location', location)
+        if(year) formdata.append('year', year.toString())
+        if(description) formdata.append('description', description)
         
         if (image && image.length > 0 && image[0] instanceof File && image[0] !== galleryImage?.data?.coverPhoto?.url) {
             formdata.append('photo', image[0]);
