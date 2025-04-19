@@ -21,13 +21,15 @@ export default function Giving() {
     // ];
 
     useEffect(() => {
-        if (Payments?.data) {
-            const found = Payments.data.find(
+        if (Options?.data) {
+            const found = Options.data.find(
                 (p: any) => p?.name.toLowerCase().trim() === selectedMethod.toLowerCase().trim()
             );
             setSelected(found);
         }
-    }, [Payments]);
+    }, [Options, selectedMethod]);
+
+    console.log('payments: ', Options)
 
     return (
         <div className="w-full p-10 overflow-x-hidden bg-gradient-to-br from-purple-50 to-blue-50">
@@ -176,7 +178,7 @@ export default function Giving() {
                                 </div>
                                 <div className="p-4 bg-gray-50 rounded-lg">
                                   <QRCode
-                                    value={account?.url}
+                                    value={account}
                                     size={160}
                                     className="p-2 bg-white rounded-md"
                                     fgColor="#6D28D9"

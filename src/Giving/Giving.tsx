@@ -80,13 +80,13 @@ const Giving: React.FC = () => {
   // ];
 
   useEffect(() => {
-    if (Payments?.data) {
-      const found = Payments.data.find(
+    if (Options?.data) {
+      const found = Options.data.find(
         (p: any) => p?.name.toLowerCase().trim() === selectedMethod.toLowerCase().trim()
       );
       setSelected(found);
     }
-  }, [Payments]);
+  }, [Options, selectedMethod]);
 
   // Determine if we're on mobile
   useEffect(() => {
