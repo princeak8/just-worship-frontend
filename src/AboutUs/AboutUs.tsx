@@ -314,6 +314,59 @@ const AboutUs: React.FC = () => {
           </div>
 
           <motion.section
+            className="py-16 bg-gray-50"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <motion.h2
+                className="text-3xl font-bold text-center mb-12 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent" // Added gradient to match other headings
+                initial={{ y: -20, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true }}
+              >
+                Meet Our Team
+              </motion.h2>
+              <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8`}>
+                {team?.data?.map((member: any, index: number) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: index * 0.2 }}
+                    viewport={{ once: true }}
+                    whileHover={{ y: -5 }}
+                    className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 group"
+                  >
+                    <motion.div className="overflow-hidden">
+                      <motion.img
+                        src={member?.photo?.url}
+                        alt={member.name}
+                        className="w-full h-48 object-cover transform group-hover:scale-105 transition-transform duration-300"
+                        transition={{ duration: 0.3 }}
+                      />
+                    </motion.div>
+                    <motion.div
+                      className="p-6"
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      transition={{ duration: 0.5, delay: 0.3 + index * 0.2 }}
+                      viewport={{ once: true }}
+                    >
+                      <h2 className="text-xl font-semibold text-gray-900 mb-2">{member.name}</h2>
+                      <p className="text-sm text-purple-600 font-medium mb-4">{member?.position}</p>
+                      <p className="text-base text-gray-600 leading-relaxed">{member?.biography}</p>
+                    </motion.div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </motion.section>
+
+          <motion.section
             className="bg-[#181D21] lg:h-[616px] text-white"
             style={{
               background: `url(${worship})`,
