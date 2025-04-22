@@ -1,13 +1,9 @@
 import type React from 'react';
 import { motion } from "framer-motion";
-import Avatar from '@/public/card1.jpeg';
-import Avatar2 from '@/public/about.png';
 import { useContact_messageMutation, useGetAboutQuery, useGetGalleryQuery, useGetTeamQuery, useSubscribeMutation } from '@/app/api';
 import background from '../public/contact.jpeg'
-import map from '../public/maps.svg'
-import worship from '@/public/worship-school.jpeg'
 import logo from '@/public/logo.png'
-import { FormEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import image1 from '@/public/card1.jpeg'
 import image2 from '@/public/card2.jpeg'
 import image3 from '@/public/card3.jpeg'
@@ -70,7 +66,7 @@ const ContactUs: React.FC = () => {
   const [subject, setSubject] = useState('')
   const [message, setMessage] = useState('')
   const [alertModal, setAlertModal] = useState(false)
-  const [name2, setName2] = useState('')
+  // const [name2, setName2] = useState('')
   const [email2, setEmail2] = useState('')
   const [subAlertModal, setSubAlertModal] = useState(false)
 
@@ -137,7 +133,7 @@ const ContactUs: React.FC = () => {
     setGallery([image1, image2, image3, image4, image1, image2, image3, image4, image1, image2])
   }, [])
 
-  const onSubmit = async (e: FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
 
     e.preventDefault()
     const data = {
@@ -162,18 +158,18 @@ const ContactUs: React.FC = () => {
 
   }
 
-  const onSubscribe = async (e: FormEvent) => {
+  const onSubscribe = async (e: React.FormEvent) => {
 
     e.preventDefault()
     const data = {
-      name: name2,
+      // name: name2,
       email: email2,
     }
 
     try {
       await subscribe(data).unwrap()
       setSubAlertModal(true)
-      setName2('')
+      // setName2('')
       setEmail2('')
     } catch (err) {
       console.log(err)
@@ -386,7 +382,7 @@ const ContactUs: React.FC = () => {
               <motion.p>
                 Get the latest resources, event dates, new music, books, merchandise and more directly into your inbox.
               </motion.p>
-              <div>
+              {/* <div>
                 <input
                   type="text"
                   id="name"
@@ -396,7 +392,7 @@ const ContactUs: React.FC = () => {
                   className="w-full p-2 px-4 border border-gray-300 rounded rounded-2xl my-3"
                   required
                 />
-              </div>
+              </div> */}
               <div>
                 <input
                   type="email"
