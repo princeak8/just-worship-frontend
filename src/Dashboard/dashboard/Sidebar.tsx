@@ -65,6 +65,11 @@ export const paths = [
           path: '/dashboard/cms/live',
           icon: <Dot size={30}/>
         },
+        {
+          name: 'Messages',
+          path: '/dashboard/cms/messages',
+          icon: <Dot size={30}/>
+        },
       ]
   },
   {

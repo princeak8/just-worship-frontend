@@ -377,6 +377,11 @@ const api = apiClient.injectEndpoints({
             }),
         }),
 
+        getMessages:builder.query({
+            query: (url: any) => ({
+                url: `${VITE_BASE_URL}/${apiRoutes.contact_message}`,
+            })
+        })
     })
 });
 
@@ -434,4 +439,5 @@ export const {
     useCountriesQuery,
     useContact_messageMutation,
     useSubscribeMutation,
+    useGetMessagesQuery,
 } = api

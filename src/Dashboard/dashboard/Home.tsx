@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 // import { Progress } from "@/components/ui/progress";
 import { ArrowUp, Gem, Search } from "lucide-react";
 import { useGetEventQuery, useGetMembersQuery, useGetSubscribersQuery } from "@/app/api";
-import { Table, TableHead, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableRow } from "@/components/ui/table";
 
 interface Cards {
   title: string;
@@ -77,6 +77,8 @@ const Home = () => {
   const { data: subscribers, isLoading } = useGetSubscribersQuery<any | undefined>(undefined)
   const { data: members, isLoading: loading } = useGetMembersQuery<any | undefined>(undefined)
   const { data: events, isLoading: isloading } = useGetEventQuery<any | undefined>(undefined)
+
+  console.log("subS: ", subscribers)
 
   // console.log("data: ", subscribers?.data?.length)
   return (
@@ -168,9 +170,20 @@ const Home = () => {
                 <TableHead>Email</TableHead>
                 <TableHead>Date</TableHead>
               </TableRow>
+              <TableBody>
+                {subscribers.data.length > 0 ? (
+                  subscribers.data.map((subscriber: any, index: number) => (
+                    <TableRow key={index}>
+                      <TableCell>{index + 1}</TableCell>
+                      <TableCell>{subscriber.email}</TableCell>
+                      <TableCell>{subscriber.data}</TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <p className="w-full text-center mt-4 flex justify-center"><Search /> No Subscribers yet</p>
+                )}
+              </TableBody>
             </Table>
-                <p className="w-full text-center mt-4 flex justify-center"><Search /> No Subscribers yet</p>
-
           </CardContent>
         </Card>
 
