@@ -361,6 +361,22 @@ const api = apiClient.injectEndpoints({
             })
         }),
 
+        contact_message:builder.mutation({
+            query: (data: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.contact_message}`,
+                method: 'POST',
+                body: data
+            }),
+        }),
+
+        subscribe:builder.mutation({
+            query: (data: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.subscribe}`,
+                method: 'POST',
+                body: data
+            }),
+        }),
+
     })
 });
 
@@ -416,4 +432,6 @@ export const {
     useEditOnlineAccountMutation,
     useBanksQuery,
     useCountriesQuery,
+    useContact_messageMutation,
+    useSubscribeMutation,
 } = api

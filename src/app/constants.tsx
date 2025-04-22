@@ -22,5 +22,6 @@ export const apiRoutes = {
   live: 'live',
   banks: 'banks',
   countries: 'countries',
-  
+  contact_message: 'contact_messages',
+  subscribe: 'subscribe',
 }
