@@ -166,8 +166,8 @@ const ContactUs: React.FC = () => {
 
     e.preventDefault()
     const data = {
-      name2,
-      email2,
+      name: name2,
+      email: email2,
     }
 
     try {
@@ -409,8 +409,17 @@ const ContactUs: React.FC = () => {
                 />
               </div>
 
-
-              <div className="pt-2">
+              {loading3 ?(
+                <div className="pt-2">
+                <button
+                  onClick={onSubscribe}
+                  className="px-8 py-3 bg-gray-700 text-white rounded-lg w-40  transition cursor-wait flex items-center justify-center"
+                >
+                  <Loader2 className='animate-spin' />
+                </button>
+              </div>
+              ):(
+                <div className="pt-2">
                 <button
                   onClick={onSubscribe}
                   className="px-8 py-3 bg-gray-700 text-white rounded-lg w-40 hover:bg-black transition"
@@ -418,6 +427,7 @@ const ContactUs: React.FC = () => {
                   Subscribe
                 </button>
               </div>
+              )}
 
             </motion.div>
           </div>
