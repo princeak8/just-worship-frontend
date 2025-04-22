@@ -78,7 +78,7 @@ const Home = () => {
   const { data: members, isLoading: loading } = useGetMembersQuery<any | undefined>(undefined)
   const { data: events, isLoading: isloading } = useGetEventQuery<any | undefined>(undefined)
 
-  console.log("subS: ", subscribers)
+  // console.log("subS: ", subscribers)
 
   // console.log("data: ", subscribers?.data?.length)
   return (
@@ -171,12 +171,12 @@ const Home = () => {
                 <TableHead>Date</TableHead>
               </TableRow>
               <TableBody>
-                {subscribers.data.length > 0 ? (
-                  subscribers.data.map((subscriber: any, index: number) => (
+                {subscribers?.data?.length > 0 ? (
+                  subscribers?.data.map((subscriber: any, index: number) => (
                     <TableRow key={index}>
                       <TableCell>{index + 1}</TableCell>
-                      <TableCell>{subscriber.email}</TableCell>
-                      <TableCell>{subscriber.data}</TableCell>
+                      <TableCell>{subscriber?.email}</TableCell>
+                      <TableCell>{subscriber?.data}</TableCell>
                     </TableRow>
                   ))
                 ) : (

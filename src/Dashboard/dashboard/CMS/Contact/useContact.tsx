@@ -12,7 +12,7 @@ interface FormDataDetail {
 const useContact = () => {
     const {id} = useParams()
   const {data: contact} = useGetContactQuery<any | undefined>(undefined)
-    const [updateContact, isLoading] = useUpdateContactMutation()
+    const [updateContact, {isLoading: isLoading9}] = useUpdateContactMutation()
 
     // console.log("id: ", getAboutById)
 
@@ -66,7 +66,7 @@ const useContact = () => {
 
 
   return{
-    isLoading,
+    isLoading9,
     formInstance: {addContactDetail, handleSubmit, errors, rules},
     onSubmit,
   }

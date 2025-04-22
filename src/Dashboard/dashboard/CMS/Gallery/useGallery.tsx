@@ -15,7 +15,7 @@ interface FormDataDetail {
 const useGallery = () => {
     const {id} = useParams()
     const {data: galleryImage} = useGetGallerytByIdQuery<any>(id, {skip: !id})
-    const [addImage, isLoading] = useAddGalleryImageMutation()
+    const [addImage, {isLoading: isLoading10}] = useAddGalleryImageMutation()
     const [updateGalleryImage] = useUpdateGalleryImageMutation()
 
     const {
@@ -84,7 +84,7 @@ const useGallery = () => {
 
 
   return{
-    isLoading,
+    isLoading10,
     formInstance: {addItemDetail, handleSubmit, errors, rules},
     onSubmit,
     fetchedImage: galleryImage?.data?.photo?.url,

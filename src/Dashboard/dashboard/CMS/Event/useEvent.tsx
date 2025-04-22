@@ -13,7 +13,7 @@ interface FormDataDetail {
 const useEvent = () => {
     const {id} = useParams()
   const {data: event} = useGetEventByIdQuery<any>(id, {skip: !id})
-    const [addEvent, isLoading] = useAddEventMutation()
+    const [addEvent, {isLoading: isLoading101}] = useAddEventMutation()
     const [updateEvent] = useUpdateEventMutation()
 
     // console.log("id: ", getHeroById)
@@ -77,7 +77,7 @@ const useEvent = () => {
 
 
   return{
-    isLoading,
+    isLoading101,
     formInstance: { addEventDetail, handleSubmit, errors, rules},
     onSubmit,
     fetchedImage: event?.data?.coverPhoto?.url,

@@ -1,7 +1,7 @@
 import { useAddHeroDetailsMutation, useGetHeroByIdQuery, useUpdateHeroDetailsMutation } from '@/app/api'
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { Navigate, useParams} from 'react-router-dom';
+import { useParams} from 'react-router-dom';
 
 interface FormDataDetail {
     title: string;
@@ -14,7 +14,7 @@ interface FormDataDetail {
 const useHome = () => {
     const {id} = useParams()
   const {data: getHeroById } = useGetHeroByIdQuery<any>(id, {skip: !id})
-    const [addHero, isLoading] = useAddHeroDetailsMutation()
+    const [addHero, {isLoading: isLoading100}] = useAddHeroDetailsMutation()
     const [updateHeroDetails] = useUpdateHeroDetailsMutation()
 
     // console.log("id: ", getHeroById)
@@ -81,7 +81,7 @@ const useHome = () => {
 
 
   return{
-    isLoading,
+    isLoading100,
     formInstance: {addHeroDetail, handleSubmit, errors, rules},
     onSubmit,
     fetchedImage: getHeroById?.data?.photo?.url,

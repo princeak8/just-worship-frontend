@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Save } from 'lucide-react';
+import { Loader2, Save } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import Placeholder from '@/public/photo1.png'
 import useHome from './useHome';
@@ -21,7 +21,7 @@ interface Slide {
 
 export default function CreateHome() {
   const {id} = useParams()
-  const { formInstance, isLoading, onSubmit, fetchedImage } = useHome()
+  const { formInstance, isLoading100, onSubmit, fetchedImage } = useHome()
   const { handleSubmit, addHeroDetail } = formInstance;
 
   const [isEditing, setIsEditing] = useState(false);
@@ -54,7 +54,11 @@ useEffect(()=>{
       <div className="max-w-6xl mx-auto">
         <div className='flex items-center justify-between'>
           <h1 className="text-3xl font-bold mb-8">Home Page Slides Manager</h1>
-          <Button type='submit' className='flex items-center gap-2 bg-purple-500 hover:bg-purple-600 rounded-md p-2 px-4 text-white'><Save className="w-4 h-4" />{id ? 'Update Slide' : 'Save Slide'}</Button>
+          {isLoading100 ? (
+            <Button className='flex items-center gap-2 bg-purple-500 hover:bg-purple-600 rounded-md p-2 px-4 text-white'><Loader2 className='animate-spin' /></Button>
+          ):(
+            <Button type='submit' className='flex items-center gap-2 bg-purple-500 hover:bg-purple-600 rounded-md p-2 px-4 text-white'><Save className="w-4 h-4" />{id ? 'Update Slide' : 'Save Slide'}</Button>
+          )}
         </div>
 
         <div className="flex gap-8">

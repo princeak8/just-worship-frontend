@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Trash2, Edit, Plus, Search, Loader2 } from 'lucide-react';
+import { Trash2, Edit, Plus, Search, Loader2, Send } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useGetAboutQuery, useGetMessagesQuery } from '@/app/api';
 
@@ -81,13 +81,19 @@ export default function MessagesCMS() {
                 <div key={index}>
                 <Card>
               <CardContent className="py-6">
-                <div className="space-y-4">
-                  <p className="text-gray-600 text-justify">
-                    {message?.message}
+                <div className="space-y-4 ">
+                  <div className='flex items-center justify-between'>
+                <h2 className="text-lg font-semibold">{message?.title || '--no title--'}</h2>
+                <div className='bg-purple-500 rounded-md p-2 px-3 flex items-center justify-center text-white ' title='reply'>
+                <Send size={15}/>
+                </div>
+                  </div>
+                  <p className="text-gray-600 text-justify pl-4">
+                    {message?.message || '--no body--'}
                   </p>
                   <div className='flex items-center justify-between'>
                     <p>- {message.name}</p>
-                    <p className='italic text-xs'>{message.name}</p>
+                    <p className='italic text-xs'>{message.date}</p>
                   </div>
                 </div>
               </CardContent>

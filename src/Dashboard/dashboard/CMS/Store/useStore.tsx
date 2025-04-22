@@ -13,7 +13,7 @@ interface FormDataDetail {
 const useStore = () => {
     const {id} = useParams()
     const {data: stock} = useGetStockByIdQuery<any>(id, {skip: !id})
-    const [addItem, isLoading] = useAddStockMutation()
+    const [addItem, {isLoading: isLoading111}] = useAddStockMutation()
     const [updateStock] = useUpdateStockMutation()
 
     const {
@@ -76,7 +76,7 @@ const useStore = () => {
 
 
   return{
-    isLoading,
+    isLoading111,
     formInstance: {addItemDetail, handleSubmit, errors, rules},
     onSubmit,
     fetchedImage: stock?.data?.coverPhoto?.url,

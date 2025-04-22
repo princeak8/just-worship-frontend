@@ -56,7 +56,7 @@ interface ApiResponse {
 const useMessages = () => {
     const {id} = useParams()
   const { data: about, isLoading } = useGetAboutQuery<ApiResponse|any>(undefined);
-    const [updateAbout, {isLoading: load}] = useUpdateAboutMutation()
+    const [updateAbout, {isLoading: isLoading22}] = useUpdateAboutMutation()
 
     // console.log("id: ", getAboutById)
 
@@ -76,17 +76,17 @@ const useMessages = () => {
         },
     });
 
-    useEffect(()=>{
-        if(about?.data){
-            setValue('header', about?.data?.header)
-            setValue('content', about?.data?.content)
-            setValue('vision', about?.data?.vision)
-            setValue('mission', about?.data?.mission)
-            setValue('pastorTitle', about?.data?.pastorTitle)
-            setValue('pastorBio', about?.data?.pastorBio)
-            setValue('image', about?.data?.pastorPhoto?.url || '' as unknown as FileList )
-        }
-    },[about?.data])
+    // useEffect(()=>{
+    //     if(about?.data){
+    //         setValue('header', about?.data?.header)
+    //         setValue('content', about?.data?.content)
+    //         setValue('vision', about?.data?.vision)
+    //         setValue('mission', about?.data?.mission)
+    //         setValue('pastorTitle', about?.data?.pastorTitle)
+    //         setValue('pastorBio', about?.data?.pastorBio)
+    //         setValue('image', about?.data?.pastorPhoto?.url || '' as unknown as FileList )
+    //     }
+    // },[about?.data])
 
     const rules = {
         title: {
@@ -114,8 +114,8 @@ const useMessages = () => {
         }
 
         try{
-            await updateAbout(formdata).unwrap()
-            return window.location.href='/dashboard/cms/about'
+            // await updateAbout(formdata).unwrap()
+            return window.location.href='/dashboard/cms/messages'
             // return <Navigate to={'/dashboard/cms/about'} />
         }catch(err){
             console.log(err)
@@ -124,7 +124,7 @@ const useMessages = () => {
 
 
   return{
-    isLoading,
+    isLoading22,
     formInstance: {addHeroDetail, handleSubmit, errors, rules},
     onSubmit,
     fetchedImage: about?.data?.pastorPhoto?.url ,

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Save } from 'lucide-react';
+import { Loader2, Save } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import Placeholder from '@/public/photo1.png'
 import useEvent from './useLive';
@@ -20,18 +20,18 @@ interface Slide {
 }
 
 export default function CreateLive() {
-  const {id} = useParams()
-  const { formInstance, isLoading, onSubmit, fetchedImage } = useEvent()
+  const { id } = useParams()
+  const { formInstance, isLoading20, onSubmit, fetchedImage } = useEvent()
   const { handleSubmit, addEventDetail } = formInstance;
 
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-useEffect(()=>{
-  if(fetchedImage){
-    setPreviewImage(fetchedImage)
-  }
-},[fetchedImage])
+  useEffect(() => {
+    if (fetchedImage) {
+      setPreviewImage(fetchedImage)
+    }
+  }, [fetchedImage])
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -53,7 +53,11 @@ useEffect(()=>{
       <div className="max-w-6xl mx-auto">
         <div className='flex items-center justify-between'>
           <h1 className="text-3xl font-bold mb-8">Live Page Manager</h1>
-          <Button type='submit' className='flex items-center gap-2 bg-purple-500 hover:bg-purple-600 rounded-md p-2 px-4 text-white'><Save className="w-4 h-4" />{id ? 'Update Live' : 'Save Live'}</Button>
+          {isLoading20 ? (
+            <Button className='flex items-center gap-2 bg-purple-500 hover:bg-purple-600 rounded-md p-2 px-4 text-white'><Loader2 className='animate-spin' /></Button>
+          ) : (
+            <Button type='submit' className='flex items-center gap-2 bg-purple-500 hover:bg-purple-600 rounded-md p-2 px-4 text-white'><Save className="w-4 h-4" />{id ? 'Update Live' : 'Save Live'}</Button>
+          )}
         </div>
 
         <div className="flex gap-8">
@@ -77,7 +81,7 @@ useEffect(()=>{
                   <div>
                     <Label>Date <span className='text-red-500'>*</span></Label>
                     <Input
-                    type='date'
+                      type='date'
                       id="date"
                       {...addEventDetail('date')}
                     />
@@ -86,7 +90,7 @@ useEffect(()=>{
                   <div>
                     <Label>Date <span className='text-red-500'>*</span></Label>
                     <Input
-                    type='time'
+                      type='time'
                       id="time"
                       {...addEventDetail('time')}
                     />

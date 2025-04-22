@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Save, Users2 } from 'lucide-react';
+import { Loader2, Save, Users2 } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import Placeholder from '@/public/photo1.png';
 import useHome from './useMessages';
@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button';
 
 export default function EditMessages() {
   const { id } = useParams();
-  const { formInstance, isLoading, onSubmit, fetchedImage } = useHome();
+  const { formInstance, isLoading22, onSubmit, fetchedImage } = useHome();
   const { handleSubmit, addHeroDetail } = formInstance;
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -54,20 +54,27 @@ export default function EditMessages() {
       <div className="max-w-6xl mx-auto">
         <div className='flex items-center justify-between mb-8'>
           <h1 className="text-3xl font-bold">Message Broadcast</h1>
-          <Button type='submit' className='flex items-center gap-2 bg-purple-500 hover:bg-purple-600 rounded-md p-2 px-4 text-white'>
+          {isLoading22 ?(
+            <Button className='flex items-center gap-2 bg-purple-500 hover:bg-purple-600 rounded-md p-2 px-4 text-white'>
+            <Loader2 className='animate-spin' />
+            </Button>
+          ):(
+
+            <Button type='submit' className='flex items-center gap-2 bg-purple-500 hover:bg-purple-600 rounded-md p-2 px-4 text-white'>
             <Users2 className="w-4 h-4" />{id ? 'Update' : 'Send'}
-          </Button>
+            </Button>
+          )}
         </div>
 
         <div className="grid gap-8">
-          <Card>
+          <Card className='p-4'>
             <CardContent>
               <div className="space-y-4">
                 <div>
                   <Label>Title <span className='text-red-500'>*</span></Label>
                   <Input
                     {...addHeroDetail('header')}
-                    placeholder="Main page header"
+                    placeholder="Title"
                   />
                 </div>
               </div>
@@ -79,8 +86,8 @@ export default function EditMessages() {
                   <Label>Message <span className='text-red-500'>*</span></Label>
                   <TextArea
                     {...addHeroDetail('vision')}
-                    rows={4}
-                    placeholder="Our vision statement"
+                    rows={10}
+                    placeholder="message body"
                   />
                   </div>
                 </div>

@@ -15,7 +15,7 @@ interface FormDataDetail {
 const useLive = () => {
     const { id } = useParams()
     const { data: live } = useGetLiveByIdQuery<any>(id, { skip: !id })
-    const [addLive, isLoading] = useAddLiveMutation()
+    const [addLive, {isLoading: isLoading20}] = useAddLiveMutation()
     const [updateLive] = useEditLiveMutation()
 
     // console.log("id: ", getHeroById)
@@ -104,7 +104,7 @@ const useLive = () => {
 
 
     return {
-        isLoading,
+        isLoading20,
         formInstance: { addEventDetail, handleSubmit, errors, rules },
         onSubmit,
         fetchedImage: live?.data?.coverPhoto?.url,
