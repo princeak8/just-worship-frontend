@@ -279,7 +279,7 @@ const ContactUs: React.FC = () => {
           >
             We’d love to hear from you!
           </motion.p>
-          <div className='w-full lg:flex gap-10  overflow-hidden space-y-10 '>
+          <div className='w-full lg:flex gap-10  overflow-hidden space-y-10 lg:space-y-0 '>
             <motion.form onSubmit={onSubmit}
               className="space-y-4 w-full lg:w-8/12"
               initial={{ y: 20, opacity: 0 }}
