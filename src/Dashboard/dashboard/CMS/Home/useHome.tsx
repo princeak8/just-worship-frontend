@@ -57,7 +57,7 @@ const useHome = () => {
     async function onSubmit(data: FormDataDetail) {
         const { title, description, button_text, button_link, image } = data;
 
-        if(!title) {
+        if (!title) {
             setError('title', {
                 type: 'manual',
                 message: 'Title is required',
@@ -101,14 +101,14 @@ const useHome = () => {
             console.log(err)
             if (err?.data && typeof err.data === 'object') {
                 Object.entries(err.data).forEach(([field, msg]) => {
-                  setError(field as keyof FormDataDetail, {
-                    type: 'server',
-                    message: msg as string,
-                  });
+                    setError(field as keyof FormDataDetail, {
+                        type: 'server',
+                        message: msg as string,
+                    });
                 });
-              } else {
+            } else {
                 console.error('Unexpected error:', err);
-              }
+            }
         }
     }
 

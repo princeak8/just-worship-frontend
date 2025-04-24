@@ -102,6 +102,46 @@ const useAbout = () => {
     async function onSubmit(data: FormDataDetail){
         const {header, content, vision, mission, pastorTitle, pastorBio, image} = data;
 
+        if(!header){
+          setError('header',{
+              type: 'manual',
+              message: 'Header field cannot be empty',
+          });
+          return;
+        }
+
+        if(!content){
+          setError('content',{
+            type: 'manual',
+            message: 'Detailed Content Field is required',
+          });
+          return;
+        }
+
+        if(!vision){
+          setError('vision',{
+            type: 'manual',
+            message: 'Please add a vision statement',
+          });
+          return;
+        }
+
+        if(!mission){
+          setError('mission',{
+            type: 'manual',
+            message: 'Please add a mission statement',
+          });
+          return;
+        }
+
+        if(!pastorBio){
+          setError('pastorBio',{
+            type: 'manual',
+            message: 'Pastors Bio cannot be empty',
+          });
+          return;
+        }
+
 
         if (image.length === 0) {
           setError('image', { type: 'manual', message: 'Image is required' });
@@ -133,8 +173,18 @@ const useAbout = () => {
             await updateAbout(formdata).unwrap()
             return window.location.href='/dashboard/cms/about'
             // return <Navigate to={'/dashboard/cms/about'} />
-        }catch(err){
+        }catch(err: any){
             console.log(err)
+            if (err?.data && typeof err.data === 'object') {
+              Object.entries(err.data).forEach(([field, msg]) => {
+                  setError(field as keyof FormDataDetail, {
+                      type: 'server',
+                      message: msg as string,
+                  });
+              });
+          } else {
+              console.error('Unexpected error:', err);
+          }
         }
     }
 

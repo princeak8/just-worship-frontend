@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button';
 export default function EditAbout() {
   const { id } = useParams();
   const { formInstance, isLoading, onSubmit, fetchedImage } = useHome();
-  const { handleSubmit, addHeroDetail } = formInstance;
+  const { handleSubmit, addHeroDetail, errors } = formInstance;
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
@@ -78,6 +78,11 @@ export default function EditAbout() {
                     {...addHeroDetail('header')}
                     placeholder="Main page header"
                   />
+                   {errors.header && (
+                    <p className="mt-1 text-sm text-red-600">
+                      {errors.header.message}
+                    </p>
+                  )}
                 </div>
               </div>
             </CardContent>
@@ -95,6 +100,11 @@ export default function EditAbout() {
                   rows={8}
                   placeholder="Detailed about content"
                 />
+                 {errors.content && (
+                    <p className="mt-1 text-sm text-red-600">
+                      {errors.content.message}
+                    </p>
+                  )}
               </div>
             </CardContent>
           </Card>
@@ -112,6 +122,11 @@ export default function EditAbout() {
                     rows={4}
                     placeholder="Our vision statement"
                   />
+                   {errors.vision && (
+                    <p className="mt-1 text-sm text-red-600">
+                      {errors.vision.message}
+                    </p>
+                  )}
                 </div>
                 {/* <div>
                 <Input
@@ -151,6 +166,11 @@ export default function EditAbout() {
                     rows={4}
                     placeholder="Our mission statement"
                   />
+                   {errors.mission && (
+                    <p className="mt-1 text-sm text-red-600">
+                      {errors.mission.message}
+                    </p>
+                  )}
                 </div>
                 {/* <div>
                   <Label>Mission Image</Label>
@@ -183,6 +203,11 @@ export default function EditAbout() {
                     {...addHeroDetail('pastorTitle')}
                     placeholder="Head Pastor"
                   />
+                    {errors.pastorTitle && (
+                    <p className="mt-1 text-sm text-red-600">
+                      {errors.pastorTitle.message}
+                    </p>
+                  )}
                 </div>
                 <div>
                   <Label>Pastor Bio <span className='text-red-500'>*</span></Label>
@@ -191,6 +216,11 @@ export default function EditAbout() {
                     rows={20}
                     placeholder="Pastor's biography"
                   />
+                   {errors.pastorBio && (
+                    <p className="mt-1 text-sm text-red-600">
+                      {errors.pastorBio.message}
+                    </p>
+                  )}
                 </div>
                
               </div>
@@ -213,6 +243,11 @@ export default function EditAbout() {
                       },
                     })}
                     />
+                      {errors.image && (
+                    <p className="mt-1 text-sm text-red-600">
+                      {errors.image.message}
+                    </p>
+                  )}
                 </div>
             </CardContent>
           </Card>
