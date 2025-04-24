@@ -24,7 +24,13 @@ export default function GivingCMS() {
     const [isOpen, setIsModalOpen] = useState(false);
     const [viewMethod, setViewMethod] = useState<PaymentMethod | any | null>(null);
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-    const [newMethodName, setNewMethodName] = useState<any>(null);
+    const [newMethodName, setNewMethodName] = useState<any>({
+        name: '',
+        number: '',
+        currency: '',
+        bank: '',
+        country: '',
+    });
     const [linkAccount, setLinkAccount] = useState('');
     const [linkOnlineAccount, setLinkOnlineAccount] = useState('');
     const [editingMethod, setEditingMethod] = useState<PaymentMethod | any | null>(null);
@@ -71,8 +77,9 @@ export default function GivingCMS() {
             setOnlineAccounts(onlineAccount?.data)
             setPaymentOptions(Options?.data || []);
         }
-    }, [data?.data, Options?.data]);
+    }, [data?.data, Options?.data, accounts?.data, onlineAccount?.data]);
 
+    console.log("new method: ", accounts)
     // console.log("Data: ", onlineAccounts)
 
     const handleDelete = (id: number) => {
@@ -91,6 +98,7 @@ export default function GivingCMS() {
             formdata.append('currency', newMethodName.currency);
             formdata.append('countryId', newMethodName.country);
 
+            // console.log("formdata: ", newMethodName.bank)
             try {
                 await createAccount(formdata).unwrap();
                 window.location.reload();
@@ -147,21 +155,33 @@ export default function GivingCMS() {
         if (binary === 0) {
             if (editingMethod?.id) {
 
+
                 formdata.append('accountId', formState?.id)
                 formdata.append('currency', formState?.currency)
                 formdata.append('bankId', formState?.bank)
                 formdata.append('name', formState?.name)
                 formdata.append('number', formState?.number)
 
+                // console.log("formdata: ", formdata)
                 try {
                     await editAccount({ formdata, id: formState?.id }).unwrap()
-                    setAccounts((prev: any) =>
+                    setAccounts((prev: any[]) =>
                         prev.map((method: any) =>
-                            method.id === formState.id ?
-                                { ...method, name: formState?.name, ...method, bank: formState?.bank, ...method, number: formState?.number, ...method, currency: formState?.currency, ...method } :
-                                method
+                            method.id === formState.id
+                                ? {
+                                    ...method,
+                                    name: formState.name,
+                                    number: formState.number,
+                                    currency: formState.currency,
+                                    bank: {
+                                        ...method.bank,
+                                        id: formState.bank,
+                                    },
+                                }
+                                : method
                         )
                     );
+
                     setEditingMethod(null);
                     setIsCreateModalOpen(false);
                     setFormState({ ...blankForm });
@@ -453,13 +473,9 @@ export default function GivingCMS() {
                                         </label>
                                         <input
                                             value={formState?.name || newMethodName?.name}
-                                            onChange={(e) => {
-                                                if (formState) {
-                                                    setFormState({ ...formState, name: e.target.value });
-                                                } else {
-                                                    setNewMethodName({ ...newMethodName, name: e.target.value });
-                                                }
-                                            }}
+                                            onChange={(e) => editingMethod
+                                                ? setFormState({ ...formState, name: e.target.value })
+                                                : setNewMethodName({ ...newMethodName, name: e.target.value })}
                                             className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                                             placeholder="Account name"
                                             required
@@ -485,7 +501,7 @@ export default function GivingCMS() {
                                             value={formState?.bank || newMethodName?.bank || ''}
                                             onChange={e => {
                                                 const bank = e.target.value;
-                                                if (formState) {
+                                                if (editingMethod) {
                                                     setFormState({
                                                         ...formState,
                                                         bank,
@@ -516,7 +532,7 @@ export default function GivingCMS() {
                                             value={formState?.country || newMethodName?.country || ''}
                                             onChange={e => {
                                                 const country = e.target.value;
-                                                if (formState) {
+                                                if (editingMethod) {
                                                     setFormState({
                                                         ...formState,
                                                         country,
@@ -545,7 +561,7 @@ export default function GivingCMS() {
                                         </label>
                                         <input
                                             value={formState?.currency || newMethodName?.currency || ''}
-                                            onChange={(e) => formState
+                                            onChange={(e) => editingMethod
                                                 ? setFormState({ ...formState, currency: e.target.value })
                                                 : setNewMethodName({ ...newMethodName, currency: e.target.value })}
                                             className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
