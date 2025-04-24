@@ -61,7 +61,7 @@ export default function Events() {
                                 <SwiperSlide key={index} className="relative rounded-lg overflow-hidden h-[200px] md:h-[400px] lg:h-[900px]">
                                     <img
                                         src={event?.coverPhoto?.url}
-                                        alt={event.title}
+                                        alt={event?.title}
                                         className="w-full h-full object-cover"
                                     />
 
@@ -69,13 +69,13 @@ export default function Events() {
 
                                     <div className="absolute bottom-6 left-6 text-white">
 
-                                        <h3 className="text-3xl font-bold">{event.title}</h3>
-                                        <p className="text-lg">{event.subtitle}</p>
+                                        <h3 className="text-3xl font-bold">{event?.title}</h3>
+                                        <p className="text-lg">{event?.subtitle}</p>
                                         <div className='flex flex-col mb-2 space-y-4'>
                                             <p className="text-sm text-white flex items-center gap-2 bg-purple-500 p-1 px-2 rounded-md w-14"><Users size={15} className='' />{event?.bookings?.length}</p>
                                             <p className="bg-red-600 px-3 py-1 rounded-md inline-block text-sm font-semibold flex gap-2 w-32"><Calendar size={15} /> {event.date}</p>
                                         </div>
-                                        <p className="text-md mt-2">{event.content}</p>
+                                        <p className="text-md mt-2">{event?.content}</p>
 
                                         <div className="mt-4 flex gap-2 lg:gap-4">
                                             <button onClick={bookEvent} className="px-2 lg:px-4 py-1 lg:py-2 bg-white text-black font-semibold rounded-md">Book Now</button>

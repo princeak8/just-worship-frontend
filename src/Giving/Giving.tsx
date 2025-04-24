@@ -432,7 +432,7 @@ const Giving: React.FC = () => {
                         whileTap={{ scale: 0.95 }}
                       >
                         <div className={selectedOption.toLowerCase().trim() === option?.name?.toLowerCase().trim() ? ' text-yellow-200' : 'text-purple-500'}>{option?.name.toLowerCase().trim() === 'transfer' ? <Banknote className="w-6 h-6" /> : <CreditCard className="w-6 h-6" />}</div>
-                        <p className='font-medium'>{option.name}</p>
+                        <p className='font-medium'>{option?.name}</p>
                       </motion.div>
                     ))}
                   </div>
@@ -455,12 +455,12 @@ const Giving: React.FC = () => {
                     {Options?.data?.map((option: any, index: number) => (
                       <motion.div
                         key={index}
-                        onClick={() => { setSelected(option); setSelectedMethod(option.name) }}
+                        onClick={() => { setSelected(option); setSelectedMethod(option?.name) }}
                         className={`p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer border border-gray-200 hover:border-purple-500 ${selectedMethod.toLowerCase().trim() === option?.name?.toLowerCase().trim() ? 'bg-purple-500 text-white' : 'bg-white text-black'}`}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
-                        <p className='font-medium'>{option.name}</p>
+                        <p className='font-medium'>{option?.name}</p>
                       </motion.div>
                     ))}
                   </div>
@@ -496,19 +496,19 @@ const Giving: React.FC = () => {
                                 <div className="space-y-2">
                                   <label className="text-xs font-medium text-gray-500">Bank Name</label>
                                   <p className="font-medium text-gray-900">
-                                    {account.bank.name || 'Not specified'}
+                                    {account?.bank?.name || 'Not specified'}
                                   </p>
                                 </div>
                                 <div className="space-y-2">
                                   <label className="text-xs font-medium text-gray-500">Account Number</label>
                                   <p className="font-medium text-gray-900">
-                                    {account.number || '-'}
+                                    {account?.number || '-'}
                                   </p>
                                 </div>
                                 <div className="space-y-2">
                                   <label className="text-xs font-medium text-gray-500">Account Name</label>
                                   <p className="font-medium text-gray-900">
-                                    {account.name || '-'}
+                                    {account?.name || '-'}
                                   </p>
                                 </div>
                               </div>
@@ -517,16 +517,18 @@ const Giving: React.FC = () => {
                                 <div className="space-y-2 w-full">
                                   <label className="text-xs font-medium text-gray-500">Account Name</label>
                                   <p className="font-medium text-gray-900">
-                                    {account.name || 'Not specified'}
+                                    {account?.name || 'Not specified'}
                                   </p>
                                 </div>
                                 <div className="p-4 bg-gray-50 rounded-lg">
+                                {account?.url && (
                                   <QRCode
                                     value={account?.url}
                                     size={160}
                                     className="p-2 bg-white rounded-md"
                                     fgColor="#6D28D9"
                                   />
+                                )}
                                   <p className="text-xs text-gray-500 mt-3 text-center">
                                     Scan QR code to view payment details
                                   </p>

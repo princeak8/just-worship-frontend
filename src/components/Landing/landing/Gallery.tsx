@@ -42,27 +42,27 @@ const [selectedLocation, setSelectedLocation] = useState('');
 
 const search = () => {
     if (!data?.data) return [];
-    return data.data.filter((item: Stock) => {
+    return data?.data?.filter((item: Stock) => {
         // item.title.toLowerCase().includes(searchparams.toLowerCase().trim())
         const matchesTitle = item.title.toLowerCase().includes(searchparams.toLowerCase().trim());
         const matchesEvent = selectedEvent ? item?.event?.name === selectedEvent : true;
-        const matchesLocation = selectedLocation ? item.location === selectedLocation : true;
-        const matchesYear = selectedYear ? item.year === selectedYear : true;
+        const matchesLocation = selectedLocation ? item?.location === selectedLocation : true;
+        const matchesYear = selectedYear ? item?.year === selectedYear : true;
 
         return matchesTitle && matchesEvent && matchesLocation && matchesYear;  
     });
 };
 
 const events = Array.from(
-    new Set(data?.data?.map((item: Stock) => item.event?.name).filter(Boolean))
+    new Set(data?.data?.map((item: Stock) => item?.event?.name).filter(Boolean))
   );
   
   const locations = Array.from(
-    new Set(data?.data?.map((item: Stock) => item.location).filter(Boolean))
+    new Set(data?.data?.map((item: Stock) => item?.location).filter(Boolean))
   );
   
   const years = Array.from(
-    new Set(data?.data?.map((item: Stock) => item.year).filter(Boolean))
+    new Set(data?.data?.map((item: Stock) => item?.year).filter(Boolean))
   );
 
 useEffect(() => {
@@ -99,7 +99,7 @@ useEffect(() => {
                                     onChange={(e) => setSelectedLocation(e.target.value)}
                             >
                                 <option value="">All Locations</option>
-                                {locations.map((loc, i) => (
+                                {locations?.map((loc, i) => (
                                 <option key={i} value={loc as string}>{loc as string}</option>
                                 ))}
                             </select>
@@ -110,7 +110,7 @@ useEffect(() => {
                                 onChange={(e) => setSelectedEvent(e.target.value)}
                             >
                                 <option value="">All Events</option>
-                                {events.map((event, i) => (
+                                {events?.map((event, i) => (
                                 <option key={i} value={event as string}>{event as string}</option>
                                 ))}
                             </select>
@@ -144,7 +144,7 @@ useEffect(() => {
                                 viewport={{ once: true }}
                             >
                                 <img
-                                    src={image.photo.url}
+                                    src={image?.photo?.url}
                                     alt={`Gallery ${index + 1}`}
                                     style={{
                                         width: customWidths[index % customWidths.length],

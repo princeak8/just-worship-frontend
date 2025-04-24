@@ -56,7 +56,7 @@ const App = () => {
       let allImagesLoaded = true;
 
       images.forEach((img) => {
-        if (!img.complete) {
+        if (!img?.complete) {
           allImagesLoaded = false;
         }
       });

@@ -120,8 +120,8 @@ const ContactUs: React.FC = () => {
 
   const search = () => {
     if (!data?.data) return [];
-    return data.data.filter((item: Stock) =>
-      item.title.toLowerCase().includes(searchparams.toLowerCase().trim())
+    return data?.data.filter((item: Stock) =>
+      item?.title.toLowerCase().includes(searchparams.toLowerCase().trim())
     );
   };
 
@@ -283,7 +283,7 @@ const ContactUs: React.FC = () => {
               transition={{ duration: 0.5, delay: 0.8 }}
               viewport={{ once: true }}
             >
-              <div>
+              {/* <div>
                 <select
                   id="type"
                   value={type}
@@ -295,7 +295,7 @@ const ContactUs: React.FC = () => {
                   <option value={'appreciation'}>Appreciation</option>
                   <option value={'testimony'}>Testimony</option>
                 </select>
-              </div>
+              </div> */}
 
               <div>
                 <input
@@ -451,14 +451,14 @@ const ContactUs: React.FC = () => {
             </motion.h2>
             {Questions.map((question, index) => (
               <section key={index} className='z-10'>
-                <div className='border-b py-2 mt-2 flex items-center justify-between cursor-pointer' onClick={() => toggleModal(index)} >{question.question} {modal === index ? <ChevronLeft /> : <ChevronDown />}</div>
+                <div className='border-b py-2 mt-2 flex items-center justify-between cursor-pointer' onClick={() => toggleModal(index)} >{question?.question} {modal === index ? <ChevronLeft /> : <ChevronDown />}</div>
                 <motion.div className='bg-purple-300 bg-opacity-20 backdrop-blur-md text-justify'
                   initial={{ overflowY: 'hidden', height: 0 }}
                   animate={modal === index ? { height: 'auto' } : { overflowY: 'hidden', height: 0 }}
                   transition={{ duration: 0.5, type: 'tween' }}
                 >
                   <div className='contain px-5 lg:px-20 py-[30px]'>
-                    {question.answer}
+                    {question?.answer}
                   </div>
                 </motion.div>
               </section>

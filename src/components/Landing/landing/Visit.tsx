@@ -66,18 +66,18 @@ export default function Visit() {
             <section className="container space-y-4">
                 <h2 className='font-semibold text-xl'>Where would you like to visit?</h2>
                 <section className=" container grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-                    {Cards.map((card, index) => (
+                    {Cards?.map((card, index) => (
                         <motion.div
                             key={index}
                             className='h-80 rounded-2xl border-2 border-yellow-500 bg-cover bg-center'
-                            style={{ backgroundImage: `url(${card.image})` }}
+                            style={{ backgroundImage: `url(${card?.image})` }}
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 1, delay: index * 0.5, once: true }}
                             viewport={{ once: true }}
                         >
                             <div className='w-full rounded-2xl h-full bg-black bg-opacity-60 flex items-end justify-start p-4 pb-10 text-xl text-white font-bold'>
-                                <p className='uppercase'>{card.name}</p>
+                                <p className='uppercase'>{card?.name}</p>
                             </div>
                         </motion.div>
                     ))}
