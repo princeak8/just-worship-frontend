@@ -177,7 +177,9 @@ const AboutUs: React.FC = () => {
                     transition={{ duration: 0.5, delay: 0.8 }}
                     viewport={{ once: true }}
                   >
-                    <div dangerouslySetInnerHTML={{ __html: about?.data?.pastorBio }} />
+                    <p className="text-justify whitespace-pre-line">
+                      {about?.data?.pastorBio}
+                    </p>
                   </motion.p>
                 </motion.div>
                 <motion.div
