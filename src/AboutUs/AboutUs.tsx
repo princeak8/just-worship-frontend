@@ -347,7 +347,7 @@ const AboutUs: React.FC = () => {
                       <motion.img
                         src={member?.photo?.url}
                         alt={member.name}
-                        className="w-full h-48 object-cover transform group-hover:scale-105 transition-transform duration-300"
+                        className="w-full object-cover transform group-hover:scale-105 transition-transform duration-300 max-h-80 object-cover object-top"
                         transition={{ duration: 0.3 }}
                       />
                     </motion.div>
@@ -360,7 +360,7 @@ const AboutUs: React.FC = () => {
                     >
                       <h2 className="text-xl font-semibold text-gray-900 mb-2">{member.name}</h2>
                       <p className="text-sm text-purple-600 font-medium mb-4">{member?.position}</p>
-                      <p className="text-base text-gray-600 leading-relaxed">{member?.biography}</p>
+                      <p className="text-base text-gray-600 leading-relaxed line-clamp-4">{member?.biography}</p>
                     </motion.div>
                   </motion.div>
                 ))}

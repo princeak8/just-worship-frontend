@@ -88,16 +88,16 @@ export default function TeamCMS() {
                       <img
                         src={member.photo.url}
                         alt={member.name}
-                        className="w-full h-48 object-cover"
+                         className="w-full max-h-64 object-cover object-top"
                       />
                       <CardHeader>
                         <CardTitle className="text-xl">{member.name}</CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-2">
                         <p className="text-sm text-gray-500">{member.position}</p>
-                        <p className="text-base text-gray-700">{member.biography}</p>
+                        <p className="text-base text-gray-700 line-clamp-4 md:h-24">{member.biography}</p>
                       </CardContent>
-                      <div className="flex justify-between p-4">
+                      <div className="flex justify-between p-4 pt-0">
                         <Button asChild size="sm" variant="default">
                           <Link to={`/dashboard/cms/team/${member.id}`}>
                             <Edit className="w-4 h-4 mr-2" />
