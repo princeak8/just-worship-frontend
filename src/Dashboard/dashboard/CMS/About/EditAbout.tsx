@@ -208,7 +208,7 @@ export default function EditAbout() {
                     className="mt-1"
                     {...addHeroDetail('image', {
                       onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                        addHeroDetail('image').onChange(e);
+                        addHeroDetail('image');
                         handleFileChange(e);
                       },
                     })}

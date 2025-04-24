@@ -56,7 +56,7 @@ interface ApiResponse {
 const useAbout = () => {
     const {id} = useParams()
   const { data: about, isLoading } = useGetAboutQuery<ApiResponse|any>(undefined);
-    const [updateAbout, {isLoading: load}] = useUpdateAboutMutation()
+    const [updateAbout, {isLoading: load, error}] = useUpdateAboutMutation()
 
     // console.log("id: ", getAboutById)
 
@@ -64,6 +64,7 @@ const useAbout = () => {
         register: addHeroDetail, 
         handleSubmit,
         setValue,
+        setError,
         formState: {errors},
     } = useForm<FormDataDetail>({
         defaultValues: {
@@ -100,6 +101,21 @@ const useAbout = () => {
     async function onSubmit(data: FormDataDetail){
         const {header, content, vision, mission, pastorTitle, pastorBio, image} = data;
 
+        const max_size = 2 * 1040 * 1040;
+
+        if (image.length === 0) {
+          setError('image', { type: 'manual', message: 'Image is required' });
+          return;
+        }
+        
+        if (image[0].size > max_size) {
+          setError('image', {
+            type: 'manual',
+            message: 'Image must not be larger than 20 MB',
+          });
+          return;
+        }
+
         const formdata = new FormData()
 
         formdata.append('header', header)
@@ -109,7 +125,7 @@ const useAbout = () => {
         formdata.append('pastorTitle', pastorTitle)
         formdata.append('pastorBio', pastorBio )
         
-        if (image && image.length > 0 && image[0] instanceof File && image[0] !== about?.data?.pastorPhoto?.url) {
+        if (image && image.length > 0 && image[0] instanceof File && image[0] !== about?.data?.pastorPhoto?.url && image[0]?.size > max_size ) {
             formdata.append('pastorPhoto', image[0]);
         }
 

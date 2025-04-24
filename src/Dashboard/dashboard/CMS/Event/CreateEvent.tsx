@@ -130,7 +130,7 @@ useEffect(()=>{
                     className="mt-1"
                     {...addEventDetail('image', {
                       onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                        addEventDetail('image').onChange(e);
+                        addEventDetail('image');
                         handleFileChange(e);
                       },
                     })}

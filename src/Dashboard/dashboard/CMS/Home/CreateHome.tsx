@@ -19,20 +19,22 @@ interface Slide {
   buttonLink: string;
 }
 
+
+
 export default function CreateHome() {
-  const {id} = useParams()
+  const { id } = useParams()
   const { formInstance, isLoading100, onSubmit, fetchedImage } = useHome()
-  const { handleSubmit, addHeroDetail } = formInstance;
+  const { handleSubmit, addHeroDetail, errors } = formInstance;
 
   const [isEditing, setIsEditing] = useState(false);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-useEffect(()=>{
-  if(fetchedImage){
-    setPreviewImage(fetchedImage)
-  }
-},[fetchedImage])
+  useEffect(() => {
+    if (fetchedImage) {
+      setPreviewImage(fetchedImage)
+    }
+  }, [fetchedImage])
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -56,7 +58,7 @@ useEffect(()=>{
           <h1 className="text-3xl font-bold mb-8">Home Page Slides Manager</h1>
           {isLoading100 ? (
             <Button className='flex items-center gap-2 bg-purple-500 hover:bg-purple-600 rounded-md p-2 px-4 text-white'><Loader2 className='animate-spin' /></Button>
-          ):(
+          ) : (
             <Button type='submit' className='flex items-center gap-2 bg-purple-500 hover:bg-purple-600 rounded-md p-2 px-4 text-white'><Save className="w-4 h-4" />{id ? 'Update Slide' : 'Save Slide'}</Button>
           )}
         </div>
@@ -77,6 +79,12 @@ useEffect(()=>{
                       id="title"
                       {...addHeroDetail('title')}
                     />
+                  
+                  {errors.title && (
+                    <p className="mt-1 text-sm text-red-600">
+                      {errors.title.message}
+                    </p>
+                  )}
                   </div>
 
                   <div>
@@ -86,6 +94,11 @@ useEffect(()=>{
                       rows={3}
                       {...addHeroDetail('description')}
                     />
+                    {errors.description && (
+                    <p className="mt-1 text-sm text-red-600">
+                      {errors.description.message}
+                    </p>
+                  )}
                   </div>
                   <div className='grid grid-cols-2 gap-4'>
                     <div>
@@ -94,6 +107,11 @@ useEffect(()=>{
                         id="button_text"
                         {...addHeroDetail('button_text')}
                       />
+                      {errors.button_text && (
+                    <p className="mt-1 text-sm text-red-600">
+                      {errors.button_text.message}
+                    </p>
+                  )}
                     </div>
 
                     <div>
@@ -102,6 +120,11 @@ useEffect(()=>{
                         id="buttonLink"
                         {...addHeroDetail('button_link')}
                       />
+                      {errors.button_link && (
+                    <p className="mt-1 text-sm text-red-600">
+                      {errors.button_link.message}
+                    </p>
+                  )}
                     </div>
                   </div>
 
@@ -139,12 +162,16 @@ useEffect(()=>{
                     className="mt-1"
                     {...addHeroDetail('image', {
                       onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                        addHeroDetail('image').onChange(e);
+                        addHeroDetail('image');
                         handleFileChange(e);
                       },
                     })}
                   />
-
+                  {errors.image && (
+                    <p className="mt-1 text-sm text-red-600">
+                      {errors.image.message}
+                    </p>
+                  )}
                 </div>
               </CardContent>
             </Card>
