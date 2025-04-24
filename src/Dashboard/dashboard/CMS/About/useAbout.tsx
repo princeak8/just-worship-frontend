@@ -1,4 +1,5 @@
 import { useAddHeroDetailsMutation,useGetAboutQuery, useUpdateAboutMutation } from '@/app/api'
+import { max_size } from '@/utils/max_size';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Navigate, useParams} from 'react-router-dom';
@@ -101,7 +102,6 @@ const useAbout = () => {
     async function onSubmit(data: FormDataDetail){
         const {header, content, vision, mission, pastorTitle, pastorBio, image} = data;
 
-        const max_size = 2 * 1040 * 1040;
 
         if (image.length === 0) {
           setError('image', { type: 'manual', message: 'Image is required' });

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Loader2, Save } from 'lucide-react';
+import { ArrowLeftCircle, Loader2, Save } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import Placeholder from '@/public/photo1.png';
 import useHome from './useAbout';
@@ -53,7 +53,7 @@ export default function EditAbout() {
     <form onSubmit={handleSubmit(onSubmit)} className="min-h-screen p-8 bg-gray-50">
       <div className="max-w-6xl mx-auto">
         <div className='flex items-center justify-between mb-8'>
-          <h1 className="text-3xl font-bold">Edit About Page</h1>
+        <h1 className="text-3xl font-bold mb-8 flex items-center gap-2"><Link to='/dashboard/cms/about' ><ArrowLeftCircle  className='hover:text-purple-500' /></Link>Edit About Page</h1>
           {isLoading ?(
             <Button className='flex items-center gap-2 bg-purple-500 hover:bg-purple-600 rounded-md p-2 px-4 text-white'>
             <Loader2 className="animate-spin" />
@@ -175,8 +175,8 @@ export default function EditAbout() {
             <CardHeader>
               <CardTitle>Pastor Information</CardTitle>
             </CardHeader>
-            <CardContent className="grid grid-cols-2 gap-8">
-              <div className="space-y-4">
+            <CardContent className="flex gap-8">
+              <div className="space-y-4 w-2/3">
                 <div>
                   <Label>Pastor Title <span className='text-red-500'>*</span></Label>
                   <Input
@@ -188,18 +188,18 @@ export default function EditAbout() {
                   <Label>Pastor Bio <span className='text-red-500'>*</span></Label>
                   <TextArea
                     {...addHeroDetail('pastorBio')}
-                    rows={8}
+                    rows={20}
                     placeholder="Pastor's biography"
                   />
                 </div>
                
               </div>
-              <div className="justify-center">
+              <div className="justify-center w-1/3">
                 <Label>Pastor Photo</Label>
                 <img
                   src={previewImage || Placeholder}
                   alt="Preview"
-                  className="mt-2 w-full h-48 object-cover rounded"
+                  className="mt-2 w-full object-cover rounded"
                 />
                   <Input
                     id="image"
