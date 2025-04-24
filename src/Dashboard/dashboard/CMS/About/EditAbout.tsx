@@ -198,7 +198,7 @@ export default function EditAbout() {
             <CardContent className="flex gap-8">
               <div className="space-y-4 w-2/3">
                 <div>
-                  <Label>Pastor Title <span className='text-red-500'>*</span></Label>
+                  <Label>Pastor Title </Label>
                   <Input
                     {...addHeroDetail('pastorTitle')}
                     placeholder="Head Pastor"
@@ -225,7 +225,7 @@ export default function EditAbout() {
                
               </div>
               <div className="justify-center w-1/3">
-                <Label>Pastor Photo</Label>
+                <Label>Pastor Photo <span className='text-red-500'>*</span></Label>
                 <img
                   src={previewImage || Placeholder}
                   alt="Preview"
