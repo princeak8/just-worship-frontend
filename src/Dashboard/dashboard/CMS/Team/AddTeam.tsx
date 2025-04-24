@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Loader2, Save } from 'lucide-react';
+import { ArrowLeftCircle, Loader2, Save } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import Placeholder from '@/public/photo1.png'
 import useTeam from './useTeam';
@@ -22,7 +22,7 @@ interface Slide {
 export default function AddTeam() {
   const {id} = useParams()
   const { formInstance, isLoading, onSubmit, memberImage } = useTeam()
-  const { handleSubmit, addMemberDetail } = formInstance;
+  const { handleSubmit, addMemberDetail, errors } = formInstance;
 
   const [isEditing, setIsEditing] = useState(false);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
@@ -55,7 +55,7 @@ export default function AddTeam() {
     <form onSubmit={handleSubmit(onSubmit)} className="min-h-screen p-8 bg-gray-50">
       <div className="max-w-6xl mx-auto">
         <div className='flex items-center justify-between'>
-          <h1 className="text-3xl font-bold mb-8">Team Page Manager</h1>
+        <h1 className="text-3xl font-bold mb-8 flex items-center gap-2"><Link to='/dashboard/cms/team' ><ArrowLeftCircle  className='hover:text-purple-500' /></Link>Team Page Manager</h1>
           {isLoading ?(
              <Button className='flex items-center gap-2 bg-purple-500 hover:bg-purple-600 rounded-md p-2 px-4 text-white'><Loader2 className='animate-spin' /></Button>
           ):(
@@ -79,6 +79,11 @@ export default function AddTeam() {
                       id="name"
                       {...addMemberDetail('name')}
                     />
+                    {errors.name && (
+                    <p className="mt-1 text-sm text-red-600">
+                      {errors.name.message}
+                    </p>
+                  )}
                   </div>
 
                   <div>
@@ -87,6 +92,11 @@ export default function AddTeam() {
                       id="position"
                       {...addMemberDetail('position')}
                     />
+                     {errors.position && (
+                    <p className="mt-1 text-sm text-red-600">
+                      {errors.position.message}
+                    </p>
+                  )}
                   </div>
                   <div>
                     <Label>Biography</Label>
@@ -95,6 +105,11 @@ export default function AddTeam() {
                       rows={3}
                       {...addMemberDetail('biography')}
                     />
+                     {errors.biography && (
+                    <p className="mt-1 text-sm text-red-600">
+                      {errors.biography.message}
+                    </p>
+                  )}
                   </div>
 
 
@@ -143,6 +158,11 @@ export default function AddTeam() {
                       },
                     })}
                   />
+                    {errors.image && (
+                    <p className="mt-1 text-sm text-red-600">
+                      {errors.image.message}
+                    </p>
+                  )}
 
                 </div>
               </CardContent>

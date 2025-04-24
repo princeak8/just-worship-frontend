@@ -1,4 +1,5 @@
 import { useAddTeamMutation, useGetMemberByIdQuery, useUpdateMemberMutation } from '@/app/api'
+import { max_size } from '@/utils/max_size';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Navigate, useNavigate, useParams} from 'react-router-dom';
@@ -23,6 +24,7 @@ const useTeam = () => {
         register: addMemberDetail, 
         handleSubmit,
         setValue,
+        setError,
         formState: {errors},
     } = useForm<FormDataDetail>({
         defaultValues: {
@@ -53,6 +55,30 @@ const useTeam = () => {
     async function onSubmit(data: FormDataDetail){
         const {name, biography, position, image} = data;
 
+        if(!name){
+            setError('name',{
+                type: 'manual',
+                message: 'Team Members name is required',
+            });
+            return;
+        }
+
+        if(image.length === 0){
+            setError('image',{
+                type: 'manual',
+                message: "Profile image is required",
+            });
+            return;
+        }
+
+        if(image[0].size > max_size){
+            setError('image',{
+                type: 'manual',
+                message: "Image should not be larger than 20MB"
+            });
+            return;
+        }
+
         const formdata = new FormData()
         console.log('submit: ', data)
         formdata.append('name', name)
@@ -71,8 +97,18 @@ const useTeam = () => {
             }
             return window.location.href = '/dashboard/cms/team'
             // return navigate('/dashboard/cms/team')
-        }catch(err){
+        }catch(err: any){
             console.log(err)
+            if (err?.data && typeof err.data === 'object') {
+              Object.entries(err.data).forEach(([field, msg]) => {
+                  setError(field as keyof FormDataDetail, {
+                      type: 'server',
+                      message: msg as string,
+                  });
+              });
+          } else {
+              console.error('Unexpected error:', err);
+          }
         }
     }
 
