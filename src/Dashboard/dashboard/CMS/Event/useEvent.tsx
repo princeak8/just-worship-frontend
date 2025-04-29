@@ -1,4 +1,5 @@
 import { useAddEventMutation, useGetEventByIdQuery, useUpdateEventMutation } from '@/app/api'
+import { max_size } from '@/utils/max_size';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Navigate, useParams} from 'react-router-dom';
@@ -6,6 +7,7 @@ import { Navigate, useParams} from 'react-router-dom';
 interface FormDataDetail {
     name: string;
     date: string;
+    time: string;
     description: string;
     image: FileList;
 }
@@ -22,11 +24,13 @@ const useEvent = () => {
         register: addEventDetail, 
         handleSubmit,
         setValue,
+        setError,
         formState: {errors},
     } = useForm<FormDataDetail>({
         defaultValues: {
             name: '',
             date: '',
+            time:'',
             description: '',
         },
     });
@@ -35,6 +39,7 @@ const useEvent = () => {
         if(event?.data){
             setValue('name', event?.data?.name)
             setValue('date', event?.data.date?.toLocaleString())
+            setValue('time', event?.data.time?.toLocaleString())
             setValue('description', event?.data?.content)
             setValue('image',  event?.data?.coverPhoto?.url || '' as unknown as FileList )
         }
@@ -50,12 +55,27 @@ const useEvent = () => {
     };
 
     async function onSubmit(data: FormDataDetail){
-        const {name, description, date, image} = data;
+        const {name, description, date, time, image} = data;
+
+        if(image.length === 0 ){
+            setError('image',{
+                type: 'manual',
+                message: "Image is required",
+            })
+        }
+
+        if(image[0].size > max_size){
+            setError('image', {
+                type: 'manual',
+                message: 'Image must not be larger than 20 MB',
+            })
+        }
 
         const formdata = new FormData()
 
         formdata.append('name', name)
         formdata.append('eventDate', date)
+        formdata.append('eventTime', time)
         formdata.append('content', description)
         
         if (image && image.length > 0 && image[0] instanceof File && image[0] !== event?.data?.coverPhoto?.url) {

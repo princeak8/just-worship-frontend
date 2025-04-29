@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Edit, Plus, Trash2, Search, Loader2, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
-// Replace with your actual API hook
 import { useDeleteEventMutation, useGetEventQuery } from '@/app/api';
 
 interface GetEvent {
@@ -14,6 +13,7 @@ interface Event {
   id: string;
   name: string;
   date: string;
+  time: string;
   bookings: string;
   content: string;
   coverPhoto: {
@@ -94,7 +94,10 @@ export default function EventCMS() {
                     </CardHeader>
                     <CardContent className="space-y-2">
                       <div className='flex items-center justify-between'>
-                        <p className="text-sm text-gray-500">{event.date}</p>
+                        <div>
+                        <p className="text-sm text-gray-500">{event?.date}</p>
+                        <p className="text-sm text-gray-500">{event?.time}</p>
+                        </div>
                         <p className="text-sm text-white flex items-center gap-2 bg-purple-500 p-1 px-2 rounded-md"><Users size={15} className='' />{event.bookings.length}</p>
                       </div>
                       <p className="text-base text-gray-700 text-justify">{event.content}</p>

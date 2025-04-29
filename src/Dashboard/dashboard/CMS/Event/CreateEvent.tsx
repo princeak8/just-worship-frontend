@@ -88,6 +88,15 @@ useEffect(()=>{
                   </div>
 
                   <div>
+                    <Label>Time <span className='text-red-500'>*</span></Label>
+                    <Input
+                    type='time'
+                      id="time"
+                      {...addEventDetail('time')}
+                    />
+                  </div>
+
+                  <div>
                     <Label>Description</Label>
                     <TextArea
                       id="description"
