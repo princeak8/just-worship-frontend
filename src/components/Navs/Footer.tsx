@@ -12,7 +12,7 @@ export default function Footer() {
       }}
     >
 
-      <div className="w-full h-full lg:h-[52rem] p-10 py-32 bg-black bg-opacity-90 backdrop-blur-lg overflow-hidden" >
+      <div className="w-full h-full lg:h-[45rem] p-10 py-32 bg-black bg-opacity-90 backdrop-blur-lg overflow-hidden" >
         <section className="container space-y-4 grid lg:grid-cols-7 gap-6 border-b py-10 border-white">
           <div className="w-full col-span-2 text-justify space-y-2">
             <img src={Logo} className='w-20' />
@@ -64,7 +64,7 @@ export default function Footer() {
             <p>Copyright @ 2025 Just Worship int&apos;l</p>
             <p className='uppercase'>All Rights Reserved</p>
           </div>
-          <div className='w-full h-[20vh] mt-[10rem] flex items-end justify-center' style={{ background: `url(${FooterIMG}) no-repeat`, backgroundSize: 'cover' }}>
+          <div className='w-full h-[20vh] mt-[2rem] flex items-end justify-center' style={{ background: `url(${FooterIMG}) no-repeat`, backgroundSize: 'cover' }}>
             <div
               className="bg-black h-10 w-full bg-opacity-90"
               style={{ boxShadow: '0 -8px 12px rgba(0, 0, 0, 0.5)' }}
