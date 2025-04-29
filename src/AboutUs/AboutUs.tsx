@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import Avatar from '@/public/card1.jpeg';
 import Avatar2 from '@/public/about.png';
 import { useGetAboutQuery, useGetGalleryQuery, useGetTeamQuery } from '@/app/api';
-import background from '../public/about_hero.jpeg'
+import background from '../public/about2.jpg'
 import map from '../public/maps.svg'
 import worship from '@/public/worship-school.jpeg'
 import logo from '@/public/logo.png'
