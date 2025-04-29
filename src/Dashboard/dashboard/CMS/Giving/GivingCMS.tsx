@@ -615,7 +615,7 @@ export default function GivingCMS() {
                                             <>
 
                                                 {editingMethod?.accounts?.map((account: any) => (
-                                                    <div key={account.id} className="flex items-center justify-between bg-gray-50 p-2 rounded mb-2">
+                                                    <div key={account?.id} className="flex items-center justify-between bg-gray-50 p-2 rounded mb-2">
                                                         {account?.bank?.name ? (
                                                             <span className="text-sm">
                                                                 {account?.number} - {account?.name}
