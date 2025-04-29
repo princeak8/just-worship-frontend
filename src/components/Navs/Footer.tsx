@@ -22,7 +22,7 @@ export default function Footer() {
             <h2 className='font-semibold text-xl'>About</h2>
             <ul>
               <a href='#'><li>Mission</li></a>
-              <a href='#'><li>Vission</li></a>
+              <a href='#'><li>Vision</li></a>
               <a href='#'><li>Worship School</li></a>
               <a href='#'><li>Leadership</li></a>
               <a href='#'><li>Archives</li></a>

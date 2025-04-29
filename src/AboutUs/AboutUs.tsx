@@ -488,6 +488,10 @@ const AboutUs: React.FC = () => {
           </motion.section>
 
           <div
+            className="w-full overflow-x-hidden   p-4"
+          />
+
+          {/* <div
             className="w-full overflow-x-hidden  p-4"
           >
             <div className="w-full h-full p-10">
@@ -516,7 +520,7 @@ const AboutUs: React.FC = () => {
                 </section>
               </section>
             </div>
-          </div>
+          </div> */}
         </>
       )}
 
