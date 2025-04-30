@@ -252,7 +252,7 @@ const Events: React.FC = () => {
                           className="text-white text-sm py-2 px-4 rounded-full border border-white"
                           whileHover={buttonHover.whileHover}
                           transition={{ duration: 0.3 }}
-                          onClick={() => setSelectedEvent(event)}
+                          onClick={() => { setSelectedEvent(event); setSelected(true) }}
                         >
                           View Details
                         </motion.button>

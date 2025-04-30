@@ -20,18 +20,19 @@ interface Slide {
 }
 
 export default function CreateEvent() {
-  const {id} = useParams()
-  const { formInstance, isLoading101, onSubmit, fetchedImage } = useEvent()
+  const { id } = useParams()
+  const { formInstance, isLoading101, checked, setCheck, onSubmit, fetchedImage } = useEvent()
   const { handleSubmit, addEventDetail } = formInstance;
 
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  
 
-useEffect(()=>{
-  if(fetchedImage){
-    setPreviewImage(fetchedImage)
-  }
-},[fetchedImage])
+  useEffect(() => {
+    if (fetchedImage) {
+      setPreviewImage(fetchedImage)
+    }
+  }, [fetchedImage])
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -52,10 +53,10 @@ useEffect(()=>{
     <form onSubmit={handleSubmit(onSubmit)} className="min-h-screen p-8 bg-gray-50">
       <div className="max-w-6xl mx-auto">
         <div className='flex items-center justify-between'>
-        <h1 className="text-3xl font-bold mb-8 flex items-center gap-2"><Link to='/dashboard/cms/events' ><ArrowLeftCircle  className='hover:text-purple-500' /></Link>Event Page Manager</h1>
+          <h1 className="text-3xl font-bold mb-8 flex items-center gap-2"><Link to='/dashboard/cms/events' ><ArrowLeftCircle className='hover:text-purple-500' /></Link>Event Page Manager</h1>
           {isLoading101 ? (
             <Button className='flex items-center gap-2 bg-purple-500 hover:bg-purple-600 rounded-md p-2 px-4 text-white'><Loader2 className='animate-spin' /></Button>
-          ) :(
+          ) : (
             <Button type='submit' className='flex items-center gap-2 bg-purple-500 hover:bg-purple-600 rounded-md p-2 px-4 text-white'><Save className="w-4 h-4" />{id ? 'Update Event' : 'Save Event'}</Button>
           )}
         </div>
@@ -64,8 +65,15 @@ useEffect(()=>{
           <div className='w-8/12'>
             <Card>
               <CardHeader>
-                <CardTitle>
+                <CardTitle className='flex items-center justify-between'>
                   {id ? 'Edit Event' : 'Create New Event'}
+                  <div className='flex gap-2 items-center'>
+                      <p>Featured:</p>
+                    <label className="switch">
+                      <input type="checkbox" checked={checked} onClick={() => setCheck(!checked)} />
+                        <span className="slider round"></span>
+                    </label>
+                  </div>
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -81,7 +89,7 @@ useEffect(()=>{
                   <div>
                     <Label>Date <span className='text-red-500'>*</span></Label>
                     <Input
-                    type='date'
+                      type='date'
                       id="date"
                       {...addEventDetail('date')}
                     />
@@ -90,11 +98,20 @@ useEffect(()=>{
                   <div>
                     <Label>Time <span className='text-red-500'>*</span></Label>
                     <Input
-                    type='time'
+                      type='time'
                       id="time"
                       {...addEventDetail('time')}
                     />
                   </div>
+
+                  <div>
+                    <Label>Location <span className='text-red-500'>*</span></Label>
+                    <Input
+                      id="location"
+                      {...addEventDetail('location')}
+                    />
+                  </div>
+                  
 
                   <div>
                     <Label>Description</Label>
@@ -116,6 +133,7 @@ useEffect(()=>{
                       </Button>
                     )}
                   </div> */}
+
                 </div>
               </CardContent>
             </Card>

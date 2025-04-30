@@ -1,6 +1,6 @@
 import { useAddEventMutation, useGetEventByIdQuery, useUpdateEventMutation } from '@/app/api'
 import { max_size } from '@/utils/max_size';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Navigate, useParams} from 'react-router-dom';
 
@@ -10,6 +10,8 @@ interface FormDataDetail {
     time: string;
     description: string;
     image: FileList;
+    featured: number;
+    location: string;
 }
 
 const useEvent = () => {
@@ -17,6 +19,7 @@ const useEvent = () => {
   const {data: event} = useGetEventByIdQuery<any>(id, {skip: !id})
     const [addEvent, {isLoading: isLoading101}] = useAddEventMutation()
     const [updateEvent] = useUpdateEventMutation()
+    const [checked, setCheck] = useState(false)
 
     // console.log("id: ", getHeroById)
 
@@ -32,6 +35,7 @@ const useEvent = () => {
             date: '',
             time:'',
             description: '',
+            location: '',
         },
     });
 
@@ -52,6 +56,7 @@ const useEvent = () => {
             setValue('time', event?.data.time)
             setValue('description', event?.data?.content)
             setValue('image',  event?.data?.coverPhoto?.url || '' as unknown as FileList )
+            setValue('featured', event?.data?.featured)
         }
     }, [event?.data, setValue])
 
@@ -65,7 +70,7 @@ const useEvent = () => {
     };
 
     async function onSubmit(data: FormDataDetail){
-        const {name, description, date, time, image} = data;
+        const {name, description, location, date, time, image} = data;
 
         if(image.length === 0 ){
             setError('image',{
@@ -87,6 +92,9 @@ const useEvent = () => {
         formdata.append('eventDate', date)
         formdata.append('eventTime', convert24to12(time))
         formdata.append('content', description)
+        formdata.append('location', location)
+        formdata.append('featured', checked ? '1' : '0');
+
         
         if (image && image.length > 0 && image[0] instanceof File && image[0] !== event?.data?.coverPhoto?.url) {
             formdata.append('coverPhoto', image[0]);
@@ -108,6 +116,8 @@ const useEvent = () => {
 
   return{
     isLoading101,
+    checked, 
+    setCheck,
     formInstance: { addEventDetail, handleSubmit, errors, rules},
     onSubmit,
     fetchedImage: event?.data?.coverPhoto?.url,
