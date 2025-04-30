@@ -73,46 +73,47 @@ const ContactUs: React.FC = () => {
 
   const Questions = [
     {
-      question: "What is Lorem Ipsum?",
-      answer: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci soluta officia mollitia sequi officiis animi placeat doloribus eveniet eum debitis, quod odit eligendi quae ad reiciendis laborum odio vero obcaecati ab eius delectus ratione? Aperiam eligendi quam beatae possimus! Ea provident labore molestiae totam dolore magni, sit quam et cupiditate possimus! Maiores iure magni ad explicabo nam assumenda dolor eum et nostrum eveniet. Dolores, libero quos quisquam dolorum sit explicabo perspiciatis corrupti est alias quae necessitatibus itaque iusto beatae quod commodi, maiores eos. Consectetur, blanditiis! Ex facilis itaque, voluptatem accusamus autem nisi exercitationem pariatur, natus id, magni molestias quis quidem!"
+      question: "What is Just Worship International?",
+      answer: "Just Worship International is a global worship ministry dedicated to cultivating a culture of pure, passionate, and God-centered worship through music, teaching, and events. Our goal is to see lives transformed and nations impacted by the presence of God."
     },
     {
-      question: "What is Lorem Ipsum?",
-      answer: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci soluta officia mollitia sequi officiis animi placeat doloribus eveniet eum debitis, quod odit eligendi quae ad reiciendis laborum odio vero obcaecati ab eius delectus ratione? Aperiam eligendi quam beatae possimus! Ea provident labore molestiae totam dolore magni, sit quam et cupiditate possimus! Maiores iure magni ad explicabo nam assumenda dolor eum et nostrum eveniet. Dolores, libero quos quisquam dolorum sit explicabo perspiciatis corrupti est alias quae necessitatibus itaque iusto beatae quod commodi, maiores eos. Consectetur, blanditiis! Ex facilis itaque, voluptatem accusamus autem nisi exercitationem pariatur, natus id, magni molestias quis quidem!"
+      question: "What does Just Worship International do?",
+      answer: "We organize worship gatherings, conferences, training workshops, and outreach events. We also produce worship music, offer worship leader mentorship, and equip churches and worship teams worldwide."
     },
     {
-      question: "What is Lorem Ipsum?",
-      answer: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci soluta officia mollitia sequi officiis animi placeat doloribus eveniet eum debitis, quod odit eligendi quae ad reiciendis laborum odio vero obcaecati ab eius delectus ratione? Aperiam eligendi quam beatae possimus! Ea provident labore molestiae totam dolore magni, sit quam et cupiditate possimus! Maiores iure magni ad explicabo nam assumenda dolor eum et nostrum eveniet. Dolores, libero quos quisquam dolorum sit explicabo perspiciatis corrupti est alias quae necessitatibus itaque iusto beatae quod commodi, maiores eos. Consectetur, blanditiis! Ex facilis itaque, voluptatem accusamus autem nisi exercitationem pariatur, natus id, magni molestias quis quidem!"
+      question: "Who can be part of Just Worship International?",
+      answer: "Anyone with a heart for worship—musicians, singers, intercessors, leaders, and passionate worshippers—can join or partner with us. Whether you're a beginner or seasoned in ministry, there's a place for you."
     },
     {
-      question: "What is Lorem Ipsum?",
-      answer: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci soluta officia mollitia sequi officiis animi placeat doloribus eveniet eum debitis, quod odit eligendi quae ad reiciendis laborum odio vero obcaecati ab eius delectus ratione? Aperiam eligendi quam beatae possimus! Ea provident labore molestiae totam dolore magni, sit quam et cupiditate possimus! Maiores iure magni ad explicabo nam assumenda dolor eum et nostrum eveniet. Dolores, libero quos quisquam dolorum sit explicabo perspiciatis corrupti est alias quae necessitatibus itaque iusto beatae quod commodi, maiores eos. Consectetur, blanditiis! Ex facilis itaque, voluptatem accusamus autem nisi exercitationem pariatur, natus id, magni molestias quis quidem!"
+      question: "How can I join or volunteer with Just Worship International?",
+      answer: "You can fill out our volunteer or partner form on our website. There are opportunities in event planning, media, worship, administration, prayer, and more."
     },
     {
-      question: "What is Lorem Ipsum?",
-      answer: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci soluta officia mollitia sequi officiis animi placeat doloribus eveniet eum debitis, quod odit eligendi quae ad reiciendis laborum odio vero obcaecati ab eius delectus ratione? Aperiam eligendi quam beatae possimus! Ea provident labore molestiae totam dolore magni, sit quam et cupiditate possimus! Maiores iure magni ad explicabo nam assumenda dolor eum et nostrum eveniet. Dolores, libero quos quisquam dolorum sit explicabo perspiciatis corrupti est alias quae necessitatibus itaque iusto beatae quod commodi, maiores eos. Consectetur, blanditiis! Ex facilis itaque, voluptatem accusamus autem nisi exercitationem pariatur, natus id, magni molestias quis quidem!"
+      question: "Do you offer training or worship leadership development?",
+      answer: "Yes! We offer worship mentorship programs, online classes, and in-person intensives designed to develop skill, character, and spiritual depth in worship leaders and team members."
     },
     {
-      question: "What is Lorem Ipsum?",
-      answer: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci soluta officia mollitia sequi officiis animi placeat doloribus eveniet eum debitis, quod odit eligendi quae ad reiciendis laborum odio vero obcaecati ab eius delectus ratione? Aperiam eligendi quam beatae possimus! Ea provident labore molestiae totam dolore magni, sit quam et cupiditate possimus! Maiores iure magni ad explicabo nam assumenda dolor eum et nostrum eveniet. Dolores, libero quos quisquam dolorum sit explicabo perspiciatis corrupti est alias quae necessitatibus itaque iusto beatae quod commodi, maiores eos. Consectetur, blanditiis! Ex facilis itaque, voluptatem accusamus autem nisi exercitationem pariatur, natus id, magni molestias quis quidem!"
+      question: "How can my church or city host a Just Worship event?",
+      answer: "Reach out to us through our booking/contact page. We'll discuss your vision and how we can partner with you to host a worship encounter or training in your area."
     },
     {
-      question: "What is Lorem Ipsum?",
-      answer: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci soluta officia mollitia sequi officiis animi placeat doloribus eveniet eum debitis, quod odit eligendi quae ad reiciendis laborum odio vero obcaecati ab eius delectus ratione? Aperiam eligendi quam beatae possimus! Ea provident labore molestiae totam dolore magni, sit quam et cupiditate possimus! Maiores iure magni ad explicabo nam assumenda dolor eum et nostrum eveniet. Dolores, libero quos quisquam dolorum sit explicabo perspiciatis corrupti est alias quae necessitatibus itaque iusto beatae quod commodi, maiores eos. Consectetur, blanditiis! Ex facilis itaque, voluptatem accusamus autem nisi exercitationem pariatur, natus id, magni molestias quis quidem!"
+      question: "Where can I listen to or buy your worship music?",
+      answer: "Our music is available on all major streaming platforms, including Spotify, Apple Music, and YouTube. You can also find links on our website."
     },
     {
-      question: "What is Lorem Ipsum?",
-      answer: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci soluta officia mollitia sequi officiis animi placeat doloribus eveniet eum debitis, quod odit eligendi quae ad reiciendis laborum odio vero obcaecati ab eius delectus ratione? Aperiam eligendi quam beatae possimus! Ea provident labore molestiae totam dolore magni, sit quam et cupiditate possimus! Maiores iure magni ad explicabo nam assumenda dolor eum et nostrum eveniet. Dolores, libero quos quisquam dolorum sit explicabo perspiciatis corrupti est alias quae necessitatibus itaque iusto beatae quod commodi, maiores eos. Consectetur, blanditiis! Ex facilis itaque, voluptatem accusamus autem nisi exercitationem pariatur, natus id, magni molestias quis quidem!"
+      question: "Is Just Worship International affiliated with a specific denomination?",
+      answer: "No, we are a non-denominational ministry that partners with churches and believers across various Christian traditions who are passionate about Christ-centered worship."
     },
     {
-      question: "What is Lorem Ipsum?",
-      answer: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci soluta officia mollitia sequi officiis animi placeat doloribus eveniet eum debitis, quod odit eligendi quae ad reiciendis laborum odio vero obcaecati ab eius delectus ratione? Aperiam eligendi quam beatae possimus! Ea provident labore molestiae totam dolore magni, sit quam et cupiditate possimus! Maiores iure magni ad explicabo nam assumenda dolor eum et nostrum eveniet. Dolores, libero quos quisquam dolorum sit explicabo perspiciatis corrupti est alias quae necessitatibus itaque iusto beatae quod commodi, maiores eos. Consectetur, blanditiis! Ex facilis itaque, voluptatem accusamus autem nisi exercitationem pariatur, natus id, magni molestias quis quidem!"
+      question: "How is the ministry funded?",
+      answer: "We are funded through generous donations, event registration, music sales, and partner support. If you'd like to give, visit our donation page."
     },
     {
-      question: "What is Lorem Ipsum?",
-      answer: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci soluta officia mollitia sequi officiis animi placeat doloribus eveniet eum debitis, quod odit eligendi quae ad reiciendis laborum odio vero obcaecati ab eius delectus ratione? Aperiam eligendi quam beatae possimus! Ea provident labore molestiae totam dolore magni, sit quam et cupiditate possimus! Maiores iure magni ad explicabo nam assumenda dolor eum et nostrum eveniet. Dolores, libero quos quisquam dolorum sit explicabo perspiciatis corrupti est alias quae necessitatibus itaque iusto beatae quod commodi, maiores eos. Consectetur, blanditiis! Ex facilis itaque, voluptatem accusamus autem nisi exercitationem pariatur, natus id, magni molestias quis quidem!"
+      question: "How can I stay updated on your events and releases?",
+      answer: "Follow us on social media and subscribe to our newsletter for the latest updates on music, events, and teaching content."
     },
   ];
+  
 
   const toggleModal = (index: any) => {
     setModal((prevIndex) => (prevIndex === index ? null : index));

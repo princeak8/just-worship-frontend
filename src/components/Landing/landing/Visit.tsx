@@ -146,9 +146,8 @@ export default function Visit() {
                             <iframe
                                 width="100%"
                                 height="100%"
-                                src="https://www.youtube.com/embed/_DcrrrlE3Og?si=SsZqNElJHR2p5Xjo"
+                                src="https://www.youtube.com/embed/XJPJLWdFlY8?si=S_w9g_iuNcfepH62"
                                 title="Introductory Video"
-                                frameBorder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen
                                 className='w-full h-full object-cover'
