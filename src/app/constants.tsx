@@ -24,4 +24,5 @@ export const apiRoutes = {
   countries: 'countries',
   contact_message: 'contact_messages',
   subscribe: 'subscribe',
+  book: 'events/book'
 }

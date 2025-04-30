@@ -380,8 +380,18 @@ const api = apiClient.injectEndpoints({
         getMessages:builder.query({
             query: (url: any) => ({
                 url: `${VITE_BASE_URL}/${apiRoutes.contact_message}`,
-            })
-        })
+            }),
+        }),
+
+        bookEvent: builder.mutation({
+            query:(formdata: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.book}`,
+                method: 'POST',
+                body: formdata,
+            }),
+        }),
+
+
     })
 });
 
@@ -440,4 +450,5 @@ export const {
     useContact_messageMutation,
     useSubscribeMutation,
     useGetMessagesQuery,
+    useBookEventMutation,
 } = api
