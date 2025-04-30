@@ -224,7 +224,7 @@ const AboutUs: React.FC = () => {
                   transition={{ duration: 0.5, delay: 0.6 }}
                   viewport={{ once: true }}
                 >
-                  THE VISSION
+                  THE VISION
                 </motion.h2>
                 <motion.p
                   className="text-md text-gray-700 mb-4 text-center"
