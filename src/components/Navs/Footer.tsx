@@ -59,8 +59,8 @@ export default function Footer() {
           </div>
           <div className="leading-10 ">
             <ul>
-              <a href='#' ><li className='flex items-center gap-2'><Facebook className='border border-white rounded-full p-1' /> Facebook</li></a>
-              <a href='#' ><li className='flex items-center gap-2'><Youtube className='border border-white rounded-full p-1' /> YouTube</li></a>
+              <a href='https://www.facebook.com/justworshipinternational' target="_blank" ><li className='flex items-center gap-2'><Facebook className='border border-white rounded-full p-1' /> Facebook</li></a>
+              <a href='https://youtube.com/@justworshipinternational?si=8tGVKoivjsSI0Zu7' target="_blank" ><li className='flex items-center gap-2'><Youtube className='border border-white rounded-full p-1' /> YouTube</li></a>
               <a href='#' ><li className='flex items-center gap-2'><Instagram className='border border-white rounded-full p-1' /> Instagram</li></a>
               <a href='#' ><li className='flex items-center gap-2'><Twitter className='border border-white rounded-full p-1' /> Twitter</li></a>
             </ul>
@@ -68,7 +68,7 @@ export default function Footer() {
           <div className="leading-10 ">
             <ul>
               <a href='#' ><li className='flex items-center gap-2'><Apple className='border border-white rounded-full p-1' /> Apple Music</li></a>
-              <a href='#' ><li className='flex items-center gap-2'><Instagram className='border border-white rounded-full p-1' /> Spotify</li></a>
+              <a href='https://open.spotify.com/artist/6JJdAFq4ih4UJmU3O5Qvyk?si=OKh4EWLHSvC5NqvpR7kjQQ' target="_blank" ><li className='flex items-center gap-2'><Instagram className='border border-white rounded-full p-1' /> Spotify</li></a>
               <a href='#' ><li className='flex items-center gap-2'><LucideYoutube className='border border-white rounded-full p-1' /> YT Music</li></a>
             </ul>
           </div>
