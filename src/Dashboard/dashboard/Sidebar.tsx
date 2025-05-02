@@ -106,7 +106,7 @@ const Sidebar = () => {
             <div>
               {paths?.map((path: any, index: number) => (
                 <section className={`grid `}>
-                  <Link to={path.path} key={index} className={`m-2 mx-2 p-4 px-2 hover:bg-yellow-50 hover:text-[#BA833C] rounded-lg flex items-center gap-4 text-sm ${root.pathname === path.path && 'bg-[#FFD700] bg-opacity-50'}`}>
+                  <Link to={path.path} key={index} className={`m-2 mx-2 p-4 px-2 hover:bg-yellow-50 hover:text-[#BA833C] rounded-lg flex items-center gap-4 text-sm ${root.pathname === path.path && 'bg-black bg-opacity-50'}`}>
                     <div onClick={() => {
                       path?.sub &&
                       // setIsSubOpen(!isSubOpen) }} 
@@ -124,7 +124,7 @@ const Sidebar = () => {
                   {path?.sub &&
                     <section className={`-mt-2 ${isSubOpen && 'p-4 px-2'}`}>
                       {path?.sub && isSubOpen && path?.sub.map((sub: any, index: number) => (
-                        <Link to={sub.path} key={index} className={`p-2 hover:bg-yellow-50 hover:text-[#BA833C] hover:font-bold rounded-lg flex items-center gap-4 p-4 text-sm ${root.pathname === sub.path && 'bg-[#FFD700] bg-opacity-50 font-bold '}`} >
+                        <Link to={sub.path} key={index} className={`p-2 hover:bg-yellow-50 hover:text-[#BA833C] hover:font-bold rounded-lg flex items-center gap-4 p-4 text-sm ${root.pathname === sub.path && 'bg-black bg-opacity-50 font-bold '}`} >
                           {sub.icon}<p>{sub.name}</p>
                         </Link>
                       ))}
