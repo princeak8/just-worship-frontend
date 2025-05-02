@@ -223,7 +223,7 @@ const Giving: React.FC = () => {
           <div className="flex flex-col lg:flex-row gap-10">
             <div className="w-full lg:w-7/12">
               <motion.h2
-                className="text-3xl mb-2 font-[DM Sans] font-semibold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent"
+                className="text-3xl mb-2 font-[DM Sans] font-semibold"
                 initial={{ y: -20, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.6 }}
