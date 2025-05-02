@@ -259,7 +259,7 @@ const ContactUs: React.FC = () => {
           viewport={{ once: true }}
         >
           <motion.h2
-            className="text-3xl mb-2 font-[DM Sans] bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent"
+            className="text-3xl mb-2 font-[DM Sans"
             initial={{ y: -20, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.6 }}
@@ -284,7 +284,7 @@ const ContactUs: React.FC = () => {
               transition={{ duration: 0.5, delay: 0.8 }}
               viewport={{ once: true }}
             >
-              {/* <div>
+              <div>
                 <select
                   id="type"
                   value={type}
@@ -293,10 +293,11 @@ const ContactUs: React.FC = () => {
                   required
                 >
                   <option value={''}>Select inquiry type</option>
-                  <option value={'appreciation'}>Appreciation</option>
-                  <option value={'testimony'}>Testimony</option>
+                  <option value={'appreciation'}>Testimony</option>
+                  <option value={'testimony'}>Prayers</option>
+                  <option value={'testimony'}>Request</option>
                 </select>
-              </div> */}
+              </div>
 
               <div>
                 <input
@@ -442,7 +443,7 @@ const ContactUs: React.FC = () => {
             viewport={{ once: true }}
           >
             <motion.h2
-              className="text-3xl mb-4 font-[DM Sans] bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent"
+              className="text-3xl mb-4 font-[DM Sans]"
               initial={{ y: -20, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.6 }}

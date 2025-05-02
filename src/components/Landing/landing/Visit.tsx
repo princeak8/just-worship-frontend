@@ -104,7 +104,8 @@ export default function Visit() {
 
                 <section className='w-full text-md lg:text-lg'>
                     <motion.h2
-                        className='h1 text-center my-6 pt-8 lg:my-20 text-xl lg:text-5xl font-bold lg:font-normal uppercase bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent'
+                        className='h1 text-center my-6 pt-8 lg:my-20 text-xl lg:text-5xl font-normal uppercase
+                         '
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}

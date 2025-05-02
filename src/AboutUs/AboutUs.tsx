@@ -124,7 +124,7 @@ const AboutUs: React.FC = () => {
                 viewport={{ once: true }}
               >
                 <motion.h2
-                  className="text-3xl font-bold mb-6 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent"
+                  className="text-3xl font-semibold mb-6"
                   initial={{ y: -20, opacity: 0 }}
                   whileInView={{ y: 0, opacity: 1 }}
                   transition={{ duration: 0.5, delay: 0.6 }}
@@ -154,6 +154,22 @@ const AboutUs: React.FC = () => {
               viewport={{ once: true }}
             >
               <div className="container max-w-6xl mx-auto flex flex-col lg:flex-row items-center lg:gap-40 lg:px-4 sm:px-6 lg:px-8 overflow-hidden">
+              <motion.div
+                  className="w-full lg:w-2/6"
+                  initial={{ x: -50, opacity: 0 }}
+                  whileInView={{ x: 0, opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  viewport={{ once: true }}
+                >
+                  <motion.img
+                    // src={Avatar2}
+                    src={about?.data?.pastorPhoto?.url || Avatar}
+                    alt="About Us"
+                    className="hidden lg:flex lg:w-full max-h-[40rem] rounded-lg shadow-lg"
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </motion.div>
                 <motion.div
                   className="w-full lg:w-3/6"
                   initial={{ x: 50, opacity: 0 }}
@@ -182,22 +198,7 @@ const AboutUs: React.FC = () => {
                     </p>
                   </motion.p>
                 </motion.div>
-                <motion.div
-                  className="w-full lg:w-2/6"
-                  initial={{ x: -50, opacity: 0 }}
-                  whileInView={{ x: 0, opacity: 1 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                  viewport={{ once: true }}
-                >
-                  <motion.img
-                    // src={Avatar2}
-                    src={about?.data?.pastorPhoto?.url || Avatar}
-                    alt="About Us"
-                    className="hidden lg:flex lg:w-full lg:h-[29rem] rounded-lg shadow-lg"
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                </motion.div>
+               
               </div>
             </motion.section>
           )}
@@ -217,14 +218,17 @@ const AboutUs: React.FC = () => {
                 transition={{ duration: 0.8, delay: 0.4 }}
                 viewport={{ once: true }}
               >
-                <motion.h2
-                  className="text-3xl font-bold mb-6 uppercase bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent"
+                 <motion.h2
+                  className="text-3xl font-semibold mb-6 uppercase flex flex-col items-center"
                   initial={{ y: -20, opacity: 0 }}
                   whileInView={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.5, delay: 0.6 }}
+                  transition={{ duration: 0.5, delay: 0.4 }}
                   viewport={{ once: true }}
                 >
-                  THE VISION
+                  <div className='w-30'>
+                  The Vision
+                  <div className='w-full h-1 bg-gradient-to-r from-[#BA833C] to-[#F8DA94] mt-2'/>
+                  </div>
                 </motion.h2>
                 <motion.p
                   className="text-md text-gray-700 mb-4 text-center"
@@ -245,13 +249,16 @@ const AboutUs: React.FC = () => {
                 viewport={{ once: true }}
               >
                 <motion.h2
-                  className="text-3xl font-bold mb-6 uppercase bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent"
+                  className="text-3xl font-semibold mb-6 uppercase flex flex-col items-center"
                   initial={{ y: -20, opacity: 0 }}
                   whileInView={{ y: 0, opacity: 1 }}
                   transition={{ duration: 0.5, delay: 0.4 }}
                   viewport={{ once: true }}
                 >
+                  <div className='w-30'>
                   Our Mission
+                  <div className='w-full h-1 bg-gradient-to-r from-[#BA833C] to-[#F8DA94] mt-2'/>
+                  </div>
                 </motion.h2>
                 <motion.p
                   className="text-md text-gray-700 mb-4 text-center"
@@ -276,7 +283,7 @@ const AboutUs: React.FC = () => {
               viewport={{ once: true }}
             >
               <motion.h2
-                className="text-3xl font-bold mb-2 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent"
+                className="text-3xl font-semibold mb-2"
                 initial={{ y: -20, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
@@ -324,7 +331,7 @@ const AboutUs: React.FC = () => {
           >
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
               <motion.h2
-                className="text-3xl font-bold text-center mb-12 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent" // Added gradient to match other headings
+                className="text-3xl font-semibold text-center mb-12 " 
                 initial={{ y: -20, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.5 }}
@@ -359,7 +366,7 @@ const AboutUs: React.FC = () => {
                       viewport={{ once: true }}
                     >
                       <h2 className="text-xl font-semibold text-gray-900 mb-2">{member.name}</h2>
-                      <p className="text-sm text-purple-600 font-medium mb-4">{member?.position}</p>
+                      <p className="text-sm text-[#BA833C] font-medium mb-4">{member?.position}</p>
                       <p className="text-base text-gray-600 leading-relaxed line-clamp-4">{member?.biography}</p>
                     </motion.div>
                   </motion.div>
@@ -392,7 +399,7 @@ const AboutUs: React.FC = () => {
                       <h2 className="text-4xl uppercase font-[Aboreto]">WORSHIP SCHOOL</h2>
                     </div>
                     <p className="text-lg uppercase mb-4">2025-2026 APPLICATIONS NOW OPEN!</p>
-                    <button className="px-6 py-2 bg-amber-500 text-white rounded hover:bg-amber-600 transition mb-10">
+                    <button className="px-6 py-2 bg-[#BA833C] text-white rounded hover:bg-amber-600 transition mb-10">
                       Apply Today
                     </button>
                   </div>
@@ -459,7 +466,7 @@ const AboutUs: React.FC = () => {
 
                       <button
                         type="submit"
-                        className="w-full py-2 px-4 bg-amber-500 text-white font-medium rounded hover:bg-amber-600 transition"
+                        className="w-full py-2 px-4 bg-[#BA833C] text-white font-medium rounded hover:bg-amber-600 transition"
                       >
                         Request for more info!
                       </button>
@@ -477,7 +484,7 @@ const AboutUs: React.FC = () => {
                     <div>
                       <p className="text-sm">2025-2026 SCHOOL YEAR</p>
                     </div>
-                    <button className="px-6 py-2 bg-amber-500 text-white rounded hover:bg-amber-600 transition">
+                    <button className="px-6 py-2 bg-[#BA833C] text-white rounded hover:bg-amber-600 transition">
                       Apply Today
                     </button>
                   </div>

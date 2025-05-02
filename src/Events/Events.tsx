@@ -9,7 +9,7 @@ import image3 from '@/public/card3.jpeg';
 import image4 from '@/public/card4.jpeg';
 import SkeletonLoader from '@/SkeletonLoader';
 import { useForm } from 'react-hook-form';
-import { Loader2 } from 'lucide-react';
+import { Calendar, Clock, Loader2 } from 'lucide-react';
 
 interface AboutSection {
   id: string;
@@ -369,47 +369,70 @@ const Events: React.FC = () => {
         style={{ pointerEvents: selected ? 'auto' : 'none' }}
       >
         <motion.div
-          className="bg-white rounded-xl p-6 max-w-2xl w-full shadow-2xl"
+          className="bg-[#080806] rounded-xl max-w-xl w-full shadow-2xl"
           initial={{ scale: 0.95 }}
           animate={{ scale: selected ? 1 : 0.95 }}
         >
-          <div className="flex justify-between items-start mb-6">
-            <h3 className="text-3xl font-bold text-gray-900">Event Registration</h3>
-            <button
-              onClick={() => { setSelectedEvent({}); setSelected(false) }}
-              className="text-gray-400 hover:text-gray-600 transition-colors"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
-
-          {bookingSuccess && (
-            <div className="bg-green-50 border border-green-200 p-4 rounded-lg mb-6 flex items-center gap-3 z-">
-              <svg className="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-              </svg>
-              <span className="text-green-700">Booking confirmed</span>
-            </div>
-          )}
-
-          <form onSubmit={handleSubmit(onSubmitBooking)} className="space-y-6">
-            <div className="relative group">
-              <div className="overflow-hidden rounded-xl aspect-video overflow-hidden">
-                <img
-                  src={selectedEvent?.coverPhoto?.url}
-                  alt="Event cover"
-                  className="w-full object-cover rounded-xl"
-                />
+          <form onSubmit={handleSubmit(onSubmitBooking)} className="">
+            {selectedEvent?.coverPhoto?.url && (
+              <div className="relative group">
+                <div className="overflow-hidden aspect-video overflow-hidden">
+                  <img
+                    src={selectedEvent?.coverPhoto?.url}
+                    alt="Event cover"
+                    className="w-full object-cover"
+                  />
+                </div>
               </div>
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 p-4">
-                <h2 className="text-xl font-bold text-white">{selectedEvent.name}</h2>
-                <p className="text-gray-200 text-sm mt-1 line-clamp-2">{selectedEvent.content}</p>
-              </div>
+            )}
+            <div className="gap-4 bg-[#080806] p-4 space-y-4">
+              {selectedEvent?.name && <h2 className="text-3xl font-bold text-white border-b border-b-2 border-b-[#363636] pb-6">{selectedEvent?.name}</h2>}
+              {selectedEvent?.content && (
+                <div className='border-b border-b-2 border-b-[#363636] pb-6'>
+                  <h2 className="text-lg font-semibold text-white uppercase">Detail</h2>
+                  <p className="text-gray-400 text-sm mt-1 ">{selectedEvent?.content}</p>
+                </div>
+              )}
+              {selectedEvent?.featured && (
+                <div className='border-b border-b-2 border-b-[#363636] pb-6'>
+                  <h2 className="text-lg font-semibold text-white uppercase">Featuring</h2>
+                  <p className="text-gray-400 text-sm mt-1 ">{selectedEvent.content}</p>
+                </div>
+              )}
+              {selectedEvent?.location && (
+                <div className='border-b border-b-2 border-b-[#363636] pb-6'>
+                  <h2 className="text-lg font-semibold text-white uppercase">Location</h2>
+                  <p className="text-gray-400 text-sm mt-1 ">{selectedEvent?.location}</p>
+                </div>
+              )}
+              {(selectedEvent?.date || selectedEvent?.time) && (
+                <div className='border-b border-b-2 border-b-[#363636] pb-6'>
+                  <h2 className="text-lg font-semibold text-white uppercase">{selectedEvent?.date && 'Date'} {(selectedEvent?.date && selectedEvent?.time) && '&'} {selectedEvent?.time && 'Time'}</h2>
+                  <p className="text-gray-400 text-sm mt-1 flex gap-2 items-center">
+                    <Calendar />
+                    {new Date(selectedEvent.date).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </p>
+                  {selectedEvent?.time && (
+                    <p className="text-gray-400 text-sm mt-1 flex items-center">
+                      <Clock />
+                      {selectedEvent?.time}
+                    </p>
+                  )}
+                </div>
+              )}
             </div>
 
-            <div className="grid grid-cols-2 gap-4 bg-gray-50 p-4 rounded-lg">
+            {/* <div className="grid gap-4 bg-[#080806] p-4 border-b border-b-white">
+              <h2 className="text-xl font-bold text-white">{selectedEvent.name}</h2>
+              <p className="text-gray-200 text-sm mt-1 line-clamp-2">{selectedEvent.content}</p>
+
+              <h2 className="text-xl font-bold text-white">{selectedEvent.name}</h2>
+              <p className="text-gray-200 text-sm mt-1 line-clamp-2">{selectedEvent.content}</p>
+
               <div className="flex items-center gap-3">
                 <div className="p-2 bg-white rounded-lg shadow-sm">
                   <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -424,7 +447,7 @@ const Events: React.FC = () => {
 
               <div className="flex items-center gap-3">
                 <div className="p-2 bg-white rounded-lg shadow-sm">
-                  <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 text-[#fdc500]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
@@ -446,21 +469,31 @@ const Events: React.FC = () => {
                   <p className="font-medium">{selectedEvent.location}</p>
                 </div>
               </div>
-            </div>
+            </div> */}
 
-            <div className="space-y-4">
+            {bookingSuccess && (
+              <div className="bg-green-50 border border-green-200 p-4 rounded-lg mb-6 flex items-center gap-3 z-">
+                <svg className="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                <span className="text-green-700">Booking confirmed</span>
+              </div>
+            )}
+
+            <div className="space-y-4 p-4">
+              <h2 className='text-white text-2xl font-semibold'>Register</h2>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                <label className="block text-sm font-medium text-gray-400 mb-2">Full Name</label>
                 <input
                   {...register('name', { required: 'Name is required' })}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                  className="w-full bg-[#080806] px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#BA833C] focus:border-[#BA833C] text-white"
                   placeholder="John Doe"
                 />
                 {errors.name && <p className="text-red-500 text-sm mt-2">{errors.name.message}</p>}
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                <label className="block text-sm font-medium text-gray-400 mb-2">Email Address</label>
                 <input
                   type="email"
                   {...register('email', {
@@ -470,14 +503,14 @@ const Events: React.FC = () => {
                       message: 'Invalid email address'
                     }
                   })}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                  className="w-full bg-[#080806] px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#BA833C] focus:border-[#BA833C] text-white"
                   placeholder="john@example.com"
                 />
                 {errors.email && <p className="text-red-500 text-sm mt-2">{errors.email.message}</p>}
               </div>
             </div>
 
-            <div className="flex justify-end gap-3 mt-8">
+            <div className="flex justify-end gap-3 p-4">
               <button
                 type="button"
                 onClick={() => { setSelectedEvent({}); setSelected(false) }}
@@ -498,11 +531,11 @@ const Events: React.FC = () => {
 
                 <motion.button
                   type="submit"
-                  className="px-6 py-2.5 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+                  className="px-6 py-2.5 bg-black text-white rounded-lg hover:bg-black/70 transition-colors"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  Confirm Booking
+                  Register
                 </motion.button>
               )}
             </div>

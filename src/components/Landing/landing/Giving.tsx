@@ -37,7 +37,7 @@ export default function Giving() {
         <section className='w-full'>
           <div className="lg:leading-10 text-center flex flex-col items-center justify-center my-5 lg:my-10">
             <motion.h2
-              className="text-xl lg:text-5xl font-bold lg:font-normal uppercase bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent"
+              className="text-xl lg:text-5xl font-bold lg:font-normal uppercase text-black"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
@@ -84,18 +84,18 @@ export default function Giving() {
                       key={index}
                       // onClick={() => setSelectedOption(option.name)}
                       // className={`px-4 py-2 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer border border-gray-200 hover:border-purple-500 flex flex-col items-center justify-center ${selectedOption.toLowerCase().trim() === option?.name?.toLowerCase().trim() ? 'bg-purple-500 text-white' : 'bg-white text-black'}`}
-                      className={`px-4 py-2 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer border border-gray-200 hover:border-purple-500 flex flex-col items-center justify-center ${option?.name?.toLowerCase().trim() !== 'transfer' ? 'cursor-not-allowed bg-white text-black' : 'bg-purple-500 text-white'}`}
+                      className={`px-4 py-2 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer border border-gray-200 hover:border- flex flex-col items-center justify-center ${option?.name?.toLowerCase().trim() !== 'transfer' ? 'cursor-not-allowed bg-white text-black' : 'bg-[#BA833C] text-white'}`}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
-                      <div className={selectedOption.toLowerCase().trim() === option?.name?.toLowerCase().trim() ? ' text-yellow-200' : 'text-purple-500'}>{option?.name.toLowerCase().trim() === 'transfer' ? <Banknote className="w-6 h-6" /> : <CreditCard className="w-6 h-6" />}</div>
+                      <div className={selectedOption.toLowerCase().trim() === option?.name?.toLowerCase().trim() ? '' : 'text-[#BA833C]'}>{option?.name.toLowerCase().trim() === 'transfer' ? <Banknote className="w-6 h-6" /> : <CreditCard className="w-6 h-6" />}</div>
                       <p className='font-medium'>{option?.name}</p>
                     </motion.div>
                   ))}
                 </div>
-                <p className='text-gray-500 mt-4'>
+                {/* <p className='text-gray-500 mt-4'>
                   Nisl dolor sit amet eget tristique adipiscing tellus tristique
-                </p>
+                </p> */}
               </motion.div>
               <motion.div
                 className='text-center lg:leading-12 lg:space-y-8'
@@ -112,7 +112,7 @@ export default function Giving() {
                     <motion.div
                       key={index}
                       onClick={() => { setSelected(option); setSelectedMethod(option?.name) }}
-                      className={`p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer border border-gray-200 hover:border-purple-500 ${selectedMethod.toLowerCase().trim() === option?.name?.toLowerCase().trim() ? 'bg-purple-500 text-white' : 'bg-white text-black'}`}
+                      className={`p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer border border-gray-200 hover:border-[#BA833C] ${selectedMethod.toLowerCase().trim() === option?.name?.toLowerCase().trim() ? 'bg-[#BA833C] text-white' : 'bg-white text-black'}`}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -142,7 +142,7 @@ export default function Giving() {
                         <div className="space-y-4">
                           <div className="border-b border-gray-200 pb-4">
                             <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                              <Banknote className="w-5 h-5 text-purple-500" />
+                              <Banknote className="w-5 h-5 text-[#BA833C]" />
                               {account?.bank ? "Bank Account Details" : "Digital Payment Details"}
                             </h2>
                           </div>
@@ -176,13 +176,13 @@ export default function Giving() {
                                   {account?.name || 'Not specified'}
                                 </p>
                               </div>
-                              <div className="p-4 bg-gray-50 rounded-lg">
+                              <div className="p-4 bg-gray-50 rounded-lg flex flex-col items-center">
                                 {account?.url && (
                                   <QRCode
                                     value={account?.url}
                                     size={160}
                                     className="p-2 bg-white rounded-md"
-                                    fgColor="#6D28D9"
+                                    fgColor="#BA833C"
                                   />
                                 )}
                                 <p className="text-xs text-gray-500 mt-3 text-center">
@@ -192,7 +192,7 @@ export default function Giving() {
                             </div>
                           )}
 
-                          <div className="mt-6 p-3 bg-purple-50 rounded-lg flex items-start gap-3">
+                          {/* <div className="mt-6 p-3 bg-purple-50 rounded-lg flex items-start gap-3">
                             <InfoIcon className="w-5 h-5 text-purple-600 shrink-0" />
                             <span className="text-sm text-gray-700">
                               Please include{' '}
@@ -201,7 +201,7 @@ export default function Giving() {
                               </strong>{' '}
                               in your transfer narration
                             </span>
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                     ))

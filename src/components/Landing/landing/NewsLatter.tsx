@@ -51,13 +51,14 @@ export default function NewsLater() {
                     </div>
                 </section>
             )}
-            <div className="w-full p-10 bg-gray-500 bg-opacity-20 backdrop-blur-lg">
+            <div className="w-full p-10 bg-gradient-to-r from-[rgba(168,85,247,0.2)] via-[rgba(186,131,60,0.2)] to-[rgba(186,131,60,0.2)] backdrop-blur-lg">
+
                 <section className="container space-y-4 lg:flex gap-6 items-center">
                     <div className="lg:w-3/12 flex flex-col">
-                        <h2 className="font-semibold text-xl">Subscribe to our newslater for more updates</h2>
-                        <p>Get the latest resources, event dates, new music, books, merchandise and more directly into your inbox.</p>
+                        <h2 className="font-semibold text-2xl">Subscribe to our newslater for more updates</h2>
+                        <p className="text-sm">Get the latest resources, event dates, new music, books, merchandise and more directly into your inbox</p>
                     </div>
-                    <div className="lg:w-7/12">
+                    <div className="lg:w-9/12">
                         <input type='text' value={email} onChange={(e) => setEmail(e.target.value)} className="w-full p-4 rounded-lg focus:outline-none" placeholder="Your Email..." />
                     </div>
                     <div className="lg:2/12">

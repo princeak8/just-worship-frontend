@@ -83,7 +83,7 @@ useEffect(() => {
             <div className="w-full h-full bg-black bg-opacity-90 p-10">
                 <section className="container space-y-4 text-center lg:py-20">
                     <div className="lg:leading-10">
-                        <h2 className="text-xl lg:text-5xl font-bold lg:font-normal uppercase bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Gallery</h2>
+                        <h2 className="text-xl lg:text-5xl font-bold lg:font-normal uppercase text-white">Gallery</h2>
                         <p>
                         A Tapestry of Worship, Woven with Faith, Fellowship, and Divine Purpose
                         </p>
@@ -94,7 +94,7 @@ useEffect(() => {
                             <input type='text' value={searchparams} onChange={(e) => setSearchParams(e.target.value)} placeholder='Search...' className='p-2 py-1 bg-transparent focus:outline-none w-full' />
                         </div>
                         <div className='border border-white rounded-full flex items-center p-1 px-4 w-full lg:w-auto'>
-                            <select className='p-2 bg-transparent focus:outline-none w-full text-purple-700'
+                            <select className='p-2 bg-transparent focus:outline-none w-full text-[#BA833C]'
                                     value={selectedLocation}
                                     onChange={(e) => setSelectedLocation(e.target.value)}
                             >
@@ -105,7 +105,7 @@ useEffect(() => {
                             </select>
                         </div>
                         <div className='border border-white rounded-full flex items-center p-1 px-4 w-full lg:w-auto'>
-                            <select className='p-2 bg-transparent focus:outline-none w-full text-purple-700'
+                            <select className='p-2 bg-transparent focus:outline-none w-full text-[#BA833C]'
                                 value={selectedEvent}
                                 onChange={(e) => setSelectedEvent(e.target.value)}
                             >
@@ -117,7 +117,7 @@ useEffect(() => {
                         </div>
                         <div className='flex flex-wrap lg:flex-nowrap gap-4 w-full lg:w-auto'>
                             <div className='border border-white rounded-full flex items-center p-1 px-4 w-full lg:w-auto'>
-                                <select className='p-2 bg-transparent focus:outline-none w-full text-purple-700'
+                                <select className='p-2 bg-transparent focus:outline-none w-full text-[#BA833C]'
                                         value={selectedYear}
                                         onChange={(e) => setSelectedYear(e.target.value)}
                                 >
