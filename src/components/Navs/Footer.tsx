@@ -35,9 +35,9 @@ export default function Footer() {
           <div className="leading-10 ">
             <h2 className='font-semibold text-xl'>About</h2>
             <ul>
-              <a href='#'><li>Mission</li></a>
-              <a href='#'><li>Vision</li></a>
-              <a href='#'><li>Worship School</li></a>
+              <a href='/about'><li>Mission</li></a>
+              <a href='/about'><li>Vision</li></a>
+              <a href='/about'><li>Worship School</li></a>
               <a href='#'><li>Leadership</li></a>
               <a href='#'><li>Archives</li></a>
             </ul>
@@ -45,16 +45,16 @@ export default function Footer() {
           <div className="leading-10 ">
             <h2 className='font-semibold text-xl'>Connect</h2>
             <ul>
-              <a href='#'><li>Events</li></a>
-              <a href='#'><li>Live</li></a>
-              <a href='#'><li>Store</li></a>
-              <a href='#'><li>Contact Us</li></a>
+              <a href='/events'><li>Events</li></a>
+              <a href='/live'><li>Live</li></a>
+              <a href='/store'><li>Store</li></a>
+              <a href='contact'><li>Contact Us</li></a>
             </ul>
           </div>
           <div className="leading-10 ">
             <h2 className='font-semibold text-xl'>Finance</h2>
             <ul>
-              <a href='#'><li>Giving</li></a>
+              <a href='/giving'><li>Giving</li></a>
             </ul>
           </div>
           <div className="leading-10 ">
