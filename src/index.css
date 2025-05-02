@@ -172,6 +172,14 @@ code {
   scrollbar-color: #BA833C transparent;
 }
 
+.swiper-pagination-bullet {
+  background-color: yellow !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: gold !important;
+}
+
 .switch {
   position: relative;
   display: inline-block;
@@ -231,3 +239,4 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
