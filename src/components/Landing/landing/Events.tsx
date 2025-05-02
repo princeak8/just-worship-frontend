@@ -40,7 +40,7 @@ export default function Events() {
                 <div className="w-full p-10 overflow-x-hidden bg-gradient-to-br from-purple-50 to-blue-50">
                     <section className="space-y-4">
                         <div className="text-center">
-                            <h2 className="text-xl lg:text-5xl font-bold lg:font-normal uppercase bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Upcoming Events</h2>
+                            <h2 className="text-xl lg:text-5xl font-bold lg:font-normal uppercase">Upcoming Events</h2>
                             <p className="lg:w-1/2 mx-auto text-gray-600">
                                 We warmly invite you to worship with us, take part in uplifting ministries, and join hands in fellowship as we celebrate God’s love together.
                             </p>
