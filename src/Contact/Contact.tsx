@@ -454,7 +454,7 @@ const ContactUs: React.FC = () => {
             {Questions.map((question, index) => (
               <section key={index} className='z-10'>
                 <div className='border-b py-2 mt-2 flex items-center justify-between cursor-pointer' onClick={() => toggleModal(index)} >{question?.question} {modal === index ? <ChevronLeft /> : <ChevronDown />}</div>
-                <motion.div className='bg-purple-300 bg-opacity-20 backdrop-blur-md text-justify'
+                <motion.div className='bg-[#F8DA94] bg-opacity-20 backdrop-blur-md text-justify'
                   initial={{ overflowY: 'hidden', height: 0 }}
                   animate={modal === index ? { height: 'auto' } : { overflowY: 'hidden', height: 0 }}
                   transition={{ duration: 0.5, type: 'tween' }}
