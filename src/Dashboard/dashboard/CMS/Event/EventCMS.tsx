@@ -98,7 +98,7 @@ export default function EventCMS() {
                         <p className="text-sm text-gray-500">{event?.date}</p>
                         <p className="text-sm text-gray-500">{event?.time}</p>
                         </div>
-                        <p className="text-sm text-white flex items-center gap-2 bg-purple-500 p-1 px-2 rounded-md"><Users size={15} className='' />{event.bookings.length}</p>
+                        <p className="text-sm text-white flex items-center gap-2 bg-[#BA833C] p-1 px-2 rounded-md"><Users size={15} className='' />{event.bookings.length}</p>
                       </div>
                       <p className="text-base text-gray-700 text-justify">{event.content}</p>
                     </CardContent>
