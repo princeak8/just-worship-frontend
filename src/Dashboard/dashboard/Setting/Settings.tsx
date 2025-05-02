@@ -72,7 +72,7 @@ export default function UserProfileSettings() {
                                             <img
                                                 src={user.profileImage || '/src/public/card5.jpeg'}
                                                 alt='profile'
-                                                className="w-24 h-24 rounded-full object-cover border-4 border-purple-700"
+                                                className="w-24 h-24 rounded-full object-cover border-4 border-[#BA833C]"
                                             />
                                             {editMode && (
                                                 <label className="absolute bottom-0 right-0 bg-white p-2 rounded-full shadow-lg cursor-pointer">

@@ -55,11 +55,11 @@ export default function AddTeam() {
     <form onSubmit={handleSubmit(onSubmit)} className="min-h-screen p-8 bg-gray-50">
       <div className="max-w-6xl mx-auto">
         <div className='flex items-center justify-between'>
-        <h1 className="text-3xl font-bold mb-8 flex items-center gap-2"><Link to='/dashboard/cms/team' ><ArrowLeftCircle  className='hover:text-purple-500' /></Link>Team Page Manager</h1>
+        <h1 className="text-3xl font-bold mb-8 flex items-center gap-2"><Link to='/dashboard/cms/team' ><ArrowLeftCircle  className='hover:text-[#BA833C]' /></Link>Team Page Manager</h1>
           {isLoading ?(
-             <Button className='flex items-center gap-2 bg-purple-500 hover:bg-purple-600 rounded-md p-2 px-4 text-white'><Loader2 className='animate-spin' /></Button>
+             <Button className='flex items-center gap-2 bg-[#BA833C] hover:bg-[#F8DA94] hover:text-black rounded-md p-2 px-4 text-white'><Loader2 className='animate-spin' /></Button>
           ):(
-            <Button type='submit' className='flex items-center gap-2 bg-purple-500 hover:bg-purple-600 rounded-md p-2 px-4 text-white'><Save className="w-4 h-4" />{id ? 'Update Member' : 'Save Member'}</Button>
+            <Button type='submit' className='flex items-center gap-2 bg-[#BA833C] hover:bg-[#F8DA94] hover:text-black rounded-md p-2 px-4 text-white'><Save className="w-4 h-4" />{id ? 'Update Member' : 'Save Member'}</Button>
           )}
         </div>
 

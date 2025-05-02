@@ -51,12 +51,12 @@ export default function LiveCMS() {
     }
   };
 
-  if (isLoading) return <div className='w-full h-screen flex items-center justify-center'><Loader2 size={50} className='text-purple-500 animate-spin' /></div>;
+  if (isLoading) return <div className='w-full h-screen flex items-center justify-center'><Loader2 size={50} className='text-[#BA833C] animate-spin' /></div>;
 
   return (
     <div className="min-h-screen p-8 bg-gray-50">
       {warning && (
-        <section className=' fixed w-full h-screen inset-0 bg-purple-500 bg-opacity-20 flex items-center justify-center'>
+        <section className=' fixed w-full h-screen inset-0 bg-black/50 bg-opacity-20 flex items-center justify-center'>
           <div className='w-[25em] bg-white rounded-md border border-yellow-500 overflow-hidden p-4 text-center space-y-4'>
             <p>Are you sure you want to delete &apos;<span className='italic font-bold text-red-700'>{selectedLive?.title || "member"}</span>&apos; live event?</p>
             <div className='flex items-center justify-between'>
@@ -71,7 +71,7 @@ export default function LiveCMS() {
           <h1 className="text-3xl font-bold mb-8">Live Page Manager</h1>
           <Link
             to="/dashboard/cms/live/add"
-            className="flex gap-2 bg-purple-500 hover:bg-purple-600 rounded-md p-2 px-4 text-white"
+            className="flex gap-2 bg-[#BA833C] hover:bg-[#F8DA94] hover:text-black rounded-md p-2 px-4 text-white"
           >
             <Plus className="w-4 h-4" />
             Add Live

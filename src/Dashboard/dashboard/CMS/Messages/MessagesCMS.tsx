@@ -54,7 +54,7 @@ export default function MessagesCMS() {
     }
   }, [data]);
 
-  console.log("mess: ", messages)
+  // console.log("mess: ", messages)
 
   return (
     <div className="min-h-screen p-8 bg-gray-50">
@@ -63,7 +63,7 @@ export default function MessagesCMS() {
           <h1 className="text-3xl font-bold">Messages Page Manager</h1>
           <Link 
             to={`/dashboard/cms/messages/create`}
-            className="bg-purple-500 text-white px-4 py-2 rounded-md hover:bg-purple-600 flex items-center gap-2"
+            className="bg-[#BA833C] hover:bg-[#F8DA94] hover:text-black text-white px-4 py-2 rounded-md flex items-center gap-2"
           >
             <Plus className="w-4 h-4" />
             Create Message
@@ -72,7 +72,7 @@ export default function MessagesCMS() {
 
         {isLoading ? (
           <section className='w-full h-screen flex items-center justify-center'>
-            <Loader2 size={50} className='text-purple-500 animate-spin' />
+            <Loader2 size={50} className='text-[#BA833C] animate-spin' />
           </section>
         ) : (
           <section className='space-y-8'>
@@ -84,7 +84,7 @@ export default function MessagesCMS() {
                 <div className="space-y-4 ">
                   <div className='flex items-center justify-between'>
                 <h2 className="text-lg font-semibold">{message?.title || '--no title--'}</h2>
-                <div className='bg-purple-500 rounded-md p-2 px-3 flex items-center justify-center text-white ' title='reply'>
+                <div className='bg-[#F8DA94] text-black rounded-md p-2 px-3 flex items-center justify-center ' title='reply'>
                 <Send size={15}/>
                 </div>
                   </div>

@@ -23,7 +23,7 @@ export default function ContactCMS() {
     
   }, [data]);
 
-  if (isLoading) return <div className='w-full h-screen flex items-center justify-center'><Loader2 size={50} className='text-purple-500 animate-spin' /></div>;
+  if (isLoading) return <div className='w-full h-screen flex items-center justify-center'><Loader2 size={50} className='text-[#BA833C] animate-spin' /></div>;
 
   return (
     <div className="min-h-screen p-8 bg-gray-50">
@@ -32,7 +32,7 @@ export default function ContactCMS() {
           <h1 className="text-3xl font-bold mb-8">Contact Page Manager</h1>
           <Link 
             to={'/dashboard/cms/contact/edit'} 
-            className="flex gap-2 bg-purple-500 hover:bg-purple-600 rounded-md p-2 px-4 text-white"
+            className="flex gap-2 bg-[#BA833C] hover:bg-[#F8DA94] hover:text-black rounded-md p-2 px-4 text-white"
           >
             <Edit className="w-4 h-4 mr-2" />
             Edit Contact Info

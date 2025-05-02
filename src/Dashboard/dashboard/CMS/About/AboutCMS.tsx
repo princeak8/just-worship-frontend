@@ -61,7 +61,7 @@ export default function AboutCMS() {
           <h1 className="text-3xl font-bold">About Page Manager</h1>
           <Link 
             to={`/dashboard/cms/about/${aboutSections?.id}`}
-            className="bg-purple-500 text-white px-4 py-2 rounded-md hover:bg-purple-600 flex items-center gap-2"
+            className="bg-[#BA833C] text-white px-4 py-2 rounded-md hover:bg-[#F8DA94] hover:text-black flex items-center gap-2"
           >
             <Edit className="w-4 h-4" />
             Edit About
@@ -70,7 +70,7 @@ export default function AboutCMS() {
 
         {isLoading ? (
           <section className='w-full h-screen flex items-center justify-center'>
-            <Loader2 size={50} className='text-purple-500 animate-spin' />
+            <Loader2 size={50} className='text-[#BA833C] animate-spin' />
           </section>
         ) : (
           <section className='space-y-8'>

@@ -28,7 +28,7 @@ const Header = () => {
               <BellIcon />
             </button>
             <div className="flex items-center gap-2">
-              <User2 size={40} className="border border-purple-500 text-purple-500 rounded-full "/>
+              <User2 size={40} className="border border-[#BA833C] text-[#BA833C] rounded-full "/>
               <p>{user}</p>
             </div>
           </div>

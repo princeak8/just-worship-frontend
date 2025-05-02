@@ -320,7 +320,7 @@ export default function GivingCMS() {
                 <div className="bg-white rounded-lg shadow-sm border mb-6">
                     <div className="flex items-center justify-between p-4 border-b">
                         <h2 className="text-lg font-semibold text-gray-700">Bank Accounts</h2>
-                        <Button onClick={() => { setIsCreateModalOpen(true); setBinary(0) }} className='bg-purple-500'>
+                        <Button onClick={() => { setIsCreateModalOpen(true); setBinary(0) }} className='bg-[#BA833C] hover:bg-[#F8DA94] hover:text-black'>
                             <Plus className="mr-2 h-4 w-4" />
                             Add Account
                         </Button>
@@ -376,7 +376,7 @@ export default function GivingCMS() {
                 <div className="bg-white rounded-lg shadow-sm border mb-6">
                     <div className="flex items-center justify-between p-4 border-b">
                         <h2 className="text-lg font-semibold text-gray-700">Online Accounts</h2>
-                        <Button onClick={() => { setIsCreateModalOpen(true); setBinary(1) }} className='bg-purple-500'>
+                        <Button onClick={() => { setIsCreateModalOpen(true); setBinary(1) }} className='bg-[#BA833C] hover:bg-[#F8DA94] hover:text-black'>
                             <Plus className="mr-2 h-4 w-4" />
                             Add Online Account
                         </Button>
@@ -442,7 +442,7 @@ export default function GivingCMS() {
                                         size='icon'
                                         onClick={() => { setViewMethod(account); setIsModalOpen(true) }}
                                     >
-                                        <Eye className="h-4 w-4 text-purple-600" />
+                                        <Eye className="h-4 w-4 text-[#BA833C]" />
                                     </Button>
                                     <Button
                                         variant='ghost'
@@ -476,7 +476,7 @@ export default function GivingCMS() {
                                             onChange={(e) => editingMethod
                                                 ? setFormState({ ...formState, name: e.target.value })
                                                 : setNewMethodName({ ...newMethodName, name: e.target.value })}
-                                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#BA833C] focus:border-transparent"
                                             placeholder="Account name"
                                             required
                                         />
@@ -490,7 +490,7 @@ export default function GivingCMS() {
                                             onChange={(e) => editingMethod
                                                 ? setFormState({ ...formState, number: e.target.value })
                                                 : setNewMethodName({ ...newMethodName, number: e.target.value })}
-                                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#BA833C] focus:border-transparent"
                                         />
                                     </div>
                                     <div>
@@ -513,7 +513,7 @@ export default function GivingCMS() {
                                                     });
                                                 }
                                             }}
-                                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#BA833C] focus:border-transparent"
                                         >
                                             <option value="">Select Bank</option>
                                             {banks?.data.map((bank: any) => (
@@ -544,7 +544,7 @@ export default function GivingCMS() {
                                                     });
                                                 }
                                             }}
-                                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#BA833C] focus:border-transparent"
                                         >
                                             <option value="">Select Country</option>
                                             {countries?.data.map((country: any) => (
@@ -564,7 +564,7 @@ export default function GivingCMS() {
                                             onChange={(e) => editingMethod
                                                 ? setFormState({ ...formState, currency: e.target.value })
                                                 : setNewMethodName({ ...newMethodName, currency: e.target.value })}
-                                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#BA833C] focus:border-transparent"
                                         />
                                     </div>
                                 </div>
@@ -581,7 +581,7 @@ export default function GivingCMS() {
                                             onChange={(e) => editingMethod
                                                 ? setFormState2({ ...formState2, name: e.target.value })
                                                 : setNewMethodName({ ...newMethodName, name: e.target.value })}
-                                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#BA833C] focus:border-transparent"
                                         />
                                     </div>
                                     <div>
@@ -593,7 +593,7 @@ export default function GivingCMS() {
                                             onChange={(e) => editingMethod
                                                 ? setFormState2({ ...formState2, url: e.target.value })
                                                 : setNewMethodName({ ...newMethodName, url: e.target.value })}
-                                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#BA833C] focus:border-transparent"
                                         />
                                     </div>
                                 </div>
@@ -605,7 +605,7 @@ export default function GivingCMS() {
                                         type="text"
                                         value={editingMethod?.name}
                                         onChange={(e) => setEditingMethod({ ...editingMethod, name: e.target.value })}
-                                        className="w-full p-2 border rounded-lg mb-4 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                        className="w-full p-2 border rounded-lg mb-4 focus:ring-2 focus:ring-[#BA833C] focus:border-transparent"
                                     />
                                     <div>
                                         <h3 className="font-medium text-gray-800 mb-2">Linked Accounts</h3>
@@ -644,7 +644,7 @@ export default function GivingCMS() {
                                             <select
                                                 value={linkAccount}
                                                 onChange={(e) => setLinkAccount(e.target.value)}
-                                                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500"
+                                                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#BA833C]"
                                             >
                                                 <option value="">Select an account</option>
                                                 {accounts?.data?.map((account: any) => (
@@ -656,7 +656,7 @@ export default function GivingCMS() {
                                         </div>
                                         <div>
                                             <p className="text-sm mb-2">Link Online Account (optional)</p>
-                                            <select value={linkOnlineAccount} onChange={(e) => setLinkOnlineAccount(e.target.value)} className="w-full p-2 border rounded-lg mb-4 focus:ring-2 focus:ring-purple-500 focus:border-transparent " >
+                                            <select value={linkOnlineAccount} onChange={(e) => setLinkOnlineAccount(e.target.value)} className="w-full p-2 border rounded-lg mb-4 focus:ring-2 focus:ring-[#BA833C] focus:border-transparent " >
                                                 <option>Add Online Account</option>
                                                 {onlineAccounts?.map((account: any, index: number) => (
                                                     <option key={index} value={account?.id}>{account?.name}</option>
@@ -683,7 +683,7 @@ export default function GivingCMS() {
                                 <Button
                                     onClick={editingMethod ? handleUpdate : handleCreate}
                                     disabled={load || load2}
-                                    className='bg-purple-500'
+                                    className='bg-[#BA833C] hover:bg-[#F8DA94] hover:text-black'
                                 >
                                     {load || load2 ? (
                                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
