@@ -468,7 +468,7 @@ const AboutUs: React.FC = () => {
                         type="submit"
                         className="w-full py-2 px-4 bg-[#BA833C] text-white font-medium rounded hover:bg-amber-600 transition"
                       >
-                        Request for more info!
+                        Request for more info
                       </button>
                     </form>
                   </div>
