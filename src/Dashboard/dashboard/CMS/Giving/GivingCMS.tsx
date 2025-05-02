@@ -282,7 +282,7 @@ export default function GivingCMS() {
 
     if (isLoading) return (
         <section className='w-full h-screen flex items-center justify-center'>
-            <Loader2 size={50} className='text-purple-500 animate-spin' />
+            <Loader2 size={50} className='text-[#BA833C] animate-spin' />
         </section>
     );
 
