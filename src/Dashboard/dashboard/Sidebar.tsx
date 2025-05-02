@@ -102,7 +102,7 @@ const Sidebar = () => {
 
             <img src={Logo} alt='Logo' className='w-20' />
           </div>
-          <nav className={`custom-scrollbar flex flex-col overflow-y-auto h-[80svh] justify-between `}>
+          <nav className={`custom-scrollbar flex flex-col overflow-y-auto h-[82svh] justify-between `}>
             <div>
               {paths?.map((path: any, index: number) => (
                 <section className={`grid `}>
@@ -134,8 +134,8 @@ const Sidebar = () => {
               ))}
             </div>
           </nav>
-          <div className={`m-2 mx-2 p-4 px-2 items-center gap-4 text-sm border-t border-t-[#BA833C]`}>
-            <p onClick={logout} className={`my-2 p-4 px-2 hover:bg-red-100 rounded-lg hover:text-purple-500 flex items-center gap-4 text-sm cursor-pointer`}>
+          <div className={`  px-2 items-center gap-4 text-sm bg-black text-white`}>
+            <p onClick={logout} className={`my-2 p-4 px-2 hover:bg-gray-900 rounded-lg hover:text-red-500 flex items-center gap-4 text-sm cursor-pointer`}>
               <Power /> Logout
             </p>
           </div>
