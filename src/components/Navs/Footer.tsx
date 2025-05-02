@@ -2,8 +2,22 @@ import { Apple, Facebook, Instagram, LucideYoutube, Twitter, Youtube } from 'luc
 import Background from '../../public/galleryBG.jpeg';
 import Logo from '../../public/logo.png'
 import FooterIMG from '../../public/justworship.svg'
+import { useGetAboutQuery } from '@/app/api';
+
+interface AboutSection {
+  id: string;
+  vision: string;
+  visionPhoto: {
+    url: string;
+  }
+  mission?: string;
+  missionPhoto: {
+    url: string;
+  }
+}
 
 export default function Footer() {
+  const { data: about, isLoading } = useGetAboutQuery<AboutSection | any | undefined>(undefined);
   return (
     <div className="w-full text-white"
       style={{
@@ -16,7 +30,7 @@ export default function Footer() {
         <section className="container space-y-4 grid lg:grid-cols-7 gap-6 border-b py-10 border-white">
           <div className="w-full col-span-2 text-justify space-y-2">
             <img src={Logo} className='w-20' />
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati quae at accusantium culpa nihil deserunt dicta qui esse in magni, ipsam veniam amet recusandae error porro quam doloribus assumenda atque.</p>
+            <p className='text-sm'>{about?.data?.vision}</p>
           </div>
           <div className="leading-10 ">
             <h2 className='font-semibold text-xl'>About</h2>
