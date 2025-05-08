@@ -102,7 +102,7 @@ const Sidebar = () => {
 
             <img src={Logo} alt='Logo' className='w-20' />
           </div>
-          <nav className={`custom-scrollbar flex flex-col overflow-y-auto h-[82svh] justify-between `}>
+          <nav className={`custom-scrollbar flex flex-col overflow-y-auto h-[80svh] justify-between `}>
             <div>
               {paths?.map((path: any, index: number) => (
                 <section className={`grid `}>

@@ -13,6 +13,7 @@ import image2 from '@/public/card2.jpeg'
 import image3 from '@/public/card3.jpeg'
 import image4 from '@/public/card4.jpeg'
 import SkeletonLoader from '@/SkeletonLoader';
+import { Loader2, X } from 'lucide-react';
 
 interface AboutSection {
   id: string;
@@ -61,6 +62,13 @@ const AboutUs: React.FC = () => {
   const { data, isLoading: load } = useGetGalleryQuery<StockData[] | any | undefined>(undefined);
   const [Gallery, setGallery] = useState<any>([])
   const [searchparams, setSearchParams] = useState('')
+  const [selected, setSelected] = useState(false);
+  const [selectedMember, setSelectedMember] = useState<object | any>({
+    id: -1,
+    name: '',
+    position: '',
+    biography: '',
+  });
 
   const search = () => {
     if (!data?.data) return [];
@@ -154,7 +162,7 @@ const AboutUs: React.FC = () => {
               viewport={{ once: true }}
             >
               <div className="container max-w-6xl mx-auto flex flex-col lg:flex-row items-center lg:gap-40 lg:px-4 sm:px-6 lg:px-8 overflow-hidden">
-              <motion.div
+                <motion.div
                   className="w-full lg:w-2/6"
                   initial={{ x: -50, opacity: 0 }}
                   whileInView={{ x: 0, opacity: 1 }}
@@ -198,7 +206,7 @@ const AboutUs: React.FC = () => {
                     </p>
                   </motion.p>
                 </motion.div>
-               
+
               </div>
             </motion.section>
           )}
@@ -218,7 +226,7 @@ const AboutUs: React.FC = () => {
                 transition={{ duration: 0.8, delay: 0.4 }}
                 viewport={{ once: true }}
               >
-                 <motion.h2
+                <motion.h2
                   className="text-3xl font-semibold mb-6 uppercase flex flex-col items-center"
                   initial={{ y: -20, opacity: 0 }}
                   whileInView={{ y: 0, opacity: 1 }}
@@ -226,8 +234,8 @@ const AboutUs: React.FC = () => {
                   viewport={{ once: true }}
                 >
                   <div className='w-30'>
-                  The Vision
-                  <div className='w-full h-1 bg-gradient-to-r from-[#BA833C] to-[#F8DA94] mt-2'/>
+                    The Vision
+                    <div className='w-full h-1 bg-gradient-to-r from-[#BA833C] to-[#F8DA94] mt-2' />
                   </div>
                 </motion.h2>
                 <motion.p
@@ -256,8 +264,8 @@ const AboutUs: React.FC = () => {
                   viewport={{ once: true }}
                 >
                   <div className='w-30'>
-                  Our Mission
-                  <div className='w-full h-1 bg-gradient-to-r from-[#BA833C] to-[#F8DA94] mt-2'/>
+                    Our Mission
+                    <div className='w-full h-1 bg-gradient-to-r from-[#BA833C] to-[#F8DA94] mt-2' />
                   </div>
                 </motion.h2>
                 <motion.p
@@ -331,7 +339,7 @@ const AboutUs: React.FC = () => {
           >
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
               <motion.h2
-                className="text-3xl font-semibold text-center mb-12 " 
+                className="text-3xl font-semibold text-center mb-12 "
                 initial={{ y: -20, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.5 }}
@@ -368,6 +376,14 @@ const AboutUs: React.FC = () => {
                       <h2 className="text-xl font-semibold text-gray-900 mb-2">{member.name}</h2>
                       <p className="text-sm text-[#BA833C] font-medium mb-4">{member?.position}</p>
                       <p className="text-base text-gray-600 leading-relaxed line-clamp-4">{member?.biography}</p>
+                      <motion.button
+                        className="text-sm py-2 px-4 rounded-full border border-[#181D21]"
+                        whileHover={{ scale: 1.05, backgroundColor: '#181D21', color: '#fff' }}
+                        transition={{ duration: 0.3 }}
+                        onClick={() => { setSelectedMember(member); setSelected(true) }}
+                      >
+                        Read more
+                      </motion.button>
                     </motion.div>
                   </motion.div>
                 ))}
@@ -530,6 +546,53 @@ const AboutUs: React.FC = () => {
           </div> */}
         </>
       )}
+
+      <motion.div
+        className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4 z-50 overflow-y-auto pt-20 md:pt-0"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: selected ? 1 : 0 }}
+        style={{ pointerEvents: selected ? 'auto' : 'none' }}
+      >
+        <motion.div
+          className="bg-[#080806] rounded-xl max-w-xl w-full shadow-2xl"
+          initial={{ scale: 0.95 }}
+          animate={{ scale: selected ? 1 : 0.95 }}
+        >
+          <div className="relative p-8">
+            <button
+              onClick={() => setSelected(false)}
+              className="absolute top-4 right-4 text-white/50 hover:text-white transition-colors"
+            >
+              <X />
+            </button>
+
+            <div className="flex flex-col items-center gap-6">
+              <motion.div
+                className="relative w-32 h-32 rounded-full border-2 border-[#BA833C] overflow-hidden"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+              >
+                <img
+                  src={selectedMember.photo?.url || Avatar}
+                  alt={selectedMember.name}
+                  className="w-full h-full object-cover object-top"
+                />
+              </motion.div>
+
+              <div className="text-center space-y-2">
+                <h3 className="text-2xl font-semibold text-white">{selectedMember.name}</h3>
+                <p className="text-[#BA833C] font-medium">{selectedMember.position}</p>
+              </div>
+
+              <div className="w-full max-h-[30rem] overflow-y-auto pr-4">
+                <p className="text-white/80 text-center leading-relaxed whitespace-pre-line">
+                  {selectedMember.biography}
+                </p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
 
     </div>
   );
