@@ -5,7 +5,7 @@ import Sidebar from './dashboard/Sidebar';
 const Layout = () => {
     return (
         <section className="flex min-h-screen bg-gray-100 w-full fixed">
-            <div className='w-2/12 h-screen border-r border-r-black'>
+            <div className='w-2/12 h-screen border-r'>
                 <Sidebar />
             </div>
             <div className=" p-6 w-full">

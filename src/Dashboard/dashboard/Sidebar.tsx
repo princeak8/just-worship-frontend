@@ -80,14 +80,15 @@ export const paths = [
 ]
 
 const Sidebar = () => {
-  const root = useLocation();
-  const [isSubOpen, setIsSubOpen] = useState(true)
+  const location = useLocation();
+  const [openSubmenu, setOpenSubmenu] = useState<string | null>('Content Management')
 
   useEffect(() => {
-    if (root.pathname.includes('cms')) {
-      setIsSubOpen(true)
+    if (location.pathname.includes('cms')) {
+      setOpenSubmenu('Content Management')
     }
-  }, [])
+  }, [location.pathname])
+
 
   const logout = () => {
     Cookies.remove('token')
@@ -95,54 +96,72 @@ const Sidebar = () => {
   }
 
   return (
-    <div>
-      <div className="left-0 top-0 h-screen w-full text-black ">
-        <div className="flex flex-col space-y-2">
-          <div className="inset-0 flex justify-center border-b border-b-black py-4 px-2 bg-black">
+    <div className="h-screen bg-gray-900 text-gray-300 flex flex-col">
+      <div className="p-6 border-b border-gray-700">
+        <img src={Logo} alt='Logo' className='w-32' />
+      </div>
 
-            <img src={Logo} alt='Logo' className='w-20' />
-          </div>
-          <nav className={`custom-scrollbar flex flex-col overflow-y-auto h-[80svh] justify-between `}>
-            <div>
-              {paths?.map((path: any, index: number) => (
-                <section className={`grid `}>
-                  <Link to={path.path} key={index} className={`m-2 mx-2 p-4 px-2 hover:bg-yellow-50 hover:text-[#BA833C] rounded-lg flex items-center gap-4 text-sm ${root.pathname === path.path && 'bg-black bg-opacity-50'}`}>
-                    <div onClick={() => {
-                      path?.sub &&
-                      // setIsSubOpen(!isSubOpen) }} 
-                      setIsSubOpen(true)
-                    }}
-                      className='flex gap-4'>{path.icon}<p>{path.name}</p></div>
-                    {path?.sub && (isSubOpen ? <ChevronDown
-                      onClick={() => {
-                        path?.sub &&
-                        // setIsSubOpen(!isSubOpen) 
-                        setIsSubOpen(true)
-                      }} />
-                      : <ChevronLeft onClick={() => { path?.sub && setIsSubOpen(!isSubOpen) }} />)}
+      <nav className="flex-1 overflow-y-auto custom-scrollbar p-4">
+        {paths.map((item) => (
+          <div key={item.name} className="mb-2">
+            <Link
+              to={item.path}
+              // onClick={() => item.sub && setOpenSubmenu(
+              //   openSubmenu === item.name ? null : item.name
+              // )}
+              className={`flex items-center justify-between p-3 rounded-lg transition-colors
+                ${location.pathname === item.path ? 'bg-amber-600 text-white' : ''}
+                ${!item.sub ? 'hover:bg-gray-800' : ''}`
+              }
+            >
+              <div className="flex items-center gap-3">
+                {item.icon}
+                <span className="text-sm font-medium">{item.name}</span>
+              </div>
+              {item.sub && (
+                openSubmenu === item.name ? (
+                  <ChevronDown className="w-4 h-4 transform transition-transform" />
+                ) : (
+                  <ChevronLeft className="w-4 h-4 transform transition-transform" />
+                )
+              )}
+            </Link>
+
+            {item.sub && openSubmenu === item.name && (
+              <div className="ml-8 mt-1 space-y-2">
+                {item.sub.map((subItem) => (
+                  <Link
+                    key={subItem.path}
+                    to={subItem.path}
+                    className={`flex items-center gap-2 p-2 text-sm rounded-lg transition-colors
+                      ${location.pathname === subItem.path 
+                        ? 'text-amber-400 font-medium' 
+                        : 'hover:bg-gray-800 text-gray-400'}`
+                    }
+                  >
+                    <Dot size={20} className="text-current" />
+                    {subItem.name}
                   </Link>
-                  {path?.sub &&
-                    <section className={`-mt-2 ${isSubOpen && 'p-4 px-2'}`}>
-                      {path?.sub && isSubOpen && path?.sub.map((sub: any, index: number) => (
-                        <Link to={sub.path} key={index} className={`p-2 hover:bg-yellow-50 hover:text-[#BA833C] hover:font-bold rounded-lg flex items-center gap-4 p-4 text-sm ${root.pathname === sub.path && 'bg-black bg-opacity-50 font-bold '}`} >
-                          {sub.icon}<p>{sub.name}</p>
-                        </Link>
-                      ))}
-                    </section>
-                  }
-                </section>
-              ))}
-            </div>
-          </nav>
-          <div className={`  px-2 items-center gap-4 text-sm bg-black text-white`}>
-            <p onClick={logout} className={`my-2 p-4 px-2 hover:bg-gray-900 rounded-lg hover:text-red-500 flex items-center gap-4 text-sm cursor-pointer`}>
-              <Power /> Logout
-            </p>
+                ))}
+              </div>
+            )}
           </div>
-        </div>
+        ))}
+      </nav>
+
+      <div className="p-4 border-t border-gray-700">
+        <button
+          onClick={logout}
+          className="w-full flex items-center gap-3 p-3 text-sm font-medium
+            text-red-400 hover:bg-gray-800 rounded-lg transition-colors"
+        >
+          <Power className="w-5 h-5" />
+          Logout
+        </button>
       </div>
     </div>
   )
 }
 
 export default Sidebar
+
