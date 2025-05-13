@@ -112,6 +112,50 @@ const ContactUs: React.FC = () => {
       question: "How can I stay updated on your events and releases?",
       answer: "Follow us on social media and subscribe to our newsletter for the latest updates on music, events, and teaching content."
     },
+    {
+      question: "What does it mean to be a partner with Just Worship International Music Outreach?",
+      answer: "Partnership means standing with us financially, spiritually, and in support of our mission to inspire lives through worship music."
+    },
+    {
+      question: "How do I become a partner?",
+      answer: "Simply visit our Partnership page, choose your level of support, and complete the registration. We’ll welcome you to our family of partners!"
+    },
+    {
+      question: "How can I support Worship International Music Outreach financially?",
+      answer: "You can give via multiple secure methods, including online donations, direct bank transfers, and mobile payment platforms. Visit our Giving & Partnership page for full details."
+    },
+    {
+      question: "Why is giving important to Just Worship International Music Outreach?",
+      answer: "Your generosity helps us spread the message of faith and hope through music, reaching hearts worldwide. Every contribution supports our mission, events, and outreach programs."
+    },
+    {
+      question: "Can I set up recurring donations?",
+      answer: "Yes! We offer options for recurring monthly, quarterly, or yearly giving. Simply select the recurring donation option when making your contribution."
+    },
+    {
+      question: "Can I give in-kind donations instead of money?",
+      answer: "Absolutely! We appreciate non-cash donations such as musical instruments, production equipment, and other relevant resources. Contact us for details on how to give."
+    },
+    {
+      question: "How is my donation used?",
+      answer: "Funds go toward music production, outreach programs, campus tours, live events, and ministry expansion to ensure the gospel reaches more people through worship."
+    },
+    {
+      question: "Can I give anonymously?",
+      answer: "Absolutely! We respect privacy and provide options for anonymous giving. Use 'Anonymous Donation' when making your contribution."
+    },
+    {
+      question: "Can I fund a specific project, such as an album or worship conference?",
+      answer: "Yes, we accept designated gifts for specific ministry projects, including music recordings, worship conferences, and community outreach. Contact us to align your giving with a project."
+    },
+    {
+      question: "Is there a way to give as a church or organization?",
+      answer: "Yes, churches and organizations can form corporate partnerships and give collectively. Reach out for details on how your community can support our mission."
+    },
+    {
+      question: "Can I give specifically toward International missions?",
+      answer: "Yes! If you want your donation to go toward global outreach efforts, use 'International Missions' during your giving process."
+    }
   ];
   
 
