@@ -22,7 +22,7 @@ interface Slide {
 export default function CreateLive() {
   const { id } = useParams()
   const { formInstance, isLoading20, onSubmit, fetchedImage } = useEvent()
-  const { handleSubmit, addEventDetail } = formInstance;
+  const { handleSubmit, addEventDetail, errors } = formInstance;
 
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -52,7 +52,7 @@ export default function CreateLive() {
     <form onSubmit={handleSubmit(onSubmit)} className="min-h-screen p-8 bg-gray-50">
       <div className="max-w-6xl mx-auto">
         <div className='flex items-center justify-between'>
-        <h1 className="text-3xl font-bold mb-8 flex items-center gap-2"><Link to='/dashboard/cms/live' ><ArrowLeftCircle className='hover:text-[#BA833C]' /></Link>Live Page Manager</h1>
+          <h1 className="text-3xl font-bold mb-8 flex items-center gap-2"><Link to='/dashboard/cms/live' ><ArrowLeftCircle className='hover:text-[#BA833C]' /></Link>Live Page Manager</h1>
           {isLoading20 ? (
             <Button className='flex items-center gap-2 bg-[#BA833C] hover:bg-[#F8DA94] hover:text-black rounded-md p-2 px-4 text-white'><Loader2 className='animate-spin' /></Button>
           ) : (
@@ -76,24 +76,39 @@ export default function CreateLive() {
                       id="title"
                       {...addEventDetail('title')}
                     />
+                    {errors.title && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {errors.title.message}
+                      </p>
+                    )}
                   </div>
 
                   <div>
                     <Label>Date <span className='text-red-500'>*</span></Label>
                     <Input
                       type='date'
-                      id="date"
-                      {...addEventDetail('date')}
+                      id="liveDate"
+                      {...addEventDetail('liveDate')}
                     />
+                    {errors.liveDate && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {errors.liveDate.message}
+                      </p>
+                    )}
                   </div>
 
                   <div>
                     <Label>Date <span className='text-red-500'>*</span></Label>
                     <Input
                       type='time'
-                      id="time"
-                      {...addEventDetail('time')}
+                      id="liveTime"
+                      {...addEventDetail('liveTime')}
                     />
+                    {errors.liveTime && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {errors.liveTime.message}
+                      </p>
+                    )}
                   </div>
 
                   <div>
@@ -103,6 +118,11 @@ export default function CreateLive() {
                       rows={3}
                       {...addEventDetail('description')}
                     />
+                    {errors.description && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {errors.description.message}
+                      </p>
+                    )}
                   </div>
 
                   <div>
@@ -111,6 +131,11 @@ export default function CreateLive() {
                       id="url"
                       {...addEventDetail('url')}
                     />
+                    {errors.url && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {errors.url.message}
+                      </p>
+                    )}
                   </div>
 
                   {/* <div className="flex gap-2">
@@ -152,6 +177,11 @@ export default function CreateLive() {
                       },
                     })}
                   />
+                  {errors.image && (
+                    <p className="mt-1 text-sm text-red-600">
+                      {errors.image.message}
+                    </p>
+                  )}
 
                 </div>
               </CardContent>

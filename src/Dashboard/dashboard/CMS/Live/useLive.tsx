@@ -1,12 +1,13 @@
 import { useAddEventMutation, useAddLiveMutation, useEditLiveMutation, useGetEventByIdQuery, useGetLiveByIdQuery, useUpdateEventMutation } from '@/app/api'
+import { max_size } from '@/utils/max_size';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Navigate, useParams } from 'react-router-dom';
 
 interface FormDataDetail {
     title: string;
-    date: string;
-    time: string;
+    liveDate: string;
+    liveTime: string;
     description: string;
     url: string;
     image: FileList;
@@ -15,7 +16,7 @@ interface FormDataDetail {
 const useLive = () => {
     const { id } = useParams()
     const { data: live } = useGetLiveByIdQuery<any>(id, { skip: !id })
-    const [addLive, {isLoading: isLoading20}] = useAddLiveMutation()
+    const [addLive, { isLoading: isLoading20, error }] = useAddLiveMutation()
     const [updateLive] = useEditLiveMutation()
 
     // console.log("id: ", getHeroById)
@@ -43,12 +44,13 @@ const useLive = () => {
         register: addEventDetail,
         handleSubmit,
         setValue,
+        setError,
         formState: { errors },
     } = useForm<FormDataDetail>({
         defaultValues: {
             title: '',
-            date: '',
-            time: '',
+            liveDate: '',
+            liveTime: '',
             description: '',
             url: '',
         },
@@ -57,8 +59,8 @@ const useLive = () => {
     useEffect(() => {
         if (live?.data) {
             setValue('title', live?.data?.title)
-            setValue('date', live?.data.date?.toLocaleString())
-            setValue('time', live?.data.time?.toLocaleString())
+            setValue('liveDate', live?.data.date?.toLocaleString())
+            setValue('liveTime', live?.data.time?.toLocaleString())
             setValue('description', live?.data?.description)
             setValue('url', live?.data?.url)
             setValue('image', live?.data?.coverPhoto?.url || '' as unknown as FileList)
@@ -75,14 +77,62 @@ const useLive = () => {
     };
 
     async function onSubmit(data: FormDataDetail) {
-        const { url, title, description, date, time, image } = data;
+        const { url, title, description, liveDate, liveTime, image } = data;
+
+        if (!title) {
+            setError('title', {
+                type: 'manual',
+                message: 'Title field cannot be empty',
+            });
+            return;
+        }
+
+        if (!liveDate) {
+            setError('liveDate', {
+                type: 'manual',
+                message: 'Date field cannot be empty',
+            });
+            return;
+        }
+
+         if (!liveTime) {
+            setError('liveTime', {
+                type: 'manual',
+                message: 'Time field cannot be empty',
+            });
+            return;
+        }
+
+         if (!url) {
+            setError('url', {
+                type: 'manual',
+                message: 'URL field is required',
+            });
+            return;
+        }
+
+        
+
+
+        if (image.length === 0) {
+            setError('image', { type: 'manual', message: 'Image is required' });
+            return;
+        }
+
+        if (image[0].size > max_size) {
+            setError('image', {
+                type: 'manual',
+                message: 'Image must not be larger than 20 MB',
+            });
+            return;
+        }
 
         const formdata = new FormData()
 
         formdata.append('url', url)
         formdata.append('title', title)
-        formdata.append('liveDate', date)
-        formdata.append('liveTime', time)
+        formdata.append('liveDate', liveDate)
+        formdata.append('liveTime', liveTime)
         formdata.append('description', description)
 
         if (image && image.length > 0 && image[0] instanceof File && image[0] !== live?.data?.coverPhoto?.url) {
@@ -97,8 +147,18 @@ const useLive = () => {
             }
             return window.location.href = '/dashboard/cms/live'
             // return <Navigate to={'/dashboard/cms/events'} />
-        } catch (err) {
-            console.log(err)
+        } catch (err: any) {
+            console.log(err);
+            const validation = err?.data?.errors;
+            if (validation && typeof validation === 'object') {
+                Object.entries(validation).forEach(([field, messages]) => {
+                    const formField = field === 'coverPhoto' ? 'image' : (field as keyof FormDataDetail);
+                    const messageText = Array.isArray(messages) ? messages[0] : (messages as string);
+                    setError(formField as any, { type: 'server', message: messageText });
+                });
+            } else {
+                console.error('Unexpected error:', err);
+            }
         }
     }
 
