@@ -98,7 +98,7 @@ export default function CreateLive() {
                   </div>
 
                   <div>
-                    <Label>Date <span className='text-red-500'>*</span></Label>
+                    <Label>Time <span className='text-red-500'>*</span></Label>
                     <Input
                       type='time'
                       id="liveTime"

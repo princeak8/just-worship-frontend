@@ -21,24 +21,20 @@ const useLive = () => {
 
     // console.log("id: ", getHeroById)
 
-    function convert24To12(time24: any) {
-        // Split the input into hours and minutes
+    function convert24To12(time24: string) {
         const [hourStr, minuteStr] = time24.split(':');
         let hour = parseInt(hourStr, 10);
         const minute = parseInt(minuteStr, 10);
-
-        // Determine AM/PM period
+      
         const period = hour < 12 ? 'AM' : 'PM';
-
-        // Convert hour to 12-hour format
-        hour = hour % 12 || 12; // Handles 0 (midnight) becoming 12 AM
-
-        // Format minute to always be two digits
-        const formattedMinute = minute.toString().padStart(2, '0');
-
-        // Combine into the final string
-        return `${hour}:${formattedMinute} ${period}`;
-    }
+      
+        hour = hour % 12 || 12;
+      
+        const formattedHour   = hour.toString().padStart(2, '0');
+        const formattedMinute = minuteStr.padStart(2, '0');
+      
+        return `${formattedHour}:${formattedMinute} ${period}`;
+      }
 
     const {
         register: addEventDetail,
@@ -132,7 +128,7 @@ const useLive = () => {
         formdata.append('url', url)
         formdata.append('title', title)
         formdata.append('liveDate', liveDate)
-        formdata.append('liveTime', liveTime)
+        formdata.append('liveTime', convert24To12(liveTime))
         formdata.append('description', description)
 
         if (image && image.length > 0 && image[0] instanceof File && image[0] !== live?.data?.coverPhoto?.url) {
