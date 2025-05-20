@@ -176,7 +176,7 @@ const Home = () => {
                     <TableRow key={index}>
                       <TableCell>{index + 1}</TableCell>
                       <TableCell>{subscriber?.email}</TableCell>
-                      <TableCell>{subscriber?.data}</TableCell>
+                      <TableCell>{subscriber?.subscribedAt}</TableCell>
                     </TableRow>
                   ))
                 ) : (
