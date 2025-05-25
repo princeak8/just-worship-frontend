@@ -86,6 +86,7 @@ export default function StoreCMS() {
                   items.map((item) => (
                     <Card key={item.id}>
                       <img
+                      loading="lazy"
                         src={item.coverPhoto.url}
                         alt={item.name}
                         className="w-full h-48 object-cover"

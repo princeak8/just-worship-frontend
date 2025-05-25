@@ -29,7 +29,7 @@ export default function Footer() {
       <div className="w-full h-full lg:h-[45rem] p-10 py-32 bg-black bg-opacity-90 backdrop-blur-lg overflow-hidden" >
         <section className="container space-y-4 grid lg:grid-cols-7 gap-6 border-b py-10 border-white">
           <div className="w-full col-span-2 text-justify space-y-2">
-            <img src={Logo} className='w-20' />
+            <img loading="lazy" src={Logo} className='w-20' />
             <p className='text-sm'>{about?.data?.vision}</p>
           </div>
           <div className="leading-10 ">

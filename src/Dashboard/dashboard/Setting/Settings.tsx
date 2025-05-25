@@ -70,6 +70,7 @@ export default function UserProfileSettings() {
                                     <div className="flex items-center gap-6 mb-8">
                                         <div className="relative group">
                                             <img
+                                            loading="lazy"
                                                 src={user.profileImage || '/src/public/card5.jpeg'}
                                                 alt='profile'
                                                 className="w-24 h-24 rounded-full object-cover border-4 border-[#BA833C]"

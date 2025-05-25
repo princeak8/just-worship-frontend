@@ -142,6 +142,7 @@ const ContactUs: React.FC = () => {
           <div className='rounded-lg bg-white p-6 shadow-xl transform transition-all max-w-lg w-full mx-4'>
             <div className='flex flex-col items-center justify-center gap-4'>
               <img
+              loading="lazy"
                 src={logo}
                 className='w-16 mb-4 animate-scale-in'
                 alt="Success icon"
@@ -167,6 +168,7 @@ const ContactUs: React.FC = () => {
           <div className='rounded-lg bg-white p-6 shadow-xl transform transition-all max-w-md w-full mx-4'>
             <div className='flex flex-col items-center justify-center gap-4'>
               <img
+              loading="lazy"
                 src={logo}
                 className='w-16 mb-4 animate-scale-in'
                 alt="Success icon"

@@ -100,7 +100,7 @@ const App = () => {
             animate={{ scale: 2 }}
             transition={{ duration: 2, repeat: Infinity, repeatType: "mirror" }}
           >
-            <img src={Logo} alt="Logo" className="w-44" />
+            <img loading="lazy" src={Logo} alt="Logo" className="w-44" />
           </motion.div>
         </div>
       </div>

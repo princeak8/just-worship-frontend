@@ -252,6 +252,7 @@ useEffect(() => {
                     >
                       <div className="relative" onClick={ () => setCurrentLive(live)}>
                         <img
+                        loading="lazy"
                           src={live.coverPhoto.url}
                           alt={live.title}
                           className="w-full h-48 rounded-2xl object-cover"

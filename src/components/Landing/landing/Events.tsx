@@ -103,6 +103,7 @@ export default function Events() {
                                 {events?.data?.map((event: any, index: number) => (
                                     <SwiperSlide key={index} className="relative rounded-lg overflow-hidden h-[200px] md:h-[400px] lg:h-[900px]">
                                         <img
+                                        loading="lazy"
                                             src={event?.coverPhoto?.url}
                                             alt={event?.title}
                                             className="w-full h-full object-cover"
@@ -156,6 +157,7 @@ export default function Events() {
                                     <div className="relative group">
                                         <div className="overflow-hidden aspect-video overflow-hidden">
                                             <img
+                                            loading="lazy"
                                                 src={selectedEvent?.coverPhoto?.url}
                                                 alt="Event cover"
                                                 className="w-full object-cover"

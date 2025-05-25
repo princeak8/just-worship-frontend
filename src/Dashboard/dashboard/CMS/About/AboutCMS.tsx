@@ -153,6 +153,7 @@ export default function AboutCMS() {
                   {aboutSections?.pastorPhoto && (
                     <div className="w-1/3">
                       <img
+                      loading="lazy"
                         src={aboutSections?.pastorPhoto?.url}
                         alt="Pastor"
                         className="w-full h-64 object-cover rounded-lg"

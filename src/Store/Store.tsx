@@ -175,6 +175,7 @@ const Store: React.FC = () => {
               >
                 <div className="absolute inset-0 bg-black bg-opacity-50 z-10"></div>
                 <img
+                loading="lazy"
                   src={product.imageUrl}
                   alt={product.title}
                   className="w-full h-full object-cover"
@@ -226,6 +227,7 @@ const Store: React.FC = () => {
                     <div key={product.id} className="group">
                       <div className="bg-gray-100 mb-2 aspect-[3/4] overflow-hidden">
                         <img
+                        loading="lazy"
                           src={product.imageUrl}
                           alt={product.title}
                           className="w-full h-full object-cover"
@@ -256,6 +258,7 @@ const Store: React.FC = () => {
                     <div key={product.id} className="group">
                       <div className="bg-gray-100 mb-2 aspect-square overflow-hidden">
                         <img
+                        loading="lazy"
                           src={product.imageUrl}
                           alt={product.title}
                           className="w-full h-full object-cover"
@@ -286,6 +289,7 @@ const Store: React.FC = () => {
                     <div key={product.id} className="group">
                       <div className="bg-gray-100 mb-2 aspect-square overflow-hidden">
                         <img
+                        loading="lazy"
                           src={product.imageUrl}
                           alt={product.title}
                           className="w-full h-full object-cover"

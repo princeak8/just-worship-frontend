@@ -85,6 +85,7 @@ export default function EventCMS() {
                 events?.map((event) => (
                   <Card key={event.id}>
                     <img
+                    loading="lazy"
                       src={event.coverPhoto.url}
                       alt={event.name}
                       className="w-full h-48 object-cover"

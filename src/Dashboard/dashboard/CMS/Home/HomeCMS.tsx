@@ -133,6 +133,7 @@ export default function HomeCMS() {
                         </div>
                         <div className='w-4/12'>
                           <img
+                          loading="lazy"
                             src={slide?.photo?.url}
                             alt={slide.title}
                             className="w-full h-60 object-cover rounded"

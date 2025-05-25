@@ -86,6 +86,7 @@ export default function TeamCMS() {
                   members.map((member) => (
                     <Card key={member.id}>
                       <img
+                      loading="lazy"
                         src={member.photo.url}
                         alt={member.name}
                          className="w-full max-h-64 object-cover object-top"

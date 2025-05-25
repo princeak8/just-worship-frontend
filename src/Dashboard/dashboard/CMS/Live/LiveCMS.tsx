@@ -84,6 +84,7 @@ export default function LiveCMS() {
                 live?.map((live) => (
                   <Card key={live.id}>
                     <img
+                    loading="lazy"
                       src={live.coverPhoto.url}
                       alt={live.title}
                       className="w-full h-48 object-cover"

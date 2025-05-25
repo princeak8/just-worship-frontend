@@ -209,6 +209,7 @@ const Events: React.FC = () => {
                   >
                     <div className="relative">
                       <img
+                        loading="lazy"
                         src={event.coverPhoto.url}
                         alt={event.name}
                         className="w-full h-96 object-cover"
@@ -306,6 +307,7 @@ const Events: React.FC = () => {
                 >
                   <div className="relative">
                     <img
+                    loading="lazy"
                       src={event.coverPhoto.url}
                       alt={event.name}
                       className="w-full h-80 object-cover"
@@ -378,6 +380,7 @@ const Events: React.FC = () => {
               <div className="relative group">
                 <div className="overflow-hidden aspect-video overflow-hidden">
                   <img
+                  loading="lazy"
                     src={selectedEvent?.coverPhoto?.url}
                     alt="Event cover"
                     className="w-full object-cover"

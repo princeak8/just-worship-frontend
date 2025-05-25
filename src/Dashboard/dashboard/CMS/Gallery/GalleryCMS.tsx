@@ -98,6 +98,7 @@ export default function GalleryCMS() {
                   items.map((item) => (
                     <Card key={item.id}>
                       <img
+                      loading="lazy"
                         src={item.photo.url}
                         alt={item.title}
                         className="w-full h-48 object-cover"

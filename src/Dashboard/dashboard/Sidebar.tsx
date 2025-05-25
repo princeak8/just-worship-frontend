@@ -98,7 +98,7 @@ const Sidebar = () => {
   return (
     <div className="h-screen bg-gray-900 text-gray-300 flex flex-col">
       <div className="p-6 border-b border-gray-700">
-        <img src={Logo} alt='Logo' className='w-32' />
+        <img  loading="lazy" src={Logo} alt='Logo' className='w-32' />
       </div>
 
       <nav className="flex-1 overflow-y-auto custom-scrollbar p-4">

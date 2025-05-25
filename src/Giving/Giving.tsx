@@ -220,7 +220,7 @@ const Giving: React.FC = () => {
                         viewport={{ once: true }}
                         className="bg-orange-500 rounded-lg h-28 text-white flex items-end justify-end relative"
                       >
-                        <img src={vector} className="absolute flex pr-20" alt="vector" />
+                        <img loading="lazy" src={vector} className="absolute flex pr-20" alt="vector" />
                         <div className="flex items-end justify-between p-4 h-full w-full">
                           <p>Partnership</p>
                           <ArrowRight />
@@ -235,7 +235,7 @@ const Giving: React.FC = () => {
                         viewport={{ once: true }}
                         className="bg-blue-500 rounded-lg h-28 text-white flex items-end justify-end relative"
                       >
-                        <img src={vector2} className="absolute flex pr-40" alt="vector2" />
+                        <img loading="lazy" src={vector2} className="absolute flex pr-40" alt="vector2" />
                         <div className="flex items-end justify-between p-4 h-full w-full">
                           <p>Tithes & Offerings</p>
                           <ArrowRight />
@@ -250,7 +250,7 @@ const Giving: React.FC = () => {
                         viewport={{ once: true }}
                         className="bg-blue-800 rounded-lg h-28 text-white flex items-end justify-end relative"
                       >
-                        <img src={vector3} className="absolute flex pr-20" alt="vector3" />
+                        <img loading="lazy" src={vector3} className="absolute flex pr-20" alt="vector3" />
                         <div className="flex items-end justify-between p-4 h-full w-full">
                           <p>Donations</p>
                           <ArrowRight />

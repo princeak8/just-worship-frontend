@@ -64,7 +64,7 @@ export default function Giving() {
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              <img src={card1} alt='Introductory video' className='h-full w-full object-cover' />
+              <img loading="lazy" src={card1} alt='Introductory video' className='h-full w-full object-cover' />
             </motion.div>
 
             <div className='lg:space-y-12 lg:leading-12'>

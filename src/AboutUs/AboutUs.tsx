@@ -171,6 +171,7 @@ const AboutUs: React.FC = () => {
                 >
                   <motion.img
                     // src={Avatar2}
+                    loading="lazy"
                     src={about?.data?.pastorPhoto?.url || Avatar}
                     alt="About Us"
                     className="hidden lg:flex lg:w-full max-h-[40rem] rounded-lg shadow-lg"
@@ -316,7 +317,7 @@ const AboutUs: React.FC = () => {
               </div>
 
               <div className="mb-6">
-                <img src={map} alt="World Map with Nigeria Highlighted" className="w-full" />
+                <img loading="lazy" src={map} alt="World Map with Nigeria Highlighted" className="w-full" />
               </div>
 
               <div className="flex flex-wrap justify-center gap-4 mb-8">
@@ -360,6 +361,7 @@ const AboutUs: React.FC = () => {
                   >
                     <motion.div className="overflow-hidden">
                       <motion.img
+                      loading="lazy"
                         src={member?.photo?.url}
                         alt={member.name}
                         className="w-full object-cover transform group-hover:scale-105 transition-transform duration-300 max-h-80 object-cover object-top"
@@ -410,7 +412,7 @@ const AboutUs: React.FC = () => {
                   <div className="text-center mb-8 flex flex-col items-center justify-center">
                     <div className="lg:flex items-center justify-center gap-2 mb-2">
                       <div className='flex items-center justify-center'>
-                        <img src={logo} alt="Just Worship Logo" className="w-24" />
+                        <img loading="lazy" src={logo} alt="Just Worship Logo" className="w-24" />
                       </div>
                       <h2 className="text-4xl uppercase font-[Aboreto]">WORSHIP SCHOOL</h2>
                     </div>
@@ -573,6 +575,7 @@ const AboutUs: React.FC = () => {
                 transition={{ duration: 0.3 }}
               >
                 <img
+                loading="lazy"
                   src={selectedMember.photo?.url || Avatar}
                   alt={selectedMember.name}
                   className="w-full h-full object-cover object-top"
