@@ -39,6 +39,7 @@ import LiveCMS from "./Dashboard/dashboard/CMS/Live/LiveCMS";
 import CreateLive from "./Dashboard/dashboard/CMS/Live/CreateLive";
 import MessagesCMS from "./Dashboard/dashboard/CMS/Messages/MessagesCMS";
 import EditMessages from "./Dashboard/dashboard/CMS/Messages/EditMessages";
+import Gallery from "./Gallery/Gallery";
 
 const isUserAuthenticated = () => {
   return Cookies.get("token") !== undefined;
@@ -116,6 +117,7 @@ const App = () => {
         <Route path="/live" element={<Live />} />
         <Route path="/giving" element={<Giving />} />
         <Route path="/store" element={<Store />} />
+        <Route path="/gallery" element={<Gallery />} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />

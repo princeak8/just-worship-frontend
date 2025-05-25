@@ -1,4 +1,4 @@
-import Background from '../../../public/galleryBG.jpeg';
+import Background from '../public/galleryBG.jpeg';
 import { Search } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useGetGalleryQuery } from '@/app/api';

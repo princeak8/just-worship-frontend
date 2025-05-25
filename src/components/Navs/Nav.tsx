@@ -19,6 +19,7 @@ export default function Nav() {
                     <a href="/live" className={`hover:text-yellow-400 transition ${nav.pathname === '/live' ? 'text-yellow-500' : null}`}>LIVE</a>
                     <a href="/store" className={`hover:text-yellow-400 transition ${nav.pathname === '/store' ? 'text-yellow-500' : null}`}>Store</a>
                     <a href="/giving" className={`hover:text-yellow-400 transition ${nav.pathname === '/giving' ? 'text-yellow-500' : null}`}>Giving</a>
+                    <a href="/gallery" className={`hover:text-yellow-400 transition ${nav.pathname === '/gallery' ? 'text-yellow-500' : null}`}>Gallery</a>
                     <a href="/contact" className={`hover:text-yellow-400 transition ${nav.pathname === '/contact' ? 'text-yellow-500' : null}`}>Contact us</a>
                     {/* <a href="/login" className={`hover:bg-yellow-400 transition py-1 px-4 rounded-lg ${nav.pathname === '/login' ? 'bg-yellow-500' : 'bg-purple-400'}`}>Login</a> */}
                     {/* <a href="/login" className={`hover:bg-yellow-400 transition py-1 px-4 rounded-lg ${nav.pathname === '/login' ? 'bg-yellow-500' : 'bg-purple-400'}`}>Login</a> */}
