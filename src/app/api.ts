@@ -209,8 +209,8 @@ const api = apiClient.injectEndpoints({
         }),
 
         getGallery:builder.query({
-            query: (url: any) =>({
-                url: `${VITE_BASE_URL}/${apiRoutes.gallery}`
+            query: ({perPage}: {perPage: number}) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.gallery}?perPage=${perPage}&&page=${1}`
             }),
         }),
 

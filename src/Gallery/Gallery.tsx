@@ -33,7 +33,8 @@ interface Stock {
 }
 
 export default function Gallery() {
-    const { data, isLoading } = useGetGalleryQuery<StockData[] | any | undefined>(undefined);
+    const [perPage] = useState(50)
+    const { data, isLoading } = useGetGalleryQuery<StockData[] | any | undefined>({perPage});
     const [Gallery, setGallery] = useState([])
     const [searchparams, setSearchParams] = useState('')
 
