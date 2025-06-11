@@ -33,27 +33,32 @@ export default function Visit() {
         {
             image: card1,
             name: 'Music',
-            alt: "image 1"
+            alt: "image 1",
+            href: "/events"
         },
         {
             image: card2,
             name: 'Events',
-            alt: "image 2"
+            alt: "image 2",
+            href: "/events"
         },
         {
             image: card3,
             name: 'Store',
-            alt: "image 3"
+            alt: "image 3",
+            href: "/store"
         },
         {
             image: card4,
             name: 'Giving',
-            alt: "image 4"
+            alt: "image 4",
+            href: "/giving"
         },
         {
             image: card5,
             name: 'Volunteers',
-            alt: 'image 5'
+            alt: 'image 5',
+            href: "/giving"
         },
     ];
 
@@ -67,8 +72,9 @@ export default function Visit() {
                 <h2 className='font-semibold text-xl'>Where would you like to visit?</h2>
                 <section className=" container grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                     {Cards?.map((card, index) => (
-                        <motion.div
+                        <motion.a
                             key={index}
+                            href={card.href}
                             className='h-80 rounded-2xl border-2 border-yellow-500 bg-cover bg-center'
                             style={{ backgroundImage: `url(${card?.image})` }}
                             initial={{ opacity: 0, y: 20 }}
@@ -79,7 +85,7 @@ export default function Visit() {
                             <div className='w-full rounded-2xl h-full bg-black bg-opacity-60 flex items-end justify-start p-4 pb-10 text-xl text-white font-bold'>
                                 <p className='uppercase'>{card?.name}</p>
                             </div>
-                        </motion.div>
+                        </motion.a>
                     ))}
                 </section>
 
