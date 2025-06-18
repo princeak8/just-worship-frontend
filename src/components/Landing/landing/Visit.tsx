@@ -11,24 +11,52 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import { useGetAboutQuery } from '@/app/api';
-import {Link, useNavigate} from 'react-router-dom';
+import { useGetAboutQuery, useGetYoutubeQuery } from '@/app/api';
+import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 interface AboutSection {
     id: string;
     vision: string;
-    visionPhoto:{
-    url: string;
+    visionPhoto: {
+        url: string;
     }
     mission?: string;
-    missionPhoto:{
+    missionPhoto: {
         url: string;
-        }
-  }
+    }
+}
+
+interface ApiResponse {
+    statusCode: number;
+    data: any;
+}
+
+interface Youtube {
+    title: string;
+    videoUrl: string
+}
 
 export default function Visit() {
     const navigate = useNavigate()
     const { data: about, isLoading } = useGetAboutQuery<AboutSection | any | undefined>(undefined);
+    const { data: Youtube, isLoading: load } = useGetYoutubeQuery<ApiResponse | any>(undefined);
+    const [youtube, setYoutube] = useState<Youtube | null>(null)
+
+    useEffect(() => {
+        if (Youtube) {
+            setYoutube(Youtube?.data)
+        }
+    }, [Youtube]);
+
+    const embedUrl = youtube?.videoUrl
+        ? youtube.videoUrl.includes('youtu.be/')
+            ? youtube.videoUrl.replace('youtu.be/', 'www.youtube.com/embed/')
+            : youtube.videoUrl.includes('watch?v=')
+                ? youtube.videoUrl.replace('watch?v=', 'embed/')
+                : youtube.videoUrl
+        : '';
+
     const Cards = [
         {
             image: card1,
@@ -62,7 +90,7 @@ export default function Visit() {
         },
     ];
 
-    const routeToAboutPage = () =>{
+    const routeToAboutPage = () => {
         return navigate('/about')
     }
 
@@ -129,7 +157,7 @@ export default function Visit() {
                             viewport={{ once: true }}
                         >
                             <p>
-                            {about?.data?.vision}
+                                {about?.data?.vision}
                             </p>
                             <motion.button
                                 className='border-2 border-black bg-transparent rounded-full p-1 px-4 hover:bg-black hover:text-white transition-all'
@@ -153,11 +181,11 @@ export default function Visit() {
                             <iframe
                                 width="100%"
                                 height="100%"
-                                src="https://www.youtube.com/embed/XJPJLWdFlY8?si=S_w9g_iuNcfepH62"
-                                title="Introductory Video"
+                                src={embedUrl}
+                                title="YouTube Preview"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen
-                                className='w-full h-full object-cover'
+                                className="w-full h-full object-cover"
                             />
                         </motion.div>
 

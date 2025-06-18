@@ -9,13 +9,11 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useGetYoutubeQuery, useUpdateYoutubeMutation } from '@/app/api';
 
-// API response wrapper
 interface ApiResponse {
   statusCode: number;
   data: any;
 }
 
-// Form values for edit YouTube
 interface FormValues {
   title: string;
   videoUrl: string;
@@ -35,7 +33,6 @@ export default function EditYoutube() {
     defaultValues: { title: '', videoUrl: '' },
   });
 
-  // Populate form when data loads
   useEffect(() => {
     if (response?.data) {
       const { title, videoUrl } = response.data;
@@ -47,7 +44,7 @@ export default function EditYoutube() {
     try {
       const payload = {
         title: formData.title,
-        url: formData.videoUrl, // backend expects "url"
+        url: formData.videoUrl,
       };
       await updateYoutube(payload).unwrap();
     } catch (err: any) {
@@ -59,9 +56,7 @@ export default function EditYoutube() {
     }
   };
 
-  // Watch videoUrl for preview
   const watchedUrl = watch('videoUrl');
-  // Convert to embed URL
   const embedUrl = watchedUrl
     ? watchedUrl.includes('youtu.be/')
       ? watchedUrl.replace('youtu.be/', 'www.youtube.com/embed/')
@@ -146,7 +141,6 @@ export default function EditYoutube() {
                 )}
               </div>
 
-              {/* Preview iframe */}
               {embedUrl && (
                 <>
                   <p className="text-xl font-semibold">Preview:</p>
