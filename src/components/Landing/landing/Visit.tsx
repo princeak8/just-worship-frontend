@@ -82,7 +82,7 @@ export default function Visit() {
                             transition={{ duration: 1, delay: index * 0.5, once: true }}
                             viewport={{ once: true }}
                         >
-                            <div className='w-full rounded-2xl h-full bg-black bg-opacity-60 flex items-end justify-start p-4 pb-4 lg:pb-10 text-xl text-white font-bold'>
+                            <div className='w-full rounded-2xl h-full bg-black bg-opacity-60 flex items-end justify-start p-4 pb-4 lg:pb-10 lg:text-xl text-white font-bold'>
                                 <p className='uppercase'>{card?.name}</p>
                             </div>
                         </motion.a>
