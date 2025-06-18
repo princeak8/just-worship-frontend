@@ -91,7 +91,7 @@ export default function Gallery() {
                 backgroundSize: 'cover',
             }}
         >
-            <div className="w-full h-full bg-black bg-opacity-90 p-10">
+            <div className="w-full h-full bg-black bg-opacity-90 p-10  pt-28 lg:pt-10 ">
                 <section className="container space-y-4 text-center lg:py-20">
                     <div className="lg:leading-10">
                         <h2 className="text-xl lg:text-5xl font-bold lg:font-normal uppercase text-white">Gallery</h2>
