@@ -40,6 +40,7 @@ import CreateLive from "./Dashboard/dashboard/CMS/Live/CreateLive";
 import MessagesCMS from "./Dashboard/dashboard/CMS/Messages/MessagesCMS";
 import EditMessages from "./Dashboard/dashboard/CMS/Messages/EditMessages";
 import Gallery from "./Gallery/Gallery";
+import EditYoutube from "./Dashboard/dashboard/CMS/About/EditYoutube";
 
 const isUserAuthenticated = () => {
   return Cookies.get("token") !== undefined;
@@ -129,6 +130,7 @@ const App = () => {
           <Route path="cms/home/create" element={<CreateHome />} />
           <Route path="cms/home/:id" element={<CreateHome />} />
           <Route path="cms/about" element={<AboutCMS />} />
+          <Route path="cms/edit_youtube" element={<EditYoutube />} />
           <Route path="cms/about/:id" element={<EditAbout />} />
           <Route path="cms/team" element={<TeamCMS />} />
           <Route path="cms/team/add" element={<AddTeam />} />

@@ -2,6 +2,7 @@ export const apiRoutes = {
   login: 'auth/login',
   hero: 'slides',
   about: 'about',
+  youtube: 'youtube',
   team: 'team',
   teamById: 'team/member',
   store: 'store',

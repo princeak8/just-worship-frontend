@@ -68,6 +68,20 @@ const api = apiClient.injectEndpoints({
             }),
         }),
 
+        getYoutube:builder.query({
+            query: (url: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.youtube}`
+            }),
+        }),
+
+          updateYoutube:builder.mutation({
+            query: (data: any)=>({
+                url: `${VITE_BASE_URL}/${apiRoutes.youtube}`,
+                method: "POST",
+                body: data
+            }),
+        }),
+
         getTeam:builder.query({
             query: (url: any) =>({
                 url: `${VITE_BASE_URL}/${apiRoutes.team}`
@@ -405,6 +419,8 @@ export const {
     useGetAboutQuery,
     useGetAboutByIdQuery,
     useUpdateAboutMutation,
+    useGetYoutubeQuery,
+    useUpdateYoutubeMutation,
     useGetTeamQuery,
     useGetMemberByIdQuery,
     useAddTeamMutation,
