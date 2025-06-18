@@ -68,7 +68,7 @@ export default function EditYoutube() {
   if (fetching) {
     return (
       <div className="flex items-center justify-center h-screen">
-        <Loader2 className="animate-spin w-8 h-8" />
+        <Loader2 size={50} className='text-[#BA833C] animate-spin' />
       </div>
     );
   }
