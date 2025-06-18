@@ -176,7 +176,7 @@ const Giving: React.FC = () => {
         </div>
       </section>
 
-      <div className="container mx-auto sm:px-6 lg:px-4 py-24 p-4">
+      {/* <div className="container mx-auto sm:px-6 lg:px-4 py-24 p-4">
         <div className="w-full">
           <div className="flex flex-col lg:flex-row gap-10">
             <div className="w-full lg:w-7/12">
@@ -295,7 +295,7 @@ const Giving: React.FC = () => {
             </motion.div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* <section
 
