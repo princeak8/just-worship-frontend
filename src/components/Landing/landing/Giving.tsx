@@ -1,5 +1,5 @@
 import { useGetGivingQuery, useGetOptionsQuery } from '@/app/api';
-import card1 from '../../../public/card1.jpeg';
+import card1 from '../../../public/partner-with-us.jpeg';
 import { motion } from 'framer-motion';
 import { CreditCard, Banknote, Search, InfoIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
@@ -177,13 +177,17 @@ export default function Giving() {
                                 </p>
                               </div>
                               <div className="p-4 bg-gray-50 rounded-lg flex flex-col items-center">
-                                {account?.url && (
-                                  <QRCode
-                                    value={account?.url}
-                                    size={160}
-                                    className="p-2 bg-white rounded-md"
-                                    fgColor="#BA833C"
-                                  />
+                                {account?.url ? (
+                                  <div className="bg-white p-4 rounded-lg">
+                                    <QRCode
+                                      value={account?.url}
+                                      size={160}
+                                      className="p-2"
+                                      fgColor="#BA833C"
+                                    />
+                                  </div>
+                                ) : (
+                                  <p className="text-sm text-gray-500">No payment URL available</p>
                                 )}
                                 <p className="text-xs text-gray-500 mt-3 text-center">
                                   Scan QR code to view payment details

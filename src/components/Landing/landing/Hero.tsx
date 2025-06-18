@@ -103,7 +103,7 @@ export default function Hero() {
           <SwiperSlide key={index} className='w-full h-screen text-white' style={{ background: `url("${slide?.photo?.url}")`, backgroundRepeat: "no-repeat, no-repeat", backgroundSize: "cover" }}>
             <div className='w-full h-screen flex items-end bg-black bg-opacity-70'>
               <div className='container p-4 flex'>
-                <div className='lg:w-5/12 h-20vh mb-40 lg:mb-20'>
+                <div className='lg:w-5/12 h-20vh mb-20 lg:mb-10'>
                   <p>Revival is here...</p>
                   <div className='mt-16 space-y-4'>
                     <motion.h1
