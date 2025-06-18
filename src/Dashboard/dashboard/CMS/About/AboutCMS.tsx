@@ -46,7 +46,7 @@ interface ApiResponse {
 
 interface Youtube {
   title: string;
-  url: string
+  videoUrl: string
 }
 
 export default function AboutCMS() {
@@ -61,6 +61,14 @@ export default function AboutCMS() {
       setYoutube(Youtube?.data)
     }
   }, [data, Youtube]);
+
+  const embedUrl = youtube?.videoUrl
+    ? youtube.videoUrl.includes('youtu.be/')
+      ? youtube.videoUrl.replace('youtu.be/', 'www.youtube.com/embed/')
+      : youtube.videoUrl.includes('watch?v=')
+        ? youtube.videoUrl.replace('watch?v=', 'embed/')
+        : youtube.videoUrl
+    : '';
 
   return (
     <div className="min-h-screen p-8 bg-gray-50">
@@ -180,11 +188,11 @@ export default function AboutCMS() {
                       <iframe
                         width="100%"
                         height="100%"
-                        src="https://www.youtube.com/embed/XJPJLWdFlY8?si=S_w9g_iuNcfepH62"
-                        title="Introductory Video"
+                        src={embedUrl}
+                        title="YouTube Preview"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        className='w-full h-full object-cover'
+                        className="w-full h-full object-cover"
                       />
                     </p>
                     <section className='flex items-center justify-between'>

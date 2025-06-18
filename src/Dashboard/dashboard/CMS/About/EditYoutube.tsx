@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import type { SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -8,18 +9,20 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useGetYoutubeQuery, useUpdateYoutubeMutation } from '@/app/api';
 
+// API response wrapper
 interface ApiResponse {
   statusCode: number;
   data: any;
 }
 
+// Form values for edit YouTube
 interface FormValues {
   title: string;
   videoUrl: string;
 }
 
 export default function EditYoutube() {
-  const { data: response, isLoading: fetching, isError } = useGetYoutubeQuery<ApiResponse| any>(undefined);
+  const { data: response, isLoading: fetching, isError } = useGetYoutubeQuery<ApiResponse | any>(undefined);
   const [updateYoutube, { isLoading: updating }] = useUpdateYoutubeMutation();
 
   const {
@@ -32,6 +35,7 @@ export default function EditYoutube() {
     defaultValues: { title: '', videoUrl: '' },
   });
 
+  // Populate form when data loads
   useEffect(() => {
     if (response?.data) {
       const { title, videoUrl } = response.data;
@@ -41,13 +45,23 @@ export default function EditYoutube() {
 
   const onSubmit: SubmitHandler<FormValues> = async (formData) => {
     try {
-      await updateYoutube(formData).unwrap();
-    } catch (err) {
-      console.error('Update failed', err);
+      const payload = {
+        title: formData.title,
+        url: formData.videoUrl, // backend expects "url"
+      };
+      await updateYoutube(payload).unwrap();
+    } catch (err: any) {
+      if (err?.status === 422) {
+        console.error('Validation Error:', err?.data);
+      } else {
+        console.error('Update failed', err);
+      }
     }
   };
 
+  // Watch videoUrl for preview
   const watchedUrl = watch('videoUrl');
+  // Convert to embed URL
   const embedUrl = watchedUrl
     ? watchedUrl.includes('youtu.be/')
       ? watchedUrl.replace('youtu.be/', 'www.youtube.com/embed/')
@@ -77,7 +91,7 @@ export default function EditYoutube() {
       <div className="max-w-2xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl font-bold flex items-center gap-2">
-            <Link to="/dashboard/cms/youtube">
+            <Link to="/dashboard/cms/about">
               <ArrowLeftCircle className="hover:text-[#BA833C]" />
             </Link>
             Edit YouTube Link
@@ -132,18 +146,22 @@ export default function EditYoutube() {
                 )}
               </div>
 
+              {/* Preview iframe */}
               {embedUrl && (
-                <div className="w-full h-64 bg-black">
-                  <iframe
-                    width="100%"
-                    height="100%"
-                    src={embedUrl}
-                    title="YouTube Preview"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+                <>
+                  <p className="text-xl font-semibold">Preview:</p>
+                  <div className="w-full h-64 bg-black">
+                    <iframe
+                      width="100%"
+                      height="100%"
+                      src={embedUrl}
+                      title="YouTube Preview"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </>
               )}
             </div>
           </CardContent>
