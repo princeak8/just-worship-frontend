@@ -116,7 +116,7 @@ export default function Hero() {
                     </motion.h1>
 
                     <p className=''>{slide?.message}</p>
-                    {slide?.buttonUrl && (
+                    {(slide?.buttonUrl && slide?.buttonUrl !== "null" && slide?.buttonUrl !== null && slide?.buttonText ) && (
                       <motion.button className="btn bg-white text-black font-bold p-4 rounded-full z-10">
                         <a href={slide?.buttonUrl}>{slide?.buttonText}</a>
                       </motion.button>
