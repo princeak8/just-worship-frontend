@@ -33,8 +33,8 @@ interface Stock {
 }
 
 export default function Gallery() {
-    const [perPage]= useState(10)
-    const { data, isLoading } = useGetGalleryQuery<StockData[] | any | undefined>({perPage});
+    const [perPage] = useState(10)
+    const { data, isLoading } = useGetGalleryQuery<StockData[] | any | undefined>({ perPage });
     const [Gallery, setGallery] = useState([])
     const [searchparams, setSearchParams] = useState('')
 
@@ -146,22 +146,31 @@ export default function Gallery() {
                         </div>
                     </div>
 
-                    <section className="grid md:grid-cols-2 lg:flex !w-full flex-wrap gap-4 ">
-                        {Gallery?.map((image: any, index: number) => (
-                            <motion.div key={index}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 1, delay: index * 0.5 }}
-                                viewport={{ once: true }}
-                            >
-                                <LazyImage
-                                    src={image.photo.url}
-                                    alt={image.title}
-                                    width={parseInt(customWidths[index % customWidths.length], 10)}
-                                    height={200}
-                                />
-                            </motion.div>
-                        ))}
+                    <section className="grid grid-cols-1 md:grid-cols-2 lg:flex flex-wrap gap-4">
+                        {Gallery.map((item: any, index) => {
+                            const maxW = customWidths[index % customWidths.length];
+                            return (
+                                <motion.div
+                                    key={item.id || index}
+                                    className="w-full md:w-auto flex justify-center"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.8, delay: index * 0.2 }}
+                                    viewport={{ once: true }}
+                                >
+                                    <div
+                                        style={{ width: '100%', maxWidth: maxW, height: '200px' }}
+                                    >
+                                        <LazyImage
+                                            src={item.photo.url}
+                                            alt={item.title}
+                                            width={parseInt(maxW, 10)}
+                                            height={200}
+                                        />
+                                    </div>
+                                </motion.div>
+                            );
+                        })}
                     </section>
                 </section>
             </div>
