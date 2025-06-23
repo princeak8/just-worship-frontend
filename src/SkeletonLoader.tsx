@@ -1,9 +1,15 @@
 import PropTypes from "prop-types";
+import { CSSProperties } from "react";
 
-const SkeletonLoader = ({ className }: { className?: string }) => {
+interface SkeletonLoaderProps {
+  className?: string;
+  style?: CSSProperties;
+}
+
+const SkeletonLoader = ({ className, style }: SkeletonLoaderProps) => {
   return (
     <div className="animate-pulse">
-      <div className={`bg-gray-300 rounded-md ${className}`} />
+      <div className={`bg-gray-300 rounded-md ${className}`} style={style} />
     </div>
   );
 };
