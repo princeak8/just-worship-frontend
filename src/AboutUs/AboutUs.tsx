@@ -4,7 +4,6 @@ import Avatar from '@/public/card1.jpeg';
 import Avatar2 from '@/public/about.png';
 import { useGetAboutQuery, useGetGalleryQuery, useGetTeamQuery } from '@/app/api';
 import background from '../public/about2.jpg'
-import map from '../public/maps.svg'
 import worship from '@/public/worship-school.jpeg'
 import logo from '@/public/logo.png'
 import { useEffect, useState } from 'react';
@@ -14,6 +13,7 @@ import image3 from '@/public/card3.jpeg'
 import image4 from '@/public/card4.jpeg'
 import SkeletonLoader from '@/SkeletonLoader';
 import { Loader2, X } from 'lucide-react';
+import InteractiveMap from '@/components/ui/InteractiveMap';
 
 interface AboutSection {
   id: string;
@@ -69,6 +69,8 @@ const AboutUs: React.FC = () => {
     position: '',
     biography: '',
   });
+  const [selectedCountry, setSelectedCountry] = useState<string>('Nigeria');
+  const [selectedCity, setSelectedCity] = useState<string>('');
 
   const search = () => {
     if (!data?.data) return [];
@@ -298,7 +300,7 @@ const AboutUs: React.FC = () => {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 viewport={{ once: true }}
               >
-                JUST WORSHIP LOCATIONS
+                JUST WORSHIP CAMPUSES
               </motion.h2>
               <motion.p
                 className="text-lg mb-6"
@@ -307,26 +309,73 @@ const AboutUs: React.FC = () => {
                 transition={{ duration: 0.5, delay: 0.3 }}
                 viewport={{ once: true }}
               >
-                Find a location near you.
+                Visit our campuses in Nigeria and Belgium.
               </motion.p>
 
-              <div className="flex flex-wrap justify-between gap-4 mb-8">
-                <div className="px-8 py-2 hover:text-gray-500">Nigeria</div>
-                <div className="px-8 py-2 hover:text-gray-500">South Africa</div>
-                <div className="px-8 py-2 hover:text-gray-500">United Kingdom</div>
+              <div className="flex flex-wrap justify-center gap-4 mb-8">
+                <button 
+                  onClick={() => {
+                    setSelectedCountry('Nigeria');
+                    setSelectedCity('');
+                  }}
+                  className={`px-8 py-2 rounded-full border transition ${
+                    selectedCountry === 'Nigeria' 
+                      ? 'bg-[#BA833C] text-white border-[#BA833C]' 
+                      : 'bg-white border-gray-300 hover:bg-gray-100'
+                  }`}
+                >
+                  Nigeria Campus
+                </button>
+                <button 
+                  onClick={() => {
+                    setSelectedCountry('Belgium');
+                    setSelectedCity('');
+                  }}
+                  className={`px-8 py-2 rounded-full border transition ${
+                    selectedCountry === 'Belgium' 
+                      ? 'bg-[#BA833C] text-white border-[#BA833C]' 
+                      : 'bg-white border-gray-300 hover:bg-gray-100'
+                  }`}
+                >
+                  Belgium Campus
+                </button>
               </div>
 
-              <div className="mb-6">
-                <img loading="lazy" src={map} alt="World Map with Nigeria Highlighted" className="w-full" />
+              <div className="mb-6 relative">
+                <InteractiveMap selectedCountry={selectedCountry} selectedCity={selectedCity} />
               </div>
 
               <div className="flex flex-wrap justify-center gap-4 mb-8">
-                <button className="px-8 py-2 bg-white rounded-full border border-gray-300 hover:bg-gray-100 transition">Lagos</button>
-                <button className="px-8 py-2 bg-white rounded-full border border-gray-300 hover:bg-gray-100 transition">Enugu</button>
-                <button className="px-8 py-2 bg-white rounded-full border border-gray-300 hover:bg-gray-100 transition">Abuja</button>
-                <button className="px-8 py-2 bg-white rounded-full border border-gray-300 hover:bg-gray-100 transition">Port Harcourt</button>
-                <button className="px-8 py-2 bg-white rounded-full border border-gray-300 hover:bg-gray-100 transition">Calabar</button>
-                <button className="px-8 py-2 bg-white rounded-full border border-gray-300 hover:bg-gray-100 transition">Anambra</button>
+                {selectedCountry === 'Nigeria' && (
+                  <div className="text-center">
+                    <button 
+                      onClick={() => setSelectedCity('New Layout Campus')}
+                      className={`px-8 py-2 rounded-full border transition cursor-pointer ${
+                        selectedCity === 'New Layout Campus' 
+                          ? 'bg-[#BA833C] text-white border-[#BA833C]' 
+                          : 'bg-gray-100 border-gray-300 hover:bg-gray-200'
+                      }`}
+                    >
+                      New Layout Campus
+                    </button>
+                    <p className="text-sm text-gray-600 mt-2">38 Edinburgh Road, Opposite Urban Girls Secondary School, New Layout</p>
+                  </div>
+                )}
+                {selectedCountry === 'Belgium' && (
+                  <div className="text-center">
+                    <button 
+                      onClick={() => setSelectedCity('Mechelen Campus')}
+                      className={`px-8 py-2 rounded-full border transition cursor-pointer ${
+                        selectedCity === 'Mechelen Campus' 
+                          ? 'bg-[#BA833C] text-white border-[#BA833C]' 
+                          : 'bg-gray-100 border-gray-300 hover:bg-gray-200'
+                      }`}
+                    >
+                      Mechelen Campus
+                    </button>
+                    <p className="text-sm text-gray-600 mt-2">Thomas Moore University, C3 Campus de vest Mechelen, Belgium</p>
+                  </div>
+                )}
               </div>
             </motion.div>
           </div>
