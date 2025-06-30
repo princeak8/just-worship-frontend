@@ -138,7 +138,7 @@ export default function AddImage() {
                     className="mt-1"
                     {...addItemDetail('image', {
                       onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                        addItemDetail('image').onChange(e);
+                        addItemDetail('image');
                         handleFileChange(e);
                       },
                     })}
