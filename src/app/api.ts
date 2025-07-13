@@ -363,6 +363,13 @@ const api = apiClient.injectEndpoints({
             })
         }),
 
+        deleteOnlineAccount:builder.mutation({
+            query: (id: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.onlineAccount}/${id}`,
+                method: "DELETE",
+            }),
+        }),
+
         banks:builder.query({
             query: (url: any) =>({
                 url: `${VITE_BASE_URL}/${apiRoutes.banks}`
@@ -461,6 +468,7 @@ export const {
     useOnlineAccountQuery,
     useCreateOnlineAccountMutation,
     useEditOnlineAccountMutation,
+    useDeleteOnlineAccountMutation,
     useBanksQuery,
     useCountriesQuery,
     useContact_messageMutation,

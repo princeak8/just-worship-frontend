@@ -54,6 +54,7 @@ const useEvent = () => {
             setValue('name', event?.data?.name)
             setValue('date', event?.data.date?.toLocaleString())
             setValue('time', event?.data.time)
+            setValue('location', event?.data?.location)
             setValue('description', event?.data?.content)
             setValue('image',  event?.data?.coverPhoto?.url || '' as unknown as FileList )
             setValue('featured', event?.data?.featured)
