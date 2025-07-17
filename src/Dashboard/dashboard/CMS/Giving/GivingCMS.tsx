@@ -11,7 +11,8 @@ interface PaymentMethod {
 
 interface Select {
     name: string,
-    id: string | undefined
+    id: string | undefined,
+    url?: string
 }
 
 export default function GivingCMS() {
