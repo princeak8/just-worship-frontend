@@ -30,7 +30,7 @@ export default function AddImage() {
   const { id } = useParams();
   const { data:events, isLoading: isLoadingEvents } = useGetEventQuery<GetEvent[] | any | undefined>(undefined);
   const { formInstance, isLoading10, onSubmit, fetchedImage } = useGallery();
-  const { handleSubmit, addItemDetail } = formInstance;
+  const { handleSubmit, addItemDetail, watch } = formInstance;
 
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);

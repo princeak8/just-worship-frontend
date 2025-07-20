@@ -71,7 +71,7 @@ export default function CreateEvent() {
                       <p>Featured:</p>
                     <label className="switch">
                       <input type="checkbox" checked={checked} onClick={() => setCheck(!checked)} />
-                        <span className="slider round"></span>
+                        <span className="slider round"></span> 
                     </label>
                   </div>
                 </CardTitle>

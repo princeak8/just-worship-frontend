@@ -5,7 +5,7 @@ import { Navigate, useParams} from 'react-router-dom';
 
 interface FormDataDetail {
     title: string;
-    event: number | null;
+    event: string | null;
     location?: string | null;
     year?: number | null;
     description?: string | null
@@ -22,6 +22,7 @@ const useGallery = () => {
         register: addItemDetail, 
         handleSubmit,
         setValue,
+        watch,
         formState: {errors},
     } = useForm<FormDataDetail>({
         defaultValues: {
@@ -35,12 +36,25 @@ const useGallery = () => {
 
     useEffect(()=>{
         if(galleryImage?.data){
+        // console.log('Gallery data:', galleryImage?.data);
+        // console.log('Event object:', galleryImage?.data?.event);
+        // console.log('Event ID:', galleryImage?.data?.event?.id);
+        // console.log('Event ID type:', typeof galleryImage?.data?.event?.id);
+        
+        const eventId = galleryImage?.data?.event?.id?.toString();
+        // console.log('Setting event ID to:', eventId);
+        
         setValue('title', galleryImage?.data?.title );
-        setValue('event', galleryImage?.data?.event)
+        setValue('event', eventId || null)
         setValue('location', galleryImage?.data?.location)
         setValue('year', galleryImage?.data?.year)
         setValue('description', galleryImage?.data?.description)
         setValue('image', galleryImage?.data?.photo?.url || '' as unknown as FileList)
+        
+        setTimeout(() => {
+            console.log('Re-setting event value after timeout:', eventId);
+            setValue('event', eventId || null);
+        }, 100);
         }
     },[galleryImage?.data, setValue])
 
@@ -59,7 +73,7 @@ const useGallery = () => {
         const formdata = new FormData()
 
         formdata.append('title', title)
-        if(event) formdata.append('eventId', event.toString())
+        if(event) formdata.append('eventId', event)
         if(location) formdata.append('location', location)
         if(year) formdata.append('year', year.toString())
         if(description) formdata.append('description', description)
@@ -85,7 +99,7 @@ const useGallery = () => {
 
   return{
     isLoading10,
-    formInstance: {addItemDetail, handleSubmit, errors, rules},
+    formInstance: {addItemDetail, handleSubmit, errors, rules, watch},
     onSubmit,
     fetchedImage: galleryImage?.data?.photo?.url,
   }
