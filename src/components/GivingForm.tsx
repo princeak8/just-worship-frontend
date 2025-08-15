@@ -8,7 +8,7 @@ import { useCountriesQuery, useGivingPartnerMutation } from '@/app/api';
 import type { Country } from '@/Types';
 
 const GivingForm = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
 //   const [countries, setCountries] = useState([]);
   const [givingOptions, setGivingOptions] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
