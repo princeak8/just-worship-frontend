@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { CreditCard, Banknote, Search, InfoIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import QRCode from 'react-qr-code';
+import GivingForm from '@/components/GivingForm';
 
 export default function Giving() {
   const { data: Payments, isLoading } = useGetGivingQuery<any | undefined>(undefined);
@@ -64,20 +65,31 @@ export default function Giving() {
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              <img loading="lazy" src={card1} alt='Introductory video' className='h-full w-full object-cover' />
+              <img loading="lazy" src={card1} alt='Introductory video' className='h-full max-h-[45rem] w-full object-cover' />
             </motion.div>
 
+            {/* <div className='lg:space-y-12 lg:leading-12 flex items-center'>
+              <a className='w-full h-32' href='/giving'>
+                <button className='w-full h-full bg-gradient-to-tr from-[#6b4e00] via-[#8a6a0a] to-[#a97c0f] rounded-lg text-white font-extrabold'>
+                  Click to Partner With us through your Giving
+                </button>
+              </a>
+            </div> */}
+
             <div className='lg:space-y-12 lg:leading-12'>
-              <motion.div
-                className='text-center leading-12 space-y-8'
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
+              {/* <a className='w-full h-32' href='/giving'>
+                  <button className='w-full h-20 bg-gradient-to-tr from-[#6b4e00] via-[#8a6a0a] to-[#a97c0f] rounded-lg text-white font-extrabold'>
+                    Click to Partner With us through your Giving
+                  </button>
+                </a> */}
+                <GivingForm />
+              <motion.div className='text-center leading-12 space-y-8' initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }}
                 viewport={{ once: true }}
               >
-                <h1 className='font-semibold text-center text-lg lg:text-2xl my-4 text-gray-800'>
+                {/* <h1 className='font-semibold text-center text-lg lg:text-2xl my-4 text-gray-800'>
                   Choose how you want to give
-                </h1>
+                </h1> */}
                 <div className='grid grid-cols-3 gap-2'>
                   {Payments?.data?.map((option: any, index: number) => (
                     <motion.div
@@ -93,15 +105,9 @@ export default function Giving() {
                     </motion.div>
                   ))}
                 </div>
-                {/* <p className='text-gray-500 mt-4'>
-                  Nisl dolor sit amet eget tristique adipiscing tellus tristique
-                </p> */}
               </motion.div>
-              <motion.div
-                className='text-center lg:leading-12 lg:space-y-8'
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
+              <motion.div className='text-center lg:leading-12 lg:space-y-8' initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}
                 viewport={{ once: true }}
               >
                 <h1 className='font-semibold text-center text-lg lg:text-2xl my-4 text-gray-800'>
@@ -120,12 +126,9 @@ export default function Giving() {
                     </motion.div>
                   ))}
                 </div>
-                {/* <p className='text-gray-500 mt-4'>
-                                    Nisl dolor sit amet eget tristique adipiscing tellus tristique
-                                </p> */}
               </motion.div>
 
-              {/* {selectedOption.toLowerCase().trim() === 'transfer' ? ( */}
+              {selectedOption.toLowerCase().trim() === 'transfer' ? (
               <div className="space-y-6">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -195,17 +198,6 @@ export default function Giving() {
                               </div>
                             </div>
                           )}
-
-                          {/* <div className="mt-6 p-3 bg-purple-50 rounded-lg flex items-start gap-3">
-                            <InfoIcon className="w-5 h-5 text-purple-600 shrink-0" />
-                            <span className="text-sm text-gray-700">
-                              Please include{' '}
-                              <strong className="font-semibold text-purple-600">
-                                {selectedMethod || 'Just Worship'}
-                              </strong>{' '}
-                              in your transfer narration
-                            </span>
-                          </div> */}
                         </div>
                       </div>
                     ))
@@ -223,8 +215,10 @@ export default function Giving() {
                     </div>
                   )}
                 </motion.div>
+
+                {/* <GivingForm /> */}
               </div>
-              {/* ) : (
+              ) : (
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
@@ -259,7 +253,7 @@ export default function Giving() {
                                         Give Now
                                     </motion.button>
                                 </motion.div>
-                            )} */}
+                            )}
             </div>
           </div>
         </section>

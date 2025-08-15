@@ -369,6 +369,18 @@ const api = apiClient.injectEndpoints({
             })
         }),
 
+        bankAccounts:builder.query({
+            query: (url: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.bankAccounts}`
+            })
+        }),
+
+        onlineAccounts:builder.query({
+            query: (url: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.onlineAccount}`
+            })
+        }),
+
         countries:builder.query({
             query: (url: any) =>({
                 url: `${VITE_BASE_URL}/${apiRoutes.countries}`
@@ -400,6 +412,15 @@ const api = apiClient.injectEndpoints({
         bookEvent: builder.mutation({
             query:(formdata: any) =>({
                 url: `${VITE_BASE_URL}/${apiRoutes.book}`,
+                method: 'POST',
+                body: formdata,
+            }),
+        }),
+
+
+        givingPartner: builder.mutation({
+            query:(formdata: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.givingPartners}`,
                 method: 'POST',
                 body: formdata,
             }),
@@ -461,10 +482,13 @@ export const {
     useOnlineAccountQuery,
     useCreateOnlineAccountMutation,
     useEditOnlineAccountMutation,
+    useOnlineAccountsQuery,
     useBanksQuery,
+    useBankAccountsQuery,
     useCountriesQuery,
     useContact_messageMutation,
     useSubscribeMutation,
     useGetMessagesQuery,
     useBookEventMutation,
+    useGivingPartnerMutation
 } = api
