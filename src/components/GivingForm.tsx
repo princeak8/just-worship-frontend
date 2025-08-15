@@ -1,6 +1,6 @@
 
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef} from 'react';
 import { ChevronDown, ChevronUp, Heart, Send } from 'lucide-react';
 // import type { Currency } from '@/Enums/Giving';
 import { RecurrentType, Currency } from '@/Enums/Giving';
@@ -24,11 +24,11 @@ const GivingForm = () => {
     surname: string;
     email: string;
     phone: string;
-    countryId: number | undefined;
+    countryId: string;
     givingOptionId: string;
     recurrent: boolean;
     recurrentType: string;
-    amount: number | undefined;
+    amount: string;
     currency: Currency | '';
     prayerPoint: string;
   }>({
@@ -36,11 +36,11 @@ const GivingForm = () => {
     surname: '',
     email: '',
     phone: '',
-    countryId: undefined,
+    countryId: '',
     givingOptionId: '',
     recurrent: false,
     recurrentType: '',
-    amount: undefined,
+    amount: '',
     currency: Currency.DOLLARS,
     prayerPoint: ''
   });
@@ -57,7 +57,7 @@ const GivingForm = () => {
     handleSelectedCountry()
   }, [formData.countryId]);
 
-  useEffect(() => console.log("formData:", formData));
+//   useEffect(() => console.log("formData:", formData));
 
 //   const fetchGivingOptions = async () => {
 //     try {
@@ -103,7 +103,7 @@ const GivingForm = () => {
     if (!formData.countryId) newErrors.countryId = 'Country code is required';
     // if (!formData.giving_option_id) newErrors.giving_option_id = 'Please select a giving option';
     if (!formData.amount) newErrors.amount = 'Amount is required';
-    else if (isNaN(Number(formData.amount)) || formData.amount <= 0) {
+    else if (isNaN(Number(formData.amount)) || parseFloat(formData.amount) <= 0) {
       newErrors.amount = 'Please enter a valid amount';
     }
     if (formData.recurrent && !formData.recurrentType) {
@@ -114,6 +114,8 @@ const GivingForm = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  // const formRef = useRef<HTMLFormElement>(null);
+  const formRef = useRef<HTMLDivElement>(null);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -143,11 +145,11 @@ const GivingForm = () => {
         surname: '',
         email: '',
         phone: '',
-        countryId: undefined,
+        countryId: '',
         givingOptionId: '',
         recurrent: false,
         recurrentType: '',
-        amount: undefined,
+        amount: '',
         currency: Currency.DOLLARS,
         prayerPoint: ''
     });
@@ -164,7 +166,21 @@ const GivingForm = () => {
         setErrors({ general: 'Something went wrong' });
     }
     } finally {
-      setLoading(false);
+        // Scroll user to the top of the form
+        // window.scrollTo({ top: 100, behavior: 'smooth' });
+        // Scroll so the form is near the top of the viewport (but not the page top)
+        if (formRef.current) {
+            const formTop = formRef.current.getBoundingClientRect().top + window.scrollY;
+            // console.log("go back top to ",formTop);
+            window.scrollTo({
+            top: formTop - 60, // offset 100px above the form
+            behavior: 'smooth'
+            });
+        }else{
+            // console.log("no form ref");
+            // console.log("formRef:", formRef);
+        }
+        setLoading(false);
     }
   };
 
@@ -176,7 +192,7 @@ const GivingForm = () => {
 //   console.log("selected COuntry:", selectedCountry);
 
   return (
-    <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+    <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden" ref={formRef}>
       <div 
         className="bg-gradient-to-tr from-[#6b4e00] via-[#8a6a0a] to-[#a97c0f] text-white p-6 cursor-pointer hover:from-[#a8830a] hover:via-[#d6a018] hover:to-[#ffd94a] transition-all duration-300"
         onClick={() => setIsCollapsed(!isCollapsed)}
