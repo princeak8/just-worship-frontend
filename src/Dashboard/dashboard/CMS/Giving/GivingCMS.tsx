@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Loader2, Edit, Trash, Plus, Currency, Trash2, Eye, X, Search } from 'lucide-react';
-import { useBanksQuery, useCountriesQuery, useCreateAccountMutation, useCreateOnlineAccountMutation, useDeleteAccountMutation, useEditAccountMutation, useEditGivingOptionMutation, useEditOnlineAccountMutation, useGetAccountQuery, useGetGivingQuery, useGetOptionsQuery, useOnlineAccountQuery } from '@/app/api';
+import { useBanksQuery, useCountriesQuery, useCreateAccountMutation, useCreateOnlineAccountMutation, useDeleteAccountMutation, useDeleteOnlineAccountMutation, useEditAccountMutation, useEditGivingOptionMutation, useEditOnlineAccountMutation, useGetAccountQuery, useGetGivingQuery, useGetOptionsQuery, useOnlineAccountQuery } from '@/app/api';
 import { Button } from '@/components/ui/button';
 import { BankAccountType } from '@/Enums/Giving';
 
@@ -12,7 +12,8 @@ interface PaymentMethod {
 
 interface Select {
     name: string,
-    id: string | undefined
+    id: string | undefined,
+    url?: string
 }
 
 export default function GivingCMS() {
@@ -47,6 +48,7 @@ export default function GivingCMS() {
     const [onlineAccounts, setOnlineAccounts] = useState<any>([])
     const [warning, setWarning] = useState(false)
     const [deleteAccount] = useDeleteAccountMutation()
+    const [deleteOnlineAccount] = useDeleteOnlineAccountMutation()
     const [createOnlineAccount] = useCreateOnlineAccountMutation()
     const [editOnlineAccount] = useEditOnlineAccountMutation()
     const [selectedAccount, setSelectedAccount] = useState<Select>({
@@ -281,8 +283,16 @@ export default function GivingCMS() {
     const handleDeleteAccount = async (id?: string) => {
         if (!id) return;
         try {
-            await deleteAccount(id).unwrap()
-            setAccounts((prev: any) => prev.filter((account: any) => account.id !== id));
+            // Check if the selected account is an online account by looking for the 'url' property
+            const isOnlineAccount = selectedAccount?.url !== undefined;
+            
+            if (isOnlineAccount) {
+                await deleteOnlineAccount(id).unwrap()
+                setOnlineAccounts((prev: any) => prev.filter((account: any) => account.id !== id));
+            } else {
+                await deleteAccount(id).unwrap()
+                setAccounts((prev: any) => prev.filter((account: any) => account.id !== id));
+            }
             setWarning(false);
             //   setSelected({ name: '', id: '' });
         } catch (err) {
