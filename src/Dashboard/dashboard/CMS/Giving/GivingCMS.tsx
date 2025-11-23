@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Loader2, Edit, Trash, Plus, Currency, Trash2, Eye, X, Search } from 'lucide-react';
 import { useBanksQuery, useCountriesQuery, useCreateAccountMutation, useCreateOnlineAccountMutation, useDeleteAccountMutation, useDeleteOnlineAccountMutation, useEditAccountMutation, useEditGivingOptionMutation, useEditOnlineAccountMutation, useGetAccountQuery, useGetGivingQuery, useGetOptionsQuery, useOnlineAccountQuery } from '@/app/api';
 import { Button } from '@/components/ui/button';
-import { BankAccountType } from '@/Enums/Giving';
 
 interface PaymentMethod {
     id: number;
@@ -27,13 +26,11 @@ export default function GivingCMS() {
     const [viewMethod, setViewMethod] = useState<PaymentMethod | any | null>(null);
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     const [newMethodName, setNewMethodName] = useState<any>({
-        type: BankAccountType.LOCAL,
         name: '',
         number: '',
         currency: '',
         bank: '',
         country: '',
-        swift_bic: ''
     });
     const [linkAccount, setLinkAccount] = useState('');
     const [linkOnlineAccount, setLinkOnlineAccount] = useState('');
@@ -57,13 +54,11 @@ export default function GivingCMS() {
     })
     const blankForm = {
         id: '',
-        type: '',
         name: '',
         number: '',
         currency: '',
         bank: '',
         country: '',
-        swift_bic: ''
     };
     const [formState, setFormState] = useState({ ...blankForm });
 
@@ -99,13 +94,11 @@ export default function GivingCMS() {
         const formdata = new FormData()
 
         if (binary === 0) {
-            formdata.append('type', newMethodName.type);
             formdata.append('name', newMethodName.name);
             formdata.append('number', newMethodName.number);
             formdata.append('bankId', newMethodName.bank);
             formdata.append('currency', newMethodName.currency);
             formdata.append('countryId', newMethodName.country);
-            formdata.append('swift_bic', newMethodName.swift_bic);
 
             // console.log("formdata: ", newMethodName.bank)
             try {
@@ -164,13 +157,12 @@ export default function GivingCMS() {
         if (binary === 0) {
             if (editingMethod?.id) {
 
-                formdata.append("type", formState?.type)
+
                 formdata.append('accountId', formState?.id)
-                if(formState?.currency) formdata.append('currency', formState?.currency)
-                if(formState?.bank) formdata.append('bankId', formState?.bank)
+                formdata.append('currency', formState?.currency)
+                formdata.append('bankId', formState?.bank)
                 formdata.append('name', formState?.name)
                 formdata.append('number', formState?.number)
-                if(formState?.swift_bic) formdata.append("swift_bic", formState?.swift_bic)
 
                 // console.log("formdata: ", formdata)
                 try {
@@ -180,7 +172,6 @@ export default function GivingCMS() {
                             method.id === formState.id
                                 ? {
                                     ...method,
-                                    type: formState.type,
                                     name: formState.name,
                                     number: formState.number,
                                     currency: formState.currency,
@@ -188,7 +179,6 @@ export default function GivingCMS() {
                                         ...method.bank,
                                         id: formState.bank,
                                     },
-                                    swift_bic: formState.swift_bic
                                 }
                                 : method
                         )
@@ -300,15 +290,6 @@ export default function GivingCMS() {
         }
     };
 
-    const handleSelectType = (e: { target: { value: any; }; }) => {
-        const type = e.target.value;
-        if (editingMethod) {
-            setFormState({...formState, type});
-        } else {
-            setNewMethodName({...newMethodName, type});
-        }
-    }
-
     if (isLoading) return (
         <section className='w-full h-screen flex items-center justify-center'>
             <Loader2 size={50} className='text-[#BA833C] animate-spin' />
@@ -361,7 +342,7 @@ export default function GivingCMS() {
                                     <p className="font-medium text-gray-800">
                                         {method?.number} - {method?.name}
                                     </p>
-                                    {method?.type == BankAccountType.LOCAL && <p className="text-sm text-gray-500">{method?.bank?.name} ({method?.currency})</p>}
+                                    <p className="text-sm text-gray-500">{method?.bank?.name} ({method?.currency})</p>
                                 </div>
                                 <div className="flex gap-2">
                                     {/* <Button
@@ -376,13 +357,11 @@ export default function GivingCMS() {
                                         onClick={() => {
                                             setFormState({
                                                 id: method.id,
-                                                type: method.type,
                                                 name: method.name,
                                                 number: method.number,
-                                                currency: method?.currency,
-                                                bank: method?.bank?.id,
-                                                country: method?.country?.id,
-                                                swift_bic: method?.swift_bic
+                                                currency: method.currency,
+                                                bank: method.bank.id,
+                                                country: method.country.id,
                                             });
                                             setBinary(0);
                                             setIsCreateModalOpen(true);
@@ -500,34 +479,21 @@ export default function GivingCMS() {
                                 <div className="space-y-4">
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-1">
-                                            Type <span className='text-red-700'>*</span>
+                                            Account Name
                                         </label>
-                                        <select
-                                            value={formState?.type || newMethodName?.type || ''}
-                                            onChange={handleSelectType}
-                                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#BA833C] focus:border-transparent"
-                                        >
-                                            <option value="">Select Type</option>
-                                                <option value={BankAccountType.LOCAL}>{BankAccountType.LOCAL}</option>
-                                                <option value={BankAccountType.INTERNATIONAL}>{BankAccountType.INTERNATIONAL}</option>
-                                        </select>
-                                    </div>
-                                    
-                                    <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                                            Account Name <span className='text-red-700'>*</span>
-                                        </label>
-                                        <input value={formState?.name || newMethodName?.name}
+                                        <input
+                                            value={formState?.name || newMethodName?.name}
                                             onChange={(e) => editingMethod
                                                 ? setFormState({ ...formState, name: e.target.value })
                                                 : setNewMethodName({ ...newMethodName, name: e.target.value })}
                                             className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#BA833C] focus:border-transparent"
-                                            placeholder="Account name" required
+                                            placeholder="Account name"
+                                            required
                                         />
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-1">
-                                            Account number <span className='text-red-700'>*</span>
+                                            Account number
                                         </label>
                                         <input
                                             value={formState?.number || newMethodName?.number || ''}
@@ -537,13 +503,13 @@ export default function GivingCMS() {
                                             className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#BA833C] focus:border-transparent"
                                         />
                                     </div>
-                                    {(formState?.type == BankAccountType.LOCAL || newMethodName?.type == BankAccountType.LOCAL) && <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">Bank <span className='text-red-700'>*</span></label>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                                            Bank
+                                        </label>
                                         <select
                                             value={formState?.bank || newMethodName?.bank || ''}
                                             onChange={e => {
-                                                console.log("formState:", formState);
-                                                console.log("newMethod:", newMethodName);
                                                 const bank = e.target.value;
                                                 if (editingMethod) {
                                                     setFormState({
@@ -566,20 +532,7 @@ export default function GivingCMS() {
                                                 </option>
                                             ))}
                                         </select>
-                                    </div>}
-
-                                    {(formState?.type == BankAccountType.INTERNATIONAL || newMethodName?.type == BankAccountType.INTERNATIONAL) && <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                                            SWIFT/BIC <span className='text-red-700'>*</span>
-                                        </label>
-                                        <input value={formState?.swift_bic || newMethodName?.swift_bic}
-                                            onChange={(e) => editingMethod
-                                                ? setFormState({ ...formState, swift_bic: e.target.value })
-                                                : setNewMethodName({ ...newMethodName, swift_bic: e.target.value })}
-                                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#BA833C] focus:border-transparent"
-                                            placeholder="SWIFT/BIC" required
-                                        />
-                                    </div>}
+                                    </div>
 
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -612,8 +565,10 @@ export default function GivingCMS() {
                                         </select>
                                     </div>
 
-                                    {(formState?.type == BankAccountType.LOCAL || newMethodName?.type == BankAccountType.LOCAL) && <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">Currency</label>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                                            Currency
+                                        </label>
                                         <input
                                             value={formState?.currency || newMethodName?.currency || ''}
                                             onChange={(e) => editingMethod
@@ -621,7 +576,7 @@ export default function GivingCMS() {
                                                 : setNewMethodName({ ...newMethodName, currency: e.target.value })}
                                             className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#BA833C] focus:border-transparent"
                                         />
-                                    </div>}
+                                    </div>
                                 </div>
                             )}
 

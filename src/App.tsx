@@ -1,7 +1,6 @@
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./App.css";
-import Cookies from "js-cookie";
 import Nav from "./components/Navs/Nav";
 import Landing from "./components/Landing/Landing";
 import Footer from "./components/Navs/Footer";
@@ -10,23 +9,16 @@ import Logo from "./public/logo.png";
 import { motion } from "motion/react";
 import Login from "./components/Auth/Login";
 import Signup from "./components/Auth/Signup";
-import Events from "./Events/Events";
-import ContactUs from "./Contact/Contact";
-import Store from "./Store/Store";
-import AboutUs from "./AboutUs/AboutUs";
-import Giving from "./Giving/Giving";
-import Live from "./Live/Live";
-import Gallery from "./Gallery/Gallery";
-import Discipleship from "./Discipleship/Discipleship";
-
-
-
-
 import Layout from "./Dashboard/Layout";
 import Home from "./Dashboard/dashboard/Home";
+import Events from "./Events/Events";
+import AboutUs from "./AboutUs/AboutUs";
+import ContactUs from "./Contact/Contact";
+import Store from "./Store/Store";
 import Report from "./Dashboard/dashboard/R&A/Report";
 import HomeCMS from "./Dashboard/dashboard/CMS/Home/HomeCMS";
 import CreateHome from "./Dashboard/dashboard/CMS/Home/CreateHome";
+import Cookies from "js-cookie";
 import AboutCMS from "./Dashboard/dashboard/CMS/About/AboutCMS";
 import TeamCMS from "./Dashboard/dashboard/CMS/Team/TeamCMS";
 import EditAbout from "./Dashboard/dashboard/CMS/About/EditAbout";
@@ -40,15 +32,15 @@ import UserProfileSettings from "./Dashboard/dashboard/Setting/Settings";
 import CreateEvent from "./Dashboard/dashboard/CMS/Event/CreateEvent";
 import GalleryCMS from "./Dashboard/dashboard/CMS/Gallery/GalleryCMS";
 import AddImage from "./Dashboard/dashboard/CMS/Gallery/AddImage";
+import Giving from "./Giving/Giving";
 import GivingCMS from "./Dashboard/dashboard/CMS/Giving/GivingCMS";
+import Live from "./Live/Live";
 import LiveCMS from "./Dashboard/dashboard/CMS/Live/LiveCMS";
 import CreateLive from "./Dashboard/dashboard/CMS/Live/CreateLive";
 import MessagesCMS from "./Dashboard/dashboard/CMS/Messages/MessagesCMS";
 import EditMessages from "./Dashboard/dashboard/CMS/Messages/EditMessages";
+import Gallery from "./Gallery/Gallery";
 import EditYoutube from "./Dashboard/dashboard/CMS/About/EditYoutube";
-
-import DiscipleshipCMS from "./Dashboard/dashboard/CMS/Discipleship/DiscipleshipCMS";
-import CreateDiscipleship from "./Dashboard/dashboard/CMS/Discipleship/CreateDiscipleship";
 
 const isUserAuthenticated = () => {
   return Cookies.get("token") !== undefined;
@@ -130,7 +122,6 @@ const App = () => {
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/discipleship" element={<Discipleship />} />
 
         <Route path="/dashboard" element={<Layout />}>
           <Route index element={<Home />} />
@@ -161,10 +152,6 @@ const App = () => {
           <Route path="cms/live/:id" element={<CreateLive />} />
           <Route path="cms/messages" element={<MessagesCMS />} />
           <Route path="cms/messages/create" element={<EditMessages />} />
-
-          <Route path="cms/discipleships" element={<DiscipleshipCMS />} />
-          <Route path="cms/discipleships/add" element={<CreateDiscipleship />} />
-          <Route path="cms/discipleships/:id" element={<CreateDiscipleship />} />
 
           <Route path="setting" element={<UserProfileSettings />} />
         </Route>

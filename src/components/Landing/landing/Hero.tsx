@@ -29,6 +29,12 @@ interface Slide {
 
 export default function Hero() {
   const { data, isLoading } = useGetHeroQuery<SlideData[] | any | undefined>(undefined)
+  
+  // Check if any slide contains a video (mp4 extension)
+  const hasVideo = data?.data?.some((slide: any) => slide?.photo?.extension === "mp4")
+  
+  // Find the video slide if it exists
+  const videoSlide = data?.data?.find((slide: any) => slide?.photo?.extension === "mp4")
 
   const defaultSlide: Slide = {
     id: '-1',
@@ -85,9 +91,67 @@ export default function Hero() {
       </div>
     </section>
   )
-  // console.log(data)
+  
+  // If video exists, render only the video
+  if (hasVideo && videoSlide) {
+    return (
+      <section className='w-full h-screen text-white relative'>
+        <video
+          className='w-full h-screen object-cover'
+          autoPlay
+          loop
+          muted
+          playsInline
+        >
+          <source src={videoSlide.photo.url} type="video/mp4" />
+        </video>
+        <div className='absolute inset-0 w-full h-screen flex items-end bg-black bg-opacity-70'>
+          <div className='container p-4 flex'>
+            <div className='lg:w-5/12 h-20vh mb-20 lg:mb-10'>
+              <p>Revival is here...</p>
+              <div className='mt-16 space-y-4'>
+                <motion.h1
+                  className='uppercase text-xl lg:text-5xl overflow-hidden'
+                  initial={{ y: 100, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 1, ease: "easeOut" }}
+                >
+                  {videoSlide?.title}
+                </motion.h1>
+
+                <p className=''>{videoSlide?.message}</p>
+                {(videoSlide?.buttonUrl && videoSlide?.buttonUrl !== "null" && videoSlide?.buttonUrl !== null && videoSlide?.buttonText ) && (
+                  <motion.button className="btn bg-white text-black font-bold p-4 rounded-full z-10">
+                    <a href={videoSlide?.buttonUrl}>{videoSlide?.buttonText}</a>
+                  </motion.button>
+                )}
+              </div>
+            </div>
+            <div className='flex items-end pb-20 justify-end  w-7/12'>
+              <motion.div className=''
+                animate={{
+                  y: [0, -20, 0],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  repeatType: "loop",
+                  ease: "easeInOut",
+                }}
+              >
+                <ArrowDown />
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+  
+  // Otherwise, render the image slides as before
   return (
     <section>
+      
       <Swiper
         modules={[Pagination, Scrollbar, A11y, Autoplay]}
         spaceBetween={0}
