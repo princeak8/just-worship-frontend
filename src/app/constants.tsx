@@ -12,6 +12,7 @@ export const apiRoutes = {
   addGallery: 'gallery/add_photo',
   updateGallery: 'gallery/update_photo',
   deleteGallery: 'gallery/delete_photo',
+  givingPartners: 'giving_partners',
   giving: 'giving/modes',
   givingOptions: 'giving/options',
   editgivingOptions: 'giving/save_giving_account',
@@ -22,8 +23,13 @@ export const apiRoutes = {
   accounts: 'bank_accounts',
   live: 'live',
   banks: 'banks',
+  bankAccounts: 'bank_accounts',
   countries: 'countries',
   contact_message: 'contact_messages',
   subscribe: 'subscribe',
-  book: 'events/book'
+  book: 'events/book',
+
+  discipleships: 'discipleships',
+  currentDiscipleship: 'discipleship/current',
+  joinDisicipleship: 'discipleship/join',
 }
