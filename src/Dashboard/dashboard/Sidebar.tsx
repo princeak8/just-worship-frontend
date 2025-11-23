@@ -70,6 +70,11 @@ export const paths = [
         path: '/dashboard/cms/messages',
         icon: <Dot size={30} />
       },
+      {
+        name: 'Discipleships',
+        path: '/dashboard/cms/discipleships',
+        icon: <Dot size={30} />
+      },
     ]
   },
   {
