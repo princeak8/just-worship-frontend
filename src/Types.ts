@@ -10,13 +10,6 @@ export interface Bank {
     name: string
 }
 
-export interface Country {
-    id: number,
-    name: string,
-    code: string,
-    phoneCode: string
-}
-
 export interface BankAccount {
     id: number,
     type: string,

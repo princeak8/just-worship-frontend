@@ -255,7 +255,7 @@ const Events: React.FC = () => {
                           transition={{ duration: 0.3 }}
                           onClick={() => { setSelectedEvent(event); setSelected(true) }}
                         >
-                          View Details
+                          Register
                         </motion.button>
                       </div>
                     </div>
@@ -353,7 +353,7 @@ const Events: React.FC = () => {
                         transition={{ duration: 0.3 }}
                         onClick={() => { setSelectedEvent(event); setSelected(true) }}
                       >
-                        View Details
+                        Register
                       </motion.button>
                     </div>
                   </div>

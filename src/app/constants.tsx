@@ -27,5 +27,9 @@ export const apiRoutes = {
   countries: 'countries',
   contact_message: 'contact_messages',
   subscribe: 'subscribe',
-  book: 'events/book'
+  book: 'events/book',
+
+  discipleships: 'discipleships',
+  currentDiscipleship: 'discipleship/current',
+  joinDisicipleship: 'discipleship/join',
 }

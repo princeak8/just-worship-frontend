@@ -158,7 +158,7 @@ export default function CreateHome() {
                   <Input
                     id="image"
                     type="file"
-                    accept="image/*"
+                    accept="image/*, .mp4"
                     className="mt-1"
                     {...addHeroDetail('image', {
                       onChange: (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -434,6 +434,49 @@ const api = apiClient.injectEndpoints({
         }),
 
 
+        //Discipleship
+        getDiscipleships:builder.query({
+            query: (url: any) => ({
+                url: `${VITE_BASE_URL}/${apiRoutes.discipleships}`,
+            }),
+        }),
+
+        getDiscipleship: builder.query({
+            query: (id: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.discipleships}/${id}`
+            }),
+        }),
+
+        getCurrentDiscipleship: builder.query({
+            query: () =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.currentDiscipleship}`
+            }),
+        }),
+
+        saveDiscipleship: builder.mutation({
+            query:(formdata: any) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.discipleships}`,
+                method: 'POST',
+                body: formdata,
+            }),
+        }),
+
+        updateDiscipleship:builder.mutation({
+            query: ({formdata, id}: {formdata: any , id:number}) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.discipleships}/${id}`,
+                method: 'POST',
+                body: formdata,
+            })
+        }),
+
+        joinDiscipleship:builder.mutation({
+            query: ({formdata, id}: {formdata: any , id:number}) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.joinDisicipleship}/${id}`,
+                method: 'POST',
+                body: formdata,
+            })
+        }),
+
     })
 });
 
@@ -498,5 +541,13 @@ export const {
     useSubscribeMutation,
     useGetMessagesQuery,
     useBookEventMutation,
-    useGivingPartnerMutation
+    useGivingPartnerMutation,
+
+    useGetDiscipleshipsQuery,
+    useGetDiscipleshipQuery,
+    useGetCurrentDiscipleshipQuery,
+    useSaveDiscipleshipMutation,
+    useUpdateDiscipleshipMutation,
+    useJoinDiscipleshipMutation
+
 } = api
