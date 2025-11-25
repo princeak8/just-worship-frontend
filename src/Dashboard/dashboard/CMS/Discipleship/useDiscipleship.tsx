@@ -114,6 +114,8 @@ const useEvent = () => {
             formdata.append('photo', photo[0]);
         }
 
+
+
         try{
             if(id){
                 await updateDiscipleship({formdata, id}).unwrap()
@@ -121,8 +123,21 @@ const useEvent = () => {
                 await addDiscipleship(formdata).unwrap()
             }
             return window.location.href='/dashboard/cms/discipleships'
-        }catch(err){
+        }catch(err: any){
             console.log(err)
+            const validation = err?.data?.errors;
+            if (validation && typeof validation === 'object'){
+                Object.entries(validation).forEach(([field, message]) =>{
+                    const messageText = Array.isArray(message) ? message[0] : (message as string);
+                    setError(field as keyof FormDataDetail, {
+                        type: 'server',
+                        message: messageText
+                    });
+                });
+            }
+            else{
+                console.log('Unexpected error: ', err)
+            }
         }
     }
 

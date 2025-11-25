@@ -30,10 +30,8 @@ interface Slide {
 export default function Hero() {
   const { data, isLoading } = useGetHeroQuery<SlideData[] | any | undefined>(undefined)
   
-  // Check if any slide contains a video (mp4 extension)
   const hasVideo = data?.data?.some((slide: any) => slide?.photo?.extension === "mp4")
   
-  // Find the video slide if it exists
   const videoSlide = data?.data?.find((slide: any) => slide?.photo?.extension === "mp4")
 
   const defaultSlide: Slide = {

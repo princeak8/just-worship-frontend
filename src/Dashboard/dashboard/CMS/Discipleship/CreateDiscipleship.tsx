@@ -19,12 +19,12 @@ export default function CreateDiscipleship() {
 
   const { id } = useParams()
   const { formInstance, isLoading101, online, setOnline, onSubmit, fetchedPhoto } = useDiscipleship()
-  const { data:countries, isLoading: isLoadingCountries } = useCountriesQuery<GetCountry[] | any | undefined>(undefined);
-  const { handleSubmit, addDiscipleshipDetail } = formInstance;
+  const { data: countries, isLoading: isLoadingCountries } = useCountriesQuery<GetCountry[] | any | undefined>(undefined);
+  const { handleSubmit, addDiscipleshipDetail, errors, rules } = formInstance;
 
   const [previewPhoto, setPreviewPhoto] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  
+
 
   useEffect(() => {
     if (fetchedPhoto) {
@@ -46,12 +46,11 @@ export default function CreateDiscipleship() {
   };
 
 
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="min-h-screen p-8 bg-gray-50">
       <div className="max-w-6xl mx-auto">
         <div className='flex items-center justify-between'>
-          <h1 className="text-3xl font-bold mb-8 flex items-center gap-2"><Link to='/dashboard/cms/events' ><ArrowLeftCircle className='hover:text-[#BA833C]' /></Link>Discipleship Page Manager</h1>
+          <h1 className="text-3xl font-bold mb-8 flex items-center gap-2"><Link to='/dashboard/cms/discipleships' ><ArrowLeftCircle className='hover:text-[#BA833C]' /></Link>Discipleship Page Manager</h1>
           {isLoading101 ? (
             <Button className='flex items-center gap-2 bg-[#BA833C] hover:bg-[#F8DA94] hover:text-black rounded-md p-2 px-4 text-white'><Loader2 className='animate-spin' /></Button>
           ) : (
@@ -76,6 +75,11 @@ export default function CreateDiscipleship() {
                       required
                       {...addDiscipleshipDetail('name')}
                     />
+                    {errors.name && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {errors.name.message}
+                      </p>
+                    )}
                   </div>
 
                   <div>
@@ -86,6 +90,11 @@ export default function CreateDiscipleship() {
                       required
                       {...addDiscipleshipDetail('month')}
                     />
+                    {errors.month && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {errors.month.message}
+                      </p>
+                    )}
                   </div>
                   <div>
                     <Label>Year <span className='text-red-500'>*</span></Label>
@@ -95,6 +104,11 @@ export default function CreateDiscipleship() {
                       required
                       {...addDiscipleshipDetail('year')}
                     />
+                    {errors.year && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {errors.year.message}
+                      </p>
+                    )}
                   </div>
 
                   <div>
@@ -104,11 +118,16 @@ export default function CreateDiscipleship() {
                       id="date"
                       {...addDiscipleshipDetail('deadline')}
                     />
+                    {errors.deadline && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {errors.deadline.message}
+                      </p>
+                    )}
                   </div>
 
                   <div>
                     <Label>Country</Label>
-                    <select id="countryId" className="w-full border rounded p-2 mt-1 bg-white text-black" 
+                    <select id="countryId" className="w-full border rounded p-2 mt-1 bg-white text-black"
                       defaultValue={id ? undefined : 156}
                       {...addDiscipleshipDetail('countryId')}
                     >
@@ -119,6 +138,11 @@ export default function CreateDiscipleship() {
                         </option>
                       ))}
                     </select>
+                    {errors.countryId && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {errors.countryId.message}
+                      </p>
+                    )}
                   </div>
 
                   <div>
@@ -127,13 +151,18 @@ export default function CreateDiscipleship() {
                       id="venue"
                       {...addDiscipleshipDetail('venue')}
                     />
+                    {errors.venue && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {errors.venue.message}
+                      </p>
+                    )}
                   </div>
-                 
+
                   <div className='flex gap-2 items-center'>
-                      <p>Online?:</p>
+                    <p>Online?:</p>
                     <label className="switch">
                       <input type="checkbox" checked={online} onClick={() => setOnline(!online)} />
-                        <span className="slider round"></span> 
+                      <span className="slider round"></span>
                     </label>
                   </div>
 
@@ -182,7 +211,11 @@ export default function CreateDiscipleship() {
                       },
                     })}
                   />
-
+                  {errors.photo && (
+                    <p className="mt-1 text-sm text-red-600">
+                      {errors.photo.message}
+                    </p>
+                  )}
                 </div>
               </CardContent>
             </Card>
