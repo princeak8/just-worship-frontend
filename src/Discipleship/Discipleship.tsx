@@ -149,7 +149,7 @@ const Discipleship: React.FC = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden -mt-32">
+            <div className="bg-white rounded-2xl shadow-2xl overflow-hidden -mt-32">
               <div className="bg-[#BA833C] p-6">
                 <h2 className='text-2xl lg:text-3xl font-bold text-center text-white uppercase tracking-wide'>
                   Register for Discipleship Class
