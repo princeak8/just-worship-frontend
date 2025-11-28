@@ -47,7 +47,7 @@ const Discipleship: React.FC = () => {
       setValue('countryId', 156);
     }
   }, [countries, setValue]);
-  
+
   console.log("sss: ", discipleship);
 
   const onSubmit = async (data: JoinData) => {
@@ -112,7 +112,7 @@ const Discipleship: React.FC = () => {
               >
                 {discipleship?.name}
               </motion.h1>
-              
+
               {(discipleship?.venue || discipleship?.deadline) && (
                 <div className="flex flex-wrap gap-4 mt-4 text-white/90">
                   {discipleship?.venue && (
@@ -144,213 +144,213 @@ const Discipleship: React.FC = () => {
         </motion.section>
 
         {discipleship.length !== 0 ? (
-        <section className='container mx-auto px-4 py-12 -mt-80 relative z-20'>
-          <motion.div
-            className="max-w-4xl mx-auto"
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            <div className="bg-white rounded-2xl shadow-2xl overflow-hidden -mt-32">
-              <div className="bg-[#BA833C] p-6">
-                <h2 className='text-2xl lg:text-3xl font-bold text-center text-white uppercase tracking-wide'>
-                  Register for Discipleship Class
-                </h2>
+          <section className='container mx-auto px-4 py-12 -mt-80 relative z-20'>
+            <motion.div
+              className="max-w-4xl mx-auto"
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              <div className="bg-white rounded-2xl shadow-2xl overflow-hidden -mt-32">
+                <div className="bg-[#BA833C] p-6">
+                  <h2 className='text-2xl lg:text-3xl font-bold text-center text-white uppercase tracking-wide'>
+                    Register for Discipleship Class
+                  </h2>
+                </div>
+
+                <div className="p-6 lg:p-8">
+                  {joiningSuccess && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-center gap-3"
+                    >
+                      <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0" />
+                      <span className="text-green-700 font-medium">
+                        You have successfully registered for the discipleship class!
+                      </span>
+                    </motion.div>
+                  )}
+
+                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                          First Name <span className="text-red-500">*</span>
+                        </label>
+                        <input
+                          {...register('firstname', { required: 'Firstname is required' })}
+                          className="w-full bg-gray-50 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#BA833C] focus:border-[#BA833C] text-gray-900 transition-all"
+                          placeholder="John"
+                        />
+                        {errors.firstname && (
+                          <p className="text-red-500 text-sm mt-1">{errors.firstname.message}</p>
+                        )}
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                          Last Name <span className="text-red-500">*</span>
+                        </label>
+                        <input
+                          {...register('surname', { required: 'Surname is required' })}
+                          className="w-full bg-gray-50 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#BA833C] focus:border-[#BA833C] text-gray-900 transition-all"
+                          placeholder="Doe"
+                        />
+                        {errors.surname && (
+                          <p className="text-red-500 text-sm mt-1">{errors.surname.message}</p>
+                        )}
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">
+                        Email Address <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        {...register('email', {
+                          required: 'Email is required',
+                          pattern: {
+                            value: /^\S+@\S+$/i,
+                            message: 'Invalid email address'
+                          }
+                        })}
+                        className="w-full bg-gray-50 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#BA833C] focus:border-[#BA833C] text-gray-900 transition-all"
+                        placeholder="john.doe@example.com"
+                        type='email'
+                      />
+                      {errors.email && (
+                        <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">
+                        Phone Number <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        {...register('phoneNumber', { required: 'Phone Number is required' })}
+                        className="w-full bg-gray-50 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#BA833C] focus:border-[#BA833C] text-gray-900 transition-all"
+                        placeholder="+234 800 000 0000"
+                      />
+                      {errors.phoneNumber && (
+                        <p className="text-red-500 text-sm mt-1">{errors.phoneNumber.message}</p>
+                      )}
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                          Country
+                        </label>
+                        <select
+                          id="countryId"
+                          className="w-full bg-gray-50 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#BA833C] focus:border-[#BA833C] text-gray-900 transition-all"
+                          {...register('countryId')}
+                        >
+                          <option value="">Select Country</option>
+                          {countries?.data?.map((country: Country) => (
+                            <option key={country.id} value={country.id.toString()}>
+                              {country.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                          City <span className="text-red-500">*</span>
+                        </label>
+                        <input
+                          {...register('city', { required: 'City is required' })}
+                          className="w-full bg-gray-50 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#BA833C] focus:border-[#BA833C] text-gray-900 transition-all"
+                          placeholder="Enugu"
+                        />
+                        {errors.city && (
+                          <p className="text-red-500 text-sm mt-1">{errors.city.message}</p>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="pt-4 w-full">
+                      {loader ? (
+                        <motion.button
+                          type="submit"
+                          disabled
+                          className="w-full md:w-auto px-8 py-3.5 bg-[#BA833C] text-white rounded-lg font-semibold flex items-center justify-center gap-2 min-w-[150px]"
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          <Loader2 className='w-5 h-5 animate-spin' />
+                          Registering...
+                        </motion.button>
+                      ) : (
+                        <motion.button
+                          type="submit"
+                          className="w-full md:w-auto px-8 py-3.5 bg-[#BA833C] text-white rounded-lg font-semibold hover:bg-[#F8DA94] hover:text-black transition-all duration-300 shadow-lg hover:shadow-xl"
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          Register Now
+                        </motion.button>
+                      )}
+                    </div>
+                  </form>
+                </div>
               </div>
-
-              <div className="p-6 lg:p-8">
-                {joiningSuccess && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-center gap-3"
-                  >
-                    <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0" />
-                    <span className="text-green-700 font-medium">
-                      You have successfully registered for the discipleship class!
-                    </span>
-                  </motion.div>
-                )}
-
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-2">
-                        First Name <span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        {...register('firstname', { required: 'Firstname is required' })}
-                        className="w-full bg-gray-50 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#BA833C] focus:border-[#BA833C] text-gray-900 transition-all"
-                        placeholder="John"
-                      />
-                      {errors.firstname && (
-                        <p className="text-red-500 text-sm mt-1">{errors.firstname.message}</p>
-                      )}
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-2">
-                        Last Name <span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        {...register('surname', { required: 'Surname is required' })}
-                        className="w-full bg-gray-50 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#BA833C] focus:border-[#BA833C] text-gray-900 transition-all"
-                        placeholder="Doe"
-                      />
-                      {errors.surname && (
-                        <p className="text-red-500 text-sm mt-1">{errors.surname.message}</p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                      Email Address <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      {...register('email', {
-                        required: 'Email is required',
-                        pattern: {
-                          value: /^\S+@\S+$/i,
-                          message: 'Invalid email address'
-                        }
-                      })}
-                      className="w-full bg-gray-50 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#BA833C] focus:border-[#BA833C] text-gray-900 transition-all"
-                      placeholder="john.doe@example.com"
-                      type='email'
-                    />
-                    {errors.email && (
-                      <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
-                    )}
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                      Phone Number <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      {...register('phoneNumber', { required: 'Phone Number is required' })}
-                      className="w-full bg-gray-50 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#BA833C] focus:border-[#BA833C] text-gray-900 transition-all"
-                      placeholder="+234 800 000 0000"
-                    />
-                    {errors.phoneNumber && (
-                      <p className="text-red-500 text-sm mt-1">{errors.phoneNumber.message}</p>
-                    )}
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-2">
-                        Country
-                      </label>
-                      <select
-                        id="countryId"
-                        className="w-full bg-gray-50 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#BA833C] focus:border-[#BA833C] text-gray-900 transition-all"
-                        {...register('countryId')}
-                      >
-                        <option value="">Select Country</option>
-                        {countries?.data?.map((country: Country) => (
-                          <option key={country.id} value={country.id.toString()}>
-                            {country.name}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-2">
-                        City <span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        {...register('city', { required: 'City is required' })}
-                        className="w-full bg-gray-50 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#BA833C] focus:border-[#BA833C] text-gray-900 transition-all"
-                        placeholder="Enugu"
-                      />
-                      {errors.city && (
-                        <p className="text-red-500 text-sm mt-1">{errors.city.message}</p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="pt-4 w-full">
-                    {loader ? (
-                      <motion.button
-                        type="submit"
-                        disabled
-                        className="w-full md:w-auto px-8 py-3.5 bg-[#BA833C] text-white rounded-lg font-semibold flex items-center justify-center gap-2 min-w-[150px]"
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        <Loader2 className='w-5 h-5 animate-spin' />
-                        Registering...
-                      </motion.button>
-                    ) : (
-                      <motion.button
-                        type="submit"
-                        className="w-full md:w-auto px-8 py-3.5 bg-[#BA833C] text-white rounded-lg font-semibold hover:bg-[#F8DA94] hover:text-black transition-all duration-300 shadow-lg hover:shadow-xl"
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        Register Now
-                      </motion.button>
-                    )}
-                  </div>
-                </form>
-              </div>
-            </div>
-          </motion.div>
-        </section>
-        ):(
+            </motion.div>
+          </section>
+        ) : (
           <section className="container mx-auto px-4 py-12">
-  <motion.div
-    className="max-w-2xl mx-auto text-center"
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.6 }}
-  >
-    <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12 border border-gray-100">
-      <motion.div
-        className="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center"
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-      >
-        <Users className="w-8 h-8 text-gray-400" />
-      </motion.div>
-      
-      <motion.h3
-        className="text-2xl md:text-3xl font-bold text-gray-800 mb-4"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-      >
-        No Discipleship Classes Available
-      </motion.h3>
-      
-      <motion.p
-        className="text-gray-600 text-lg mb-6 leading-relaxed"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.4 }}
-      >
-        We're currently between discipleship sessions. New classes will be announced soon. 
-        Please check back later or join our newsletter to be notified when registration opens.
-      </motion.p>
-      
-      <motion.div
-        className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.5 }}
-      >
-        <div className="flex items-center gap-2 text-gray-500">
-          <Calendar className="w-5 h-5" />
-          <span className="text-sm">New sessions coming soon</span>
-        </div>
-      </motion.div>
-    </div>
-  </motion.div>
-</section>
+            <motion.div
+              className="max-w-2xl mx-auto text-center"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12 border border-gray-100">
+                <motion.div
+                  className="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center"
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                >
+                  <Users className="w-8 h-8 text-gray-400" />
+                </motion.div>
+
+                <motion.h3
+                  className="text-2xl md:text-3xl font-bold text-gray-800 mb-4"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                >
+                  No Discipleship Classes Available
+                </motion.h3>
+
+                <motion.p
+                  className="text-gray-600 text-lg mb-6 leading-relaxed"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.4 }}
+                >
+                  We're currently between discipleship sessions. New classes will be announced soon.
+                  Please check back later or join our newsletter to be notified when registration opens.
+                </motion.p>
+
+                <motion.div
+                  className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.5 }}
+                >
+                  <div className="flex items-center gap-2 text-gray-500">
+                    <Calendar className="w-5 h-5" />
+                    <span className="text-sm">New sessions coming soon</span>
+                  </div>
+                </motion.div>
+              </div>
+            </motion.div>
+          </section>
         )}
       </>)}
     </div>
