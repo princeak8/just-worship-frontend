@@ -47,12 +47,15 @@ const Discipleship: React.FC = () => {
       setValue('countryId', 156);
     }
   }, [countries, setValue]);
+  
+  console.log("sss: ", discipleship);
 
   const onSubmit = async (data: JoinData) => {
     if (!discipleship) {
       alert('No discipleship.');
       return;
     }
+
 
     const formdata = new FormData();
     formdata.append('firstname', data.firstname);
@@ -140,6 +143,7 @@ const Discipleship: React.FC = () => {
           </div>
         </motion.section>
 
+        {discipleship.length !== 0 ? (
         <section className='container mx-auto px-4 py-12 -mt-80 relative z-20'>
           <motion.div
             className="max-w-4xl mx-auto"
@@ -296,6 +300,58 @@ const Discipleship: React.FC = () => {
             </div>
           </motion.div>
         </section>
+        ):(
+          <section className="container mx-auto px-4 py-12">
+  <motion.div
+    className="max-w-2xl mx-auto text-center"
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.6 }}
+  >
+    <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12 border border-gray-100">
+      <motion.div
+        className="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center"
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
+        <Users className="w-8 h-8 text-gray-400" />
+      </motion.div>
+      
+      <motion.h3
+        className="text-2xl md:text-3xl font-bold text-gray-800 mb-4"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+      >
+        No Discipleship Classes Available
+      </motion.h3>
+      
+      <motion.p
+        className="text-gray-600 text-lg mb-6 leading-relaxed"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+      >
+        We're currently between discipleship sessions. New classes will be announced soon. 
+        Please check back later or join our newsletter to be notified when registration opens.
+      </motion.p>
+      
+      <motion.div
+        className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.5 }}
+      >
+        <div className="flex items-center gap-2 text-gray-500">
+          <Calendar className="w-5 h-5" />
+          <span className="text-sm">New sessions coming soon</span>
+        </div>
+      </motion.div>
+    </div>
+  </motion.div>
+</section>
+        )}
       </>)}
     </div>
   );
