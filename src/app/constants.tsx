@@ -30,6 +30,8 @@ export const apiRoutes = {
   book: 'events/book',
 
   discipleships: 'discipleships',
+  discipleshipOpen: 'discipleships/open',
+  discipleshipClose: 'discipleships/close',
   currentDiscipleship: 'discipleship/current',
   joinDisicipleship: 'discipleship/join',
 }

@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Edit, Plus, Trash2, Search, Loader2, Users } from 'lucide-react';
+import { Edit, Plus, Trash2, Search, Loader2, Users, MapPin, Calendar } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useSaveDiscipleshipMutation, useGetDiscipleshipsQuery } from '@/app/api';
+import { useSaveDiscipleshipMutation, useGetDiscipleshipsQuery, useUpdateDiscipleshipOpenMutation, useUpdateDiscipleshipCloseMutation } from '@/app/api';
 import type { Discipleship } from '@/app/types';
 
 interface GetDiscipleship {
@@ -18,6 +18,8 @@ interface Select {
 export default function DiscipleshipCMS() {
   const { data, isLoading } = useGetDiscipleshipsQuery<GetDiscipleship[] | any | undefined>(undefined);
   const [saveDiscipleship] = useSaveDiscipleshipMutation()
+  const [updateOpen] = useUpdateDiscipleshipOpenMutation<any>();
+  const [updateClose] = useUpdateDiscipleshipCloseMutation<any>();
   const [discipleships, setDiscipleships] = useState<Discipleship[]>([]);
   const [warning, setWarning] = useState(false)
   const [selectedDiscipleship, setSelectedDiscipleship] = useState<Select>({
@@ -41,7 +43,38 @@ export default function DiscipleshipCMS() {
   //   }
   // };
 
+  const setOpen = async (id: string, open: string) => {
+    try {
+      if (open === "1") {
+        console.log("closing", id);
+        await updateClose({id}).unwrap();
+  
+        setDiscipleships(prev =>
+          prev.map(d =>
+            d.id === id ? { ...d, open: "0" } : d
+          )
+        );
+  
+      } else {
+        console.log("opening", id);
+        const response = await updateOpen({id}).unwrap();
+  
+        setDiscipleships(prev =>
+          prev.map(d =>
+            d.id === id ? { ...d, open: "1" } : d
+          )
+        );
+      }
+  
+    } catch (err) {
+      console.log("error", err);
+    }
+  };
+  
+
   if (isLoading) return <div className='w-full h-screen flex items-center justify-center'><Loader2 size={50} className='text-[#BA833C] animate-spin' /></div>;
+
+  console.log("disciple: ", discipleships)
 
   return (
     <div className="min-h-screen p-8 bg-gray-50">
@@ -85,10 +118,22 @@ export default function DiscipleshipCMS() {
                     <CardContent className="space-y-2">
                       <div className='flex items-center justify-between'>
                         <div>
+                          {discipleship?.venue && (
+                            <p className="text-sm pb-2 flex">
+                              <MapPin className='' size={20} />Venue: {discipleship?.venue}
+                            </p>
+                          )}
+
                         {discipleship?.deadline && (
-                          <p className="text-sm text-gray-500">
-                            Deadline: {discipleship.deadline}
+                          <p className="text-sm text-gray-500 flex pb-2">
+                            <Calendar size={20} /> Deadline: {discipleship.deadline}
                           </p>
+                        )}
+                        {discipleship?.open &&(
+                          <label className="switch">
+                          <input type="checkbox" checked={discipleship?.open === "1" ? true: false} onClick={() => setOpen(discipleship.id, discipleship?.open)} />
+                          <span className="slider round"></span>
+                        </label>
                         )}
                         </div>
                         {discipleship?.members && (

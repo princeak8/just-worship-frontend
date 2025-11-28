@@ -469,6 +469,20 @@ const api = apiClient.injectEndpoints({
             })
         }),
 
+        updateDiscipleshipClose:builder.mutation({
+            query: ({formdata, id}: {formdata: any , id:number}) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.discipleshipClose}/${id}`,
+                method: 'POST',
+            })
+        }),
+
+        updateDiscipleshipOpen:builder.mutation({
+            query: ({id}: {id:number}) =>({
+                url: `${VITE_BASE_URL}/${apiRoutes.discipleshipOpen}/${id}`,
+                method: 'POST',
+            })
+        }),
+
         joinDiscipleship:builder.mutation({
             query: ({formdata, id}: {formdata: any , id:number}) =>({
                 url: `${VITE_BASE_URL}/${apiRoutes.joinDisicipleship}/${id}`,
@@ -548,6 +562,8 @@ export const {
     useGetCurrentDiscipleshipQuery,
     useSaveDiscipleshipMutation,
     useUpdateDiscipleshipMutation,
+    useUpdateDiscipleshipOpenMutation,
+    useUpdateDiscipleshipCloseMutation,
     useJoinDiscipleshipMutation
 
 } = api

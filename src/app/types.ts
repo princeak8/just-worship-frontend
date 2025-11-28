@@ -10,7 +10,8 @@ export interface Discipleship {
     online: boolean,
     link: string | null
     photo: File | null,
-    members?: Member[]
+    members?: Member[],
+    open: string
 }
 
 export interface File {

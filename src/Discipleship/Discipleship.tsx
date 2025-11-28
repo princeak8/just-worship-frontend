@@ -44,9 +44,7 @@ const Discipleship: React.FC = () => {
   // if(!isLoading) console.log("discipleship:", discipleship);
   useEffect(() => {
     if (countries?.data && countries.data.length > 0) {
-      // Set default value using react-hook-form
       setValue('countryId', 156);
-      // setValue('countryId', countries.data[0].id); 
     }
   }, [countries, setValue]);
 
