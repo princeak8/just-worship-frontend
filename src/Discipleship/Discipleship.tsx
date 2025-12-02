@@ -91,7 +91,7 @@ const Discipleship: React.FC = () => {
       {!isLoading && (<>
         <motion.section
           className='w-full h-[70vh] flex items-end overflow-hidden relative'
-          style={{ backgroundImage: `url(${discipleship?.photo?.url || '/default.jpg'})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+          style={{ backgroundImage: `url(${discipleship?.photo?.url || background})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
