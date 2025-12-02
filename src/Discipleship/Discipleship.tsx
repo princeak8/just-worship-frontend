@@ -2,7 +2,7 @@
 import type React from 'react';
 import { motion } from "framer-motion";
 import { useGetAboutQuery, useGetCurrentDiscipleshipQuery, useJoinDiscipleshipMutation, useGetTeamQuery } from '@/app/api';
-import background from '../public/live.jpeg'
+import background from '@/public/live.jpeg'
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import image1 from '@/public/live2.jpeg'

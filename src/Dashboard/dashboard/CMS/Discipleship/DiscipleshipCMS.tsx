@@ -5,6 +5,7 @@ import { Edit, Plus, Trash2, Search, Loader2, Users, MapPin, Calendar } from 'lu
 import { Link } from 'react-router-dom';
 import { useSaveDiscipleshipMutation, useGetDiscipleshipsQuery, useUpdateDiscipleshipOpenMutation, useUpdateDiscipleshipCloseMutation } from '@/app/api';
 import type { Discipleship } from '@/app/types';
+import background from '@/public/live.jpeg'
 
 interface GetDiscipleship {
   data: Discipleship[]
@@ -108,7 +109,7 @@ export default function DiscipleshipCMS() {
                   <Card key={discipleship.id}>
                     <img
                     loading="lazy"
-                      src={discipleship?.photo?.url ?? "/default.jpg"}
+                      src={discipleship?.photo?.url ?? background}
                       alt={discipleship.name}
                       className="w-full h-48 object-cover"
                     />
